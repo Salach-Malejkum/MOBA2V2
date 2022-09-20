@@ -1,5 +1,3 @@
 # Steampunk-Moba
 
-# Erwin sex dungeon rare event
-# Fifi show me ur siur
-# 2020.3.21f1
+# 2021.3.10f1
