@@ -27,7 +27,7 @@ public class PlayerMovementServer : NetworkBehaviour
                 Vector3 clickedPlace = GetClickedMapPoint();
                 if (clickedPlace != new Vector3(0, -5, 0))
                 {
-                    MovePlayer(clickedPlace);
+                    CmdMove(clickedPlace);
                 }
             }
         }
@@ -43,10 +43,15 @@ public class PlayerMovementServer : NetworkBehaviour
         return new Vector3(0, -5, 0);
     }
 
-    void MovePlayer(Vector3 movementDestination)
+    [Command]
+    private void CmdMove(Vector3 movementDestination)
     {
-        navMeshAgent.destination = movementDestination;
+        RpcMove(movementDestination);
     }
 
-
+    [ClientRpc]
+    private void RpcMove(Vector3 movementDestination) 
+    {
+        navMeshAgent.destination = movementDestination;
+    } 
 }
