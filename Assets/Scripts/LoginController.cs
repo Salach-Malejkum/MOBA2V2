@@ -4,6 +4,14 @@ using UnityEngine;
 using System.Net.Mail;
 using System;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Collections.Generic;
+using System.Net;
+using System.IO;
+using System.Text;
+using UnityEngine.SceneManagement;
 
 public class LoginController : MonoBehaviour
 {
@@ -35,6 +43,8 @@ public class LoginController : MonoBehaviour
         if (ans)
         {
             //za³aduj scene klienta
+            //zapisaæ id klienta w preferencjach
+            SceneManager.LoadScene("LoggedIn");
         }
         else
         {
@@ -62,19 +72,22 @@ public class LoginController : MonoBehaviour
 
     bool CheckInputsWithServer(string mail, string pass)
     {
-        //return true;
-        if (CheckMailField(mail) && CheckPassField(pass))
+        var mailAns = CheckMailField(mail);
+        var passAns = CheckPassField(pass);
+        if (!(mailAns && passAns)) { 
             return false;
+        }
 
         //wysy³am mail i pass do servera
-
-        return false;//return true;
+        return ServerConnections.Login(mail, pass);
     }
 
     bool CheckMailField(string mail)
     {
         if (mail == "")
+        {
             return false;
+        }
 
         try
         {
@@ -90,17 +103,20 @@ public class LoginController : MonoBehaviour
 
     bool CheckPassField(string pass)
     {
-        if (pass == "")
+        if (pass == "" || pass.Length >= 25)
+        {
             return false;
+        }
 
-        if (pass.All(x => !char.IsLetterOrDigit(x)))
+        if (pass.Any(x => !char.IsLetterOrDigit(x)))
+        {
             return false;
-
-        if (pass.Length >= 25)
-            return false;
+        }
 
         if (!pass.Any(char.IsUpper) || !pass.Any(char.IsDigit) || !pass.Any(char.IsLower))
+        {
             return false;
+        }
 
         return true;
     }
