@@ -202,7 +202,7 @@ MonoBehaviour:
   autoStartServerBuild: 1
   serverTickRate: 30
   offlineScene: 
-  onlineScene: 
+  onlineScene: Assets/Scenes/LobbyScenes/MainLobby.unity
   transport: {fileID: 122330980}
   networkAddress: localhost
   maxConnections: 100
