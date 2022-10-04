@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ce169d89edf0f549b5d4387d957f687, type: 3}
+  m_Script: {fileID: 11500000, guid: d49dbe937cc99bd479532154ff059f11, type: 3}
   m_Name: BaseItem 4
   m_EditorClassIdentifier: 
-  title: Buts
-  attack: 0
-  magic: 1
-  defence: 3
-  price: 3
+  title: Gloves
+  attack: 1
+  magic: 2
+  defence: 4
+  price: 10
