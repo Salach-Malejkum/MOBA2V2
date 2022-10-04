@@ -20,7 +20,7 @@ public class PlayerConnection : NetworkBehaviour
 
     [Command]
     void CmdHostGame (string matchID) {
-        if (Matchmaking.instance.HostGame()) {
+        if (Matchmaking.instance.HostGame(matchID, gameObject)) {
             Debug.Log("Hosted");
         } else {
             Debug.Log("Failed to host");
