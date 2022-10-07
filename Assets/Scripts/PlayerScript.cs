@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private IAttack attackScript;
+    private enum AttackResult
+    {
+        Attacked = 1,
+        OutOfRange = 0,
+        OnCooldown = -1
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +21,28 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.attackScript.Attack(this.transform.position);
+        if (Input.GetMouseButton(1))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit, 100))
+            {
+                int attackResult = this.attackScript.TryAttack(this.transform.position, hit.transform.position);
+                // dodac jakie tagi/layery moga byc atackowane, reszta to idziesz w tamtym kierunku
+                switch (attackResult)
+                {
+                    case (int) Enums.AttackResult.Attacked:
+                        //Attack
+                        break;
+                    case (int) Enums.AttackResult.OnCooldown:
+                        //CD
+                        break;
+                    case (int) Enums.AttackResult.OutOfRange:
+                        //Move
+                        break;
+                }
+            }
+        }
     }
 }
