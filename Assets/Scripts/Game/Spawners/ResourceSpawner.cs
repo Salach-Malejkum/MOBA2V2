@@ -10,13 +10,10 @@ public class ResourceSpawner : MonoBehaviour
     public  float spawnDelay = 10;
 
     private bool isSpawning = true;
-    private float checkRadius = 2f;
 
     void Update()
     {
-        CheckColliders();
-
-        if (isSpawning && Time.time > nextSpawnTime)
+        if (this.isSpawning && Time.time > this.nextSpawnTime)
         {
             Spawn();
         }
@@ -24,24 +21,16 @@ public class ResourceSpawner : MonoBehaviour
 
     private void Spawn()
     {
-        nextSpawnTime = Time.time + spawnDelay;
-        Instantiate(resourcePrefab, transform.position, transform.rotation);
-        isSpawning = false;
+        GameObject go = Instantiate(this.resourcePrefab, this.transform.position, this.transform.rotation);
+        DestroyResource dr = go.GetComponent<DestroyResource>();
+        dr.spawnerResource = this.gameObject.GetComponent<ResourceSpawner>();
+
+        this.isSpawning = false;
     }
 
-    private void CheckColliders()
+    public void StartSpawner()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, checkRadius);
-
-        isSpawning = true;
-
-        foreach (Collider col in colliders)
-        {
-            if (col.tag == "Resource")
-            {
-                isSpawning = false;
-                nextSpawnTime = Time.time + spawnDelay;
-            }
-        }
+        this.isSpawning = true;
+        this.nextSpawnTime = Time.time + this.spawnDelay;
     }
 }
