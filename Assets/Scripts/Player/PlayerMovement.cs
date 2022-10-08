@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private new Camera camera;
     private NavMeshAgent navMeshAgent;
+    private readonly int x = 15;
+    private readonly int z = 1;
 
     void Start()
     {
@@ -26,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
                 MovePlayer(clickedPlace);
             }
         }
+
+        camera.transform.position = new Vector3(gameObject.transform.position.x - x, camera.transform.position.y, gameObject.transform.position.z - z);
     }
 
     Vector3 GetClickedMapPoint()
