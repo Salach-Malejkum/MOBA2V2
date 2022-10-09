@@ -13,3 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   assetDefaultFramerate: 60
+<<<<<<< HEAD
+=======
+  m_DefaultFrameRate: 60
+>>>>>>> 455b72db4c213953a12b99482c3855cf5dd109d6
