@@ -5,12 +5,6 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     private IAttack attackScript;
-    private enum AttackResult
-    {
-        Attacked = 1,
-        OutOfRange = 0,
-        OnCooldown = -1
-    }
 
     // Start is called before the first frame update
     void Start()

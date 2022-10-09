@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Enums;
 
 public class AttackPlayerScript : IAttack
 {
@@ -17,16 +16,13 @@ public class AttackPlayerScript : IAttack
 
     public int TryAttack(Vector3 currentPosition, Vector3 targetPosition)
     {
-        bool isInRange = this.IsInRange(currentPosition, targetPosition);
-        bool isAttackOnCooldown = this.IsAttackOnCooldown();
-        // Ogarnac dobra kolejnosc warunkow i co po nich sie dzieje
-        if (!isInRange)
+        if (!this.IsInRange(currentPosition, targetPosition))
         {
             Debug.Log("Move");
             return (int) Enums.AttackResult.OutOfRange;
         }
 
-        if (!this.IsAttackOnCooldown() && isInRange)
+        if (!this.IsAttackOnCooldown())
         {
             Debug.Log("Attack");
             return (int) Enums.AttackResult.Attacked;
@@ -56,7 +52,7 @@ public class AttackPlayerScript : IAttack
     // zadanie obrazen - done +/-
     // rzucenie jakiegos projectile, ktory tylko cel moze trafic
     // otwartosc na blockowanie projectile
-    // jezeli poza zasiegiem to idz do celu, sprawdzenie czy nie za szybko (aa cd) - done +/-
+    // jezeli poza zasiegiem to idz do celu, sprawdzenie czy nie za szybko (aa cd) - done
     // sprawdzenie czy w zasiegu - done
     // aa cooldown - done
     // nie rusza sie do czasu wypuszczenia projectile albo zaatakowania
