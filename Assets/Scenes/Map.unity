@@ -201,7 +201,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 2
+=======
+  m_RootOrder: 3
+>>>>>>> DAR-18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &373252058
 MeshRenderer:
@@ -351,7 +355,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 1
+=======
+  m_RootOrder: 2
+>>>>>>> DAR-18
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1457973619
 GameObject:
@@ -464,7 +472,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 3
+=======
+  m_RootOrder: 4
+>>>>>>> DAR-18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1457973625
 MonoBehaviour:
@@ -556,12 +568,21 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626048955}
+<<<<<<< HEAD
   m_LocalRotation: {x: 0.40260288, y: 0.045282055, z: -0.019946858, w: 0.91403645}
   m_LocalPosition: {x: -1.0885544, y: 12.037766, z: -10.959735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2103888810}
+=======
+  m_LocalRotation: {x: 0.7071067, y: 3.375078e-14, z: 1.7763568e-14, w: 0.7071069}
+  m_LocalPosition: {x: 31.137106, y: 41.867546, z: 13.666393}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+>>>>>>> DAR-18
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2075152851
@@ -581,7 +602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2764402788603080452, guid: 0b0e1305cf741804c9c1d7c65a37d378, type: 3}
       propertyPath: m_RootOrder
+<<<<<<< HEAD
       value: 0
+=======
+      value: 1
+>>>>>>> DAR-18
       objectReference: {fileID: 0}
     - target: {fileID: 2764402788603080452, guid: 0b0e1305cf741804c9c1d7c65a37d378, type: 3}
       propertyPath: m_LocalPosition.x
@@ -646,6 +671,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+<<<<<<< HEAD
 --- !u!4 &2103888810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2764402788603080452, guid: 0b0e1305cf741804c9c1d7c65a37d378, type: 3}
@@ -708,3 +734,5 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+=======
+>>>>>>> DAR-18

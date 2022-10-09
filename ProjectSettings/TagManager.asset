@@ -7,6 +7,8 @@ TagManager:
   - Tower_Red
   - Missile
   - Resource
+  - New tag
+  - Terrain
   layers:
   - Default
   - TransparentFX

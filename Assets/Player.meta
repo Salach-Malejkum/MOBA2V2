@@ -1,13 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/Scenes/Map.meta
-guid: 1de897989914f7c44879d2e08f4238a7
+guid: d813bf9ce81081e48ae77f1276ec5046
 ========
 guid: cd3ca72681c2e1549b05bb43afcf9b29
 >>>>>>>> DAR-18:Assets/Player.meta
-=======
-guid: cfd14b23edecc994ead04f3ab5e7f5f0
->>>>>>> DAR-18
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
