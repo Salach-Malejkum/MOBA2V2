@@ -12,11 +12,8 @@ public class PlayerMovement : IMovement
         this.navMeshAgent = navMeshAgent;
     }
 
-    public void Move()
+    public void Move(Vector3 movementDestination)
     {
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = Camera.main.nearClipPlane;
-        Vector3 movementDestination = Camera.main.ScreenToWorldPoint(mousePos);
         this.navMeshAgent.destination = movementDestination;
     }
 }

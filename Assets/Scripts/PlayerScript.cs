@@ -5,22 +5,26 @@ using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
-    private IAttack attackScript;
-    private IMovement movementScript;
-    private new Camera camera;
-    private NavMeshAgent navMeshAgent;
+    private IAttack playerAttackScript;
+    private IMovement playerMovementScript;
 
-    // Start is called before the first frame update
+    private bool followAttack = false;
+    private GameObject followAttackObject;
+
     void Start()
     {
-        attackScript = new AttackPlayerScript(500.0f, 0.5f);
-        movementScript = new PlayerMovement(this.GetComponent<NavMeshAgent>());
-        camera = Camera.main;
+        playerAttackScript = new AttackPlayerScript(5.0f, 0.5f);
+        playerMovementScript = new PlayerMovement(this.GetComponent<NavMeshAgent>());
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixUpdate()
     {
+        if (followAttack)
+        {
+            int attackResult = this.playerAttackScript.TryAttack(this.transform.position, this.followAttackObject.transform.position);
+            this.ActionBasedOnTryAttackResult(attackResult, this.followAttackObject);
+        }
+
         if (Input.GetMouseButton(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -32,28 +36,37 @@ public class PlayerScript : MonoBehaviour
                 {
                     case "Terrain":
                         //Move
-                        Debug.Log("Move");
-                        this.movementScript.Move();
+                        this.playerMovementScript.Move(hit.point);
+                        this.followAttack = false;
+                        this.followAttackObject = null;
                         break;
                     default:
                         //Attack
-                        int attackResult = this.attackScript.TryAttack(this.transform.position, hit.transform.position);
-                        switch (attackResult)
-                        {
-                            case (int)Enums.AttackResult.Attacked:
-                                //Attack
-                                break;
-                            case (int)Enums.AttackResult.OutOfRange:
-                                this.movementScript.Move();
-                                break;
-                            case (int)Enums.AttackResult.OnCooldown:
-                                //CD
-                            default :
-                                break;
-                        }
+                        int attackResult = this.playerAttackScript.TryAttack(this.transform.position, hit.transform.position);
+                        this.ActionBasedOnTryAttackResult(attackResult, hit.transform.gameObject);
                         break;
                 }
             }
         }
+    }
+
+    private void ActionBasedOnTryAttackResult(int attackResult, GameObject attackedObject)
+    {
+        switch (attackResult)
+        {
+            case (int)Enums.AttackResult.CanAttack:
+                this.playerMovementScript.Move(this.transform.position);
+                //Attack
+                break;
+            case (int)Enums.AttackResult.OutOfRange:
+                this.playerMovementScript.Move(attackedObject.transform.position);
+                break;
+            case (int)Enums.AttackResult.OnCooldown:
+            //CD
+            default:
+                break;
+        }
+        this.followAttack = true;
+        this.followAttackObject = attackedObject;
     }
 }
