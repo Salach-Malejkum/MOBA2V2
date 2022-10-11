@@ -44,6 +44,7 @@ public class PlayerScript : MonoBehaviour
                         //Attack
                         int attackResult = this.playerAttackScript.TryAttack(this.transform.position, hit.transform.position);
                         this.ActionBasedOnTryAttackResult(attackResult, hit.transform.gameObject);
+
                         break;
                 }
             }
