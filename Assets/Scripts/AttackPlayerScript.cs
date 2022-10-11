@@ -18,18 +18,21 @@ public class AttackPlayerScript : IAttack
     {
         if (!this.IsInRange(currentPosition, targetPosition))
         {
-            Debug.Log("Move");
+            Debug.Log("Move to attack");
             return (int) Enums.AttackResult.OutOfRange;
         }
 
-        if (!this.IsAttackOnCooldown())
+        else if (!this.IsAttackOnCooldown())
         {
             Debug.Log("Attack");
-            return (int) Enums.AttackResult.Attacked;
+            return (int) Enums.AttackResult.CanAttack;
         }
-        
-        Debug.Log("Attack on cd");
-        return (int) Enums.AttackResult.OnCooldown;
+
+        else
+        {
+            //Debug.Log("Attack on cd");
+            return (int)Enums.AttackResult.OnCooldown;
+        }
     }
 
     private bool IsInRange(Vector3 currentPosition, Vector3 targetPosition)
