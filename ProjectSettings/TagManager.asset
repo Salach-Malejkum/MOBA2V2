@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tower_Red
   - Missile
+  - Ground
   layers:
   - Default
   - TransparentFX

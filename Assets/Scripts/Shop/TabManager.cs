@@ -24,7 +24,9 @@ public class TabManager : MonoBehaviour
         if (Timer >= DelayAmount)
         {
             //Debug.Log("TabManager Gold: " + shopManager.GoldValue);
+            Timer = 0f;
             CheckParchasable();
+
         }
     }
 
@@ -43,13 +45,22 @@ public class TabManager : MonoBehaviour
 
     public void CheckParchasable()
     {
-        
-        for (int i = 0; i < shopItemSo.Length; i++)
+        if (shopManager.Distance() <= shopManager.border)
         {
-            if (shopManager.GoldValue >= shopItemSo[i].price)
-                myBuyButtons[i].interactable = true;
-            else
+            for (int i = 0; i < shopItemSo.Length; i++)
+            {
+                if (shopManager.GoldValue >= shopItemSo[i].price)
+                    myBuyButtons[i].interactable = true;
+                else
+                    myBuyButtons[i].interactable = false;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < shopItemSo.Length; i++)
+            {
                 myBuyButtons[i].interactable = false;
+            }
         }
     }
 
