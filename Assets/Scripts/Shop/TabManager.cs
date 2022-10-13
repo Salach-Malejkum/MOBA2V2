@@ -45,7 +45,7 @@ public class TabManager : MonoBehaviour
 
     public void CheckParchasable()
     {
-        if (shopManager.Distance() <= shopManager.border)
+        if (shopManager.Distance() <= shopManager.border && !shopManager.IsEqFull())
         {
             for (int i = 0; i < shopItemSo.Length; i++)
             {
@@ -71,6 +71,7 @@ public class TabManager : MonoBehaviour
         {
             //Debug.Log("buying " + shopItemSo[btnNo].price);
             shopManager.Subtract(shopItemSo[btnNo].price);
+            shopManager.AddToEquipment(shopItemSo[btnNo]);
             CheckParchasable();
         }
     }
