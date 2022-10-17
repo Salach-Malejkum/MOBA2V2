@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     private new Camera camera;
     private NavMeshAgent navMeshAgent;
-    private readonly int x = 15;
-    private readonly int z = 1;
+    private readonly int x = 0;
+    private readonly int z = -15;
 
     void Start()
     {
