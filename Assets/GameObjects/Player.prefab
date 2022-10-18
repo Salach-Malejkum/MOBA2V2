@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6413460943775733968}
   - component: {fileID: 2137633431160339632}
   - component: {fileID: 8942993608950361221}
-  - component: {fileID: 6955604247829734183}
+  - component: {fileID: 7225444914840888794}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -177,7 +177,7 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
---- !u!114 &6955604247829734183
+--- !u!114 &7225444914840888794
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4656188166199423107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fa50856934b2f4983d7a32def938b0, type: 3}
+  m_Script: {fileID: 11500000, guid: eb94749202340634789cf00a84d0a28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
