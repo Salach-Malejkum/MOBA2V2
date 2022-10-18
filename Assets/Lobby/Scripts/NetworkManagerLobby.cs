@@ -10,9 +10,9 @@ public class NetworkManagerLobby : NetworkManager {
     [SerializeField] private int minPlayers = 2;
     [Scene] [SerializeField] private string menuScene = string.Empty;
 
-    [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = null;
+    [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = default;
 
-    [SerializeField] private NetworkInGamePlayer inGamePlayerPrefab = null;
+    [SerializeField] private NetworkInGamePlayer inGamePlayerPrefab = default;
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;

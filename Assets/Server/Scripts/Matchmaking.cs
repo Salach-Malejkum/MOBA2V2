@@ -1,63 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+using PlayFab;
+using PlayFab.MultiplayerModels;
+using TMPro;
 
-[System.Serializable]
-public class Match {
-    public string matchID;
-    readonly SyncListObjects players = new SyncListObjects();
-
-    public Match(string matchID, GameObject hostPlayer) {
-        this.matchID = matchID;
-        players.Add(hostPlayer);
-    }
-
-    public Match() { }
-}
-
-[System.Serializable]
-public class SyncListObjects : SyncList<GameObject> { }
-
-[System.Serializable]
-public class SyncListMatches : SyncList<Match> { }
-
-public class Matchmaking : NetworkBehaviour
+public class Matchmaking : MonoBehaviour
 {
-    public static Matchmaking instance;
+    [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject leaveQueueButton;
+    [SerializeField] private TMP_Text queueStatusText;
 
-    public readonly SyncListMatches matches = new SyncListMatches();
-    public readonly SyncList<string> matchIDs = new SyncList<string>();
+    private const string QueueName = "DefaultQueue";
 
-    private void Start() {
-        instance = this;
-    }
+    public void StartMatchmaking() {
+        playButton.SetActive(false);
+        queueStatusText.text = "Submitting ticker";
+        queueStatusText.gameObject.SetActive(true);
 
-    public bool HostGame(string matchID, GameObject hostPlayer) {
-        if(!matchIDs.Contains(matchID)) {
-            return false;
-        } else {
-            matchIDs.Add(matchID);
-            matches.Add(new Match(matchID, hostPlayer));
-            return true;
-        }
-    }
-
-    public static string GenerateMatchID() {
-        string id = string.Empty;
-
-        for(int i = 0; i < 5; i++)
-        {
-            int random = Random.Range(0, 36);
-
-            if(random < 26) {
-                id += (char)(random + 65);
-            } else {
-                id += (random - 26).ToString();
-            }
-        }
-        Debug.Log(id);
-
-        return id;
+        // PlayFabMultiplayerAPI.CreateMatchmakingTicket(
+        //     new CreateMatchmakingTicketRequest {
+        //         Creator = new MatchmakingPlayer {
+        //             Entity = new EntityKey
+        //             {
+        //                 Id = UserAuthorization.EntityId,
+        //                 Type = "title_player_account"
+        //             },
+        //             Attributes = new MatchmakingPlayerAttributes
+        //             {
+        //                 DataObject = new { }
+        //             },
+        //         },
+        //         GiveUpAfterSeconds = 120,
+        //         QueueName = QueueName
+        //     }
+        // )
     }
 }

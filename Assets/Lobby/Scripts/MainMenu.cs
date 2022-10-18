@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField] private GameObject landingPangePanel = null;
 
+    //useless
     public void HostLobby() {
         networkManager.StartHost();
 
