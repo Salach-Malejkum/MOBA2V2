@@ -6,20 +6,26 @@ namespace Enums
 {
     public enum MinionSpawnTime  // Can be changed for the debug option
     {
-        FirstSpawnTimePeriod = 9,
-        NormalSpawnTimePeriod = 3
+        FirstSpawnTimePeriod = 90,
+        NormalSpawnTimePeriod = 30
     }
 
     public static class MinionPrefabs
     {
-        public readonly static GameObject meleeMinion = Resources.Load<GameObject>("Prefabs/MeleeMinion");
-        public readonly static GameObject rangedMinion = Resources.Load<GameObject>("Prefabs/RangedMinion");
-        public readonly static GameObject cannonMinion = Resources.Load<GameObject>("Prefabs/CannonMinion");
+        public readonly static string meleeMinionPath = "Assets/Prefabs/MeleeMinion.prefab";
+        public readonly static string rangedMinionPath = "Assets/Prefabs/RangedMinion.prefab";
+        public readonly static string cannonMinionPath = "Assets/Prefabs/CannonMinion.prefab";
     }
 
-    public static class TeamSpawnerPosition
+    public static class TeamMinionSpawnerPosition
     {
         public readonly static Vector3 redTeamSpawn = new Vector3(-5, 0, 0);
         public readonly static Vector3 blueTeamSpawn = new Vector3(5, 0, 0);
+    }
+
+    public static class TeamMinionSpawnerTags
+    {
+        public readonly static string blueTeamTag = "Blue Team";
+        public readonly static string redTeamTag = "Red Team";
     }
 }

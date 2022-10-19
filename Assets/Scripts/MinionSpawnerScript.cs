@@ -1,11 +1,12 @@
+using UnityEditor;
 using UnityEngine;
 
-public class MinionSpawnerScript : MonoBehaviour, ISpawner
+public class MinionSpawnerScript : ISpawner
 {
     // might change some variables and methods to static
-    private GameObject meleeMinionPrefab;
-    private GameObject rangedMinionPrefab;
-    private GameObject cannonMinionPrefab;
+    private readonly GameObject meleeMinionPrefab;
+    private readonly GameObject rangedMinionPrefab;
+    private readonly GameObject cannonMinionPrefab;
     private int spawnsFinished;
     private Vector3 spawnPosition;
     private bool wasFirstWaveSpawned; // should be false, could be true for the debug option
@@ -13,11 +14,11 @@ public class MinionSpawnerScript : MonoBehaviour, ISpawner
 
     public MinionSpawnerScript(Vector3 spawnPosition, string tagName)
     {
-        this.meleeMinionPrefab = Instantiate(Enums.MinionPrefabs.meleeMinion);
+        this.meleeMinionPrefab = PrefabUtility.LoadPrefabContents(Enums.MinionPrefabs.meleeMinionPath);
         this.meleeMinionPrefab.tag = tagName;
-        this.rangedMinionPrefab = Instantiate(Enums.MinionPrefabs.rangedMinion);
+        this.rangedMinionPrefab = PrefabUtility.LoadPrefabContents(Enums.MinionPrefabs.rangedMinionPath); ;
         this.rangedMinionPrefab.tag = tagName;
-        this.cannonMinionPrefab = Instantiate(Enums.MinionPrefabs.cannonMinion);
+        this.cannonMinionPrefab = PrefabUtility.LoadPrefabContents(Enums.MinionPrefabs.cannonMinionPath); ;
         this.cannonMinionPrefab.tag = tagName;
 
         this.spawnsFinished = 0;
@@ -28,8 +29,15 @@ public class MinionSpawnerScript : MonoBehaviour, ISpawner
 
     private bool CheckIfCanFirstSpawn(float timePassed)
     {
-        return !this.wasFirstWaveSpawned
+        bool result = !this.wasFirstWaveSpawned
             && timePassed / (float)Enums.MinionSpawnTime.FirstSpawnTimePeriod >= this.spawnsFinished + 1;
+
+        if (result)
+        {
+            this.wasFirstWaveSpawned = true;
+        }
+
+        return result;
     }
 
     private bool CheckIfCanNormalSpawn(float timePassed)

@@ -9,15 +9,21 @@ public class SpawnManager : MonoBehaviour
     private MinionSpawnerScript rightTeamMinions;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        this.leftTeamMinions = new MinionSpawnerScript(Enums.TeamSpawnerPosition.blueTeamSpawn, "Blue Team");
-        this.rightTeamMinions = new MinionSpawnerScript(Enums.TeamSpawnerPosition.redTeamSpawn, "Red Team");
+        this.leftTeamMinions = new MinionSpawnerScript(
+            Enums.TeamMinionSpawnerPosition.blueTeamSpawn,
+            Enums.TeamMinionSpawnerTags.blueTeamTag
+            );
+        this.rightTeamMinions = new MinionSpawnerScript(
+            Enums.TeamMinionSpawnerPosition.redTeamSpawn,
+            Enums.TeamMinionSpawnerTags.redTeamTag
+            );
         
     }
 
     // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         this.timePassed += Time.deltaTime;
         this.SpawnMinions(this.leftTeamMinions);
@@ -34,11 +40,6 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnMinionWave(MinionSpawnerScript team)
     {
-        if (!team.CheckIfSpawnCannon())
-        {
-            return;
-        }
-
         for (int i = 0; i < 3; i++)
         {
             Instantiate(team.GetMeleeMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
