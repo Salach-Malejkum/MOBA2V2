@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Mirror;
 
+public class PlayerEvent : UnityEvent<string> { }
 public class NetworkManagerLobby : NetworkManager {
     
     [SerializeField] private int minPlayers = 2;
@@ -13,10 +15,14 @@ public class NetworkManagerLobby : NetworkManager {
     [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = default;
 
     [SerializeField] private NetworkInGamePlayer inGamePlayerPrefab = default;
+    [SerializeField] private GameObject playerSpawnSystem = default;
 
+    public PlayerEvent OnPlayerAdded = new PlayerEvent();
+    public PlayerEvent OnPlayerRemoved = new PlayerEvent();
+    
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
-    public static event Action OnServerReadied;
+    public static event Action<NetworkConnection> OnServerReadied;
 
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers { get; } = new List<NetworkInGamePlayer>();
@@ -104,7 +110,7 @@ public class NetworkManagerLobby : NetworkManager {
         if(SceneManager.GetActiveScene().path == menuScene) {
             if(!IsReadyToStart()) { return; }
 
-            ServerChangeScene("ServerTest");
+            ServerChangeScene("Map");
         }
     }
 
@@ -123,10 +129,18 @@ public class NetworkManagerLobby : NetworkManager {
         }
     }
 
+    public override void OnServerSceneChanged(string newSceneName)
+    {
+        if(newSceneName.StartsWith("Map")) {
+            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+            NetworkServer.Spawn(playerSpawnSystemInstance);
+        }
+    }
+
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
 
-        OnServerReadied?.Invoke();
+        OnServerReadied?.Invoke(conn);
     }
 }

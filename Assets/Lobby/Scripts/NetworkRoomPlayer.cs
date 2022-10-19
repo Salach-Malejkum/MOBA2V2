@@ -55,16 +55,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
     public void HandleReadyStatusChanged(bool oldVal, bool newVal) => UpdateDisplay();
 
     private void UpdateDisplay() {
-        if (!hasAuthority) {
-            foreach(var player in Room.RoomPlayers) {
-                if (player.hasAuthority) {
-                    player.UpdateDisplay();
-                    break;
-                }
-            }
-            return;
-        }
-
         for(int i = 0; i < playerNameTexts.Length; i++) {
             playerNameTexts[i].text = "Waiting for player...";
             playerReadyTexts[i].text = string.Empty;
@@ -73,6 +63,19 @@ public class NetworkRoomPlayer : NetworkBehaviour
         for(int i = 0; i < Room.RoomPlayers.Count; i++) {
             playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
             playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
+        }
+
+        if (!hasAuthority) {
+            foreach(var player in Room.RoomPlayers) {
+                int i = 0;
+                if (player.hasAuthority) {
+                    player.UpdateDisplay();
+                    player.DisplayName = "Player" + i.ToString();
+                    i++;
+                    break;
+                }
+            }
+            return;
         }
     }
 

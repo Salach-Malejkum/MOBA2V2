@@ -5,7 +5,9 @@ public class BuildType : MonoBehaviour
 {
     
     [Header("Build Type")]
-    [SerializeField] private Build chosenBuild = Build.RemoteClient;
+    public Build chosenBuild = Build.RemoteClient;
+    public bool debugBuild = true;
+    public string buildId;
 
     public enum Build
     {
