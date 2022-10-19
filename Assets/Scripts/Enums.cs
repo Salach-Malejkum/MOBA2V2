@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace Enums
 {
+    public enum AttackResult
+    {
+        CanAttack = 1,
+        OutOfRange = 0,
+        OnCooldown = -1
+    }
+
     public enum MinionSpawnTime  // Can be changed for the debug option
     {
         FirstSpawnTimePeriod = 90,
@@ -29,3 +36,5 @@ namespace Enums
         public readonly static string redTeamTag = "Red Team";
     }
 }
+
+
