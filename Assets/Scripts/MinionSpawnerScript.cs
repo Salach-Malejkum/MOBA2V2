@@ -1,51 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionSpawnerScript
+public class MinionSpawnerScript : MonoBehaviour, ISpawner
 {
-    public GameObject minionPrefab;
-    private float timePassedSinceSpawn = 0f;
+    // might change some variables and methods to static
+    private GameObject meleeMinionPrefab;
+    private GameObject rangedMinionPrefab;
+    private GameObject cannonMinionPrefab;
+    private int spawnsFinished;
     private Vector3 spawnPosition;
-    private bool wasSpawningDelayed = false; // should be false, for the debug you can set true
+    private bool wasFirstWaveSpawned; // should be false, could be true for the debug option
+    private readonly int cannonWave;
 
-    // Start is called before the first frame update
-
-    public MinionSpawnerScript(Vector3 spawnPosition)
+    public MinionSpawnerScript(Vector3 spawnPosition, string tagName)
     {
+        this.meleeMinionPrefab = Instantiate(Enums.MinionPrefabs.meleeMinion);
+        this.meleeMinionPrefab.tag = tagName;
+        this.rangedMinionPrefab = Instantiate(Enums.MinionPrefabs.rangedMinion);
+        this.rangedMinionPrefab.tag = tagName;
+        this.cannonMinionPrefab = Instantiate(Enums.MinionPrefabs.cannonMinion);
+        this.cannonMinionPrefab.tag = tagName;
+
+        this.spawnsFinished = 0;
         this.spawnPosition = spawnPosition;
+        this.wasFirstWaveSpawned = false;
+        this.cannonWave = 3;
     }
 
-    // Update is called once per frame
-    public void FixedUpdate()
+    private bool CheckIfCanFirstSpawn(float timePassed)
     {
-        this.timePassedSinceSpawn += Time.deltaTime;
-
-        Debug.Log(Time.time);
-        if (CheckIfCanFirstSpawn())
-        {
-            //Delayed spawn
-            this.wasSpawningDelayed = true;
-            Debug.Log("Delayed spawn");
-            this.timePassedSinceSpawn = 0;
-        }
-        else if (CheckIfCanNormalSpawn())
-        {
-            //Normal spawn
-            Debug.Log("Normal spawn");
-            this.timePassedSinceSpawn = 0;
-        }
+        return !this.wasFirstWaveSpawned
+            && timePassed / (float)Enums.MinionSpawnTime.FirstSpawnTimePeriod >= this.spawnsFinished + 1;
     }
 
-    private bool CheckIfCanFirstSpawn()
+    private bool CheckIfCanNormalSpawn(float timePassed)
     {
-        return !this.wasSpawningDelayed
-            && this.timePassedSinceSpawn / (float)Enums.MinionSpawnTime.FirstSpawnTimePeriod >= 1f;
+        return this.wasFirstWaveSpawned
+            && timePassed / (float)Enums.MinionSpawnTime.NormalSpawnTimePeriod >= this.spawnsFinished + 1;
     }
 
-    private bool CheckIfCanNormalSpawn()
+    public bool CheckIfCanSpawm(float timePassed)
     {
-        return this.wasSpawningDelayed
-            && this.timePassedSinceSpawn / (float)Enums.MinionSpawnTime.NormalSpawnTimePeriod >= 1f;
+        bool result = this.CheckIfCanFirstSpawn(timePassed) || this.CheckIfCanNormalSpawn(timePassed);
+        this.TryIncreaseSpawnsFinished(result);
+        return result; 
+    }
+
+    private void TryIncreaseSpawnsFinished(bool result)
+    {
+        if (result)
+            this.spawnsFinished += 1;
+    }
+
+    public bool CheckIfSpawnCannon()
+    {
+        return (this.spawnsFinished) % this.cannonWave == 0;
+    }
+    
+    public Vector3 GetSpawnPosition()
+    {
+        return this.spawnPosition;
+    }
+
+    public GameObject GetMeleeMinionPrefab()
+    {
+        return this.meleeMinionPrefab;
+    }
+
+    public GameObject GetRangedMinionPrefab()
+    {
+        return this.rangedMinionPrefab;
+    }
+
+    public GameObject GetCannonMinionPrefab()
+    {
+        return this.cannonMinionPrefab;
     }
 }
