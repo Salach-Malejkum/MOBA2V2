@@ -16,6 +16,7 @@ public class NetworkManagerLobby : NetworkManager {
 
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
+    public static event Action OnServerReadied;
 
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers { get; } = new List<NetworkInGamePlayer>();
@@ -120,5 +121,12 @@ public class NetworkManagerLobby : NetworkManager {
 
             base.ServerChangeScene(mapName);
         }
+    }
+
+    public override void OnServerReady(NetworkConnectionToClient conn)
+    {
+        base.OnServerReady(conn);
+
+        OnServerReadied?.Invoke();
     }
 }

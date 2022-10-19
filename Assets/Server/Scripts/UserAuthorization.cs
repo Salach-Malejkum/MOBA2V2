@@ -7,6 +7,7 @@ using TMPro;
 public class UserAuthorization : MonoBehaviour
 {
     [SerializeField] private GameObject signInDisplay = default;
+    [SerializeField] private GameObject afterLoginScreen = default;
     [SerializeField] private TMP_InputField usernameInputField = default;
     [SerializeField] private TMP_InputField emailInputField = default;
     [SerializeField] private TMP_InputField passwordInputField = default;
@@ -23,6 +24,7 @@ public class UserAuthorization : MonoBehaviour
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
             signInDisplay.SetActive(false);
+            afterLoginScreen.SetActive(true);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
@@ -36,6 +38,7 @@ public class UserAuthorization : MonoBehaviour
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
             signInDisplay.SetActive(false);
+            afterLoginScreen.SetActive(true);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
