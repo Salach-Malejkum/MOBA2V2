@@ -37,6 +37,7 @@ public class NetworkManagerLobby : NetworkManager {
     public override void Awake()
     {
         base.Awake();
+        Instance = this;
         NetworkServer.RegisterHandler<AuthenticateMessage>(OnReceiveAuthenticateMessage);
     }
 

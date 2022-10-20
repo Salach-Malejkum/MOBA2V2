@@ -2892,7 +2892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenBuild: 1
   debugBuild: 1
-  buildId: 60dc499c-c193-4bda-b860-ed7e48ffe8e6
+  buildId: 
 --- !u!1 &1368934372
 GameObject:
   m_ObjectHideFlags: 0
