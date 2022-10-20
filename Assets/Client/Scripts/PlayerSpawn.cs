@@ -29,7 +29,7 @@ public class PlayerSpawn : NetworkBehaviour
     private void OnDestroy() => NetworkManagerLobby.OnServerReadied -= SpawnPlayer;
 
     [Server]
-    public void SpawnPlayer(NetworkConnection conn) {
+    public void SpawnPlayer(NetworkConnectionToClient conn) {
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIdx);
 
         if(spawnPoint == null) {
@@ -38,7 +38,7 @@ public class PlayerSpawn : NetworkBehaviour
         }
 
         GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIdx].position, spawnPoints[nextIdx].rotation);
-        NetworkServer.Spawn(playerInstance, conn);
+        NetworkServer.AddPlayerForConnection(conn, playerInstance);
 
         nextIdx++;
     }

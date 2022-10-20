@@ -28,7 +28,7 @@ public class NetworkManagerLobby : NetworkManager {
     
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
-    public static event Action<NetworkConnection> OnServerReadied;
+    public static event Action<NetworkConnectionToClient> OnServerReadied;
 
     public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
