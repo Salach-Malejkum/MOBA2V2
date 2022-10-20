@@ -29,7 +29,7 @@ public class ServerStartUp : MonoBehaviour
         networkManager.OnPlayerAdded.AddListener(OnPlayerAdded);
         networkManager.OnPlayerRemoved.AddListener(OnPlayerRemoved);
 
-        networkManager.
+        networkManager.StartServer();
 
         StartCoroutine(ReadyForPlayers());
     }

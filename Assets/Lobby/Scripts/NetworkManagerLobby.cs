@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-public class PlayerEvent : UnityEvent<string> { }
+
 public class NetworkManagerLobby : NetworkManager {
     
     [SerializeField] private int minPlayers = 2;
@@ -19,6 +19,8 @@ public class NetworkManagerLobby : NetworkManager {
 
     public PlayerEvent OnPlayerAdded = new PlayerEvent();
     public PlayerEvent OnPlayerRemoved = new PlayerEvent();
+    
+    public class PlayerEvent : UnityEvent<string> { }
     
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
