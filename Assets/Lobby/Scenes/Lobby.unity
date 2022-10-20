@@ -1117,6 +1117,7 @@ MonoBehaviour:
   usernameInputField: {fileID: 1177904667}
   emailInputField: {fileID: 521681388}
   passwordInputField: {fileID: 1546565732}
+  client: {fileID: 1713145743}
 --- !u!1 &631552292
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,7 +1133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &631552293
 Transform:
   m_ObjectHideFlags: 0
@@ -1491,8 +1492,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 30000
-  DualMode: 1
+  Port: 7777
+  DualMode: 0
   NoDelay: 1
   Interval: 10
   Timeout: 10000
@@ -1522,12 +1523,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
   runInBackground: 1
-  autoStartServerBuild: 1
+  autoStartServerBuild: 0
   serverTickRate: 30
   offlineScene: 
   onlineScene: Assets/Lobby/Scenes/Lobby.unity
   transport: {fileID: 693488853}
-  networkAddress: localhost
+  networkAddress: 127.0.0.1
   maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 6808380577650566543, guid: 0a92e7e876e479047a6b4848c4c9e481, type: 3}
@@ -1570,7 +1571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &701019150
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2890,9 +2891,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3deeac2f7d7da42a59132516a49c8991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenBuild: 1
+  chosenBuild: 0
   debugBuild: 1
-  buildId: 3af4652e-9887-4f7e-9833-541c96d934d7
+  buildId: 
 --- !u!1 &1368934372
 GameObject:
   m_ObjectHideFlags: 0

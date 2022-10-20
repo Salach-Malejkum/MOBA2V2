@@ -11,33 +11,14 @@ public class ClientStartup : MonoBehaviour
 {
     [SerializeField] private BuildType buildType;
 
-    void Start()
-    {
+    public void RequestServerData() {
         if(buildType.chosenBuild == BuildType.Build.RemoteClient) {
-            LoginRemoteUser();
-        }    
-    }
-
-    private void LoginRemoteUser() {
-        LoginWithCustomIDRequest request = new LoginWithCustomIDRequest() {
-            TitleId = PlayFabSettings.TitleId,
-            CreateAccount = true,
-            CustomId = System.Guid.NewGuid().ToString()
-        };
-
-        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSucccess, OnLoginError);
-    }
-
-    private void OnLoginError(PlayFabError error) {
-        Debug.Log(error.ToString());
-    }
-
-    private void OnLoginSucccess(LoginResult response) {
-        RequestMultiplayerServerRequest requestData = new RequestMultiplayerServerRequest();
-        requestData.BuildId = buildType.buildId;
-        requestData.SessionId = System.Guid.NewGuid().ToString();
-        requestData.PreferredRegions = new List<string>() { "NorthEurope" };
-        PlayFabMultiplayerAPI.RequestMultiplayerServer(requestData, OnRequestMultiplayerServer, OnRequestMultiplayerServerError);
+            RequestMultiplayerServerRequest requestData = new RequestMultiplayerServerRequest();
+            requestData.BuildId = buildType.buildId;
+            requestData.SessionId = System.Guid.NewGuid().ToString();
+            requestData.PreferredRegions = new List<string>() { "NorthEurope" };
+            PlayFabMultiplayerAPI.RequestMultiplayerServer(requestData, OnRequestMultiplayerServer, OnRequestMultiplayerServerError);
+        }
     }
 
     private void OnRequestMultiplayerServer(RequestMultiplayerServerResponse response) {

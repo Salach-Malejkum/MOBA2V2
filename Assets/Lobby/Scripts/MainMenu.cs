@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private NetworkManagerLobby networkManager = null;
+    [SerializeField] private NetworkManagerLobby networkManager = default;
 
-    [SerializeField] private GameObject landingPangePanel = null;
+    [SerializeField] private GameObject landingPangePanel = default;
 
     //useless
     public void HostLobby() {
