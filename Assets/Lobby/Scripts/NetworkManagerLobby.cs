@@ -168,9 +168,10 @@ public class NetworkManagerLobby : NetworkManager {
                 var conn = Instance.RoomPlayers[i].connectionToClient;
                 var inGamePlayerInstance = Instantiate(inGamePlayerPrefab);
                 inGamePlayerInstance.SetDisplayName(Instance.RoomPlayers[i].DisplayName);
-
+                Debug.Log("Room player " + Instance.RoomPlayers[i].DisplayName + " changed to inGamePlayer ");
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
+                NetworkManagerLobby.Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
             }
 
             base.ServerChangeScene(mapName);

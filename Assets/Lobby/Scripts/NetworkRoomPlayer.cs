@@ -49,11 +49,8 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
         if (!hasAuthority) {
             foreach(var player in NetworkManagerLobby.Instance.RoomPlayers) {
-                int i = 0;
                 if (player.hasAuthority) {
                     player.UpdateDisplay();
-                    player.DisplayName = "Player" + i.ToString();
-                    i++;
                     break;
                 }
             }
@@ -78,8 +75,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     [Command]
     public void CmdStartGame() {
-        if (NetworkManagerLobby.Instance.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
-
         NetworkManagerLobby.Instance.StartGame();
     }
 
