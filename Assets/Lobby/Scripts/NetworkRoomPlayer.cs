@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,24 +12,8 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
-    [SyncVar]
+    [SyncVar(hook = nameof(HandleNameChanged))]
     public string DisplayName = "Loading...";
-    
-    private bool isLeader;
-    public bool IsLeader {
-        set {
-            isLeader = value;
-            startGameButton.gameObject.SetActive(value);
-        }
-    }
-
-    private NetworkManagerLobby room;
-    private NetworkManagerLobby Room {
-        get {
-            if (room != null) { return room; }
-            return room = NetworkManager.singleton as NetworkManagerLobby;
-        }
-    }
 
     public override void OnStartAuthority() {
         CmdSetDisplayName("PlaceholderName");
@@ -40,19 +22,20 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        Room.RoomPlayers.Add(this);
-
+        NetworkManagerLobby.Instance.RoomPlayers.Add(this);
+        Debug.Log("Client started on Room Player");
         UpdateDisplay();
     }
 
     public override void OnStopClient()
     {
-        Room.RoomPlayers.Remove(this);
+        NetworkManagerLobby.Instance.RoomPlayers.Remove(this);
 
         UpdateDisplay();
     }
 
     public void HandleReadyStatusChanged(bool oldVal, bool newVal) => UpdateDisplay();
+    public void HandleNameChanged(string oldVal, string newVal) => UpdateDisplay();
 
     private void UpdateDisplay() {
         for(int i = 0; i < playerNameTexts.Length; i++) {
@@ -60,13 +43,13 @@ public class NetworkRoomPlayer : NetworkBehaviour
             playerReadyTexts[i].text = string.Empty;
         }
 
-        for(int i = 0; i < Room.RoomPlayers.Count; i++) {
-            playerNameTexts[i].text = Room.RoomPlayers[i].DisplayName;
-            playerReadyTexts[i].text = Room.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
+        for(int i = 0; i < NetworkManagerLobby.Instance.RoomPlayers.Count; i++) {
+            playerNameTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].DisplayName;
+            playerReadyTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
         }
 
         if (!hasAuthority) {
-            foreach(var player in Room.RoomPlayers) {
+            foreach(var player in NetworkManagerLobby.Instance.RoomPlayers) {
                 int i = 0;
                 if (player.hasAuthority) {
                     player.UpdateDisplay();
@@ -80,8 +63,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
     }
 
     public void HandleReadyToStart(bool readyToStart) {
-        if (!isLeader) { return; }
-
         startGameButton.interactable = readyToStart;
     }
 
@@ -93,14 +74,14 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [Command]
     public void CmdReadyUp() {
         IsReady = !IsReady;
-        Room.NotifyPlayersOfReadyState();
+        NetworkManagerLobby.Instance.NotifyPlayersOfReadyState();
     }
 
     [Command]
     public void CmdStartGame() {
-        if (Room.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
+        if (NetworkManagerLobby.Instance.RoomPlayers[0].connectionToClient != connectionToClient) { return; }
 
-        Room.StartGame();
+        NetworkManagerLobby.Instance.StartGame();
     }
 
 }

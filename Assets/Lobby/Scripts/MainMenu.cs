@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private NetworkManagerLobby networkManager = default;
-
     [SerializeField] private GameObject landingPangePanel = default;
 
     //useless
     public void HostLobby() {
-        networkManager.StartHost();
+        NetworkManagerLobby.Instance.StartHost();
 
         landingPangePanel.SetActive(false);
     }

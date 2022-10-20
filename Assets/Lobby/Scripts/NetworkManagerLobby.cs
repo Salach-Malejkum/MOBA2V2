@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.MultiplayerAgent.Model;
 using Mirror;
 
 
@@ -17,6 +19,8 @@ public class NetworkManagerLobby : NetworkManager {
     [SerializeField] private NetworkInGamePlayer inGamePlayerPrefab = default;
     [SerializeField] private GameObject playerSpawnSystem = default;
 
+    public static NetworkManagerLobby Instance { get; private set; }
+
     public PlayerEvent OnPlayerAdded = new PlayerEvent();
     public PlayerEvent OnPlayerRemoved = new PlayerEvent();
     
@@ -28,6 +32,22 @@ public class NetworkManagerLobby : NetworkManager {
 
     public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers { get; } = new List<NetworkInGamePlayer>();
+    public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
+
+    public override void Awake()
+    {
+        base.Awake();
+        NetworkServer.RegisterHandler<AuthenticateMessage>(OnReceiveAuthenticateMessage);
+    }
+
+    private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {
+        var conn = playerConnections.Find(c => c.ConnectionId == nconn.connectionId);
+        if(conn == null) {
+            conn.PlayfabId = message.PlayfabId;
+            conn.Authenticated = true;
+            OnPlayerAdded.Invoke(message.PlayfabId);
+        }
+    }
 
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
 
@@ -42,7 +62,6 @@ public class NetworkManagerLobby : NetworkManager {
 
     public override void OnClientConnect() {
         base.OnClientConnect();
-
         OnClientConnected?.Invoke();
     }
 
@@ -53,6 +72,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
 
     public override void OnServerConnect(NetworkConnectionToClient conn) {
+        Debug.Log("Client connected-------------------------");
         if(numPlayers >= maxConnections) {
             conn.Disconnect();
             return;
@@ -62,17 +82,26 @@ public class NetworkManagerLobby : NetworkManager {
             conn.Disconnect();
             return;
         }
+
+        var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
+
+        if(playerConn == null) {
+            playerConnections.Add(new PlayerConnection() {
+                Connection = conn,
+                ConnectionId = conn.connectionId,
+                LobbyId = PlayFabMultiplayerAgentAPI.SessionConfig.SessionId
+            });
+        }
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
         if (SceneManager.GetActiveScene().path == menuScene) {
-            bool isLeader = RoomPlayers.Count == 0;
 
             NetworkRoomPlayer roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
-            roomPlayerInstance.IsLeader = isLeader;
-
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
+
+
         }
     }
 
@@ -84,7 +113,14 @@ public class NetworkManagerLobby : NetworkManager {
 
             NotifyPlayersOfReadyState();
         }
+        var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
 
+        if(playerConn != null) {
+            if(!string.IsNullOrEmpty(playerConn.PlayfabId)) {
+                OnPlayerRemoved.Invoke(playerConn.PlayfabId);
+            }
+            playerConnections.Remove(playerConn);
+        }
         base.OnServerDisconnect(conn);
     }
 
@@ -145,4 +181,17 @@ public class NetworkManagerLobby : NetworkManager {
 
         OnServerReadied?.Invoke(conn);
     }
+}
+
+[Serializable]
+public class PlayerConnection {
+    public bool Authenticated;
+    public string PlayfabId;
+    public string LobbyId;
+    public int ConnectionId;
+    public NetworkConnection Connection;
+}
+
+public struct AuthenticateMessage : NetworkMessage {
+    public string PlayfabId;
 }

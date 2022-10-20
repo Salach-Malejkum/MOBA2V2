@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
 public class JoinLobbyMenu : MonoBehaviour
 {
-    [SerializeField] private NetworkManagerLobby networkManager = null;
 
     [SerializeField] private GameObject landingPagePanel = null;
     [SerializeField] private TMP_InputField ipAddressInputField = null;
@@ -25,8 +22,8 @@ public class JoinLobbyMenu : MonoBehaviour
     public void JoinLobby() {
         string ipAddress = ipAddressInputField.text;
 
-        networkManager.StartClient();
-        networkManager.networkAddress = ipAddress;
+        NetworkManagerLobby.Instance.StartClient();
+        NetworkManagerLobby.Instance.networkAddress = ipAddress;
 
         joinButton.interactable = false;
     }

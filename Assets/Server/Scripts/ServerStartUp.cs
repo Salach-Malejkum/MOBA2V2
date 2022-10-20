@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using PlayFab;
 using PlayFab.MultiplayerAgent.Model;
-using Mirror;
 
 public class ServerStartUp : MonoBehaviour
 {
     [SerializeField] private BuildType buildType;
-    [SerializeField] private NetworkManagerLobby networkManager;
 
     private List<ConnectedPlayer> connectedPlayers;
 
@@ -20,14 +18,15 @@ public class ServerStartUp : MonoBehaviour
     }
 
     private void StartRemoteServer() {
+        Debug.Log("This is a test log. Please ignore.");
         PlayFabMultiplayerAgentAPI.Start();
         PlayFabMultiplayerAgentAPI.IsDebugging = buildType.debugBuild;
 		PlayFabMultiplayerAgentAPI.OnShutDownCallback += OnShutdown;
 		PlayFabMultiplayerAgentAPI.OnServerActiveCallback += OnServerActive;
 		PlayFabMultiplayerAgentAPI.OnAgentErrorCallback += OnAgentError;
 
-        networkManager.OnPlayerAdded.AddListener(OnPlayerAdded);
-        networkManager.OnPlayerRemoved.AddListener(OnPlayerRemoved);
+        NetworkManagerLobby.Instance.OnPlayerAdded.AddListener(OnPlayerAdded);
+        NetworkManagerLobby.Instance.OnPlayerRemoved.AddListener(OnPlayerRemoved);
 
         StartCoroutine(ReadyForPlayers());
     }
@@ -38,7 +37,7 @@ public class ServerStartUp : MonoBehaviour
     }
 
     private void OnServerActive() {
-        networkManager.StartServer();
+        NetworkManagerLobby.Instance.StartServer();
         Debug.Log("Server started");
     }
 
