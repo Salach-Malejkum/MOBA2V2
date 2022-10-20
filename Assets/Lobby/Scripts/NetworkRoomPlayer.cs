@@ -22,14 +22,14 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        CmdAddRoomPlayer();
+        NetworkManagerLobby.Instance.RoomPlayers.Add(this);
         Debug.Log("Client started on Room Player");
         UpdateDisplay();
     }
 
     public override void OnStopClient()
     {
-        CmdRemoveRoomPlayer();
+        NetworkManagerLobby.Instance.RoomPlayers.Remove(this);
         UpdateDisplay();
     }
 
@@ -63,16 +63,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     public void HandleReadyToStart(bool readyToStart) {
         startGameButton.interactable = readyToStart;
-    }
-
-    [Command]
-    private void CmdAddRoomPlayer() {
-        NetworkManagerLobby.Instance.RoomPlayers.Add(this);
-    }
-
-    [Command]
-    private void CmdRemoveRoomPlayer() {
-        NetworkManagerLobby.Instance.RoomPlayers.Remove(this);
     }
 
     [Command]

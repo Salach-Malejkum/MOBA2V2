@@ -103,9 +103,9 @@ public class NetworkManagerLobby : NetworkManager {
             NetworkRoomPlayer roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-            Debug.Log("Player added for connection, player count-------------------------" + RoomPlayers.Count.ToString());
+            Debug.Log("Player added for connection, player count-------------------------" + Instance.RoomPlayers.Count.ToString());
             Debug.Log("List of players-------------------------");
-            foreach(NetworkRoomPlayer rplayer in RoomPlayers) {
+            foreach(NetworkRoomPlayer rplayer in Instance.RoomPlayers) {
                 Debug.Log(rplayer.DisplayName);
             }
         }
@@ -131,11 +131,11 @@ public class NetworkManagerLobby : NetworkManager {
     }
 
     public override void OnStopServer() {
-        RoomPlayers.Clear();
+        Instance.RoomPlayers.Clear();
     }
 
     public void NotifyPlayersOfReadyState() {
-        foreach (var player in RoomPlayers) {
+        foreach (var player in Instance.RoomPlayers) {
             player.HandleReadyToStart(IsReadyToStart());
         }
     }
@@ -143,7 +143,7 @@ public class NetworkManagerLobby : NetworkManager {
     private bool IsReadyToStart() {
         if (numPlayers < minPlayers) { return false; }
 
-        foreach (var player in RoomPlayers) {
+        foreach (var player in Instance.RoomPlayers) {
             if (!player.IsReady) { return false; }
         }
 
@@ -160,10 +160,10 @@ public class NetworkManagerLobby : NetworkManager {
 
     public override void ServerChangeScene(string mapName) {
         if(SceneManager.GetActiveScene().path == menuScene) {
-            for (int i = RoomPlayers.Count - 1; i >= 0; i--) {
-                var conn = RoomPlayers[i].connectionToClient;
+            for (int i = Instance.RoomPlayers.Count - 1; i >= 0; i--) {
+                var conn = Instance.RoomPlayers[i].connectionToClient;
                 var inGamePlayerInstance = Instantiate(inGamePlayerPrefab);
-                inGamePlayerInstance.SetDisplayName(RoomPlayers[i].DisplayName);
+                inGamePlayerInstance.SetDisplayName(Instance.RoomPlayers[i].DisplayName);
 
                 NetworkServer.Destroy(conn.identity.gameObject);
                 NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
