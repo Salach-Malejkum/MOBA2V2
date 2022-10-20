@@ -1082,7 +1082,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aab349bfb8f42541ac950dea432338d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 693488854}
   landingPangePanel: {fileID: 631552292}
 --- !u!4 &568886819
 Transform:
@@ -1492,7 +1491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 7777
+  Port: 30000
   DualMode: 0
   NoDelay: 1
   Interval: 10
@@ -2281,7 +2280,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d384f991c29d44b9bb0e796041f96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 693488854}
   landingPagePanel: {fileID: 631552292}
   ipAddressInputField: {fileID: 668266894}
   joinButton: {fileID: 139603198}
@@ -2894,7 +2892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenBuild: 1
   debugBuild: 1
-  buildId: 0807c111-23a8-4275-9f43-0587e692890b
+  buildId: 60dc499c-c193-4bda-b860-ed7e48ffe8e6
 --- !u!1 &1368934372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3884,7 +3882,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildType: {fileID: 1246543052}
-  networkManager: {fileID: 693488854}
 --- !u!114 &1713145743
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -101,7 +101,9 @@ public class NetworkManagerLobby : NetworkManager {
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
 
-
+            foreach(NetworkRoomPlayer rplayer in RoomPlayers) {
+                Debug.Log(rplayer.DisplayName);
+            }
         }
     }
 

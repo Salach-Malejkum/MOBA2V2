@@ -28,6 +28,7 @@ public class UserAuthorization : MonoBehaviour
             client.RequestServerData();
             signInDisplay.SetActive(false);
             afterLoginScreen.SetActive(true);
+            PlayerDataManager.StrSave("Username", usernameInputField.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
@@ -44,6 +45,7 @@ public class UserAuthorization : MonoBehaviour
             client.RequestServerData();
             signInDisplay.SetActive(false);
             afterLoginScreen.SetActive(true);
+            PlayerDataManager.StrSave("Username", usernameInputField.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });

@@ -16,7 +16,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     public string DisplayName = "Loading...";
 
     public override void OnStartAuthority() {
-        CmdSetDisplayName("PlaceholderName");
+        CmdSetDisplayName(PlayerDataManager.StrGet("Username"));
         lobbyUI.SetActive(true);
     }
 
