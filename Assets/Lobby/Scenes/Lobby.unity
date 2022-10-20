@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 30000
+  Port: 7777
   DualMode: 0
   NoDelay: 1
   Interval: 10
@@ -2890,7 +2890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3deeac2f7d7da42a59132516a49c8991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chosenBuild: 1
+  chosenBuild: 0
   debugBuild: 1
   buildId: 
 --- !u!1 &1368934372

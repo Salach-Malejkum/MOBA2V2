@@ -62,6 +62,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
 
     public override void OnClientConnect() {
+        Debug.Log("Client connected-------------------------");
         base.OnClientConnect();
         OnClientConnected?.Invoke();
     }
@@ -96,12 +97,14 @@ public class NetworkManagerLobby : NetworkManager {
     }
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
+        Debug.Log("Player added on server------------------------- Scene: " + SceneManager.GetActiveScene().path);
         if (SceneManager.GetActiveScene().path == menuScene) {
 
             NetworkRoomPlayer roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-
+            Debug.Log("Player added for connection, player count-------------------------" + RoomPlayers.Count.ToString());
+            Debug.Log("List of players-------------------------");
             foreach(NetworkRoomPlayer rplayer in RoomPlayers) {
                 Debug.Log(rplayer.DisplayName);
             }
