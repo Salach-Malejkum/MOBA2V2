@@ -13,7 +13,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
     [SyncVar(hook = nameof(HandleNameChanged))]
-    public string DisplayName = "Loading...";
+    public string DisplayName = PlayerDataManager.StrGet("Username");
 
     public override void OnStartAuthority() {
         CmdSetDisplayName(PlayerDataManager.StrGet("Username"));

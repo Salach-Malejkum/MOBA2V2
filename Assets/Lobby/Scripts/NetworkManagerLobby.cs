@@ -30,8 +30,8 @@ public class NetworkManagerLobby : NetworkManager {
     public static event Action OnClientDisconnected;
     public static event Action<NetworkConnection> OnServerReadied;
 
-    public List<NetworkRoomPlayer> RoomPlayers { get; } = new List<NetworkRoomPlayer>();
-    public List<NetworkInGamePlayer> InGamePlayers { get; } = new List<NetworkInGamePlayer>();
+    public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
+    public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
     public override void Awake()
@@ -42,6 +42,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
 
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {
+        Debug.Log("Authenticate message received--------------------------------PlayfabId: " + message.PlayfabId);
         var conn = playerConnections.Find(c => c.ConnectionId == nconn.connectionId);
         if(conn == null) {
             conn.PlayfabId = message.PlayfabId;
@@ -103,6 +104,9 @@ public class NetworkManagerLobby : NetworkManager {
             NetworkRoomPlayer roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
+
+            RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
+
             Debug.Log("Player added for connection, player count-------------------------" + Instance.RoomPlayers.Count.ToString());
             Debug.Log("List of players-------------------------");
             foreach(NetworkRoomPlayer rplayer in Instance.RoomPlayers) {
