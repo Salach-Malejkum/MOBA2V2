@@ -100,9 +100,9 @@ public class Matchmaking : MonoBehaviour
     }
 
     private void OnGetMatch(GetMatchResult result) {
-        NetworkManagerLobby.Instance.StartClient();
         NetworkManagerLobby.Instance.networkAddress = result.ServerDetails.IPV4Address;
         NetworkManagerLobby.Instance.GetComponent<kcp2k.KcpTransport>().Port = (ushort) result.ServerDetails.Ports[0].Num; 
+        NetworkManagerLobby.Instance.StartClient();
     }
 
     public void CancelMatchmaking() {
