@@ -11,7 +11,7 @@ public class Matchmaking : MonoBehaviour
     [SerializeField] private GameObject leaveQueueButton;
     [SerializeField] private TMP_Text queueStatusText;
 
-    private const string queueName = "DefaultQueue";
+    private const string queueName = "DebugQueue";
     private string matchTicketId;
 
     private Coroutine pollTicketCoroutine;
@@ -31,7 +31,12 @@ public class Matchmaking : MonoBehaviour
                     },
                     Attributes = new MatchmakingPlayerAttributes
                     {
-                        DataObject = new { }
+                        DataObject = new 
+                        {
+                            Latencies = new {
+                                NorthEurope = 400
+                            }
+                         }
                     },
                 },
                 GiveUpAfterSeconds = 120,
@@ -116,6 +121,9 @@ public class Matchmaking : MonoBehaviour
     }
 
     private void OnMatchmakingError(PlayFabError error) {
+        playButton.SetActive(true);
+        leaveQueueButton.SetActive(false);
+        queueStatusText.text = "";
         Debug.Log(error.GenerateErrorReport());
     }
 }
