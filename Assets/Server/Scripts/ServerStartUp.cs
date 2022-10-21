@@ -24,7 +24,8 @@ public class ServerStartUp : MonoBehaviour
 		PlayFabMultiplayerAgentAPI.OnShutDownCallback += OnShutdown;
 		PlayFabMultiplayerAgentAPI.OnServerActiveCallback += OnServerActive;
 		PlayFabMultiplayerAgentAPI.OnAgentErrorCallback += OnAgentError;
-
+        NetworkManagerLobby.Instance.StartServer();
+        Debug.Log("Server started");
         NetworkManagerLobby.Instance.OnPlayerAdded.AddListener(OnPlayerAdded);
         NetworkManagerLobby.Instance.OnPlayerRemoved.AddListener(OnPlayerRemoved);
 
@@ -37,8 +38,7 @@ public class ServerStartUp : MonoBehaviour
     }
 
     private void OnServerActive() {
-        NetworkManagerLobby.Instance.StartServer();
-        Debug.Log("Server started");
+        //TODO: cos do zrobienia po przejsciu serwera na active (jak otrzymuje graczy, startserver musi byc called wczesniej)
     }
 
     private void OnPlayerRemoved(string playfabId) {

@@ -33,8 +33,11 @@ public class Matchmaking : MonoBehaviour
                     {
                         DataObject = new 
                         {
-                            Latencies = new {
-                                NorthEurope = 400
+                            Latencies = new object[] {
+                                new {
+                                    region = "NorthEurope",
+                                    latency = 400
+                                }
                             }
                          }
                     },
