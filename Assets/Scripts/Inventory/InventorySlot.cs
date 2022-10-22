@@ -20,6 +20,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryManager.instance.Equipment[transform.GetSiblingIndex()] = droppedItem;
             InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
             InventoryManager.instance.RefreshSlots();
+            InventoryManager.instance.BlockSell();
         }
         else
         {
@@ -27,6 +28,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             InventoryManager.instance.Equipment[transform.GetSiblingIndex()] = droppedItem;
             InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
             InventoryManager.instance.RefreshSlots();
+            InventoryManager.instance.BlockSell();
         }
     }
 

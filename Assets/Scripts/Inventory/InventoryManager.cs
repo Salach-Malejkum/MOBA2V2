@@ -66,8 +66,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (Shop.shopCanva.activeSelf && Shop.Distance() <= Shop.border)
         {
-            Shop.PrepareToSell(Equipment[itemIndex]);
-            RemoveItem(itemIndex);
+            Shop.PrepareToSell(Equipment[itemIndex], itemIndex);
         }
     }
 
@@ -84,5 +83,10 @@ public class InventoryManager : MonoBehaviour
     {
         Equipment[itemIndex] = null;
         RefreshSlots();
+    }
+
+    public void BlockSell()
+    {
+        Shop.SellBtn.interactable = false;
     }
 }

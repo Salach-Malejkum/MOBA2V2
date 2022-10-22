@@ -19,6 +19,7 @@ public class ShopManager : MonoBehaviour
     public float Timer;
 
     private ShopItemSo SellItem;
+    private int SellItemIndex = -1;
 
     void Update()
     {
@@ -30,6 +31,11 @@ public class ShopManager : MonoBehaviour
             GoldValue++; // For every DelayAmount or "second" it will add one to the GoldValue
             GoldValueText.text = "G: " + GoldValue;
             //Debug.Log("ShopManager Gold: "+GoldValue);
+        }
+
+        if (Distance() >= border)
+        {
+            SellBtn.interactable = false;
         }
     }
 
@@ -50,6 +56,7 @@ public class ShopManager : MonoBehaviour
         if (shopCanva.activeSelf)
         {
             shopCanva.SetActive(false);
+            SellBtn.interactable = false;
         }
         else
         {
@@ -57,14 +64,16 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void PrepareToSell(ShopItemSo itemToSell)
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
     {
         SellItem = itemToSell;
+        SellItemIndex = itemToSellIndex;
         SellBtn.interactable = true;
     }
 
     public void InstaSell(ShopItemSo itemToSell)
     {
+        SellItemIndex = -1;
         SellItem = itemToSell;
         Sell();
     }
@@ -75,5 +84,10 @@ public class ShopManager : MonoBehaviour
         GoldValue += (int) amount;
         GoldValueText.text = "G: " + GoldValue;
         SellBtn.interactable = false;
+        if(SellItemIndex != -1)
+        {
+            InventoryManager.instance.RemoveItem(SellItemIndex);
+            SellItemIndex = -1;
+        }
     }
 }
