@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
     public int GoldValue = 0;
     public int DelayAmount = 1; // Second count
     public TMP_Text GoldValueText;
-    public List<ShopItemSo> Equipment;
 
     public GameObject shopCanva;
     public GameObject marketPlace;
-    public List<TMP_Text> EqDisplaySlots;
 
     public float border = 100f;
     public float Timer;
-    public int EqMaxSize = 5;
 
     void Update()
     {
@@ -42,17 +40,6 @@ public class ShopManager : MonoBehaviour
     public float Distance()
     {
         return Vector3.Distance(transform.position, marketPlace.transform.position);
-    }
-
-    public bool IsEqFull()
-    {
-        return Equipment.Count >= EqMaxSize;
-    }
-
-    public void AddToEquipment(ShopItemSo item)
-    {
-        Equipment.Add(item);
-        EqDisplaySlots[Equipment.Count - 1].text = item.title;
     }
 
     public void ToggleShop(InputAction.CallbackContext context)

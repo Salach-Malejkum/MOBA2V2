@@ -45,7 +45,7 @@ public class TabManager : MonoBehaviour
 
     public void CheckParchasable()
     {
-        if (shopManager.Distance() <= shopManager.border && !shopManager.IsEqFull())
+        if (shopManager.Distance() <= shopManager.border && !InventoryManager.instance.IsEqFull())
         {
             for (int i = 0; i < shopItemSo.Length; i++)
             {
@@ -71,7 +71,7 @@ public class TabManager : MonoBehaviour
         {
             //Debug.Log("buying " + shopItemSo[btnNo].price);
             shopManager.Subtract(shopItemSo[btnNo].price);
-            shopManager.AddToEquipment(shopItemSo[btnNo]);
+            InventoryManager.instance.AddToEquipment(shopItemSo[btnNo]);
             CheckParchasable();
         }
     }
@@ -85,6 +85,7 @@ public class TabManager : MonoBehaviour
             shopPanels[i].magicVal.text = "Magic: " + shopItemSo[i].magic.ToString();
             shopPanels[i].defenceVal.text = "Defence: " + shopItemSo[i].defence.ToString();
             shopPanels[i].priceVal.text = "Price: " + shopItemSo[i].price.ToString();
+            shopPanels[i].ItemIm.sprite = shopItemSo[i].image;
         }
     }
 }

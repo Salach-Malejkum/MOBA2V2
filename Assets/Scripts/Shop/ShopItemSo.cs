@@ -10,6 +10,7 @@ public class ShopItemSo : ScriptableObject
     public int magic;
     public int defence;
     public int price;
+    public Sprite image;
 
     public virtual void OnUse()
     {

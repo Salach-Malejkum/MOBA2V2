@@ -17,3 +17,4 @@ MonoBehaviour:
   magic: 2
   defence: 10
   price: 11
+  image: {fileID: 21300000, guid: ef419fce13384654bab5cbf27232d640, type: 3}
