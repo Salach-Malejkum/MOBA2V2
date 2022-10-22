@@ -13,9 +13,12 @@ public class ShopManager : MonoBehaviour
 
     public GameObject shopCanva;
     public GameObject marketPlace;
+    public Button SellBtn;
 
     public float border = 100f;
     public float Timer;
+
+    private ShopItemSo SellItem;
 
     void Update()
     {
@@ -44,7 +47,6 @@ public class ShopManager : MonoBehaviour
 
     public void ToggleShop(InputAction.CallbackContext context)
     {
-        Debug.Log("P");
         if (shopCanva.activeSelf)
         {
             shopCanva.SetActive(false);
@@ -53,5 +55,25 @@ public class ShopManager : MonoBehaviour
         {
             shopCanva.SetActive(true);
         }
+    }
+
+    public void PrepareToSell(ShopItemSo itemToSell)
+    {
+        SellItem = itemToSell;
+        SellBtn.interactable = true;
+    }
+
+    public void InstaSell(ShopItemSo itemToSell)
+    {
+        SellItem = itemToSell;
+        Sell();
+    }
+
+    public void Sell()
+    {
+        float amount = SellItem.price * 0.8f;
+        GoldValue += (int) amount;
+        GoldValueText.text = "G: " + GoldValue;
+        SellBtn.interactable = false;
     }
 }

@@ -10,6 +10,8 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector]
     public ShopItemSo[] Equipment = new ShopItemSo[5];
 
+    private ShopManager Shop;
+
     private void Awake()
     {
         if(instance == null)
@@ -26,6 +28,7 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         RefreshSlots();
+        Shop = transform.GetComponent<ShopManager>();
     }
 
     public void RefreshSlots()
@@ -57,5 +60,29 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void PrepareToSellMid(int itemIndex)
+    {
+        if (Shop.shopCanva.activeSelf && Shop.Distance() <= Shop.border)
+        {
+            Shop.PrepareToSell(Equipment[itemIndex]);
+            RemoveItem(itemIndex);
+        }
+    }
+
+    public void SellMid(int itemIndex)
+    {
+        if (Shop.Distance() <= Shop.border)
+        {
+            Shop.InstaSell(Equipment[itemIndex]);
+            RemoveItem(itemIndex);
+        }
+    }
+
+    public void RemoveItem(int itemIndex)
+    {
+        Equipment[itemIndex] = null;
+        RefreshSlots();
     }
 }

@@ -38,14 +38,22 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             transform.SetParent(originalSlot);
             transform.localPosition = Vector3.zero;
             GetComponent<CanvasGroup>().blocksRaycasts = true;
+            if( Time.time - init < clickTreshold)
+            {
+                LeftClick();
+            }
         }
-        if( Time.time - init < clickTreshold)
+        else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            Click();
+            if (Time.time - init < clickTreshold)
+            {
+                RightClick();
+            }
         }
+
     }
 
-    public void Click()
+    public void LeftClick()
     {
         if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()] != null)
         {
@@ -54,6 +62,13 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()].OnUse();
             }
         }
+
+        InventoryManager.instance.PrepareToSellMid(transform.parent.GetSiblingIndex());
+    }
+
+    public void RightClick()
+    {
+        InventoryManager.instance.SellMid(transform.parent.GetSiblingIndex());
     }
 
 }
