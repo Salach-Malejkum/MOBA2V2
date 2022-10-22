@@ -1133,6 +1133,7 @@ MonoBehaviour:
   playButton: {fileID: 920861518}
   leaveQueueButton: {fileID: 1016814406}
   queueStatusText: {fileID: 1148143743}
+  landingPage: {fileID: 631552292}
 --- !u!1 &631552292
 GameObject:
   m_ObjectHideFlags: 0
