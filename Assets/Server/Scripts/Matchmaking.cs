@@ -10,6 +10,7 @@ public class Matchmaking : MonoBehaviour
     [SerializeField] private GameObject playButton;
     [SerializeField] private GameObject leaveQueueButton;
     [SerializeField] private TMP_Text queueStatusText;
+    [SerializeField] private GameObject landingPage;
 
     private const string queueName = "DebugQueue";
     private string matchTicketId;
@@ -73,10 +74,12 @@ public class Matchmaking : MonoBehaviour
     }
 
     private void OnGetMatchTicket(GetMatchmakingTicketResult result) {
-        queueStatusText.text = $"Status: {result.Status}";
+        if(result.Status != "Canceled") {
+            queueStatusText.text = $"Status: {result.Status}";
+        }
+        
 
-        switch(result.Status)
-        {
+        switch(result.Status) {
             case "Matched":
                 StopCoroutine(pollTicketCoroutine);
                 StartMatch(result.MatchId);
@@ -102,6 +105,7 @@ public class Matchmaking : MonoBehaviour
     private void OnGetMatch(GetMatchResult result) {
         NetworkManagerLobby.Instance.networkAddress = result.ServerDetails.IPV4Address;
         NetworkManagerLobby.Instance.GetComponent<kcp2k.KcpTransport>().Port = (ushort) result.ServerDetails.Ports[0].Num; 
+        landingPage.SetActive(false);
         NetworkManagerLobby.Instance.StartClient();
     }
 
