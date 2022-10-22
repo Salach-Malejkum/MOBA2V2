@@ -6,9 +6,12 @@ using UnityEngine.EventSystems;
 public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private Transform originalSlot;
+    private float clickTreshold = 0.5f;
+    private float init;
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        init = Time.time;
         if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()] != null)
         {
             if(eventData.button == PointerEventData.InputButton.Left)
@@ -36,5 +39,21 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             transform.localPosition = Vector3.zero;
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
+        if( Time.time - init < clickTreshold)
+        {
+            Click();
+        }
     }
+
+    public void Click()
+    {
+        if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()] != null)
+        {
+            if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
+            {
+                InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()].OnUse();
+            }
+        }
+    }
+
 }

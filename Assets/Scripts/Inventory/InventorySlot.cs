@@ -35,10 +35,11 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if( InventoryManager.instance.Equipment[transform.GetSiblingIndex()] != null)
         {
             image.GetComponent<Image>().sprite = InventoryManager.instance.Equipment[transform.GetSiblingIndex()].image;
+            image.SetActive(true);
         }
         else
         {
-            image.GetComponent<Image>().sprite = null;
+            image.SetActive(false);
         }
     }
 }
