@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public GameObject image;
+    [SerializeField]
+    private GameObject image;
 
     public void OnDrop(PointerEventData eventData)
     {

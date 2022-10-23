@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,16 +5,19 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    public int GoldValue = 0;
-    public int DelayAmount = 1; // Second count
-    public TMP_Text GoldValueText;
+    [SerializeField]
+    private int DelayAmount = 1;
 
+    [SerializeField]
+    private TMP_Text GoldValueText;
+
+    public int GoldValue = 0;
     public GameObject shopCanva;
     public GameObject marketPlace;
     public Button SellBtn;
 
     public float border = 100f;
-    public float Timer;
+    private float Timer;
 
     private ShopItemSo SellItem;
     private int SellItemIndex = -1;
@@ -28,9 +29,8 @@ public class ShopManager : MonoBehaviour
         if (Timer >= DelayAmount)
         {
             Timer = 0f;
-            GoldValue++; // For every DelayAmount or "second" it will add one to the GoldValue
+            GoldValue++;
             GoldValueText.text = "G: " + GoldValue;
-            //Debug.Log("ShopManager Gold: "+GoldValue);
         }
 
         if (Distance() >= border)
@@ -41,7 +41,6 @@ public class ShopManager : MonoBehaviour
 
     public void Subtract(int amount)
     {
-        //Debug.Log("odejmuje");
         GoldValue -= amount;
         GoldValueText.text = "G: " + GoldValue;
     }

@@ -1,16 +1,25 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TabGroup : MonoBehaviour
 {
-    public List<TabButtons> tabButtons;
-    public Sprite tabIdle;
-    public Sprite tabHover;
-    public Sprite tabActive;
-    public TabButtons selectedTab;
-    public List<GameObject> objectToSwap;
+    [SerializeField]
+    private List<TabButtons> tabButtons;
+
+    [SerializeField]
+    private Sprite tabIdle;
+
+    [SerializeField]
+    private Sprite tabHover;
+
+    [SerializeField]
+    private Sprite tabActive;
+
+    [SerializeField]
+    private TabButtons selectedTab;
+
+    [SerializeField]
+    private List<GameObject> objectToSwap;
 
     public void Subscribe(TabButtons button)
     {

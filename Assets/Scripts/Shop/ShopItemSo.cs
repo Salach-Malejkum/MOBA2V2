@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
+[Serializable]
 [CreateAssetMenu(fileName ="ShopMenu", menuName = "scriptable Objects/New Base Shop Item", order = 1)]
 public class ShopItemSo : ScriptableObject
 {
@@ -18,6 +18,7 @@ public class ShopItemSo : ScriptableObject
     }
 }
 
+[Serializable]
 [CreateAssetMenu(fileName = "ShopMenu", menuName = "scriptable Objects/New Shop Item custom message", order = 2)]
 public class ItemTypeOne : ShopItemSo
 {

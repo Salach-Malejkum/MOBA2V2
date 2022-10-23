@@ -1,21 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
 {
-    public ShopItemSo[] shopItemSo;
-    public GameObject[] shopPanelsGo;
-    public ShopTemplate[] shopPanels;
-    public Button[] myBuyButtons;
+    [SerializeField]
+    private List<ShopItemSo> shopItemSo;
+    [SerializeField]
+    private List<GameObject> shopPanelsGo;
+    [SerializeField]
+    private List<ShopTemplate> shopPanels;
+    [SerializeField]
+    private List<Button> myBuyButtons;
 
-    public ShopManager shopManager;
+    [SerializeField]
+    private ShopManager shopManager;
 
-    public int DelayAmount = 1; // Second count
-    public float Timer;
+    private int DelayAmount = 1;
+    private float Timer;
 
     void Update()
     {
@@ -23,7 +25,6 @@ public class TabManager : MonoBehaviour
 
         if (Timer >= DelayAmount)
         {
-            //Debug.Log("TabManager Gold: " + shopManager.GoldValue);
             Timer = 0f;
             CheckParchasable();
 
@@ -32,12 +33,7 @@ public class TabManager : MonoBehaviour
 
     void Start()
     {
-        //for (int i = 0; i < myBuyButtons.Length; i++)
-        //{
-        //    myBuyButtons[i].onClick.AddListener(delegate { BuyItem(i); });
-        //}
-
-        for (int i = 0; i < shopItemSo.Length; i++)
+        for (int i = 0; i < shopItemSo.Count; i++)
             shopPanelsGo[i].SetActive(true);
         LoadPanels();
         CheckParchasable();
@@ -47,7 +43,7 @@ public class TabManager : MonoBehaviour
     {
         if (shopManager.Distance() <= shopManager.border && !InventoryManager.instance.IsEqFull())
         {
-            for (int i = 0; i < shopItemSo.Length; i++)
+            for (int i = 0; i < shopItemSo.Count; i++)
             {
                 if (shopManager.GoldValue >= shopItemSo[i].price)
                     myBuyButtons[i].interactable = true;
@@ -57,7 +53,7 @@ public class TabManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < shopItemSo.Length; i++)
+            for (int i = 0; i < shopItemSo.Count; i++)
             {
                 myBuyButtons[i].interactable = false;
             }
@@ -66,10 +62,8 @@ public class TabManager : MonoBehaviour
 
     public void BuyItem(int btnNo)
     {
-        //Debug.Log(btnNo);
         if (shopManager.GoldValue >= shopItemSo[btnNo].price)
         {
-            //Debug.Log("buying " + shopItemSo[btnNo].price);
             shopManager.Subtract(shopItemSo[btnNo].price);
             InventoryManager.instance.AddToEquipment(shopItemSo[btnNo]);
             CheckParchasable();
@@ -78,7 +72,7 @@ public class TabManager : MonoBehaviour
 
     public void LoadPanels()
     {
-        for (int i = 0; i < shopItemSo.Length; i++)
+        for (int i = 0; i < shopItemSo.Count; i++)
         {
             shopPanels[i].titleTxt.text = shopItemSo[i].title;
             shopPanels[i].attackVal.text = "Attack: " + shopItemSo[i].attack.ToString();
