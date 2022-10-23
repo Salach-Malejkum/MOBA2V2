@@ -10,10 +10,9 @@ using Mirror;
 
 
 public class NetworkManagerLobby : NetworkManager {
-
+    
     [SerializeField] private int minPlayers = 2;
     [Scene] [SerializeField] private string menuScene = string.Empty;
-    public string connType = "remote";
 
     [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = default;
 
@@ -21,7 +20,7 @@ public class NetworkManagerLobby : NetworkManager {
     [SerializeField] private GameObject playerSpawnSystem = default;
 
     public static NetworkManagerLobby Instance { get; private set; }
-
+    //event Action nie działa tutaj
     public PlayerEvent OnPlayerAdded = new PlayerEvent();
     public PlayerEvent OnPlayerRemoved = new PlayerEvent();
     
@@ -35,6 +34,7 @@ public class NetworkManagerLobby : NetworkManager {
     public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
+    public string connType = "remote";
     public override void Awake()
     {
         base.Awake();
@@ -45,38 +45,25 @@ public class NetworkManagerLobby : NetworkManager {
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {
         Debug.Log("Authenticate message received--------------------------------PlayfabId: " + message.PlayfabId);
         var conn = playerConnections.Find(c => c.ConnectionId == nconn.connectionId);
-        if(conn == null && connType == "remote") {
+        if(conn == null) {
             conn.PlayfabId = message.PlayfabId;
             conn.Authenticated = true;
             OnPlayerAdded.Invoke(message.PlayfabId);
         }
     }
 
-    //Region: ServerCode
     public override void OnStartServer() => spawnPrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs").ToList();
-<<<<<<< HEAD
     //możliwy podział OnStartClient, OnClientConnect i OnClientDisconnect do osobnego NetworkManagera
     //komunikacja zamiast Event przy użyciu messages
-        public override void OnStartClient() {
-            var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
-=======
-
     public override void OnStartClient() {
         var spawnablePrefabs = Resources.LoadAll<GameObject>("SpawnablePrefabs");
->>>>>>> parent of 5ff4675 (added comments)
 
-            foreach (var prefab in spawnablePrefabs)
-            {
-                NetworkClient.RegisterPrefab(prefab);
-            }
+        foreach (var prefab in spawnablePrefabs)
+        {
+            NetworkClient.RegisterPrefab(prefab);
         }
-<<<<<<< HEAD
-    
-    //Ewentualnie do zmiany Invoke jeżeli będzie podzial NetworkManagera na klienta i serwer
-=======
     }
-
->>>>>>> parent of 5ff4675 (added comments)
+    //Ewentualnie do zmiany Invoke jeżeli będzie podzial NetworkManagera na klienta i serwer
     public override void OnClientConnect() {
         Debug.Log("Client connected-------------------------");
         base.OnClientConnect();
@@ -88,7 +75,7 @@ public class NetworkManagerLobby : NetworkManager {
 
         OnClientDisconnected?.Invoke();
     }
-
+    //odpowiedź serwera na połączenie klienta
     public override void OnServerConnect(NetworkConnectionToClient conn) {
         Debug.Log("Client connected-------------------------");
         if(numPlayers >= maxConnections) {
@@ -102,13 +89,8 @@ public class NetworkManagerLobby : NetworkManager {
         }
 
         var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
-<<<<<<< HEAD
         //customowe atrybuty połączenia do listy połączeń
-        if(playerConn == null && connType == "remote") {
-=======
-
         if(playerConn == null) {
->>>>>>> parent of 5ff4675 (added comments)
             playerConnections.Add(new PlayerConnection() {
                 Connection = conn,
                 ConnectionId = conn.connectionId,
@@ -116,7 +98,7 @@ public class NetworkManagerLobby : NetworkManager {
             });
         }
     }
-    
+
     public override void OnServerAddPlayer(NetworkConnectionToClient conn) {
         Debug.Log("Player added on server------------------------- Scene: " + SceneManager.GetActiveScene().path);
         if (SceneManager.GetActiveScene().path == menuScene) {
@@ -124,16 +106,11 @@ public class NetworkManagerLobby : NetworkManager {
             NetworkRoomPlayer roomPlayerInstance = Instantiate(roomPlayerPrefab);
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
-<<<<<<< HEAD
+            //klient nie może tego dodać, musi to być serwer, OnServerRemovePlayer powinien usuwać ale nie wiem jak dać call dla ClientScene.RemovePlayer().
             if(connType == "remote") {
                 RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
             }
-            
-=======
 
-            RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
-
->>>>>>> parent of 5ff4675 (added comments)
             Debug.Log("Player added for connection, player count-------------------------" + Instance.RoomPlayers.Count.ToString());
             Debug.Log("List of players-------------------------");
             foreach(NetworkRoomPlayer rplayer in Instance.RoomPlayers) {
@@ -141,7 +118,7 @@ public class NetworkManagerLobby : NetworkManager {
             }
         }
     }
-
+    //uusnięcie obiektu gracza i połączenia z listy przy evencie rozłączenia
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
         if(conn.identity != null) {
             var player = conn.identity.GetComponent<NetworkRoomPlayer>();
@@ -152,7 +129,7 @@ public class NetworkManagerLobby : NetworkManager {
         }
         var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
 
-        if(playerConn != null && connType == "remote") {
+        if(playerConn != null) {
             if(!string.IsNullOrEmpty(playerConn.PlayfabId)) {
                 OnPlayerRemoved.Invoke(playerConn.PlayfabId);
             }
@@ -160,17 +137,17 @@ public class NetworkManagerLobby : NetworkManager {
         }
         base.OnServerDisconnect(conn);
     }
-
+    //wyczyszczenie listy na wypadek gdy serwer sie wywali
     public override void OnStopServer() {
         Instance.RoomPlayers.Clear();
     }
-
+    //można zmienić przycisk na countdown, na razie do testowania przycisk jest ok
     public void NotifyPlayersOfReadyState() {
         foreach (var player in Instance.RoomPlayers) {
             player.HandleReadyToStart(IsReadyToStart());
         }
     }
-
+    //dobry check na akceptacje meczu, można dać OnApplicationQuit() NetworkServer.Shutdown() jeżeli nie będzie ready w odpowiednim czasie i powrócić do menu
     private bool IsReadyToStart() {
         if (numPlayers < minPlayers) { return false; }
 
@@ -180,7 +157,7 @@ public class NetworkManagerLobby : NetworkManager {
 
         return true;
     }
-
+    //zmiana sceny po ready check
     public void StartGame() {
         if(SceneManager.GetActiveScene().path == menuScene) {
             if(!IsReadyToStart()) { return; }
@@ -197,20 +174,17 @@ public class NetworkManagerLobby : NetworkManager {
                 inGamePlayerInstance.SetDisplayName(Instance.RoomPlayers[i].DisplayName);
                 Debug.Log("Room player " + Instance.RoomPlayers[i].DisplayName + " changed to inGamePlayer ");
                 NetworkServer.Destroy(conn.identity.gameObject);
+                //wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
                 NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
-                if(connType == "remote") {
-                    NetworkManagerLobby.Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
-                }
-                
+                NetworkManagerLobby.Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
             }
 
             base.ServerChangeScene(mapName);
         }
     }
-
+    //po zmianie sceny spawn graczy, tutaj można też dodać cooldown na spawn minionów itp.
     public override void OnServerSceneChanged(string newSceneName)
     {
-        //jest blad po stronie clienta ze niby nie ma tego obiektu, ale on sie respi po stronie serwera i nie ma z tym problemów bo respi graczy normalnie
         if(newSceneName.StartsWith("Map")) {
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
@@ -223,7 +197,6 @@ public class NetworkManagerLobby : NetworkManager {
 
         OnServerReadied?.Invoke(conn);
     }
-
 }
 
 [Serializable]
@@ -234,7 +207,7 @@ public class PlayerConnection {
     public int ConnectionId;
     public NetworkConnection Connection;
 }
-
+//musi być struct bo NonNullable
 public struct AuthenticateMessage : NetworkMessage {
     public string PlayfabId;
 }

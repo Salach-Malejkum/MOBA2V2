@@ -2132,13 +2132,13 @@ MonoBehaviour:
   - {fileID: 1369216056555088242, guid: dd44add7f8b612e498925759f728b846, type: 3}
   minPlayers: 2
   menuScene: Assets/Lobby/Scenes/Lobby.unity
-  connType: remote
   roomPlayerPrefab: {fileID: 2461713667315046168, guid: dd44add7f8b612e498925759f728b846, type: 3}
   inGamePlayerPrefab: {fileID: -175712545696156868, guid: d7cb3d3ccd98a344c877d6d0dad9a1c3, type: 3}
   playerSpawnSystem: {fileID: 6377794084287402632, guid: 645d810de1590294db6cc876fe799cb2, type: 3}
   RoomPlayers: []
   InGamePlayers: []
   playerConnections: []
+  connType: remote
 --- !u!4 &693488855
 Transform:
   m_ObjectHideFlags: 0

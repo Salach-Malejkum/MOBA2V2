@@ -8,9 +8,7 @@ public class NetworkInGamePlayer : NetworkBehaviour
     public override void OnStartClient()
     {
         DontDestroyOnLoad(gameObject);
-        if(NetworkManagerLobby.Instance.connType == "local") {
-            NetworkManagerLobby.Instance.InGamePlayers.Add(this);
-        }   
+        NetworkManagerLobby.Instance.InGamePlayers.Add(this);
     }
 
     public override void OnStopClient()
