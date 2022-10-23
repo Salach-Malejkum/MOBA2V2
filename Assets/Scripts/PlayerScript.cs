@@ -11,13 +11,13 @@ public class PlayerScript : MonoBehaviour
     private bool followAttack = false;
     private GameObject followAttackObject;
 
-    void Start()
+    private void Start()
     {
         playerAttackScript = new AttackPlayerScript(5.0f, 0.5f);
         playerMovementScript = new PlayerMovement(this.GetComponent<NavMeshAgent>());
     }
 
-    void FixUpdate()
+    private void FixUpdate()
     {
         if (followAttack)
         {
@@ -44,6 +44,7 @@ public class PlayerScript : MonoBehaviour
                         //Attack
                         int attackResult = this.playerAttackScript.TryAttack(this.transform.position, hit.transform.position);
                         this.ActionBasedOnTryAttackResult(attackResult, hit.transform.gameObject);
+
                         break;
                 }
             }

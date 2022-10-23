@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+/Assets/Mirror
+/Assets/PlayFabSDK
+/Assets/PlayFabEditorExtensions
+/Assets/ScriptTemplates
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -9,15 +13,10 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
-/[Us]ser[Ss]ettings/
+/[Uu]ser[Ss]ettings/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-# !/[Aa]ssets/**/*.meta
-
-/Assets/ScriptTemplates
-/Assets/Mirror
-/Assets/PlayFab*
-/UserSettings
+!/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
@@ -64,4 +63,3 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-.vsconfig

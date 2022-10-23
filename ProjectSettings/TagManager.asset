@@ -6,9 +6,8 @@ TagManager:
   tags:
   - Tower_Red
   - Missile
-  - Resource
-  - New tag
-  - Terrain
+  - Red Team
+  - Blue Team
   layers:
   - Default
   - TransparentFX
