@@ -11,7 +11,7 @@ namespace Enums
 
     public static class MinionPaths
     {
-        public static readonly Vector3[] topPathPoints = null;
-        public static readonly Vector3[] botPathPoints = null;
+        public static readonly Vector3[] topPathPoints = { new Vector3(-5f, 0.5f, 0f), new Vector3(-10f, 0.5f, 0f), new Vector3(-10f, 0.5f, 5f), new Vector3(-10f, 0.5f, 10f) }; // choose and assign point from the real map
+        public static readonly Vector3[] botPathPoints = null; // choose and assign point from the real map
     }
 }
