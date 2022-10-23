@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//dołączenie do custom lobby, zostawiam funkcjonalność
 public class JoinLobbyMenu : MonoBehaviour
 {
 
@@ -21,10 +22,10 @@ public class JoinLobbyMenu : MonoBehaviour
 
     public void JoinLobby() {
         string ipAddress = ipAddressInputField.text;
-
-        NetworkManagerLobby.Instance.StartClient();
+        NetworkManagerLobby.Instance.connType = "local";
         NetworkManagerLobby.Instance.networkAddress = ipAddress;
-
+        NetworkManagerLobby.Instance.StartClient();
+    
         joinButton.interactable = false;
     }
 

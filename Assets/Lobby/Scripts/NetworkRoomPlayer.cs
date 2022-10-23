@@ -22,7 +22,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        NetworkManagerLobby.Instance.RoomPlayers.Add(this);
         Debug.Log("Client started on Room Player");
         UpdateDisplay();
     }

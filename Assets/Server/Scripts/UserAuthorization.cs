@@ -6,11 +6,14 @@ using PlayFab.ClientModels;
 using TMPro;
 public class UserAuthorization : MonoBehaviour
 {
+    [SerializeField] private GameObject signUpDisplay = default;
     [SerializeField] private GameObject signInDisplay = default;
     [SerializeField] private GameObject afterLoginScreen = default;
-    [SerializeField] private TMP_InputField usernameInputField = default;
-    [SerializeField] private TMP_InputField emailInputField = default;
-    [SerializeField] private TMP_InputField passwordInputField = default;
+    [SerializeField] private TMP_InputField usernameInputFieldRegister = default;
+    [SerializeField] private TMP_InputField emailInputFieldRegister = default;
+    [SerializeField] private TMP_InputField passwordInputFieldRegister = default;
+    [SerializeField] private TMP_InputField usernameInputFieldLogin = default;
+    [SerializeField] private TMP_InputField passwordInputFieldLogin = default;
     [SerializeField] private ClientStartup client = default;
 
     public static string EntityId = null;
@@ -19,16 +22,17 @@ public class UserAuthorization : MonoBehaviour
     public void CreateAccount() {
         PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest {
             TitleId = PlayFabSettings.TitleId,
-            Username = usernameInputField.text,
-            Email = emailInputField.text,
-            Password = passwordInputField.text
+            Username = usernameInputFieldRegister.text,
+            Email = emailInputFieldRegister.text,
+            Password = passwordInputFieldRegister.text
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
             client.RequestServerData();
             signInDisplay.SetActive(false);
+            signUpDisplay.SetActive(false);
             afterLoginScreen.SetActive(true);
-            PlayerDataManager.StrSave("Username", usernameInputField.text);
+            PlayerDataManager.StrSave("Username", usernameInputFieldRegister.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
@@ -37,15 +41,16 @@ public class UserAuthorization : MonoBehaviour
     public void LoginWithCredentials() {
         PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest {
             TitleId = PlayFabSettings.TitleId,
-            Username = usernameInputField.text,
-            Password = passwordInputField.text
+            Username = usernameInputFieldLogin.text,
+            Password = passwordInputFieldLogin.text
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
             client.RequestServerData();
             signInDisplay.SetActive(false);
+            signUpDisplay.SetActive(false);
             afterLoginScreen.SetActive(true);
-            PlayerDataManager.StrSave("Username", usernameInputField.text);
+            PlayerDataManager.StrSave("Username", usernameInputFieldLogin.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
