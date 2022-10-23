@@ -30,7 +30,7 @@ public class MinionSpawnerScript : ISpawner
     private bool CheckIfCanFirstSpawn(float timePassed)
     {
         bool result = !this.wasFirstWaveSpawned
-            && timePassed / (float)Enums.MinionSpawnTime.FirstSpawnTimePeriod >= this.spawnsFinished + 1;
+            && (timePassed / (float)Enums.MinionSpawnTime.FirstSpawnTimePeriod >= this.spawnsFinished + 1);
 
         if (result)
         {
@@ -43,7 +43,7 @@ public class MinionSpawnerScript : ISpawner
     private bool CheckIfCanNormalSpawn(float timePassed)
     {
         return this.wasFirstWaveSpawned
-            && timePassed / (float)Enums.MinionSpawnTime.NormalSpawnTimePeriod >= this.spawnsFinished + 1;
+            && (timePassed / (float)Enums.MinionSpawnTime.NormalSpawnTimePeriod >= this.spawnsFinished + 1);
     }
 
     public bool CheckIfCanSpawm(float timePassed)
@@ -56,12 +56,14 @@ public class MinionSpawnerScript : ISpawner
     private void TryIncreaseSpawnsFinished(bool result)
     {
         if (result)
+        {
             this.spawnsFinished += 1;
+        }
     }
 
     public bool CheckIfSpawnCannon()
     {
-        return (this.spawnsFinished) % this.cannonWave == 0;
+        return this.spawnsFinished % this.cannonWave == 0;
     }
     
     public Vector3 GetSpawnPosition()
