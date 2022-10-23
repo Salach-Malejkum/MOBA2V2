@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Tower_Red
   - Missile
-  - Ground
+  - Red Team
+  - Blue Team
   layers:
   - Default
   - TransparentFX
