@@ -16,70 +16,71 @@ public class TabManager : MonoBehaviour
     [SerializeField]
     private ShopManager shopManager;
 
-    private int DelayAmount = 1;
-    private float Timer;
+    private readonly int delayAmount = 1;
+    private float timer;
+
+    void Start()
+    {
+        for (int i = 0; i < this.shopItemSo.Count; i++)
+            this.shopPanelsGo[i].SetActive(true);
+        this.LoadPanels();
+        this.CheckParchasable();
+    }
 
     void Update()
     {
-        Timer += Time.deltaTime;
+        this.timer += Time.deltaTime;
 
-        if (Timer >= DelayAmount)
+        if (this.timer >= this.delayAmount)
         {
-            Timer = 0f;
-            CheckParchasable();
+            this.timer = 0f;
+            this.CheckParchasable();
 
         }
     }
 
-    void Start()
+    private void CheckParchasable()
     {
-        for (int i = 0; i < shopItemSo.Count; i++)
-            shopPanelsGo[i].SetActive(true);
-        LoadPanels();
-        CheckParchasable();
-    }
-
-    public void CheckParchasable()
-    {
-        if (shopManager.Distance() <= shopManager.border && !InventoryManager.instance.IsEqFull())
+        
+        if (this.shopManager.IsInBorder() && !InventoryManager.instance.IsEqFull())
         {
-            for (int i = 0; i < shopItemSo.Count; i++)
+            for (int i = 0; i < this.shopItemSo.Count; i++)
             {
-                if (shopManager.GoldValue >= shopItemSo[i].price)
-                    myBuyButtons[i].interactable = true;
+                if (this.shopManager.GoldValue >= this.shopItemSo[i].Price)
+                    this.myBuyButtons[i].interactable = true;
                 else
-                    myBuyButtons[i].interactable = false;
+                    this.myBuyButtons[i].interactable = false;
             }
         }
         else
         {
-            for (int i = 0; i < shopItemSo.Count; i++)
+            for (int i = 0; i < this.shopItemSo.Count; i++)
             {
-                myBuyButtons[i].interactable = false;
+                this.myBuyButtons[i].interactable = false;
             }
         }
     }
 
     public void BuyItem(int btnNo)
     {
-        if (shopManager.GoldValue >= shopItemSo[btnNo].price)
+        if (this.shopManager.GoldValue >= this.shopItemSo[btnNo].Price)
         {
-            shopManager.Subtract(shopItemSo[btnNo].price);
-            InventoryManager.instance.AddToEquipment(shopItemSo[btnNo]);
-            CheckParchasable();
+            this.shopManager.Subtract(this.shopItemSo[btnNo].Price);
+            InventoryManager.instance.AddToEquipment(this.shopItemSo[btnNo]);
+            this.CheckParchasable();
         }
     }
 
-    public void LoadPanels()
+    private void LoadPanels()
     {
-        for (int i = 0; i < shopItemSo.Count; i++)
+        for (int i = 0; i < this.shopItemSo.Count; i++)
         {
-            shopPanels[i].titleTxt.text = shopItemSo[i].title;
-            shopPanels[i].attackVal.text = "Attack: " + shopItemSo[i].attack.ToString();
-            shopPanels[i].magicVal.text = "Magic: " + shopItemSo[i].magic.ToString();
-            shopPanels[i].defenceVal.text = "Defence: " + shopItemSo[i].defence.ToString();
-            shopPanels[i].priceVal.text = "Price: " + shopItemSo[i].price.ToString();
-            shopPanels[i].ItemIm.sprite = shopItemSo[i].image;
+            this.shopPanels[i].TitleTxt.text = this.shopItemSo[i].Title;
+            this.shopPanels[i].AttackVal.text = "Attack: " + this.shopItemSo[i].Attack.ToString();
+            this.shopPanels[i].MagicVal.text = "Magic: " + this.shopItemSo[i].Magic.ToString();
+            this.shopPanels[i].DefenceVal.text = "Defence: " + this.shopItemSo[i].Defence.ToString();
+            this.shopPanels[i].PriceVal.text = "Price: " + this.shopItemSo[i].Price.ToString();
+            this.shopPanels[i].ItemIm.sprite = this.shopItemSo[i].Image;
         }
     }
 }

@@ -4,11 +4,17 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
-    public InventorySlot[] EqDisplaySlots;
+    [SerializeField]
+    private InventorySlot[] eqDisplaySlots;
     [HideInInspector]
-    public ShopItemSo[] Equipment = new ShopItemSo[5];
+    private ShopItemSo[] equipment = new ShopItemSo[5];
+    public ShopItemSo[] Equipment
+    {
+        get { return equipment; }
+        set { equipment = value; }
+    }
 
-    private ShopManager Shop;
+    private ShopManager shop;
 
     private void Awake()
     {
@@ -26,22 +32,22 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         RefreshSlots();
-        Shop = transform.GetComponent<ShopManager>();
+        this.shop = this.transform.GetComponent<ShopManager>();
     }
 
     public void RefreshSlots()
     {
-        for (int i = 0; i < EqDisplaySlots.Length; i++)
+        for (int i = 0; i < this.eqDisplaySlots.Length; i++)
         {
-            EqDisplaySlots[i].RefreshSlot();
+            this.eqDisplaySlots[i].RefreshSlot();
         }
     }
 
     public bool IsEqFull()
     {
-        for (int i = 0; i < Equipment.Length; i++)
+        for (int i = 0; i < this.equipment.Length; i++)
         {
-            if (Equipment[i] == null)
+            if (this.equipment[i] == null)
                 return false;
         }
         return true;
@@ -49,11 +55,11 @@ public class InventoryManager : MonoBehaviour
 
     public void AddToEquipment(ShopItemSo item)
     {
-        for (int i = 0; i < Equipment.Length; i++)
+        for (int i = 0; i < this.equipment.Length; i++)
         {
-            if (Equipment[i] == null)
+            if (this.equipment[i] == null)
             {
-                Equipment[i] = item;
+                this.equipment[i] = item;
                 RefreshSlots();
                 return;
             }
@@ -62,29 +68,29 @@ public class InventoryManager : MonoBehaviour
 
     public void PrepareToSellMid(int itemIndex)
     {
-        if (Shop.shopCanva.activeSelf && Shop.Distance() <= Shop.border)
+        if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
         {
-            Shop.PrepareToSell(Equipment[itemIndex], itemIndex);
+            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex);
         }
     }
 
     public void SellMid(int itemIndex)
     {
-        if (Shop.Distance() <= Shop.border)
+        if (this.shop.IsInBorder())
         {
-            Shop.InstaSell(Equipment[itemIndex]);
+            this.shop.InstaSell(this.equipment[itemIndex]);
             RemoveItem(itemIndex);
         }
     }
 
     public void RemoveItem(int itemIndex)
     {
-        Equipment[itemIndex] = null;
+        this.equipment[itemIndex] = null;
         RefreshSlots();
     }
 
     public void BlockSell()
     {
-        Shop.SellBtn.interactable = false;
+        this.shop.SellBtn.interactable = false;
     }
 }

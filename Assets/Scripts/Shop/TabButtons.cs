@@ -7,27 +7,33 @@ public class TabButtons : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 {
     [SerializeField]
     private TabGroup tabGroup;
-    
-    public Image backGround;
+
+    [SerializeField]
+    private Image backGround;
+
+    public Image BackGround
+    {
+        get { return backGround; }
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        tabGroup.OnTabSelected(this);
+        this.tabGroup.OnTabSelected(this);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tabGroup.OnTabEnter(this);
+        this.tabGroup.OnTabEnter(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tabGroup.OnTabExit(this);
+        this.tabGroup.OnTabExit(this);
     }
 
     void Start()
     {
-        backGround = GetComponent<Image>();
-        tabGroup.Subscribe(this);
+        this.backGround = GetComponent<Image>();
+        this.tabGroup.Subscribe(this);
     }
 }

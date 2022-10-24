@@ -23,57 +23,54 @@ public class TabGroup : MonoBehaviour
 
     public void Subscribe(TabButtons button)
     {
-        if(tabButtons == null)
+        if(this.tabButtons == null)
         {
-            tabButtons = new List<TabButtons>();
+            this.tabButtons = new List<TabButtons>();
         }
-        tabButtons.Add(button);
+        this.tabButtons.Add(button);
     }
 
     public void OnTabEnter(TabButtons button)
     {
-        ResetTabs();
-        if(selectedTab == null || button != selectedTab)
+        this.ResetTabs();
+        if(this.selectedTab == null || button != this.selectedTab)
         {
-            button.backGround.sprite = tabHover;
+            button.BackGround.sprite = this.tabHover;
         }
         
     }
 
-    public void OnTabExit(TabButtons button)
-    {
-        ResetTabs();
-    }
+    public void OnTabExit(TabButtons _) => this.ResetTabs();
 
     public void OnTabSelected(TabButtons button)
     {
-        selectedTab = button;
-        ResetTabs();
-        button.backGround.sprite = tabActive;
+        this.selectedTab = button;
+        this.ResetTabs();
+        button.BackGround.sprite = this.tabActive;
         int index = button.transform.GetSiblingIndex();
-        for(int i = 0; i<objectToSwap.Count; i++)
+        for(int i = 0; i < this.objectToSwap.Count; i++)
         {
             if(i == index)
             {
-                objectToSwap[i].SetActive(true);
+                this.objectToSwap[i].SetActive(true);
             }
             else
             {
-                objectToSwap[i].SetActive(false);
+                this.objectToSwap[i].SetActive(false);
             }
         }
 
     }
 
-    public void ResetTabs()
+    private void ResetTabs()
     {
-        foreach(TabButtons button in tabButtons)
+        foreach(TabButtons button in this.tabButtons)
         {
-            if (selectedTab != null && button == selectedTab)
+            if (this.selectedTab != null && button == this.selectedTab)
             {
                 continue;
             }
-            button.backGround.sprite = tabIdle;
+            button.BackGround.sprite = tabIdle;
         }
     }
 

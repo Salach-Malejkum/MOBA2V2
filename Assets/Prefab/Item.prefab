@@ -970,7 +970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleTxt: {fileID: 3799073928759408975}
-  ItemIm: {fileID: 5109001058106420947}
+  itemIm: {fileID: 5109001058106420947}
   attackVal: {fileID: 446090159087766922}
   magicVal: {fileID: 1747236999984050291}
   defenceVal: {fileID: 1721262995992942910}

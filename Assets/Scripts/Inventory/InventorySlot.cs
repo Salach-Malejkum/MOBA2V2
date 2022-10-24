@@ -14,9 +14,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             return;
         }
-        if( InventoryManager.instance.Equipment[transform.GetSiblingIndex()] == null)
+        if( InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] == null)
         {
-            InventoryManager.instance.Equipment[transform.GetSiblingIndex()] = droppedItem;
+            InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
             InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
             InventoryManager.instance.RefreshSlots();
             InventoryManager.instance.BlockSell();
@@ -24,7 +24,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         else
         {
             ShopItemSo tempItem = InventoryManager.instance.Equipment[transform.GetSiblingIndex()];
-            InventoryManager.instance.Equipment[transform.GetSiblingIndex()] = droppedItem;
+            InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
             InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
             InventoryManager.instance.RefreshSlots();
             InventoryManager.instance.BlockSell();
@@ -35,12 +35,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         if( InventoryManager.instance.Equipment[transform.GetSiblingIndex()] != null)
         {
-            image.GetComponent<Image>().sprite = InventoryManager.instance.Equipment[transform.GetSiblingIndex()].image;
-            image.SetActive(true);
+            this.image.GetComponent<Image>().sprite = InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()].Image;
+            this.image.SetActive(true);
         }
         else
         {
-            image.SetActive(false);
+            this.image.SetActive(false);
         }
     }
 }

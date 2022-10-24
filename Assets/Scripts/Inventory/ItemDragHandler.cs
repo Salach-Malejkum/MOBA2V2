@@ -4,18 +4,18 @@ using UnityEngine.EventSystems;
 public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private Transform originalSlot;
-    private float clickTreshold = 0.5f;
-    private float init;
+    private readonly float clickTreshold = 0.5f;
+    private float pointerDownTime;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        init = Time.time;
-        if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()] != null)
+        this.pointerDownTime = Time.time;
+        if (InventorySlotNotEmpty())
         {
             if(eventData.button == PointerEventData.InputButton.Left)
             {
-                originalSlot = transform.parent;
-                transform.SetParent(transform.parent.parent);
+                this.originalSlot = this.transform.parent;
+                this.transform.SetParent(this.transform.parent.parent);
                 GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
         }
@@ -23,9 +23,9 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (InventoryManager.instance.Equipment[originalSlot.transform.GetSiblingIndex()] != null && eventData.button == PointerEventData.InputButton.Left)
+        if (InventoryManager.instance.Equipment[this.originalSlot.transform.GetSiblingIndex()] != null && eventData.button == PointerEventData.InputButton.Left)
         {
-            transform.position = Input.mousePosition;
+            this.transform.position = Input.mousePosition;
         }
     }
 
@@ -33,40 +33,45 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if( eventData.button == PointerEventData.InputButton.Left)
         {
-            transform.SetParent(originalSlot);
-            transform.localPosition = Vector3.zero;
-            GetComponent<CanvasGroup>().blocksRaycasts = true;
-            if( Time.time - init < clickTreshold)
-            {
-                LeftClick();
-            }
+            LeftClick();
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            if (Time.time - init < clickTreshold)
-            {
-                RightClick();
-            }
+            RightClick();
         }
 
     }
 
-    public void LeftClick()
+    private void LeftClick()
     {
-        if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()] != null)
+        this.transform.SetParent(this.originalSlot);
+        this.transform.localPosition = Vector3.zero;
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+        if (Time.time - this.pointerDownTime < this.clickTreshold)
         {
-            if (InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
+            if (InventorySlotNotEmpty())
             {
-                InventoryManager.instance.Equipment[transform.parent.GetSiblingIndex()].OnUse();
+                if (InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
+                {
+                    InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()].OnItemUse();
+                }
             }
-        }
 
-        InventoryManager.instance.PrepareToSellMid(transform.parent.GetSiblingIndex());
+            InventoryManager.instance.PrepareToSellMid(this.transform.parent.GetSiblingIndex());
+        }
     }
 
-    public void RightClick()
+    private void RightClick()
     {
-        InventoryManager.instance.SellMid(transform.parent.GetSiblingIndex());
+        if (Time.time - this.pointerDownTime < this.clickTreshold)
+        {
+            InventoryManager.instance.SellMid(this.transform.parent.GetSiblingIndex());
+        }
+    }
+
+    private bool InventorySlotNotEmpty()
+    {
+        return InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()] != null;
     }
 
 }
