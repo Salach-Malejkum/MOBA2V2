@@ -18,9 +18,9 @@ public class Matchmaking : MonoBehaviour
     private Coroutine pollTicketCoroutine;
 
     public void StartMatchmaking() {
-        playButton.SetActive(false);
-        queueStatusText.text = "Submitting ticker";
-        queueStatusText.gameObject.SetActive(true);
+        this.playButton.SetActive(false);
+        this.queueStatusText.text = "Submitting ticker";
+        this.queueStatusText.gameObject.SetActive(true);
 
         PlayFabMultiplayerAPI.CreateMatchmakingTicket(
             new CreateMatchmakingTicketRequest {
@@ -54,8 +54,8 @@ public class Matchmaking : MonoBehaviour
     private void OnMatchTicketCreated(CreateMatchmakingTicketResult result) {
         matchTicketId = result.TicketId;
         pollTicketCoroutine = StartCoroutine(PollTicket(result.TicketId));
-        leaveQueueButton.SetActive(true);
-        queueStatusText.text = "Created ticket";
+        this.leaveQueueButton.SetActive(true);
+        this.queueStatusText.text = "Created ticket";
     }
 
     private IEnumerator PollTicket(string ticketId) {
@@ -75,7 +75,7 @@ public class Matchmaking : MonoBehaviour
 
     private void OnGetMatchTicket(GetMatchmakingTicketResult result) {
         if(result.Status != "Canceled") {
-            queueStatusText.text = $"Status: {result.Status}";
+            this.queueStatusText.text = $"Status: {result.Status}";
         }
         
 
@@ -90,7 +90,7 @@ public class Matchmaking : MonoBehaviour
     }
 
     private void StartMatch(string matchId) {
-        queueStatusText.text = $"Starting match";
+        this.queueStatusText.text = $"Starting match";
         PlayFabMultiplayerAPI.GetMatch(
             new GetMatchRequest
             {
@@ -105,7 +105,7 @@ public class Matchmaking : MonoBehaviour
     private void OnGetMatch(GetMatchResult result) {
         NetworkManagerLobby.Instance.networkAddress = result.ServerDetails.IPV4Address;
         NetworkManagerLobby.Instance.GetComponent<kcp2k.KcpTransport>().Port = (ushort) result.ServerDetails.Ports[0].Num; 
-        landingPage.SetActive(false);
+        this.landingPage.SetActive(false);
         NetworkManagerLobby.Instance.StartClient();
     }
 
@@ -122,15 +122,15 @@ public class Matchmaking : MonoBehaviour
     }
 
     private void OnCancelMatchTicket(CancelMatchmakingTicketResult result) {
-        playButton.SetActive(true);
-        leaveQueueButton.SetActive(false);
-        queueStatusText.text = "";
+        this.playButton.SetActive(true);
+        this.leaveQueueButton.SetActive(false);
+        this.queueStatusText.text = "";
     }
 
     private void OnMatchmakingError(PlayFabError error) {
-        playButton.SetActive(true);
-        leaveQueueButton.SetActive(false);
-        queueStatusText.text = "";
+        this.playButton.SetActive(true);
+        this.leaveQueueButton.SetActive(false);
+        this.queueStatusText.text = "";
         Debug.Log(error.GenerateErrorReport());
     }
 }

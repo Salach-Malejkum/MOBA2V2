@@ -17,7 +17,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
 
     public override void OnStartAuthority() {
         CmdSetDisplayName(PlayerDataManager.StrGet("Username"));
-        lobbyUI.SetActive(true);
+        this.lobbyUI.SetActive(true);
     }
 
     public override void OnStartClient()
@@ -37,14 +37,14 @@ public class NetworkRoomPlayer : NetworkBehaviour
     public void HandleNameChanged(string oldVal, string newVal) => UpdateDisplay();
 
     private void UpdateDisplay() {
-        for(int i = 0; i < playerNameTexts.Length; i++) {
-            playerNameTexts[i].text = "Waiting for player...";
-            playerReadyTexts[i].text = string.Empty;
+        for(int i = 0; i < this.playerNameTexts.Length; i++) {
+            this.playerNameTexts[i].text = "Waiting for player...";
+            this.playerReadyTexts[i].text = string.Empty;
         }
 
         for(int i = 0; i < NetworkManagerLobby.Instance.RoomPlayers.Count; i++) {
-            playerNameTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].DisplayName;
-            playerReadyTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
+            this.playerNameTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].DisplayName;
+            this.playerReadyTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
         }
 
         if (!hasAuthority) {
@@ -59,7 +59,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     }
 
     public void HandleReadyToStart(bool readyToStart) {
-        startGameButton.interactable = readyToStart;
+        this.startGameButton.interactable = readyToStart;
     }
 
     [Command]

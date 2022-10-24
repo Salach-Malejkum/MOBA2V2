@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerDataManager : MonoBehaviour
+public class PlayerDataManager
 {
     public static void StrSave(string Key, string Value) {
         PlayerPrefs.SetString(Key, Value);

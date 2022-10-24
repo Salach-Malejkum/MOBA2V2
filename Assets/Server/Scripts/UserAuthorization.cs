@@ -22,17 +22,17 @@ public class UserAuthorization : MonoBehaviour
     public void CreateAccount() {
         PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest {
             TitleId = PlayFabSettings.TitleId,
-            Username = usernameInputFieldRegister.text,
-            Email = emailInputFieldRegister.text,
-            Password = passwordInputFieldRegister.text
+            Username = this.usernameInputFieldRegister.text,
+            Email = this.emailInputFieldRegister.text,
+            Password = this.passwordInputFieldRegister.text
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            client.RequestServerData();
-            signInDisplay.SetActive(false);
-            signUpDisplay.SetActive(false);
-            afterLoginScreen.SetActive(true);
-            PlayerDataManager.StrSave("Username", usernameInputFieldRegister.text);
+            this.client.RequestServerData();
+            this.signInDisplay.SetActive(false);
+            this.signUpDisplay.SetActive(false);
+            this.afterLoginScreen.SetActive(true);
+            PlayerDataManager.StrSave("Username", this.usernameInputFieldRegister.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });
@@ -41,16 +41,16 @@ public class UserAuthorization : MonoBehaviour
     public void LoginWithCredentials() {
         PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest {
             TitleId = PlayFabSettings.TitleId,
-            Username = usernameInputFieldLogin.text,
-            Password = passwordInputFieldLogin.text
+            Username = this.usernameInputFieldLogin.text,
+            Password = this.passwordInputFieldLogin.text
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            client.RequestServerData();
-            signInDisplay.SetActive(false);
-            signUpDisplay.SetActive(false);
-            afterLoginScreen.SetActive(true);
-            PlayerDataManager.StrSave("Username", usernameInputFieldLogin.text);
+            this.client.RequestServerData();
+            this.signInDisplay.SetActive(false);
+            this.signUpDisplay.SetActive(false);
+            this.afterLoginScreen.SetActive(true);
+            PlayerDataManager.StrSave("Username", this.usernameInputFieldLogin.text);
         }, errorCallback => {
             Debug.Log(errorCallback.GenerateErrorReport());
         });

@@ -6,6 +6,7 @@ using Cinemachine;
 
 public class CameraController : NetworkBehaviour
 {
+    //todo: camera movement
     [SerializeField] private Vector2 maxFollowOffset = new Vector2(-1f, 6f);
     [SerializeField] private Vector2 cameraVelocity = new Vector2(4f, 0.25f);
     [SerializeField] private Transform playerTransform = default;
@@ -15,7 +16,7 @@ public class CameraController : NetworkBehaviour
 
     public override void OnStartAuthority()
     {
-        transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+        this.transposer = virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
 
         virtualCamera.gameObject.SetActive(true);
 
