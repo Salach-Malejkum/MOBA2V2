@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class BuildType : MonoBehaviour
+public class BuildType
 {
     
     [Header("Build Type")]
