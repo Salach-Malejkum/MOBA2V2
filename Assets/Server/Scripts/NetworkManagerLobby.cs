@@ -44,7 +44,7 @@ public class NetworkManagerLobby : NetworkManager {
 
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {
         Debug.Log("Authenticate message received--------------------------------PlayfabId: " + message.PlayfabId);
-        var conn = playerConnections.Find(c => c.ConnectionId == nconn.connectionId);
+        var conn = Instance.playerConnections.Find(c => c.ConnectionId == nconn.connectionId);
         if(conn == null) {
             conn.PlayfabId = message.PlayfabId;
             conn.Authenticated = true;
@@ -88,10 +88,10 @@ public class NetworkManagerLobby : NetworkManager {
             return;
         }
 
-        var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
+        var playerConn = Instance.playerConnections.Find(c => c.ConnectionId == conn.connectionId);
         //customowe atrybuty połączenia do listy połączeń
         if(playerConn == null) {
-            playerConnections.Add(new PlayerConnection() {
+            Instance.playerConnections.Add(new PlayerConnection() {
                 Connection = conn,
                 ConnectionId = conn.connectionId,
                 LobbyId = PlayFabMultiplayerAgentAPI.SessionConfig.SessionId
@@ -107,8 +107,8 @@ public class NetworkManagerLobby : NetworkManager {
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
             //klient nie może tego dodać, musi to być serwer, OnServerRemovePlayer powinien usuwać ale nie wiem jak dać call dla ClientScene.RemovePlayer().
-            if(connType == "remote") {
-                RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
+            if(Instance.connType == "remote") {
+                Instance.RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
             }
 
             Debug.Log("Player added for connection, player count-------------------------" + Instance.RoomPlayers.Count.ToString());
@@ -123,7 +123,7 @@ public class NetworkManagerLobby : NetworkManager {
         if(conn.identity != null) {
             var player = conn.identity.GetComponent<NetworkRoomPlayer>();
 
-            RoomPlayers.Remove(player);
+            Instance.RoomPlayers.Remove(player);
 
             NotifyPlayersOfReadyState();
         }
@@ -133,7 +133,7 @@ public class NetworkManagerLobby : NetworkManager {
             if(!string.IsNullOrEmpty(playerConn.PlayfabId)) {
                 OnPlayerRemoved.Invoke(playerConn.PlayfabId);
             }
-            playerConnections.Remove(playerConn);
+            Instance.playerConnections.Remove(playerConn);
         }
         base.OnServerDisconnect(conn);
     }
@@ -149,7 +149,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
     //dobry check na akceptacje meczu, można dać OnApplicationQuit() NetworkServer.Shutdown() jeżeli nie będzie ready w odpowiednim czasie i powrócić do menu
     private bool IsReadyToStart() {
-        if (numPlayers < minPlayers) { return false; }
+        if (Instance.numPlayers < Instance.minPlayers) { return false; }
 
         foreach (var player in Instance.RoomPlayers) {
             if (!player.IsReady) { return false; }
@@ -176,7 +176,7 @@ public class NetworkManagerLobby : NetworkManager {
                 NetworkServer.Destroy(conn.identity.gameObject);
                 //wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
                 NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
-                NetworkManagerLobby.Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
+                Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
             }
 
             base.ServerChangeScene(mapName);
