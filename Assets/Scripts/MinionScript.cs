@@ -13,8 +13,13 @@ public class MinionScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         this.minionMovement.Move();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
     }
 }
