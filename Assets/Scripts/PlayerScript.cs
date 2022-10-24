@@ -56,6 +56,7 @@ public class PlayerScript : MonoBehaviour
         switch (attackResult)
         {
             case (int)Enums.AttackResult.CanAttack:
+
                 Debug.Log("Attack");
                 this.playerMovementScript.Move(this.transform.position);
                 //Attack
