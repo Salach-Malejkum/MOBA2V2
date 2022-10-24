@@ -42,7 +42,7 @@ public class TabManager : MonoBehaviour
     private void CheckParchasable()
     {
         
-        if (this.shopManager.IsInBorder() && !InventoryManager.instance.IsEqFull())
+        if (this.shopManager.IsInBorder() && !Inventory.instance.IsEqFull())
         {
             for (int i = 0; i < this.shopItemSo.Count; i++)
             {
@@ -66,7 +66,7 @@ public class TabManager : MonoBehaviour
         if (this.shopManager.GoldValue >= this.shopItemSo[btnNo].Price)
         {
             this.shopManager.Subtract(this.shopItemSo[btnNo].Price);
-            InventoryManager.instance.AddToEquipment(this.shopItemSo[btnNo]);
+            Inventory.instance.AddToEquipment(this.shopItemSo[btnNo]);
             this.CheckParchasable();
         }
     }

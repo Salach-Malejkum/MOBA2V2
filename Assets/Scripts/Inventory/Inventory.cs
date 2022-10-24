@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
-    public static InventoryManager instance;
+    public static Inventory instance;
 
     [SerializeField]
     private InventorySlot[] eqDisplaySlots;
@@ -66,7 +66,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void PrepareToSellMid(int itemIndex)
+    public void SellWBtnInBetween(int itemIndex)
     {
         if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
         {
@@ -74,7 +74,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void SellMid(int itemIndex)
+    public void InstaSellInBetween(int itemIndex)
     {
         if (this.shop.IsInBorder())
         {

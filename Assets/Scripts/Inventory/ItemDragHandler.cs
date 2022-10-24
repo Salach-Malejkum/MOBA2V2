@@ -23,7 +23,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (InventoryManager.instance.Equipment[this.originalSlot.transform.GetSiblingIndex()] != null && eventData.button == PointerEventData.InputButton.Left)
+        if (Inventory.instance.Equipment[this.originalSlot.transform.GetSiblingIndex()] != null && eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.position = Input.mousePosition;
         }
@@ -51,13 +51,13 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         {
             if (InventorySlotNotEmpty())
             {
-                if (InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
+                if (Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
                 {
-                    InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()].OnItemUse();
+                    Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].OnItemUse();
                 }
             }
 
-            InventoryManager.instance.PrepareToSellMid(this.transform.parent.GetSiblingIndex());
+            Inventory.instance.SellWBtnInBetween(this.transform.parent.GetSiblingIndex());
         }
     }
 
@@ -65,13 +65,13 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if (Time.time - this.pointerDownTime < this.clickTreshold)
         {
-            InventoryManager.instance.SellMid(this.transform.parent.GetSiblingIndex());
+            Inventory.instance.InstaSellInBetween(this.transform.parent.GetSiblingIndex());
         }
     }
 
     private bool InventorySlotNotEmpty()
     {
-        return InventoryManager.instance.Equipment[this.transform.parent.GetSiblingIndex()] != null;
+        return Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()] != null;
     }
 
 }

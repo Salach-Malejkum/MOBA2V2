@@ -114,7 +114,7 @@ public class ShopManager : MonoBehaviour
         this.sellBtn.interactable = false;
         if(this.sellItemIndex != -1)
         {
-            InventoryManager.instance.RemoveItem(this.sellItemIndex);
+            Inventory.instance.RemoveItem(this.sellItemIndex);
             this.sellItemIndex = -1;
         }
     }

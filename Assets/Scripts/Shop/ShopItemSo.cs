@@ -66,6 +66,7 @@ public class ItemTypeOne : ShopItemSo
 
     public override void OnItemUse()
     {
+        //TODO Umiejêtnoœci przedmiotów u¿ywanych
         Debug.Log(this.myMassage);
     }
 }

@@ -9,33 +9,33 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        ShopItemSo droppedItem = InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
+        ShopItemSo droppedItem = Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
         if( eventData.pointerDrag.transform.parent.name == gameObject.name)
         {
             return;
         }
-        if( InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] == null)
+        if( Inventory.instance.Equipment[this.transform.GetSiblingIndex()] == null)
         {
-            InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
-            InventoryManager.instance.RefreshSlots();
-            InventoryManager.instance.BlockSell();
+            Inventory.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
+            Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
+            Inventory.instance.RefreshSlots();
+            Inventory.instance.BlockSell();
         }
         else
         {
-            ShopItemSo tempItem = InventoryManager.instance.Equipment[transform.GetSiblingIndex()];
-            InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            InventoryManager.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
-            InventoryManager.instance.RefreshSlots();
-            InventoryManager.instance.BlockSell();
+            ShopItemSo tempItem = Inventory.instance.Equipment[transform.GetSiblingIndex()];
+            Inventory.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
+            Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
+            Inventory.instance.RefreshSlots();
+            Inventory.instance.BlockSell();
         }
     }
 
     public void RefreshSlot()
     {
-        if( InventoryManager.instance.Equipment[transform.GetSiblingIndex()] != null)
+        if( Inventory.instance.Equipment[transform.GetSiblingIndex()] != null)
         {
-            this.image.GetComponent<Image>().sprite = InventoryManager.instance.Equipment[this.transform.GetSiblingIndex()].Image;
+            this.image.GetComponent<Image>().sprite = Inventory.instance.Equipment[this.transform.GetSiblingIndex()].Image;
             this.image.SetActive(true);
         }
         else
