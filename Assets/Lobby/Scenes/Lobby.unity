@@ -2130,7 +2130,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 1369216056555088242, guid: dd44add7f8b612e498925759f728b846, type: 3}
-  minPlayers: 2
+  minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
   roomPlayerPrefab: {fileID: 2461713667315046168, guid: dd44add7f8b612e498925759f728b846, type: 3}
   inGamePlayerPrefab: {fileID: -175712545696156868, guid: d7cb3d3ccd98a344c877d6d0dad9a1c3, type: 3}

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2137633431160339632}
   - component: {fileID: 8942993608950361221}
   - component: {fileID: 2685264113152162246}
-  - component: {fileID: 6955604247829734183}
+  - component: {fileID: 8498392805726636353}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -197,7 +197,7 @@ MonoBehaviour:
   cameraVelocity: {x: 4, y: 0.25}
   playerTransform: {fileID: 9017691228572594241}
   virtualCamera: {fileID: 1162441548177532989}
---- !u!114 &6955604247829734183
+--- !u!114 &8498392805726636353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
