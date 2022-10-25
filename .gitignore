@@ -2,6 +2,10 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+/Assets/Mirror
+/Assets/PlayFabSDK
+/Assets/PlayFabEditorExtensions
+/Assets/ScriptTemplates
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -22,6 +26,7 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
 
 # Gradle cache directory
 .gradle/
@@ -48,7 +53,6 @@ ExportedObj/
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
-*.meta
 
 # Unity3D generated file on crash reports
 sysinfo.txt
@@ -57,10 +61,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-# moje dodatki
-*.vsconfig
-Assets/FantasyIconsPackFree/
-Assets/Mirror/
-Assets/QuickOutline/
-Assets/ScriptTemplates/
-Assets/TextMesh Pro/
+# Crashlytics generated file
+crashlytics-build.properties
