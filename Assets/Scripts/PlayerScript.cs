@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour
         playerMovementScript = new PlayerMovement(this.GetComponent<NavMeshAgent>());
     }
 
-    private void FixUpdate()
+    private void FixedUpdate()
     {
         if (followAttack)
         {
@@ -56,6 +56,8 @@ public class PlayerScript : MonoBehaviour
         switch (attackResult)
         {
             case (int)Enums.AttackResult.CanAttack:
+
+                Debug.Log("Attack");
                 this.playerMovementScript.Move(this.transform.position);
                 //Attack
                 break;
