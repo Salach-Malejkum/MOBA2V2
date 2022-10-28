@@ -5,15 +5,20 @@ using UnityEngine.AI;
 
 public class MinionScript : MonoBehaviour
 {
+    public GameObject projectile;
     private IMinionMovement minionMovement;
     private MinionAttack minionAttack;
     private bool followAttack = false;
     private HashSet<GameObject> objectsInRangeHashSet;
+    private NavMeshAgent navMeshAgent;
+    private float timer = 0;
+    private GameObject targetEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.minionMovement = new MinionMovement(Enums.MinionPaths.topPathPoints, this.GetComponent<NavMeshAgent>());
+        this.navMeshAgent = this.GetComponent<NavMeshAgent>();
+        this.minionMovement = new MinionMovement(Enums.MinionPaths.topPathPoints, this.navMeshAgent);
         this.minionAttack = new MinionAttack();
         this.objectsInRangeHashSet = new HashSet<GameObject>();
     }
@@ -21,8 +26,41 @@ public class MinionScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        this.minionMovement.Move();
-        this.minionAttack.Attack(this.GetTheClosestEnemy());
+        this.timer += Time.fixedDeltaTime;
+
+        GameObject closestEnemy = this.GetTheClosestEnemy();
+        if (closestEnemy == null)
+        {
+            this.followAttack = false;
+            this.targetEnemy = null;
+        }
+        else if (this.targetEnemy == null)
+        {
+            this.followAttack = true;
+            this.SetTargetEnemy(closestEnemy);
+        }
+        else if (!this.objectsInRangeHashSet.Contains(this.targetEnemy) && !this.targetEnemy.Equals(closestEnemy))
+        {
+            this.followAttack = true;
+            this.SetTargetEnemy(closestEnemy);
+        }
+
+        if (this.followAttack)
+        {
+            // follow enemy
+            int attackResult = this.minionAttack.Attack(this.targetEnemy);
+
+            if (attackResult == 1)
+            {
+                GameObject instProjectile = (GameObject)Instantiate(this.projectile, this.transform);
+                instProjectile.GetComponent<HomingMissile>().target = this.targetEnemy;
+            }
+            navMeshAgent.destination = this.transform.position;
+        }
+        else
+        {
+            this.minionMovement.Move();
+        }
     }
 
     // zamiast tego moze byc lista obiektow, aktualizowana na onenter i onexit,
@@ -30,7 +68,7 @@ public class MinionScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (true) // dodac jakie tagi i layery wchodza w sklad tego
+        if (other.tag == "Blue Team") // dodac jakie tagi i layery wchodza w sklad tego
         {
             this.objectsInRangeHashSet.Add(other.gameObject);
         }
@@ -41,29 +79,22 @@ public class MinionScript : MonoBehaviour
         this.objectsInRangeHashSet.Remove(other.gameObject);
     }
 
+    private void SetTargetEnemy(GameObject gameObject)
+    {
+        this.targetEnemy = gameObject;
+    }
+
     private GameObject GetTheClosestEnemy()
     {
-        if (this.objectsInRangeHashSet.Count > 0)
+        GameObject closestEnemy = null;
+
+        foreach (GameObject currEnemy in this.objectsInRangeHashSet)
         {
-            return null;
+            if (closestEnemy == null)
+            {   closestEnemy = currEnemy;   }
+            else if (Utility.GetDistanceBetweenGameObjects(currEnemy, this.gameObject) < Utility.GetDistanceBetweenGameObjects(closestEnemy, this.gameObject))
+            {   closestEnemy = currEnemy;   }
         }
-
-        GameObject resGameObject = null;
-
-        foreach (GameObject enemy in this.objectsInRangeHashSet)
-        {
-            if (resGameObject.Equals(null))
-            {
-                resGameObject = enemy;
-            }
-            else if (
-                Utility.GetDistanceBetweenGameObjects(enemy, this.gameObject) < Utility.GetDistanceBetweenGameObjects(resGameObject, this.gameObject)
-                )
-            {
-                resGameObject = enemy;
-            }
-        }
-
-        return resGameObject;
+        return closestEnemy;
     }
 }
