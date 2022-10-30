@@ -10,6 +10,7 @@
  - Dajecie Ready na kliencie i hoscie
  - Start na hoscie
  - Sprawdzacie czy wasze dodane funkcjonalności sieciowe/klientowe działają jak powinny
+ - ZAKAZ TWORZENIE WIĘCEJ NIŻ 2 KONTA NA OSOBE
  
 
 # 2021.3.10f1
