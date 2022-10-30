@@ -12,7 +12,6 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         this.pointerDownTime = Time.time;
         if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData))
         {
-        
             this.originalSlot = this.transform.parent;
             this.transform.SetParent(this.transform.parent.parent);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -29,7 +28,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if( eventData.button == PointerEventData.InputButton.Left)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
             LeftClick();
         }
@@ -56,7 +55,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 }
             }
 
-            Inventory.instance.SellWBtnInBetween(this.transform.parent.GetSiblingIndex());
+            Inventory.instance.PassItemToSellToShopManager(this.transform.parent.GetSiblingIndex());
         }
     }
 
@@ -64,7 +63,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if (Time.time - this.pointerDownTime < this.clickTreshold)
         {
-            Inventory.instance.InstaSellInBetween(this.transform.parent.GetSiblingIndex());
+            Inventory.instance.PassItemToInstaSellToShopManager(this.transform.parent.GetSiblingIndex());
         }
     }
 

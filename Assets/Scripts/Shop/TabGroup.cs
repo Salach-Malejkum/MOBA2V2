@@ -33,7 +33,7 @@ public class TabGroup : MonoBehaviour
     public void OnTabEnter(TabButtons button)
     {
         this.ResetTabs();
-        if(this.selectedTab == null || button != this.selectedTab)
+        if (this.selectedTab == null || button != this.selectedTab)
         {
             button.BackGround.sprite = this.tabHover;
         }
@@ -50,7 +50,7 @@ public class TabGroup : MonoBehaviour
         int index = button.transform.GetSiblingIndex();
         for(int i = 0; i < this.objectToSwap.Count; i++)
         {
-            if(i == index)
+            if (i == index)
             {
                 this.objectToSwap[i].SetActive(true);
             }

@@ -14,7 +14,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             return;
         }
-        if( Inventory.instance.Equipment[this.transform.GetSiblingIndex()] == null)
+        if (Inventory.instance.Equipment[this.transform.GetSiblingIndex()] == null)
         {
             Inventory.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
             Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
@@ -33,7 +33,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void RefreshSlot()
     {
-        if( Inventory.instance.Equipment[transform.GetSiblingIndex()] != null)
+        if (Inventory.instance.Equipment[transform.GetSiblingIndex()] != null)
         {
             this.image.GetComponent<Image>().sprite = Inventory.instance.Equipment[this.transform.GetSiblingIndex()].Image;
             this.image.SetActive(true);

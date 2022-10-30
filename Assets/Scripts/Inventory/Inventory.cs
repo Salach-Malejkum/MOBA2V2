@@ -18,13 +18,14 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
-        else if(instance != this)
+        else if (instance != this)
         {
             Destroy(this);
+            return;
         }
         DontDestroyOnLoad(this);
     }
@@ -66,7 +67,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void SellWBtnInBetween(int itemIndex)
+    public void PassItemToSellToShopManager(int itemIndex)
     {
         if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
         {
@@ -74,7 +75,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void InstaSellInBetween(int itemIndex)
+    public void PassItemToInstaSellToShopManager(int itemIndex)
     {
         if (this.shop.IsInBorder())
         {

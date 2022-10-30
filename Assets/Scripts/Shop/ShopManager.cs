@@ -67,7 +67,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void Subtract(int amount)
+    public void SubtractPurchasedItemCostFromOwnedGold(int amount)
     {
         this.goldValue -= amount;
         this.goldValueText.text = "G: " + this.goldValue;

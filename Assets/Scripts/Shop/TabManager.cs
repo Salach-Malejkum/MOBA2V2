@@ -22,24 +22,25 @@ public class TabManager : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < this.shopItemSo.Count; i++)
+        {
             this.shopPanelsGo[i].SetActive(true);
+        }
         this.LoadPanels();
-        this.CheckParchasable();
+        this.CheckPurchasable();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         this.timer += Time.deltaTime;
 
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.CheckParchasable();
-
+            this.CheckPurchasable();
         }
     }
 
-    private void CheckParchasable()
+    private void CheckPurchasable()
     {
         
         if (this.shopManager.IsInBorder() && !Inventory.instance.IsEqFull())
@@ -47,9 +48,13 @@ public class TabManager : MonoBehaviour
             for (int i = 0; i < this.shopItemSo.Count; i++)
             {
                 if (this.shopManager.GoldValue >= this.shopItemSo[i].Price)
+                {
                     this.myBuyButtons[i].interactable = true;
+                }
                 else
+                {
                     this.myBuyButtons[i].interactable = false;
+                }
             }
         }
         else
@@ -61,13 +66,13 @@ public class TabManager : MonoBehaviour
         }
     }
 
-    public void BuyItem(int btnNo)
+    public void BuyItem(int itemNo)
     {
-        if (this.shopManager.GoldValue >= this.shopItemSo[btnNo].Price)
+        if (this.shopManager.GoldValue >= this.shopItemSo[itemNo].Price)
         {
-            this.shopManager.Subtract(this.shopItemSo[btnNo].Price);
-            Inventory.instance.AddToEquipment(this.shopItemSo[btnNo]);
-            this.CheckParchasable();
+            this.shopManager.SubtractPurchasedItemCostFromOwnedGold(this.shopItemSo[itemNo].Price);
+            Inventory.instance.AddToEquipment(this.shopItemSo[itemNo]);
+            this.CheckPurchasable();
         }
     }
 
