@@ -1,4 +1,16 @@
 # Steampunk-Moba
+## Jak odpalic gierke do testowania sieciówki
+ - WAŻNE, zawsze przy testowaniu sprawdźcie czy obiekt BuildType jest ustawiony na Remote client (--SYSTEMS-- w scenie Lobby)
+ - Podstawowa scena to Lobby (w Assets/Lobby/Scenes)
+ - Robicie build klienta jeżeli jest Remote client ustawiony (nie zmieniajcie nigdy na remote server, to jest tylko do dedykowanego)
+ - Logowanie przy pomocy: test13 (hasło i login), albo nowe konto można stworzyć (testXX@test.com), login hasło testXX, XX to cyferki, łatwo zapamiętać
+ - W unity editor dajecie Host custom game
+ - W odpalonej gierce z builda logujecie się innym hasłem (test12) albo tworzycie nowe konto 
+ - W kliencie dołączacie do hosta dająć Join custom game i IP to localhost albo 127.0.0.1 (tylko jedno z tych działa, nie stosować localhost i 127.0.0.1 wymiennie)
+ - Dajecie Ready na kliencie i hoscie
+ - Start na hoscie
+ - Sprawdzacie czy wasze dodane funkcjonalności sieciowe/klientowe działają jak powinny
+ 
 
 # 2021.3.10f1
 
