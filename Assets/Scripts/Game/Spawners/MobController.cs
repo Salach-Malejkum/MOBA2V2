@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,32 +10,58 @@ public class MobController : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
+    private int id;
     private readonly float componentDeleteDelay = 1f;
     private float deleteTime = 0f;
 
     private int hitPoints = 3;
     public float maximumDistance = 15f;
     public bool isChasing = false;
+    private Vector3 spawnPosition;
+
+    public int Id
+    {
+        get { return id; }
+        set
+        {
+            if (value < 0)
+            {
+                this.id = 0;
+            }
+            else
+            {
+                this.id = value;
+            }
+        }
+    }
 
     private void Awake()
     {
-        target = GameObject.Find("Cube");
-        agent = GetComponent<NavMeshAgent>();
+        //target = GameObject.Find("Cube");
+        this.spawnPosition = this.transform.position;
+        this.agent = GetComponent<NavMeshAgent>();
     }
 
     private void FixedUpdate()
     {
-        if (Time.time > this.deleteTime)    Destroy(GetComponent<Outline>());
-
+        if (Time.time > this.deleteTime)
+        {
+            Destroy(GetComponent<Outline>());
+        }
         if (this.isChasing == true)
         {
-            if (Vector3.Distance(spawner.position, target.transform.position) > maximumDistance)
+            if (Vector3.Distance(this.spawnPosition, this.target.transform.position) > this.maximumDistance)
+            {
                 this.isChasing = false;
-            else
-                ChasePlayer();
+            } else
+            {
+                this.ChasePlayer();
+            }
         }
-        else if (isChasing == false && Vector3.Distance(spawner.position, this.transform.position) > 0)
-            agent.SetDestination(spawner.position);
+        else if (this.isChasing == false && Vector3.Distance(this.spawnPosition, this.transform.position) > 0)
+        {
+            this.agent.SetDestination(spawnPosition);
+        }
     }
 
     private void OnMouseOver()
@@ -46,7 +70,7 @@ public class MobController : MonoBehaviour
 
         if (!GetComponent<Outline>())
         {
-            var outline = gameObject.AddComponent<Outline>();
+            var outline = this.gameObject.AddComponent<Outline>();
 
             outline.OutlineMode = Outline.Mode.OutlineVisible;
             outline.OutlineColor = Color.red;
@@ -57,10 +81,10 @@ public class MobController : MonoBehaviour
         {
             Debug.Log("Pozyskano Unity-chan");
             this.hitPoints -= 1;
-            isChasing = true;
+            this.isChasing = true;
             if (this.hitPoints <= 0)
             {
-                this.spawnerResource.StartSpawner();
+                this.spawnerResource.RemoveFromChildren(this.Id);
                 Destroy(this.gameObject);
             }
         }
@@ -68,6 +92,6 @@ public class MobController : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(this.target.transform.position);
     }
 }
