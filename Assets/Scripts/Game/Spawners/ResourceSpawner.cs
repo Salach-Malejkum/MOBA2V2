@@ -62,6 +62,30 @@ public class ResourceSpawner : MonoBehaviour
             this.spawningZ[i] = (float)(z0 + this.spawnRadius * Math.Sin(ConvertToRadians(angle)));
         }
     }
+    private Vector3 GetSpawningPoints(int position, float radius)
+    {
+        Vector3 location = Vector3.zero;
+        switch (numberSpawned)
+        {
+            case 1:
+                location = this.transform.position;
+                break;
+            case 2:
+                if (position == 0)
+                {
+                    location = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 2*radius);
+                } else
+                {
+                    location = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 2*radius);
+                }
+                break;
+            default:
+                location = this.transform.position;
+                break;
+        }
+
+        return location;
+    }
 
     private void Spawn()
     {
