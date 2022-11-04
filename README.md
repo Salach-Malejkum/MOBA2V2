@@ -17,9 +17,11 @@
 
 ## Wymagana paczka do serwera (z asset store)
 https://assetstore.unity.com/packages/tools/network/mirror-129321
-https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
 https://assetstore.unity.com/packages/3d/environments/landscapes/rpg-poly-pack-lite-148410
 https://github.com/PlayFab/UnitySDK
+
+## Wykorzystywane assety (niewymagane do pobrania, dostępne na gicie)
+https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
 https://assetstore.unity.com/packages/2d/gui/icons/fantasy-inventory-icons-free-143805
 
 ## Struktura folderów (ważne)
