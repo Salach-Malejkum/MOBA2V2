@@ -11,6 +11,6 @@ public class UnitTypes : MonoBehaviour
     {
         Minion,
         Turret,
-        Player
+        Player,
     }
 }

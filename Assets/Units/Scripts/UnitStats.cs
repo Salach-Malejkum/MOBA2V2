@@ -32,7 +32,7 @@ public class UnitStats : MonoBehaviour
 
     public void TakeDamage(float hpAmount) {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
-        if(this.unitCurrentHealth <= 0) {
+        if (this.unitCurrentHealth <= 0) {
             //onDeath?.Invoke(this, ...)
             switch (this.GetComponent<UnitTypes>().unitType) {
                 case UnitTypes.UnitType.Player:
