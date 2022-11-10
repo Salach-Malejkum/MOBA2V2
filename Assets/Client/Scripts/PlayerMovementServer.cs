@@ -36,7 +36,7 @@ public class PlayerMovementServer : NetworkBehaviour
     Vector3 GetClickedMapPoint()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             return hit.point;
         }
