@@ -17,7 +17,7 @@ public class PlayerScript : MonoBehaviour
         playerMovementScript = new PlayerMovement(this.GetComponent<NavMeshAgent>());
     }
 
-    private void FixUpdate()
+    private void FixedUpdate()
     {
         if (followAttack)
         {
@@ -30,7 +30,7 @@ public class PlayerScript : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit, 100))
+            if (Physics.Raycast(ray, out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
             {
                 switch (hit.transform.gameObject.tag)
                 {
@@ -56,6 +56,8 @@ public class PlayerScript : MonoBehaviour
         switch (attackResult)
         {
             case (int)Enums.AttackResult.CanAttack:
+
+                Debug.Log("Attack");
                 this.playerMovementScript.Move(this.transform.position);
                 //Attack
                 break;
