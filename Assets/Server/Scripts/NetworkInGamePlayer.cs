@@ -4,6 +4,7 @@ public class NetworkInGamePlayer : NetworkBehaviour
 {
     [SyncVar]
     public string DisplayName = "Loading...";
+    public int playerIdx;
 
     public override void OnStartClient()
     {
