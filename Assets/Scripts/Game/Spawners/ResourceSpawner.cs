@@ -60,41 +60,6 @@ public class ResourceSpawner : MonoBehaviour
 
             this.spawningX[i] = (float)(x0 + this.spawnRadius * Math.Cos(ConvertToRadians(angle)));
             this.spawningZ[i] = (float)(z0 + this.spawnRadius * Math.Sin(ConvertToRadians(angle)));
-        {
-            this.spawningX[0] = this.transform.position.x;
-            this.spawningZ[0] = this.transform.position.z;
-        }
-        else
-        {
-            GetSpawningPoints();
-        }
-    }
-
-    private void Update()
-    {
-        this.time = Time.time;
-        if (this.isSpawning && Time.time > this.nextSpawnTime)
-        {
-            this.Spawn();
-        }
-    }
-
-    public double ConvertToRadians(double angle)
-    {
-        return (Math.PI / 180) * angle;
-    }
-
-    private void GetSpawningPoints()
-    {
-        var x0 = this.transform.position.x;
-        var z0 = this.transform.position.z;
-
-        for (int i = 0; i < this.numberSpawned; i++)
-        {
-            double angle = i * (360 / this.numberSpawned);
-
-            this.spawningX[i] = (float)(x0 + this.spawnRadius * Math.Cos(ConvertToRadians(angle)));
-            this.spawningZ[i] = (float)(z0 + this.spawnRadius * Math.Sin(ConvertToRadians(angle)));
         }
     }
 

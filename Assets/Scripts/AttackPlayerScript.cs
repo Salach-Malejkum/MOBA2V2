@@ -14,9 +14,13 @@ public class AttackPlayerScript : IAttack
         this.aaCooldown = aaCooldown;
     }
 
-    public int TryAttack(Vector3 currentPosition, Vector3 targetPosition)
+    public int TryAttack(GameObject assaulter, GameObject target)
     {
-        if (!this.IsInRange(currentPosition, targetPosition))
+        if (target == null)
+        {
+            return 2;
+        }
+        if (!this.IsInRange(assaulter.transform.position, target.transform.position))
         {
             Debug.Log("Move to attack");
             return (int) Enums.AttackResult.OutOfRange;
@@ -24,7 +28,17 @@ public class AttackPlayerScript : IAttack
 
         else if (!this.IsAttackOnCooldown())
         {
-            Debug.Log("Attack");
+            Debug.Log("Ready to attack");
+            switch (target.tag)
+            {
+                case "Tower":
+                    break;
+                case "Minion":
+                    break;
+                case "Monster":
+                    target.GetComponent<MobController>().TakeDamage(1f, assaulter);
+                    break;
+            }
             return (int) Enums.AttackResult.CanAttack;
         }
 

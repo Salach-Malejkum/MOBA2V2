@@ -16,12 +16,7 @@ public class TowerController : MonoBehaviour
     {
         if (this.enemies.Count > 0 && this.missile_timer < 0)
         {
-            GameObject go = (GameObject)Instantiate(this.missile);
-            HomingMissileController hmc = go.GetComponent<HomingMissileController>();
-
-            hmc.target = GetClosestEnemy(enemies);
-
-            this.missile_timer = this.missile_delay;
+            Shoot();
         } else if (this.missile_timer >= 0)
         {
             this.missile_timer -= Time.deltaTime;
@@ -30,7 +25,7 @@ public class TowerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Missile"))
+        if (other.gameObject.layer != this.gameObject.layer && !other.gameObject.CompareTag("Missile"))
         {
             UnityEngine.Debug.Log(other.gameObject.tag + " in");
             this.enemies.Add(other.gameObject);
@@ -39,7 +34,7 @@ public class TowerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.CompareTag("Missile"))
+        if (other.gameObject.layer != this.gameObject.layer && !other.gameObject.CompareTag("Missile"))
         {
             UnityEngine.Debug.Log(other.gameObject.tag + " out");
             this.enemies.Remove(other.gameObject);
@@ -54,12 +49,22 @@ public class TowerController : MonoBehaviour
         foreach (GameObject go in enemies)
         {
             float dist = Vector3.Distance(go.transform.position, currentPos);
-            if (dist < minDist && !go.CompareTag("Missile"))
+            if (dist < minDist)
             {
                 tMin = go;
                 minDist = dist;
             }
         }
         return tMin;
+    }
+
+    private void Shoot()
+    {
+        GameObject go = Instantiate(this.missile, this.transform);
+        HomingMissileController hmc = go.GetComponent<HomingMissileController>();
+
+        hmc.target = GetClosestEnemy(enemies);
+
+        this.missile_timer = this.missile_delay;
     }
 }

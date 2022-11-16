@@ -12,9 +12,9 @@ public class MobController : MonoBehaviour
 
     private int id;
     private readonly float componentDeleteDelay = .5f;
-    private float deleteTime = 0f;
+    private float deleteOutlineTimer = 0f;
 
-    private int hitPoints = 3;
+    private float hitPoints = 3f;
     public float maximumDistance = 15f;
     public bool isChasing = false;
     private Vector3 spawnPosition;
@@ -37,14 +37,13 @@ public class MobController : MonoBehaviour
 
     private void Awake()
     {
-        //target = GameObject.Find("Cube");
         this.spawnPosition = this.transform.position;
         this.agent = GetComponent<NavMeshAgent>();
     }
 
     private void FixedUpdate()
     {
-        if (Time.time > this.deleteTime)
+        if (Time.time > this.deleteOutlineTimer)
         {
             Destroy(GetComponent<Outline>());
         }
@@ -67,7 +66,7 @@ public class MobController : MonoBehaviour
 
     private void OnMouseOver()
     {
-        this.deleteTime = Time.time + componentDeleteDelay;
+        this.deleteOutlineTimer = Time.time + componentDeleteDelay;
 
         if (!GetComponent<Outline>())
         {
@@ -77,17 +76,18 @@ public class MobController : MonoBehaviour
             outline.OutlineColor = Color.red;
             outline.OutlineWidth = 3f;
         }
+    }
 
-        if (Input.GetMouseButtonDown(0))
+    public void TakeDamage(float damage, GameObject assaulter)
+    {
+        Debug.Log("Pozyskano surowce");
+        this.target = assaulter;
+        this.hitPoints -= damage;
+        this.spawnerResource.NotifyAllChildren(this.target);
+        if (this.hitPoints <= 0)
         {
-            Debug.Log("Pozyskano surowce");
-            this.hitPoints -= 1;
-            this.spawnerResource.NotifyAllChildren(target);
-            if (this.hitPoints <= 0)
-            {
-                this.spawnerResource.RemoveFromChildren(this.Id);
-                Destroy(this.gameObject);
-            }
+            this.spawnerResource.RemoveFromChildren(this.Id);
+            Destroy(this.gameObject);
         }
     }
 

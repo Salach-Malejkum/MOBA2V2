@@ -106,9 +106,10 @@ GameObject:
   - component: {fileID: 95025375702580604}
   - component: {fileID: -4437413738218460640}
   - component: {fileID: 7553239773933431681}
+  - component: {fileID: 9062708854500625756}
   m_Layer: 0
   m_Name: Polygonal Metalon Red
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +199,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1128758269040250}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -211,6 +212,20 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &9062708854500625756
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128758269040250}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1130806907750044
 GameObject:
   m_ObjectHideFlags: 0
