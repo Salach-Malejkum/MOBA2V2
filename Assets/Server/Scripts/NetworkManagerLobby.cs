@@ -36,7 +36,6 @@ public class NetworkManagerLobby : NetworkManager {
 
     public string connType = "remote";
 
-
     public override void Awake()
     {
         base.Awake();
