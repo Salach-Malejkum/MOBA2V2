@@ -774,7 +774,7 @@ GameObject:
   - component: {fileID: 95980759410839360}
   - component: {fileID: 5370281837519665312}
   - component: {fileID: 6315782074213993219}
-  - component: {fileID: 7917035020634725594}
+  - component: {fileID: -8468854121809423934}
   m_Layer: 0
   m_Name: Polygonal Metalon Purple
   m_TagString: Monster
@@ -867,7 +867,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1462720695320296}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.5
+  m_Radius: 2
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -880,8 +880,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!64 &7917035020634725594
-MeshCollider:
+--- !u!136 &-8468854121809423934
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -890,10 +890,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  m_Radius: 2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1486048802852170
 GameObject:
   m_ObjectHideFlags: 0
