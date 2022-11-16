@@ -5,9 +5,13 @@ using Mirror;
 
 public class StructureStats : UnitStats
 {
-    public override void OnStartAuthority() {
+    public override void OnStartServer() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.onUnitDeath += HandleStructureDestroyed;
+    }
+
+    public void TakeDamage(float damageAmount) {
+        base.RemoveHealthOnNormalAttack(damageAmount);
     }
 
     [Server]
