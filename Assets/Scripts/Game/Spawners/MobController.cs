@@ -6,12 +6,12 @@ public class MobController : MonoBehaviour
     public GameObject target;
     public ResourceSpawner spawnerResource;
     public Transform spawner;
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
     private int id;
-    private readonly float componentDeleteDelay = 1f;
+    private readonly float componentDeleteDelay = .5f;
     private float deleteTime = 0f;
 
     private int hitPoints = 3;
@@ -53,14 +53,15 @@ public class MobController : MonoBehaviour
             if (Vector3.Distance(this.spawnPosition, this.target.transform.position) > this.maximumDistance)
             {
                 this.isChasing = false;
-            } else
+            }
+            else
             {
                 this.ChasePlayer();
             }
         }
         else if (this.isChasing == false && Vector3.Distance(this.spawnPosition, this.transform.position) > 0)
         {
-            this.agent.SetDestination(spawnPosition);
+            this.agent.SetDestination(this.spawnPosition);
         }
     }
 
@@ -74,14 +75,14 @@ public class MobController : MonoBehaviour
 
             outline.OutlineMode = Outline.Mode.OutlineVisible;
             outline.OutlineColor = Color.red;
-            outline.OutlineWidth = 5f;
+            outline.OutlineWidth = 3f;
         }
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Pozyskano Unity-chan");
+            Debug.Log("Pozyskano surowce");
             this.hitPoints -= 1;
-            this.isChasing = true;
+            this.spawnerResource.NotifyAllChildren(target);
             if (this.hitPoints <= 0)
             {
                 this.spawnerResource.RemoveFromChildren(this.Id);
