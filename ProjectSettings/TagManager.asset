@@ -13,6 +13,8 @@ TagManager:
   - Missile
   - Resource
   - Terrain
+  - StructuresRed
+  - StructuresBlue
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Red
+  - Blue
+  - Terrain
   - 
   - 
   - 
