@@ -60,31 +60,42 @@ public class ResourceSpawner : MonoBehaviour
 
             this.spawningX[i] = (float)(x0 + this.spawnRadius * Math.Cos(ConvertToRadians(angle)));
             this.spawningZ[i] = (float)(z0 + this.spawnRadius * Math.Sin(ConvertToRadians(angle)));
+        {
+            this.spawningX[0] = this.transform.position.x;
+            this.spawningZ[0] = this.transform.position.z;
+        }
+        else
+        {
+            GetSpawningPoints();
         }
     }
-    private Vector3 GetSpawningPoints(int position, float radius)
-    {
-        Vector3 location = Vector3.zero;
-        switch (numberSpawned)
-        {
-            case 1:
-                location = this.transform.position;
-                break;
-            case 2:
-                if (position == 0)
-                {
-                    location = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 2*radius);
-                } else
-                {
-                    location = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z + 2*radius);
-                }
-                break;
-            default:
-                location = this.transform.position;
-                break;
-        }
 
-        return location;
+    private void Update()
+    {
+        this.time = Time.time;
+        if (this.isSpawning && Time.time > this.nextSpawnTime)
+        {
+            this.Spawn();
+        }
+    }
+
+    public double ConvertToRadians(double angle)
+    {
+        return (Math.PI / 180) * angle;
+    }
+
+    private void GetSpawningPoints()
+    {
+        var x0 = this.transform.position.x;
+        var z0 = this.transform.position.z;
+
+        for (int i = 0; i < this.numberSpawned; i++)
+        {
+            double angle = i * (360 / this.numberSpawned);
+
+            this.spawningX[i] = (float)(x0 + this.spawnRadius * Math.Cos(ConvertToRadians(angle)));
+            this.spawningZ[i] = (float)(z0 + this.spawnRadius * Math.Sin(ConvertToRadians(angle)));
+        }
     }
 
     private void Spawn()

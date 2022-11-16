@@ -61,7 +61,7 @@ public class MobController : MonoBehaviour
         }
         else if (this.isChasing == false && Vector3.Distance(this.spawnPosition, this.transform.position) > 0)
         {
-            this.agent.SetDestination(spawnPosition);
+            this.agent.SetDestination(this.spawnPosition);
         }
     }
 
