@@ -29,6 +29,10 @@ public class MobStats : UnitStats
         base.AddHealth(this.unitMaxHealth);
     }
 
+    public void TakeDamage(float damageAmount) {
+        base.RemoveHealthOnNormalAttack(damageAmount);
+    }
+
     [Server]
     private void HandleMobDeath() {
         NetworkServer.Destroy(this.gameObject);

@@ -24,6 +24,10 @@ public class PlayerStats : UnitStats
         }
     }
 
+    public void TakeDamage(float damageAmount) {
+        base.RemoveHealthOnNormalAttack(damageAmount);
+    }
+
     [ClientRpc]
     private void RpcHandlePlayerDeath() {
         this.gameObject.SetActive(false);

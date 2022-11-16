@@ -10,6 +10,10 @@ public class StructureStats : UnitStats
         this.onUnitDeath += HandleStructureDestroyed;
     }
 
+    public void TakeDamage(float damageAmount) {
+        base.RemoveHealthOnNormalAttack(damageAmount);
+    }
+
     [Server]
     private void HandleStructureDestroyed() {
         NetworkServer.Destroy(this.gameObject);
