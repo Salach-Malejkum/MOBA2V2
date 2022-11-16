@@ -5,7 +5,7 @@ using Mirror;
 
 public class StructureStats : UnitStats
 {
-    public override void OnStartAuthority() {
+    public override void OnStartServer() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.onUnitDeath += HandleStructureDestroyed;
     }

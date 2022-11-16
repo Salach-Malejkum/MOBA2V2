@@ -1,11 +1,26 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
 public class MobStats : UnitStats
 {
-    public override void OnStartAuthority() {
+    //TODO: na spawn minona musi być event Action który robi Invoke 
+    public event Action OnMobSpawn;
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        this.OnMobSpawn += OnMobSpawnEvent;
+    }
+
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+        this.OnMobSpawn -= OnMobSpawnEvent;
+    }
+
+    public void OnMobSpawnEvent() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.onUnitDeath += HandleMobDeath;
     }
