@@ -1,4 +1,5 @@
 using System;
+
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
@@ -32,7 +33,7 @@ public class MobStats : UnitStats
     public void TakeDamage(float damageAmount) {
         base.RemoveHealthOnNormalAttack(damageAmount);
     }
-
+    
     [Server]
     private void HandleMobDeath() {
         NetworkServer.Destroy(this.gameObject);
