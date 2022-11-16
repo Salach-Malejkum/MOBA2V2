@@ -23,7 +23,7 @@ public class TabGroup : MonoBehaviour
 
     public void Subscribe(TabButtons button)
     {
-        if(this.tabButtons == null)
+        if (this.tabButtons == null)
         {
             this.tabButtons = new List<TabButtons>();
         }
@@ -48,7 +48,7 @@ public class TabGroup : MonoBehaviour
         this.ResetTabs();
         button.BackGround.sprite = this.tabActive;
         int index = button.transform.GetSiblingIndex();
-        for(int i = 0; i < this.objectToSwap.Count; i++)
+        for (int i = 0; i < this.objectToSwap.Count; i++)
         {
             if (i == index)
             {
@@ -64,7 +64,7 @@ public class TabGroup : MonoBehaviour
 
     private void ResetTabs()
     {
-        foreach(TabButtons button in this.tabButtons)
+        foreach (TabButtons button in this.tabButtons)
         {
             if (this.selectedTab != null && button == this.selectedTab)
             {
