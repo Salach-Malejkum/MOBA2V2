@@ -16,6 +16,8 @@ public class TabButtons : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
         get { return backGround; }
     }
 
+    //belongs to player variable + geter i seter zale¿ny od tagu (czy to zak³adki wierzy czy sklepu)
+
     public void OnPointerClick(PointerEventData eventData)
     {
         this.tabGroup.OnTabSelected(this);

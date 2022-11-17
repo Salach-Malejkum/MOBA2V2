@@ -42,7 +42,7 @@ public class TabGroup : MonoBehaviour
 
     public void OnTabExit(TabButtons _) => this.ResetTabs();
 
-    public void OnTabSelected(TabButtons button)
+    public void OnTabSelected(TabButtons button) // check if button belongs to player
     {
         this.selectedTab = button;
         this.ResetTabs();
