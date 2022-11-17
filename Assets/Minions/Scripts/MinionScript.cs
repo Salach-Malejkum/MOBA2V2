@@ -17,10 +17,10 @@ public class MinionScript : MonoBehaviour
     private GameObject targetEnemy;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
-        this.minionMovement = new MinionMovement(Enums.MinionPaths.topPathPoints, this.navMeshAgent, this.gameObject.tag);
+        this.minionMovement = new MinionMovement(Enums.MinionPaths.topPathPoints, this.navMeshAgent, this.gameObject.layer);
         this.minionAttack = new MinionAttack();
         this.objectsInRangeHashSet = new HashSet<GameObject>();
     }
@@ -50,12 +50,16 @@ public class MinionScript : MonoBehaviour
         if (this.followAttack)
         {
             // follow enemy
-            int attackResult = this.minionAttack.Attack(this.targetEnemy);
+            int attackResult = this.minionAttack.CanAttack(); //this.targetEnemy, this.gameObject.GetComponent<UnitStats>().GetUnitAttackDamage());
+            //enemy.GetComponent<UnitStats>().TakeDamage(damage);
 
             if (attackResult == 1)
             {
-                GameObject instProjectile = (GameObject)Instantiate(this.projectile, this.transform);
-                instProjectile.GetComponent<HomingMissile>().target = this.targetEnemy;
+                GameObject instProjectile = Instantiate(this.projectile, new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z), Quaternion.identity);
+                HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
+                missile.target = this.targetEnemy;
+                missile.owner = this.gameObject;
+                missile.damage = this.gameObject.GetComponent<UnitStats>().GetUnitAttackDamage();
             }
             navMeshAgent.destination = this.transform.position;
         }
@@ -71,16 +75,16 @@ public class MinionScript : MonoBehaviour
             return;
 
         // dodac jakie tagi i layery wchodza w sklad tego
-        switch (this.gameObject.tag)
+        switch (LayerMask.LayerToName(this.gameObject.layer))
         {
-            case "Blue_Team":
-                if (other.tag == "Red_Team")
+            case "Blue":
+                if (LayerMask.LayerToName(other.gameObject.layer) == "Red")
                 {
                     this.objectsInRangeHashSet.Add(other.gameObject);
                 }
                 break;
-            case "Red_Team":
-                if (other.tag == "Blue_Team")
+            case "Red":
+                if (LayerMask.LayerToName(other.gameObject.layer) == "Blue")
                 {
                     this.objectsInRangeHashSet.Add(other.gameObject);
                 }
@@ -104,11 +108,16 @@ public class MinionScript : MonoBehaviour
 
         foreach (GameObject currEnemy in this.objectsInRangeHashSet)
         {
-            if (closestEnemy == null)
+            if (currEnemy != null && closestEnemy == null)
             {   closestEnemy = currEnemy;   }
-            else if (Utility.GetDistanceBetweenGameObjects(currEnemy, this.gameObject) < Utility.GetDistanceBetweenGameObjects(closestEnemy, this.gameObject))
+            else if (currEnemy != null && Utility.GetDistanceBetweenGameObjects(currEnemy, this.gameObject) < Utility.GetDistanceBetweenGameObjects(closestEnemy, this.gameObject))
             {   closestEnemy = currEnemy;   }
         }
         return closestEnemy;
+    }
+
+    public void SetMinionPath(Vector3[] path)
+    {
+        this.minionMovement.SetPathPoints(path);
     }
 }

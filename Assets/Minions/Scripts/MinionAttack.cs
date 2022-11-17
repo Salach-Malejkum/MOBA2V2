@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class MinionAttack
 {
-    private float aaCooldown = 3f;
+    private float aaCooldown = 0.5f;
     private float timeAfterAA = 3f;
     private float timer = -1; 
 
-    public int Attack(GameObject enemy)
+    public int CanAttack()
     {
         if (!this.IsAttackOnCooldown())
         {
-            Debug.Log("Attack: " + enemy.gameObject.name);
             return 1;
         }
         return 0;

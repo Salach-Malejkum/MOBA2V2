@@ -5,26 +5,40 @@ using UnityEngine;
 public class MinionSpawnerScript
 {
     // might change some variables and methods to static
+    private Enums.IMinionsPrefabs minionsPrefabs;
     private GameObject meleeMinionPrefab;
     private GameObject rangedMinionPrefab;
     private GameObject cannonMinionPrefab;
+    private Vector3[] minionPath;
     private int spawnsFinished;
     private Vector3 spawnPosition;
     private bool wasFirstWaveSpawned; // should be false, could be true for the debug option
     private readonly int whenCannonWave;
-    private readonly string tagName;
+    private readonly int layer;
 
-    public MinionSpawnerScript(Vector3 spawnPosition, string tagName)
+    public MinionSpawnerScript(Vector3 spawnPosition, int layer, Vector3[] minionPath)
     {
-        this.meleeMinionPrefab = Resources.Load<GameObject>(Enums.MinionPrefabs.rangedMinionPath);
-        this.rangedMinionPrefab = Resources.Load<GameObject>(Enums.MinionPrefabs.rangedMinionPath);
-        this.cannonMinionPrefab = Resources.Load<GameObject>(Enums.MinionPrefabs.rangedMinionPath);
+        switch (LayerMask.LayerToName(layer))
+        {
+            case "Blue":
+                this.minionsPrefabs = new Enums.BlueMinionsPrefabs();
+                break;
+            case "Red":
+                this.minionsPrefabs = new Enums.RedMinionsPrefabs();
+                break;
+        }
+        this.meleeMinionPrefab = Resources.Load<GameObject>(this.minionsPrefabs.GetRangedPath());
+        this.rangedMinionPrefab = Resources.Load<GameObject>(this.minionsPrefabs.GetRangedPath());
+        this.cannonMinionPrefab = Resources.Load<GameObject>(this.minionsPrefabs.GetRangedPath());
+
+        this.minionPath = minionPath;
 
         this.spawnsFinished = 0;
         this.spawnPosition = spawnPosition;
         this.wasFirstWaveSpawned = false;
         this.whenCannonWave = 3;
-        this.tagName = tagName;
+        this.layer = layer;
+        this.minionPath = minionPath;
     }
 
     private bool CheckIfCanFirstSpawn(float timePassed)
@@ -86,8 +100,13 @@ public class MinionSpawnerScript
         return this.cannonMinionPrefab;
     }
 
-    public string GetTagName()
+    public int GetLayer()
     {
-        return this.tagName;
+        return this.layer;
+    }
+
+    public Vector3[] GetMinionPath()
+    {
+        return this.minionPath;
     }
 }

@@ -6,20 +6,12 @@ using UnityEngine.AI;
 public class MinionMovement : IMinionMovement
 {
     private int currentPointInd;
-    private readonly Vector3[] pathPoints;
+    private Vector3[] pathPoints;
     private readonly NavMeshAgent agent;
 
-    public MinionMovement(Vector3[] pathPoints, NavMeshAgent agent, string tagName)
+    public MinionMovement(Vector3[] pathPoints, NavMeshAgent agent, int layer)
     {
-        switch (tagName)
-        {
-            case Enums.TeamMinionSpawnerTags.blueTeamTag:
-                this.pathPoints = pathPoints;
-                break;
-            case Enums.TeamMinionSpawnerTags.redTeamTag:
-                this.pathPoints = Enumerable.Reverse(pathPoints).ToArray();
-                break ;
-        }
+        this.pathPoints = pathPoints;
         this.agent = agent;
         this.agent.autoBraking = false;
         this.currentPointInd = 0;
@@ -40,5 +32,10 @@ public class MinionMovement : IMinionMovement
             this.currentPointInd += 1;
             agent.destination = this.pathPoints[this.currentPointInd];
         }
+    }
+
+    public void SetPathPoints(Vector3[] path)
+    {
+        this.pathPoints = path;
     }
 }
