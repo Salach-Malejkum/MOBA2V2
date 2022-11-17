@@ -20,7 +20,7 @@ public class MinionMovement : NetworkBehaviour, IMinionMovement
 
     public void Move()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!this.agent.pathPending && this.agent.remainingDistance < 0.5f)
         {
             this.GoToNextPoint();
         }
@@ -31,7 +31,7 @@ public class MinionMovement : NetworkBehaviour, IMinionMovement
         if (this.currentPointInd < this.pathPoints.Length - 1)
         {
             this.currentPointInd += 1;
-            agent.destination = this.pathPoints[this.currentPointInd];
+            this.agent.destination = this.pathPoints[this.currentPointInd];
         }
     }
 

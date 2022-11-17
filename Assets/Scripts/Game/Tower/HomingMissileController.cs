@@ -12,7 +12,7 @@ public class HomingMissileController : NetworkBehaviour
 
     private void Awake()
     {
-        gameObject.transform.TransformPoint(Vector3.zero);
+        this.gameObject.transform.TransformPoint(Vector3.zero);
     }
 
     [ServerCallback]
@@ -24,8 +24,8 @@ public class HomingMissileController : NetworkBehaviour
         }
         else
         {
-            gameObject.transform.position += (target.transform.position - gameObject.transform.position).normalized * speed * Time.deltaTime;
-            gameObject.transform.LookAt(target.transform);
+            this.gameObject.transform.position += (target.transform.position - this.gameObject.transform.position).normalized * this.speed * Time.deltaTime;
+            this.gameObject.transform.LookAt(this.target.transform);
         }                
     }
 
@@ -33,7 +33,7 @@ public class HomingMissileController : NetworkBehaviour
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger && other.gameObject == target)
+        if (!other.isTrigger && other.gameObject == this.target)
         {
             other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
             NetworkServer.Destroy(this.gameObject);
