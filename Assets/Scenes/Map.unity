@@ -2348,20 +2348,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_PrefabInstance: {fileID: 141223253}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &141223256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141223255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
-  missile_timer: 0
 --- !u!135 &141223257
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2388,29 +2374,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &141223259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 141223255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &141223260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2444,6 +2407,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &141223262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141223255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1 &141730930
 GameObject:
   m_ObjectHideFlags: 0
@@ -3237,29 +3223,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &181190917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 181190913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &181190918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3293,6 +3256,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &181190920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 181190913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &200346695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5614,29 +5600,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &305868640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 305868636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &305868641
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5670,6 +5633,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &305868643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305868636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1 &312743951
 GameObject:
   m_ObjectHideFlags: 0
@@ -10766,20 +10752,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_PrefabInstance: {fileID: 602522910}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &602522913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602522912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
-  missile_timer: 0
 --- !u!135 &602522915
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -10806,29 +10778,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &602522917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 602522912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &602522918
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10862,6 +10811,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &602522920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602522912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &606803679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16804,29 +16776,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &960327444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 960327440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &960327445
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16860,6 +16809,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &960327447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960327440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &961117166
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17085,29 +17057,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &961752865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961752861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &961752866
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17141,6 +17090,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &961752868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 961752861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &961810508
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17616,29 +17588,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &992270095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992270091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &992270096
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17672,6 +17621,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &992270098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992270091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &993800180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25088,29 +25060,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1440365259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440365255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &1440365260
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -25144,6 +25093,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &1440365262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440365255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &1440450087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27314,29 +27286,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1567017621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567017617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &1567017622
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27370,6 +27319,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &1567017624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567017617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &1568355342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28473,29 +28445,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1619859263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1619859259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a21bfb3b5d02943a95d631806640e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  unitMaxHealth: 100
-  unitCurrentHealth: 100
-  unitArmor: 0
-  unitMagicResist: 0
-  unitAttackDamage: 30
-  unitAbilityPower: 0
-  unitMovementSpeed: 0
-  unitCooldownReduction: 0
 --- !u!54 &1619859264
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -28529,6 +28478,29 @@ MonoBehaviour:
   serverOnly: 0
   visible: 0
   hasSpawned: 0
+--- !u!114 &1619859266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619859259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
 --- !u!1001 &1627424158
 PrefabInstance:
   m_ObjectHideFlags: 0
