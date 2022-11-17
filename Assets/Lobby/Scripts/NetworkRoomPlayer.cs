@@ -78,4 +78,18 @@ public class NetworkRoomPlayer : NetworkBehaviour
         NetworkManagerLobby.Instance.StartGame();
     }
 
+    [Command]
+    public void CmdCancelQueue()
+    {
+        if (NetworkManagerLobby.Instance.connType == "remote")
+        {
+            NetworkManagerLobby.Instance.StopClient();
+        }
+        else
+        {
+            NetworkManagerLobby.Instance.StopHost();
+        }
+
+    }
+
 }
