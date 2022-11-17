@@ -1,24 +1,26 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomingMissileController : MonoBehaviour
+public class HomingMissileController : NetworkBehaviour
 {
     public GameObject target;
     public GameObject owner;
     public float damage;
     private float speed = 10f;
 
-    private void Start()
+    private void Awake()
     {
         gameObject.transform.TransformPoint(Vector3.zero);
     }
 
+    [ServerCallback]
     private void FixedUpdate()
     {
         if (this.target == null)
         {
-            Destroy(this.gameObject);
+            NetworkServer.Destroy(this.gameObject);
         }
         else
         {
@@ -27,12 +29,14 @@ public class HomingMissileController : MonoBehaviour
         }                
     }
 
+
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger && other.gameObject == target)
         {
             other.gameObject.GetComponent<UnitStats>().TakeDamage(this.damage);
-            Destroy(this.gameObject);
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 }

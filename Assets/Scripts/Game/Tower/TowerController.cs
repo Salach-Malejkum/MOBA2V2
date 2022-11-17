@@ -32,7 +32,6 @@ public class TowerController : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Missile"))
         {
-            UnityEngine.Debug.Log(other.gameObject.tag + " in");
             this.enemies.Add(other.gameObject);
         }
     }
@@ -41,7 +40,6 @@ public class TowerController : MonoBehaviour
     {
         if (!other.gameObject.CompareTag("Missile"))
         {
-            UnityEngine.Debug.Log(other.gameObject.tag + " out");
             this.enemies.Remove(other.gameObject);
         }
     }
