@@ -31,7 +31,7 @@ namespace Mirror.Examples.AdditiveLevels
 
             characterController.enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
-            GetComponent<NetworkTransform>().syncDirection = SyncDirection.ClientToServer;
+            GetComponent<NetworkTransform>().clientAuthority = true;
         }
 
         public override void OnStartLocalPlayer()

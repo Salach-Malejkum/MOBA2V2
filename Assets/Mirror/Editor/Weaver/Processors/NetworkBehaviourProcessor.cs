@@ -397,7 +397,7 @@ namespace Mirror.Weaver
 
             MethodDefinition serialize = new MethodDefinition(SerializeMethodName,
                     MethodAttributes.Public | MethodAttributes.Virtual | MethodAttributes.HideBySig,
-                    weaverTypes.Import(typeof(void)));
+                    weaverTypes.Import<bool>());
 
             serialize.Parameters.Add(new ParameterDefinition("writer", ParameterAttributes.None, weaverTypes.Import<NetworkWriter>()));
             serialize.Parameters.Add(new ParameterDefinition("forceAll", ParameterAttributes.None, weaverTypes.Import<bool>()));
@@ -405,7 +405,10 @@ namespace Mirror.Weaver
 
             serialize.Body.InitLocals = true;
 
-            // base.SerializeSyncVars(writer, forceAll);
+            // loc_0,  this local variable is to determine if any variable was dirty
+            VariableDefinition dirtyLocal = new VariableDefinition(weaverTypes.Import<bool>());
+            serialize.Body.Variables.Add(dirtyLocal);
+
             MethodReference baseSerialize = Resolvers.TryResolveMethodInParents(netBehaviourSubclass.BaseType, assembly, SerializeMethodName);
             if (baseSerialize != null)
             {
@@ -416,20 +419,16 @@ namespace Mirror.Weaver
                 // forceAll
                 worker.Emit(OpCodes.Ldarg_2);
                 worker.Emit(OpCodes.Call, baseSerialize);
+                // set dirtyLocal to result of base.OnSerialize()
+                worker.Emit(OpCodes.Stloc_0);
             }
 
-            // Generates:
-            //   if (forceAll)
-            //   {
-            //       writer.WriteInt(health);
-            //       ...
-            //   }
+            // Generates: if (forceAll);
             Instruction initialStateLabel = worker.Create(OpCodes.Nop);
             // forceAll
-            worker.Emit(OpCodes.Ldarg_2);                    // load 'forceAll' flag
-            worker.Emit(OpCodes.Brfalse, initialStateLabel); // start the 'if forceAll' branch
+            worker.Emit(OpCodes.Ldarg_2);
+            worker.Emit(OpCodes.Brfalse, initialStateLabel);
 
-            // generates write.Write(syncVar) for each SyncVar in forceAll case
             foreach (FieldDefinition syncVarDef in syncVars)
             {
                 FieldReference syncVar = syncVarDef;
@@ -456,13 +455,14 @@ namespace Mirror.Weaver
                 }
             }
 
-            // if (forceAll) then always return at the end of the 'if' case
+            // always return true if forceAll
+
+            // Generates: return true
+            worker.Emit(OpCodes.Ldc_I4_1);
             worker.Emit(OpCodes.Ret);
 
-            // end the 'if' case for "if (forceAll)"
+            // Generates: end if (forceAll);
             worker.Append(initialStateLabel);
-
-            ////////////////////////////////////////////////////////////////////
 
             // write dirty bits before the data fields
             // Generates: writer.WritePackedUInt64 (base.get_syncVarDirtyBits ());
@@ -480,6 +480,7 @@ namespace Mirror.Weaver
             int dirtyBit = syncVarAccessLists.GetSyncVarStart(netBehaviourSubclass.BaseType.FullName);
             foreach (FieldDefinition syncVarDef in syncVars)
             {
+
                 FieldReference syncVar = syncVarDef;
                 if (netBehaviourSubclass.HasGenericParameters)
                 {
@@ -515,6 +516,11 @@ namespace Mirror.Weaver
                     return;
                 }
 
+                // something was dirty
+                worker.Emit(OpCodes.Ldc_I4_1);
+                // set dirtyLocal to true
+                worker.Emit(OpCodes.Stloc_0);
+
                 worker.Append(varLabel);
                 dirtyBit += 1;
             }
@@ -523,7 +529,8 @@ namespace Mirror.Weaver
             //worker.Emit(OpCodes.Ldstr, $"Injected Serialize {netBehaviourSubclass.Name}");
             //worker.Emit(OpCodes.Call, WeaverTypes.logErrorReference);
 
-            // generate: return
+            // generate: return dirtyLocal
+            worker.Emit(OpCodes.Ldloc_0);
             worker.Emit(OpCodes.Ret);
             netBehaviourSubclass.Methods.Add(serialize);
         }
