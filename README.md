@@ -26,6 +26,9 @@ https://assetstore.unity.com/packages/2d/gui/icons/fantasy-inventory-icons-free-
 https://ambientcg.com/view?id=Ground037
 https://ambientcg.com/view?id=Rock030
 
+## Propozycje prefabów
+https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/mini-legion-lich-pbr-hp-polyart-91497
+
 ## Struktura folderów (ważne)
 Jeżeli coś tworzycie to prosze zachowac nowa strukture folderow:
 (Przykład dla serwera, mapy i klienta)
