@@ -19,11 +19,17 @@ public class MobStats : UnitStats
     {
         base.OnStopServer();
         this.OnMobSpawn -= OnMobSpawnEvent;
+        this.onUnitDeath -= HandleMobDeath;
     }
 
     public void OnMobSpawnEvent() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.onUnitDeath += HandleMobDeath;
+    }
+
+    public void OnMobSpawned()
+    {
+        OnMobSpawn?.Invoke();
     }
 
     public void onMonsterLoseAggro() {

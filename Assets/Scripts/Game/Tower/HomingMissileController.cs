@@ -1,32 +1,42 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HomingMissileController : MonoBehaviour
+public class HomingMissileController : NetworkBehaviour
 {
     public GameObject target;
-    private float speed = 2f;
+    public GameObject owner;
+    public float damage;
+    private float speed = 10f;
 
-    private void Start()
+    private void Awake()
     {
-        gameObject.transform.TransformPoint(Vector3.zero);
+        this.gameObject.transform.TransformPoint(Vector3.zero);
     }
 
+    [ServerCallback]
     private void FixedUpdate()
     {
-        gameObject.transform.position += (target.transform.position - gameObject.transform.position).normalized * speed * Time.deltaTime;
-        gameObject.transform.LookAt(target.transform);
-        //rb.velocity = transform.up * speed;
+        if (this.target == null)
+        {
+            NetworkServer.Destroy(this.gameObject);
+        }
+        else
+        {
+            this.gameObject.transform.position += (target.transform.position - this.gameObject.transform.position).normalized * this.speed * Time.deltaTime;
+            this.gameObject.transform.LookAt(this.target.transform);
+        }                
     }
 
+
+    [Server]
     private void OnTriggerEnter(Collider other)
     {
-        UnityEngine.Debug.Log("Babang");
-        UnityEngine.Debug.Log(other.tag);
-        if (other.gameObject == target)
+        if (!other.isTrigger && other.gameObject == this.target)
         {
-            UnityEngine.Debug.Log("Bang");
-            Destroy(gameObject);
+            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 }
