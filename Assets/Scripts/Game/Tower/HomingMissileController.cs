@@ -5,7 +5,9 @@ using UnityEngine;
 public class HomingMissileController : MonoBehaviour
 {
     public GameObject target;
-    private float speed = 15f;
+    public GameObject owner;
+    public float damage;
+    private float speed = 10f;
 
     private void Start()
     {
@@ -14,19 +16,23 @@ public class HomingMissileController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        gameObject.transform.position += (target.transform.position - gameObject.transform.position).normalized * speed * Time.deltaTime;
-        gameObject.transform.LookAt(target.transform);
-        //rb.velocity = transform.up * speed;
+        if (this.target == null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            gameObject.transform.position += (target.transform.position - gameObject.transform.position).normalized * speed * Time.deltaTime;
+            gameObject.transform.LookAt(target.transform);
+        }                
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        UnityEngine.Debug.Log("Babang");
-        UnityEngine.Debug.Log(other.tag);
-        if (other.gameObject == target)
+        if (!other.isTrigger && other.gameObject == target)
         {
-            UnityEngine.Debug.Log("Bang");
-            Destroy(gameObject);
+            other.gameObject.GetComponent<UnitStats>().TakeDamage(this.damage);
+            Destroy(this.gameObject);
         }
     }
 }
