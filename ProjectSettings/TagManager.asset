@@ -16,6 +16,7 @@ TagManager:
   - StructuresRed
   - StructuresBlue
   - Monster
+  - Tower
   layers:
   - Default
   - TransparentFX

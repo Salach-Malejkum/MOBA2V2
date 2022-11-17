@@ -7,12 +7,13 @@ public class MobController : MonoBehaviour
     public ResourceSpawner spawnerResource;
     public Transform spawner;
     private NavMeshAgent agent;
+    private Outline outline;
+
+    public float deleteOutlineTimer = 0f;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
     private int id;
-    private readonly float componentDeleteDelay = .5f;
-    private float deleteOutlineTimer = 0f;
 
     private float hitPoints = 3f;
     public float maximumDistance = 15f;
@@ -39,13 +40,14 @@ public class MobController : MonoBehaviour
     {
         this.spawnPosition = this.transform.position;
         this.agent = GetComponent<NavMeshAgent>();
+        this.outline = GetComponent<Outline>();
     }
 
     private void FixedUpdate()
     {
-        if (Time.time > this.deleteOutlineTimer)
+        if (this.outline.OutlineWidth > 0 && Time.time > this.deleteOutlineTimer)
         {
-            Destroy(GetComponent<Outline>());
+            this.outline.OutlineWidth = 0f;
         }
         if (this.isChasing == true)
         {
@@ -64,19 +66,19 @@ public class MobController : MonoBehaviour
         }
     }
 
-    private void OnMouseOver()
-    {
-        this.deleteOutlineTimer = Time.time + componentDeleteDelay;
+    //private void OnMouseOver()
+    //{
+    //    this.deleteOutlineTimer = Time.time + componentDeleteDelay;
 
-        if (!GetComponent<Outline>())
-        {
-            var outline = this.gameObject.AddComponent<Outline>();
+    //    if (!GetComponent<Outline>())
+    //    {
+    //        var outline = this.gameObject.AddComponent<Outline>();
 
-            outline.OutlineMode = Outline.Mode.OutlineVisible;
-            outline.OutlineColor = Color.red;
-            outline.OutlineWidth = 3f;
-        }
-    }
+    //        outline.OutlineMode = Outline.Mode.OutlineVisible;
+    //        outline.OutlineColor = Color.red;
+    //        outline.OutlineWidth = 3f;
+    //    }
+    //}
 
     public void TakeDamage(float damage, GameObject assaulter)
     {
