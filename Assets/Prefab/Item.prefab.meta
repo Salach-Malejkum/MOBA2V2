@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Prefab/Item.prefab.meta
 guid: 2296af883ef731247afd5902fab50e54
-========
-guid: f5b41ba4c79702547a89de7544b80656
->>>>>>>> 2229b30 (alle monster spawn with their assets):Assets/Map/Prefabs/Enemies/Bear_4.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

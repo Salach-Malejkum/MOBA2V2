@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ImportedAssets.meta
 guid: 4f8370d9373084641aaefeeba599bd50
+========
+guid: cd7f4ffc1a2f13745b392516accf0137
+>>>>>>>> main:Assets/InputMap.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -130,6 +130,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4656188166199423107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f72b9e0c71399574eb07fee0c2ba3887, type: 3}
+  m_Script: {fileID: 11500000, guid: b44673b8a5a410b4995970169e89477f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  missile: {fileID: 7916430966287518999, guid: 3c277857e308bee448f134670a81c198, type: 3}
+  missile_timer: 1
