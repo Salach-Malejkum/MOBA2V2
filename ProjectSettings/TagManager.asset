@@ -4,8 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Tower_Red
-  - Tower_Blue
   - Structures_Red
   - Structures_Blue
   - Red_Team
@@ -13,6 +11,9 @@ TagManager:
   - Missile
   - Resource
   - Terrain
+  - StructuresRed
+  - StructuresBlue
+  - Tower
   layers:
   - Default
   - TransparentFX
@@ -20,9 +21,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Red
+  - Blue
+  - Terrain
   - 
   - 
   - 
