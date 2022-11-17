@@ -57,7 +57,7 @@ public class MinionScript : NetworkBehaviour
                 HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
                 missile.target = this.targetEnemy;
                 missile.owner = this.gameObject;
-                missile.damage = this.gameObject.GetComponent<UnitStats>().GetUnitAttackDamage();
+                missile.damage = this.gameObject.GetComponent<UnitStats>().UnitAttackDamage;
             }
             navMeshAgent.destination = this.transform.position;
         }

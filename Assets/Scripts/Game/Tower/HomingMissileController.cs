@@ -35,7 +35,7 @@ public class HomingMissileController : NetworkBehaviour
     {
         if (!other.isTrigger && other.gameObject == target)
         {
-            other.gameObject.GetComponent<UnitStats>().TakeDamage(this.damage);
+            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
             NetworkServer.Destroy(this.gameObject);
         }
     }

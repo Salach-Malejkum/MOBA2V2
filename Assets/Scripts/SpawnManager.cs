@@ -73,6 +73,7 @@ public class SpawnManager : NetworkBehaviour
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
 
             NetworkServer.Spawn(go);
+            go.GetComponent<MobStats>().OnMobSpawned();
         }
 
         if (team.CheckIfCanSpawnCannon())
@@ -82,6 +83,7 @@ public class SpawnManager : NetworkBehaviour
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
 
             NetworkServer.Spawn(go);
+            go.GetComponent<MobStats>().OnMobSpawned();
         }
 
         for (int i = 0; i < 3; i++)
@@ -91,6 +93,7 @@ public class SpawnManager : NetworkBehaviour
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
 
             NetworkServer.Spawn(go);
+            go.GetComponent<MobStats>().OnMobSpawned();
         }
     }
 }
