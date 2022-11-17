@@ -68,4 +68,13 @@ public class UserAuthorization : MonoBehaviour
             this.transform.GetComponent<Feedback>().ActivateAndSetMessageText(errorCallback.ToString());
         });
     }
+
+    public void Logout()
+    {
+        EntityId = null;
+        SessionTicket = null;
+        this.loginScreenBackground.SetActive(true);
+        this.signInDisplay.SetActive(true);
+        this.afterLoginScreen.SetActive(false);
+    }
 }
