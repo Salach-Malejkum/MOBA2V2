@@ -11,18 +11,38 @@ public class TowerController : MonoBehaviour
 
     private List<GameObject> enemies = new List<GameObject>();
     private readonly float missile_delay = 5f;
+    private int targetedLayer;
+
+    private void Awake()
+    {
+        int redLayer = LayerMask.NameToLayer("Red");
+        int blueLayer = LayerMask.NameToLayer("Blue");
+
+        if (this.gameObject.layer == redLayer)
+        {
+            this.targetedLayer = blueLayer;
+        } 
+        else if (this.gameObject.layer == blueLayer)
+        {
+            this.targetedLayer = redLayer;
+        }
+    }
 
     private void FixedUpdate()
     {
         if (this.enemies.Count > 0 && this.missile_timer < 0)
         {
-            GameObject go = (GameObject)Instantiate(this.missile);
-            HomingMissileController hmc = go.GetComponent<HomingMissileController>();
+            foreach (GameObject enemy in this.enemies)
+            {
+                if (enemy == null)
+                {
+                    this.enemies.Remove(enemy);
+                }
+            }
 
-            hmc.target = GetClosestEnemy(enemies);
-
-            this.missile_timer = this.missile_delay;
-        } else if (this.missile_timer >= 0)
+            this.Shoot();
+        }
+        else if (this.missile_timer >= 0)
         {
             this.missile_timer -= Time.deltaTime;
         }
@@ -30,7 +50,7 @@ public class TowerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!other.gameObject.CompareTag("Missile"))
+        if (other.gameObject.layer == this.targetedLayer && !other.gameObject.CompareTag("Missile"))
         {
             UnityEngine.Debug.Log(other.gameObject.tag + " in");
             this.enemies.Add(other.gameObject);
@@ -39,7 +59,7 @@ public class TowerController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.gameObject.CompareTag("Missile"))
+        if (other.gameObject.layer == this.targetedLayer && !other.gameObject.CompareTag("Missile"))
         {
             UnityEngine.Debug.Log(other.gameObject.tag + " out");
             this.enemies.Remove(other.gameObject);
@@ -50,16 +70,26 @@ public class TowerController : MonoBehaviour
     {
         GameObject tMin = null;
         float minDist = Mathf.Infinity;
-        Vector3 currentPos = transform.position;
+        Vector3 currentPos = this.transform.position;
         foreach (GameObject go in enemies)
         {
             float dist = Vector3.Distance(go.transform.position, currentPos);
-            if (dist < minDist && !go.CompareTag("Missile"))
+            if (dist < minDist)
             {
                 tMin = go;
                 minDist = dist;
             }
         }
         return tMin;
+    }
+
+    private void Shoot()
+    {
+        GameObject go = Instantiate(this.missile, this.transform);
+        HomingMissileController hmc = go.GetComponent<HomingMissileController>();
+
+        hmc.target = this.GetClosestEnemy(this.enemies);
+
+        this.missile_timer = this.missile_delay;
     }
 }

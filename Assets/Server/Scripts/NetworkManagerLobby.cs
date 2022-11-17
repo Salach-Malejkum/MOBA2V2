@@ -28,13 +28,14 @@ public class NetworkManagerLobby : NetworkManager {
     
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
-    public static event Action<NetworkConnectionToClient> OnServerReadied;
+    public static event EventHandler<OnPlayerSpawnArgs> OnServerReadied;
 
     public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
     public string connType = "remote";
+
     public override void Awake()
     {
         base.Awake();
@@ -170,13 +171,32 @@ public class NetworkManagerLobby : NetworkManager {
         if(SceneManager.GetActiveScene().path == menuScene) {
             for (int i = Instance.RoomPlayers.Count - 1; i >= 0; i--) {
                 var conn = Instance.RoomPlayers[i].connectionToClient;
+                var playerConn = Instance.playerConnections.Find(c => c.Connection == conn);
+
+                if (playerConn != null) {
+                    playerConn.inGamePlayerId = i;
+                } else {
+                    Instance.playerConnections.Add(new PlayerConnection() {
+                        Connection = conn,
+                        ConnectionId = conn.connectionId,
+                        inGamePlayerId = i,
+                    });
+                }
+                
                 var inGamePlayerInstance = Instantiate(inGamePlayerPrefab);
+
                 inGamePlayerInstance.SetDisplayName(Instance.RoomPlayers[i].DisplayName);
+                inGamePlayerInstance.playerIdx = i;
+
                 Debug.Log("Room player " + Instance.RoomPlayers[i].DisplayName + " changed to inGamePlayer ");
+
                 NetworkServer.Destroy(conn.identity.gameObject);
+
                 //wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
                 NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
-                Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
+                if(Instance.connType == "remote") {
+                    Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
+                }
             }
 
             base.ServerChangeScene(mapName);
@@ -194,8 +214,7 @@ public class NetworkManagerLobby : NetworkManager {
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
-
-        OnServerReadied?.Invoke(conn);
+        OnServerReadied?.Invoke(Instance, new OnPlayerSpawnArgs(Instance.playerConnections.Find(c => c.Connection == conn).inGamePlayerId, conn));
     }
 }
 
@@ -206,8 +225,20 @@ public class PlayerConnection {
     public string LobbyId;
     public int ConnectionId;
     public NetworkConnection Connection;
+    public int inGamePlayerId;
 }
 //musi być struct bo NonNullable
 public struct AuthenticateMessage : NetworkMessage {
     public string PlayfabId;
+}
+
+public class OnPlayerSpawnArgs : EventArgs
+{
+    public int PlayerId;
+    public NetworkConnectionToClient conn;
+
+    public OnPlayerSpawnArgs(int playerId, NetworkConnectionToClient networkConnectionToClient) {
+        PlayerId = playerId;
+        conn = networkConnectionToClient;
+    }
 }

@@ -9,9 +9,6 @@ public class PlayerSpawn : NetworkBehaviour
     [SerializeField] private GameObject playerPrefab = default;
 
     private static List<Transform> spawnPoints = new List<Transform>();
-
-    private int nextIdx = 0;
-
     public static void AddSpawnPoint(Transform transform) {
         spawnPoints.Add(transform);
 
@@ -29,17 +26,16 @@ public class PlayerSpawn : NetworkBehaviour
     private void OnDestroy() => NetworkManagerLobby.OnServerReadied -= SpawnPlayer;
 
     [Server]
-    public void SpawnPlayer(NetworkConnectionToClient conn) {
-        Transform spawnPoint = spawnPoints.ElementAtOrDefault(nextIdx);
+    public void SpawnPlayer(object sender, OnPlayerSpawnArgs args) {
+        Debug.Log("Spawning player: " + args.conn.ToString() + " on point: " + args.PlayerId.ToString());
+        Transform spawnPoint = spawnPoints.ElementAtOrDefault(args.PlayerId);
 
         if(spawnPoint == null) {
             Debug.LogError("Missing spawn");
             return;
         }
 
-        GameObject playerInstance = Instantiate(this.playerPrefab, spawnPoints[nextIdx].position, spawnPoints[nextIdx].rotation);
-        NetworkServer.ReplacePlayerForConnection(conn, playerInstance);
-
-        nextIdx++;
+        GameObject playerInstance = Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
+        NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
     }
 }

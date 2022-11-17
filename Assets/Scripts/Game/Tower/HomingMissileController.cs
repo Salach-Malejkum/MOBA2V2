@@ -5,7 +5,7 @@ using UnityEngine;
 public class HomingMissileController : MonoBehaviour
 {
     public GameObject target;
-    private float speed = 2f;
+    private float speed = 15f;
 
     private void Start()
     {

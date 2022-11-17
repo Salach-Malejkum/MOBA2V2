@@ -5,10 +5,12 @@ using UnityEngine.AI;
 
 public class PlayerMovement : IMovement
 {
+    public Camera camera;
     private NavMeshAgent navMeshAgent;
 
     public PlayerMovement(NavMeshAgent navMeshAgent)
     {
+        camera = Camera.main;
         this.navMeshAgent = navMeshAgent;
     }
 
