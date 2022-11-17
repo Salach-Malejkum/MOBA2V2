@@ -1,7 +1,8 @@
+using Mirror;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : NetworkBehaviour
 {
     private float timePassed = 0f;
     private MinionSpawnerScript blueTeamTopMinions;
@@ -10,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     private MinionSpawnerScript redTeamBotMinions;
 
     // Start is called before the first frame update
-    private void Start()
+    public override void OnStartServer()
     {
         this.blueTeamTopMinions = new MinionSpawnerScript
             (
@@ -42,6 +43,7 @@ public class SpawnManager : MonoBehaviour
             );
     }
 
+    [ServerCallback]
     // Update is called once per frame
     private void FixedUpdate()
     {
@@ -52,6 +54,7 @@ public class SpawnManager : MonoBehaviour
         this.SpawnMinions(this.redTeamBotMinions);
     }
 
+    [Server]
     private void SpawnMinions(MinionSpawnerScript team)
     {
         if (team.CheckIfCanSpawn(this.timePassed))
@@ -60,6 +63,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     private void SpawnMinionWave(MinionSpawnerScript team)
     {
         for (int i = 0; i < 3; i++)
@@ -67,6 +71,8 @@ public class SpawnManager : MonoBehaviour
             GameObject go = Instantiate(team.GetMeleeMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
             go.layer = team.GetLayer();
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
+
+            NetworkServer.Spawn(go);
         }
 
         if (team.CheckIfCanSpawnCannon())
@@ -74,6 +80,8 @@ public class SpawnManager : MonoBehaviour
             GameObject go = Instantiate(team.GetCannonMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
             go.layer = team.GetLayer();
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
+
+            NetworkServer.Spawn(go);
         }
 
         for (int i = 0; i < 3; i++)
@@ -81,6 +89,8 @@ public class SpawnManager : MonoBehaviour
             GameObject go = Instantiate(team.GetRangedMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
             go.layer = team.GetLayer();
             go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
+
+            NetworkServer.Spawn(go);
         }
     }
 }
