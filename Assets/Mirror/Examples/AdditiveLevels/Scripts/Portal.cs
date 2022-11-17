@@ -15,7 +15,7 @@ namespace Mirror.Examples.AdditiveLevels
         public Vector3 startPosition;
 
         [Tooltip("Reference to child TMP label")]
-        public TextMesh label; // don't depend on TMPro. 2019 errors.
+        public TMPro.TextMeshPro label;
 
         [SyncVar(hook = nameof(OnLabelTextChanged))]
         public string labelText;

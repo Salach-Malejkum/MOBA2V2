@@ -23,6 +23,7 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
 
         // <servertime, snaps>
         public SortedList<double, Snapshot3D> snapshots = new SortedList<double, Snapshot3D>();
+        Func<Snapshot3D, Snapshot3D, double, Snapshot3D> Interpolate = Snapshot3D.Interpolate;
 
         // for smooth interpolation, we need to interpolate along server time.
         // any other time (arrival on client, client local time, etc.) is not
@@ -45,7 +46,7 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
 
         [Tooltip("Local timeline acceleration in % while catching up.")]
         [Range(0, 1)]
-        public double catchupSpeed = 0.01f; // 1%
+        public double catchupSpeed = 0.01f;  // 1%
 
         [Tooltip("Local timeline slowdown in % while slowing down.")]
         [Range(0, 1)]
@@ -85,14 +86,14 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
         public float dynamicAdjustmentTolerance = 1; // 1 is realistically just fine, 2 is very very safe even for 20% jitter. can be half a frame too. (see above comments)
 
         [Tooltip("Dynamic adjustment is computed over n-second exponential moving average standard deviation.")]
-        public int deliveryTimeEmaDuration = 2;   // 1-2s recommended to capture average delivery time
-        ExponentialMovingAverage deliveryTimeEma; // average delivery time (standard deviation gives average jitter)
+        public int deliveryTimeEmaDuration = 2;      // 1-2s recommended to capture average delivery time
+        ExponentialMovingAverage deliveryTimeEma;    // average delivery time (standard deviation gives average jitter)
 
         // debugging ///////////////////////////////////////////////////////////
         [Header("Debug")]
-        public Color catchupColor = Color.green; // green traffic light = go fast
-        public Color slowdownColor = Color.red;  // red traffic light = go slow
-        Color        defaultColor;
+        public Color catchupColor = Color.red;
+        public Color slowdownColor = Color.blue;
+        Color defaultColor;
 
         void Awake()
         {
@@ -109,11 +110,7 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
         public void OnMessage(Snapshot3D snap)
         {
             // set local timestamp (= when it was received on our end)
-#if !UNITY_2020_3_OR_NEWER
-            snap.localTime = NetworkTime.localTime;
-#else
             snap.localTime = Time.timeAsDouble;
-#endif
 
             // (optional) dynamic adjustment
             if (dynamicAdjustment)
@@ -128,7 +125,7 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
             }
 
             // insert into the buffer & initialize / adjust / catchup
-            SnapshotInterpolation.InsertAndAdjust(
+            SnapshotInterpolation.Insert(
                 snapshots,
                 snap,
                 ref localTimeline,
@@ -145,26 +142,21 @@ namespace Mirror.Examples.SnapshotInterpolationDemo
 
         void Update()
         {
-            // only while we have snapshots.
-            // timeline starts when the first snapshot arrives.
             if (snapshots.Count > 0)
             {
                 // snapshot interpolation
                 if (interpolate)
                 {
-                    // step
-                    SnapshotInterpolation.Step(
+                    if (SnapshotInterpolation.Step(
                         snapshots,
                         Time.unscaledDeltaTime,
                         ref localTimeline,
                         localTimescale,
-                        out Snapshot3D fromSnapshot,
-                        out Snapshot3D toSnapshot,
-                        out double t);
-
-                    // interpolate & apply
-                    Snapshot3D computed = Snapshot3D.Interpolate(fromSnapshot, toSnapshot, t);
-                    transform.position = computed.position;
+                        Interpolate,
+                        out Snapshot3D computed))
+                    {
+                        transform.position = computed.position;
+                    }
                 }
                 // apply raw
                 else
