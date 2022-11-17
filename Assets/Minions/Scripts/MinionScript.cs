@@ -1,19 +1,18 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MinionScript : MonoBehaviour
+public class MinionScript : NetworkBehaviour
 {
     public GameObject projectile;
     private IMinionMovement minionMovement;
     private MinionAttack minionAttack;
     private bool followAttack = false;
-    [SerializeField]
     private HashSet<GameObject> objectsInRangeHashSet;
     private NavMeshAgent navMeshAgent;
     private float timer = 0;
-    [SerializeField]
     private GameObject targetEnemy;
 
     // Start is called before the first frame update
@@ -25,7 +24,7 @@ public class MinionScript : MonoBehaviour
         this.objectsInRangeHashSet = new HashSet<GameObject>();
     }
 
-    // Update is called once per frame
+    [ServerCallback]
     void FixedUpdate()
     {
         this.timer += Time.fixedDeltaTime;
@@ -50,8 +49,7 @@ public class MinionScript : MonoBehaviour
         if (this.followAttack)
         {
             // follow enemy
-            int attackResult = this.minionAttack.CanAttack(); //this.targetEnemy, this.gameObject.GetComponent<UnitStats>().GetUnitAttackDamage());
-            //enemy.GetComponent<UnitStats>().TakeDamage(damage);
+            int attackResult = this.minionAttack.CanAttack();
 
             if (attackResult == 1)
             {
@@ -102,6 +100,7 @@ public class MinionScript : MonoBehaviour
         this.targetEnemy = gameObject;
     }
 
+    [ServerCallback]
     private GameObject GetTheClosestEnemy()
     {
         GameObject closestEnemy = null;

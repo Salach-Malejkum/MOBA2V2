@@ -1,9 +1,10 @@
+using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MinionMovement : IMinionMovement
+public class MinionMovement : NetworkBehaviour, IMinionMovement
 {
     private int currentPointInd;
     private Vector3[] pathPoints;
