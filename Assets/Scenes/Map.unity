@@ -404,6 +404,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2675479758589999109, guid: 8b75336aa0cf8b744b9465a366e8b6d7, type: 3}
+      propertyPath: m_Name
+      value: slot (0)
+      objectReference: {fileID: 0}
     - target: {fileID: 2675479758864667353, guid: 8b75336aa0cf8b744b9465a366e8b6d7, type: 3}
       propertyPath: m_Name
       value: PlayerEq
@@ -24075,17 +24079,45 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 218159973, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619817046, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793148865, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 875406595223371625, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
       propertyPath: shopManager
       value: 
       objectReference: {fileID: 1810412576}
+    - target: {fileID: 875406595223371625, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: myBuyButtons.Array.size
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 875406595223371630, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
       propertyPath: shopManager
       value: 
       objectReference: {fileID: 1810412576}
+    - target: {fileID: 875406595244110375, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875406595244110375, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 875406595629806887, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
       propertyPath: m_Name
       value: ShopCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 875406595629806887, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875406595629806907, guid: 7dbd6e5c95b275d4d8bc6f1079c41b53, type: 3}
       propertyPath: m_Pivot.x
