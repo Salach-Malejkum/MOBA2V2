@@ -1,11 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
-    [SerializeField]
-    private InventorySlot[] eqDisplaySlots;
+    private List<InventorySlot> eqDisplaySlots = new List<InventorySlot>();
     [HideInInspector]
     private ShopItemSo[] equipment = new ShopItemSo[5];
     public ShopItemSo[] Equipment
@@ -34,11 +34,16 @@ public class Inventory : MonoBehaviour
     {
         RefreshSlots();
         this.shop = this.transform.GetComponent<ShopManager>();
+        this.eqDisplaySlots.Add(GameObject.Find("slot (0)").GetComponent<InventorySlot>());
+        this.eqDisplaySlots.Add(GameObject.Find("slot (1)").GetComponent<InventorySlot>());
+        this.eqDisplaySlots.Add(GameObject.Find("slot (2)").GetComponent<InventorySlot>());
+        this.eqDisplaySlots.Add(GameObject.Find("slot (3)").GetComponent<InventorySlot>());
+        this.eqDisplaySlots.Add(GameObject.Find("slot (4)").GetComponent<InventorySlot>());
     }
 
     public void RefreshSlots()
     {
-        for (int i = 0; i < this.eqDisplaySlots.Length; i++)
+        for (int i = 0; i < this.eqDisplaySlots.Count; i++)
         {
             this.eqDisplaySlots[i].RefreshSlot();
         }
@@ -56,6 +61,21 @@ public class Inventory : MonoBehaviour
 
     public void AddToEquipment(ShopItemSo item)
     {
+
+        foreach (ShopItemSo component in item.Components)
+        {
+            for (int i = 0; i < this.equipment.Length; i++)
+            {
+                if (this.equipment[i] != null)
+                {
+                    if (this.equipment[i].Title == component.Title)
+                    {
+                        RemoveItem(i);
+                        break;
+                    }
+                }
+            }
+        }
         for (int i = 0; i < this.equipment.Length; i++)
         {
             if (this.equipment[i] == null)
@@ -65,6 +85,7 @@ public class Inventory : MonoBehaviour
                 return;
             }
         }
+
     }
 
     public void PassItemToSellToShopManager(int itemIndex)
@@ -93,5 +114,20 @@ public class Inventory : MonoBehaviour
     public void BlockSell()
     {
         this.shop.SellBtn.interactable = false;
+    }
+
+    public bool ItemInEq(ShopItemSo itemToCheck)
+    {
+        foreach (ShopItemSo item in Equipment)
+        {
+            if (item != null)
+            {
+                if (itemToCheck.Title == item.Title)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

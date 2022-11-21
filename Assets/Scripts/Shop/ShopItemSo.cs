@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -20,24 +22,53 @@ public class ShopItemSo : ScriptableObject
     }
 
     [SerializeField]
-    private int magic;
-    public int Magic
+    private int abilityPower;
+    public int AbilityPower
     {
-        get { return magic; }
+        get { return abilityPower; }
     }
 
     [SerializeField]
-    private int defence;
-    public int Defence
+    private int armor;
+    public int Armor
     {
-        get { return defence; }
+        get { return armor; }
     }
 
     [SerializeField]
-    private int price;
-    public int Price
+    private int magicResist;
+    public int MagicResist
     {
-        get { return price; }
+        get { return magicResist; }
+    }
+
+    [SerializeField]
+    private int cooldownReduction;
+    public int CooldownReduction
+    {
+        get { return cooldownReduction; }
+    }
+
+    [SerializeField]
+    private int health;
+    public int Health
+    {
+        get { return health; }
+    }
+
+    [SerializeField]
+    private int unitPrice;
+
+    [SerializeField]
+    private List<ShopItemSo> components;
+    public List<ShopItemSo> Components
+    {
+        get { return components; }
+    }
+
+    public int TotalPrice
+    {
+        get { return unitPrice + components.Sum(component => component.unitPrice); }
     }
 
     [SerializeField]

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +10,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private int delayAmount = 1;
 
-    [SerializeField]
     private TMP_Text goldValueText;
 
     private int goldValue = 0;
@@ -18,21 +19,20 @@ public class ShopManager : MonoBehaviour
         set { goldValue = value; }
     }
 
-    [SerializeField]
     private GameObject shopCanva;
     public GameObject ShopCanva
     {
         get { return shopCanva; }
     }
 
-    [SerializeField]
-    private GameObject marketPlace;
-    public GameObject MarketPlace
+    private bool shopInRange;
+
+    private List<GameObject> detailsPanels = new List<GameObject>();
+    public List<GameObject> DetailsPanels
     {
-        get { return marketPlace; }
+        get { return detailsPanels; }
     }
 
-    [SerializeField]
     private Button sellBtn;
     public Button SellBtn
     {
@@ -49,6 +49,21 @@ public class ShopManager : MonoBehaviour
 
     private ShopItemSo sellItem;
     private int sellItemIndex = -1;
+
+    private void Awake()
+    {
+        this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
+        this.shopCanva = GameObject.Find("ShopCanvas");
+        this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
+        this.detailsPanels.Add(GameObject.Find("DetailsPanel (2)"));
+        this.detailsPanels.Add(GameObject.Find("DetailsPanel (3)"));
+        this.sellBtn = GameObject.Find("SellBtn").GetComponent<Button>();
+        this.SellBtn.onClick.AddListener(this.Sell);
+        this.shopCanva.SetActive(false);
+        this.DetailsPanels[0].SetActive(false);
+        this.DetailsPanels[1].SetActive(false);
+        this.DetailsPanels[2].SetActive(false);
+    }
 
     private void Update()
     {
@@ -75,8 +90,7 @@ public class ShopManager : MonoBehaviour
 
     public bool IsInBorder()
     {
-        
-        return Vector3.Distance(this.transform.position, this.MarketPlace.transform.position) <= this.Border;
+        return this.shopInRange;
     }
 
     public void ToggleShop(InputAction.CallbackContext _)
@@ -106,9 +120,9 @@ public class ShopManager : MonoBehaviour
         this.Sell();
     }
 
-    private void Sell()
+    public void Sell()
     {
-        float amount = this.sellItem.Price * 0.8f;
+        float amount = this.sellItem.TotalPrice * 0.8f;
         this.goldValue += (int) amount;
         this.goldValueText.text = "G: " + this.goldValue;
         this.sellBtn.interactable = false;
@@ -116,6 +130,44 @@ public class ShopManager : MonoBehaviour
         {
             Inventory.instance.RemoveItem(this.sellItemIndex);
             this.sellItemIndex = -1;
+        }
+    }
+
+    public int CurrPrice(ShopItemSo itemToCheck)
+    {
+        int currPrice = itemToCheck.TotalPrice;
+
+        foreach (ShopItemSo component in itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First())) // je¿eli bed¹ przepisy o g³êbokoœci wiêkszej ni¿ 1 to bedzie to trzeba przerobiæ
+        {
+            if (Inventory.instance.ItemInEq(component))
+            {
+                currPrice -= component.TotalPrice;
+            }
+        }
+        return currPrice;
+    }
+
+    public void DesactivateAllInfoPanels()
+    {
+        foreach (GameObject panel in detailsPanels)
+        {
+            panel.SetActive(false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
+        {
+            this.shopInRange = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
+        {
+            this.shopInRange = false;
         }
     }
 }
