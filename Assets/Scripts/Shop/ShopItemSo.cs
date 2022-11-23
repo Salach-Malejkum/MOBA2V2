@@ -15,49 +15,49 @@ public class ShopItemSo : ScriptableObject
     }
 
     [SerializeField]
-    private int attack;
-    public int Attack
+    private float attack;
+    public float Attack
     {
         get { return attack; }
     }
 
     [SerializeField]
-    private int abilityPower;
-    public int AbilityPower
+    private float abilityPower;
+    public float AbilityPower
     {
         get { return abilityPower; }
     }
 
     [SerializeField]
-    private int armor;
-    public int Armor
+    private float armor;
+    public float Armor
     {
         get { return armor; }
     }
 
     [SerializeField]
-    private int magicResist;
-    public int MagicResist
+    private float magicResist;
+    public float MagicResist
     {
         get { return magicResist; }
     }
 
     [SerializeField]
-    private int cooldownReduction;
-    public int CooldownReduction
+    private float cooldownReduction;
+    public float CooldownReduction
     {
         get { return cooldownReduction; }
     }
 
     [SerializeField]
-    private int health;
-    public int Health
+    private float health;
+    public float Health
     {
         get { return health; }
     }
 
     [SerializeField]
-    private int unitPrice;
+    private float unitPrice;
 
     [SerializeField]
     private List<ShopItemSo> components;
@@ -66,7 +66,7 @@ public class ShopItemSo : ScriptableObject
         get { return components; }
     }
 
-    public int TotalPrice
+    public float TotalPrice
     {
         get { return unitPrice + components.Sum(component => component.unitPrice); }
     }

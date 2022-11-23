@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -76,7 +77,7 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void SubtractPurchasedItemCostFromOwnedGold(int amount)
+    public void SubtractPurchasedItemCostFromOwnedGold(float amount)
     {
         this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() - amount);
         this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
@@ -117,7 +118,7 @@ public class ShopManager : MonoBehaviour
 
     public void Sell()
     {
-        float amount = this.sellItem.TotalPrice * 0.8f;
+        float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
         this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() + amount);
         this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
@@ -132,7 +133,7 @@ public class ShopManager : MonoBehaviour
 
     public void Buy(ShopItemSo item)
     {
-        int currPrice = CurrPrice(item);
+        float currPrice = CurrPrice(item);
         if (this.PlayerStats.GetPlayerGold() >= currPrice)
         {
             this.SubtractPurchasedItemCostFromOwnedGold(currPrice);
@@ -141,9 +142,9 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public int CurrPrice(ShopItemSo itemToCheck)
+    public float CurrPrice(ShopItemSo itemToCheck)
     {
-        int currPrice = itemToCheck.TotalPrice;
+        float currPrice = itemToCheck.TotalPrice;
 
         foreach (ShopItemSo component in itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First())) // je¿eli bed¹ przepisy o g³êbokoœci wiêkszej ni¿ 1 to bedzie to trzeba przerobiæ
         {
