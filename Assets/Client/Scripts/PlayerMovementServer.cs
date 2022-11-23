@@ -17,7 +17,7 @@ public class PlayerMovementServer : NetworkBehaviour
     }
 
     // Update is called once per frame
-    [Client]
+    [ClientCallback]
     void Update()
     {
         if(hasAuthority)
