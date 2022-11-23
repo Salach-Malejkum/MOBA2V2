@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class TabManager : MonoBehaviour
@@ -27,7 +26,6 @@ public class TabManager : MonoBehaviour
 
     void Start()
     {
-        // zapytaæ siê ch³opaków jak zlokalizowaæ postaæ gracza którym sterujemy, jak wygl¹da scena podczas rozgrywki itd.
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {
             this.shopPanelsGo[i].SetActive(true);
@@ -50,32 +48,44 @@ public class TabManager : MonoBehaviour
     private void CheckPurchasable()
     {
         
-        if (this.shopManager.IsInBorder() && !Inventory.instance.IsEqFull())
+        if (this.shopManager.IsInBorder())
         {
-            for (int i = 0; i < this.shopItemSo.Count; i++)
+            if (!Inventory.instance.IsEqFull())
             {
-                if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    this.myBuyButtons[i].interactable = true;
-                }
-                else
-                {
-                    this.myBuyButtons[i].interactable = false;
+                    if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    {
+                        this.myBuyButtons[i].interactable = true;
+                    }
+                    else
+                    {
+                        this.myBuyButtons[i].interactable = false;
+                    }
                 }
             }
-
-            if (activeInfoPanel != null)
+            else
             {
-                if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo.First(item => item.Title == this.activeInfoPanel.GetComponent<InfoPanelsTemplate>().TitleTxt.text)))
+                for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    this.activeInfoPanel.GetComponent<InfoPanelsTemplate>().BuyBtn.interactable = true;
-                }
-                else
-                {
-                    this.activeInfoPanel.GetComponent<InfoPanelsTemplate>().BuyBtn.interactable = false;
+                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    {
+                        if (OneComponentsBought(this.shopItemSo[i]))
+                        {
+                            this.myBuyButtons[i].interactable = true;
+                        }
+                        else
+                        {
+                            this.myBuyButtons[i].interactable = false;
+                        }
+                        
+                    }
+                    else
+                    {
+                        this.myBuyButtons[i].interactable = false;
+                    }
                 }
             }
-
         }
         else
         {
@@ -87,15 +97,22 @@ public class TabManager : MonoBehaviour
         this.RefreshInfoPanel();
     }
 
-    public void BuyItem(int itemNo)
+    public bool OneComponentsBought(ShopItemSo item)
     {
-        int currPrice = this.shopManager.CurrPrice(this.shopItemSo[itemNo]);
-        if (this.shopManager.GoldValue >= currPrice)
+        foreach (ShopItemSo component in item.Components)
         {
-            this.shopManager.SubtractPurchasedItemCostFromOwnedGold(currPrice);
-            Inventory.instance.AddToEquipment(this.shopItemSo[itemNo]);
-            this.CheckPurchasable();
+            if (Inventory.instance.ItemInEq(component))
+            {
+                return true;
+            }
         }
+        return false;
+    }
+
+    public void GetItemNo(int itemNo)
+    {
+        this.shopManager.Buy(this.shopItemSo[itemNo]);
+        this.CheckPurchasable();
     }
 
     public void InfoItem(int itemNo)
@@ -125,14 +142,20 @@ public class TabManager : MonoBehaviour
             infoPanelTemplate.PriceValComp[i].text = this.shopItemSo[itemNo].Components[i].TotalPrice.ToString();
             if (Inventory.instance.ItemInEq(this.shopItemSo[itemNo].Components[i]))
             {
+                Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
+                newCompColor.a = 0.5f;
+                infoPanelTemplate.ItemImComp[i].color = newCompColor;
                 infoPanelTemplate.PriceValComp[i].fontStyle = TMPro.FontStyles.Strikethrough;
             }
             else
             {
+                Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
+                newCompColor.a = 1f;
+                infoPanelTemplate.ItemImComp[i].color = newCompColor;
                 infoPanelTemplate.PriceValComp[i].fontStyle = TMPro.FontStyles.Normal;
             }
         }
-        infoPanelTemplate.BuyBtn.onClick.AddListener(delegate { BuyItem(itemNo); });
+        infoPanelTemplate.BuyBtn.onClick.AddListener(delegate { GetItemNo(itemNo); });
     }
 
     public void RefreshInfoPanel()
@@ -147,22 +170,49 @@ public class TabManager : MonoBehaviour
                 if (Inventory.instance.ItemInEq(item.Components[i]))
                 {
                     infoPanelTemplate.PriceValComp[i].fontStyle = TMPro.FontStyles.Strikethrough;
+                    Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
+                    newCompColor.a = 0.5f;
+                    infoPanelTemplate.ItemImComp[i].color = newCompColor;
                 }
                 else
                 {
                     infoPanelTemplate.PriceValComp[i].fontStyle = TMPro.FontStyles.Normal;
+                    Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
+                    newCompColor.a = 1f;
+                    infoPanelTemplate.ItemImComp[i].color = newCompColor;
                 }
             }
 
-            if (this.shopManager.IsInBorder() && !Inventory.instance.IsEqFull())
+            if (this.shopManager.IsInBorder())
             {
-                if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(item))
+                if (!Inventory.instance.IsEqFull())
                 {
-                    infoPanelTemplate.BuyBtn.interactable = true;
+                    if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(item))
+                    {
+                        infoPanelTemplate.BuyBtn.interactable = true;
+                    }
+                    else
+                    {
+                        infoPanelTemplate.BuyBtn.interactable = false;
+                    }
                 }
                 else
                 {
-                    infoPanelTemplate.BuyBtn.interactable = false;
+                    if (item.Components.Count > 0 && this.shopManager.GoldValue >= this.shopManager.CurrPrice(item))
+                    {
+                        if (OneComponentsBought(item))
+                        {
+                            infoPanelTemplate.BuyBtn.interactable = true;
+                        }
+                        else
+                        {
+                            infoPanelTemplate.BuyBtn.interactable = false;
+                        }
+                    }
+                    else
+                    {
+                        infoPanelTemplate.BuyBtn.interactable = false;
+                    }
                 }
             }
             else

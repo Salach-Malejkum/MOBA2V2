@@ -7,11 +7,8 @@ using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
-    [SerializeField]
     private int delayAmount = 1;
-
     private TMP_Text goldValueText;
-
     private int goldValue = 0;
     public int GoldValue
     {
@@ -39,11 +36,7 @@ public class ShopManager : MonoBehaviour
         get { return sellBtn; }
     }
 
-    private readonly float border = 10f;
-    public float Border
-    {
-        get { return border; }
-    }
+    private GameObject openShop;
 
     private float timer;
 
@@ -52,6 +45,8 @@ public class ShopManager : MonoBehaviour
 
     private void Awake()
     {
+        this.openShop = GameObject.Find("OpenShop");
+        this.openShop.GetComponent<Button>().onClick.AddListener(this.ToggleShop);
         this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
         this.shopCanva = GameObject.Find("ShopCanvas");
         this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
@@ -74,6 +69,7 @@ public class ShopManager : MonoBehaviour
             this.timer = 0f;
             this.goldValue++;
             this.goldValueText.text = "G: " + this.goldValue;
+            this.openShop.GetComponentInChildren<TMP_Text>().text = this.goldValue + " g";
         }
         
         if (!IsInBorder())
@@ -93,7 +89,7 @@ public class ShopManager : MonoBehaviour
         return this.shopInRange;
     }
 
-    public void ToggleShop(InputAction.CallbackContext _)
+    public void ToggleShop()
     {
         if (this.shopCanva.activeSelf)
         {
@@ -130,6 +126,16 @@ public class ShopManager : MonoBehaviour
         {
             Inventory.instance.RemoveItem(this.sellItemIndex);
             this.sellItemIndex = -1;
+        }
+    }
+
+    public void Buy(ShopItemSo item)
+    {
+        int currPrice = CurrPrice(item);
+        if (this.GoldValue >= currPrice)
+        {
+            this.SubtractPurchasedItemCostFromOwnedGold(currPrice);
+            Inventory.instance.AddToEquipment(item);
         }
     }
 

@@ -6263,7 +6263,6 @@ MonoBehaviour:
   - {fileID: 5994484640816513274}
   - {fileID: 5994484640414777499}
   infoBuyButtons: []
-  shopManager: {fileID: 0}
 --- !u!114 &875406595223371625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6327,11 +6326,7 @@ MonoBehaviour:
   - {fileID: 5994484640149110380}
   - {fileID: 5994484640043484310}
   - {fileID: 5994484639594703963}
-  - {fileID: 1350419492}
-  - {fileID: 1895262112}
-  - {fileID: 1374099203}
   infoBuyButtons: []
-  shopManager: {fileID: 0}
 --- !u!1 &875406595244110374
 GameObject:
   m_ObjectHideFlags: 0

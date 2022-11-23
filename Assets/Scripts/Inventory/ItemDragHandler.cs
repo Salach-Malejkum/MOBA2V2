@@ -10,9 +10,10 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     public void OnPointerDown(PointerEventData eventData)
     {
         this.pointerDownTime = Time.time;
-        if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData))
+        this.originalSlot = this.transform.parent;
+        if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
         {
-            this.originalSlot = this.transform.parent;
+            
             this.transform.SetParent(this.transform.parent.parent);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
@@ -20,7 +21,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (InventorySlotNotEmpty(this.originalSlot.transform.GetSiblingIndex(), eventData))
+        if (InventorySlotNotEmpty(this.originalSlot.transform.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.position = Input.mousePosition;
         }
