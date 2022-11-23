@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2137633431160339632}
   - component: {fileID: 8942993608950361221}
   - component: {fileID: 2685264113152162246}
-  - component: {fileID: 8498392805726636353}
+  - component: {fileID: 2204894040965678682}
   - component: {fileID: 7508607870906711533}
   - component: {fileID: 6933103665044048902}
   - component: {fileID: 4611889683834620342}
@@ -194,7 +194,7 @@ MonoBehaviour:
   cameraVelocity: {x: 4, y: 0.25}
   playerTransform: {fileID: 9017691228572594241}
   virtualCamera: {fileID: 1162441548177532989}
---- !u!114 &8498392805726636353
+--- !u!114 &2204894040965678682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4656188166199423107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fa50856934b2f4983d7a32def938b0, type: 3}
+  m_Script: {fileID: 11500000, guid: 82ad42e44a32dd94281cd62bf062e6a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0

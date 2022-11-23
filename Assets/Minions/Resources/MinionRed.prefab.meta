@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Map/Prefabs/Enemies.meta
+guid: 9375cfed40cc34f418c8adf9378ce548
+folderAsset: yes
+DefaultImporter:
+========
 guid: bba202cc157f0db4d9e6e07b5049c5dc
 PrefabImporter:
+>>>>>>>> main:Assets/Minions/Resources/MinionRed.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
