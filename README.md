@@ -23,6 +23,11 @@ https://github.com/PlayFab/UnitySDK
 ## Wykorzystywane assety (niewymagane do pobrania, dostępne na gicie)
 https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
 https://assetstore.unity.com/packages/2d/gui/icons/fantasy-inventory-icons-free-143805
+https://ambientcg.com/view?id=Ground037
+https://ambientcg.com/view?id=Rock030
+
+## propozycje prefabow
+https://assetstore.unity.com/packages/3d/characters/humanoids/fantasy/mini-legion-lich-pbr-hp-polyart-91497
 
 ## Struktura folderów (ważne)
 Jeżeli coś tworzycie to prosze zachowac nowa strukture folderow:
