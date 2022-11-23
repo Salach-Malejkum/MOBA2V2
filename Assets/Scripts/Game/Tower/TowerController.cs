@@ -1,10 +1,8 @@
-using System;
-using System.Collections;
+using Mirror;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
-public class TowerController : MonoBehaviour
+public class TowerController : NetworkBehaviour
 {
     public Outline outline;
     public GameObject missile;
@@ -33,6 +31,7 @@ public class TowerController : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     private void FixedUpdate()
     {
         if (this.outline.OutlineWidth > 0 && Time.time > this.deleteOutlineTimer)
@@ -57,20 +56,6 @@ public class TowerController : MonoBehaviour
         }
     }
 
-    //private void OnMouseOver()
-    //{
-    //    this.deleteOutlineTimer = Time.time + componentDeleteDelay;
-
-    //    if (!GetComponent<Outline>())
-    //    {
-    //        var outline = this.gameObject.AddComponent<Outline>();
-
-    //        outline.OutlineMode = Outline.Mode.OutlineVisible;
-    //        outline.OutlineColor = Color.red;
-    //        outline.OutlineWidth = 5f;
-    //    }
-    //}
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == this.targetedLayer && !other.gameObject.CompareTag("Missile"))
@@ -87,6 +72,7 @@ public class TowerController : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     GameObject GetClosestEnemy(List<GameObject> enemies)
     {
         GameObject tMin = null;
@@ -104,6 +90,7 @@ public class TowerController : MonoBehaviour
         return tMin;
     }
 
+    [ServerCallback]
     private void Shoot()
     {
         GameObject go = Instantiate(this.missile, this.transform);

@@ -1,10 +1,11 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class ResourceSpawner : MonoBehaviour
+public class ResourceSpawner : NetworkBehaviour
 {
     public GameObject[] resourcePrefabs;
     public float scale = 1f;
@@ -19,7 +20,7 @@ public class ResourceSpawner : MonoBehaviour
 
     private bool isSpawning = true;
 
-    private void Start()
+    private void Awake()
     {
         this.spawningX = new float[this.numberSpawned];
         this.spawningZ = new float[this.numberSpawned];
@@ -35,7 +36,8 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
-    private void Update()
+    [ServerCallback]
+    private void FixedUpdate()
     {
         this.time = Time.time;
         if (this.isSpawning && Time.time > this.nextSpawnTime)
@@ -44,11 +46,13 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
+    [Server]
     public double ConvertToRadians(double angle)
     {
         return (Math.PI / 180) * angle;
     }
 
+    [Server]
     private void GetSpawningPoints()
     {
         var x0 = this.transform.position.x;
@@ -63,6 +67,7 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
+    [ServerCallback]
     private void Spawn()
     {
         for (int i = 0; i < this.numberSpawned; i++)
@@ -80,10 +85,15 @@ public class ResourceSpawner : MonoBehaviour
             go.transform.SetParent(this.transform);
             go.transform.localScale = new Vector3(1, 1, 1) * this.scale;
 
-            MobController mc = go.GetComponent<MobController>();
-            mc.spawnerResource = this.gameObject.GetComponent<ResourceSpawner>();
-            mc.spawner = this.transform;
-            mc.Id = i;
+            MobController mobController = go.GetComponent<MobController>();
+            mobController.spawner = this.transform;
+
+            MonsterStats monsterStats = go.GetComponent<MonsterStats>();
+            monsterStats.spawnerResource = this.gameObject.GetComponent<ResourceSpawner>();
+            monsterStats.Id = i;
+
+            NetworkServer.Spawn(go);
+            go.GetComponent<MonsterStats>().OnMobSpawned();
 
             this.children.Add(i, go);
         }
@@ -91,12 +101,14 @@ public class ResourceSpawner : MonoBehaviour
         this.isSpawning = false;
     }
 
+    [Server]
     private void StartSpawner()
     {
         this.isSpawning = true;
         this.nextSpawnTime = Time.time + this.spawnDelay;
     }
 
+    [ServerCallback]
     public void NotifyAllChildren(GameObject target)
     {
         foreach (var child in this.children)
@@ -107,6 +119,7 @@ public class ResourceSpawner : MonoBehaviour
         }
     }
 
+    [Server]
     public void RemoveFromChildren(int id)
     {
         if (this.children.ContainsKey(id))

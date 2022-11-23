@@ -1,7 +1,8 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MobController : MonoBehaviour
+public class MobController : NetworkBehaviour
 {
     public GameObject target;
     public ResourceSpawner spawnerResource;
@@ -13,28 +14,9 @@ public class MobController : MonoBehaviour
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    private int id;
-
-    private float hitPoints = 3f;
-    public float maximumDistance = 15f;
+    public float maximumDistance = 15f; // Erwin czy to nie lepiej wyciagnac dla kazdego moba gdzies jako stala? nawet tu czy cos
     public bool isChasing = false;
     private Vector3 spawnPosition;
-
-    public int Id
-    {
-        get { return id; }
-        set
-        {
-            if (value < 0)
-            {
-                this.id = 0;
-            }
-            else
-            {
-                this.id = value;
-            }
-        }
-    }
 
     private void Awake()
     {
@@ -43,6 +25,7 @@ public class MobController : MonoBehaviour
         this.outline = GetComponent<Outline>();
     }
 
+    [ServerCallback]
     private void FixedUpdate()
     {
         if (this.outline.OutlineWidth > 0 && Time.time > this.deleteOutlineTimer)
@@ -57,7 +40,7 @@ public class MobController : MonoBehaviour
             }
             else
             {
-                this.ChasePlayer();
+                this.SetTargetPosition();
             }
         }
         else if (this.isChasing == false && Vector3.Distance(this.spawnPosition, this.transform.position) > 0)
@@ -66,34 +49,14 @@ public class MobController : MonoBehaviour
         }
     }
 
-    //private void OnMouseOver()
-    //{
-    //    this.deleteOutlineTimer = Time.time + componentDeleteDelay;
-
-    //    if (!GetComponent<Outline>())
-    //    {
-    //        var outline = this.gameObject.AddComponent<Outline>();
-
-    //        outline.OutlineMode = Outline.Mode.OutlineVisible;
-    //        outline.OutlineColor = Color.red;
-    //        outline.OutlineWidth = 3f;
-    //    }
-    //}
-
-    public void TakeDamage(float damage, GameObject assaulter)
+    [ServerCallback]
+    public void ChasePlayer(GameObject assaulter)
     {
-        Debug.Log("Pozyskano surowce");
         this.target = assaulter;
-        this.hitPoints -= damage;
         this.spawnerResource.NotifyAllChildren(this.target);
-        if (this.hitPoints <= 0)
-        {
-            this.spawnerResource.RemoveFromChildren(this.Id);
-            Destroy(this.gameObject);
-        }
     }
 
-    private void ChasePlayer()
+    private void SetTargetPosition()
     {
         agent.SetDestination(this.target.transform.position);
     }

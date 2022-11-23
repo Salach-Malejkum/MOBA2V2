@@ -36,7 +36,8 @@ public class AttackPlayerScript : IAttack
                 case "Minion":
                     break;
                 case "Monster":
-                    target.GetComponent<MobController>().TakeDamage(1f, assaulter);
+                    target.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(1f); // dodac kto zaatakowal
+                    target.GetComponent<MobController>().ChasePlayer(assaulter);
                     break;
             }
             return (int) Enums.AttackResult.CanAttack;
