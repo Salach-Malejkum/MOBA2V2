@@ -93,10 +93,13 @@ public class TowerController : NetworkBehaviour
     [ServerCallback]
     private void Shoot()
     {
-        GameObject go = Instantiate(this.missile, this.transform);
+        GameObject go = Instantiate(this.missile, this.transform.position, Quaternion.identity);
         HomingMissileController hmc = go.GetComponent<HomingMissileController>();
-
         hmc.target = this.GetClosestEnemy(this.enemies);
+        hmc.owner = this.gameObject;
+        hmc.damage = this.gameObject.GetComponent<StructureStats>().UnitAttackDamage;
+
+        NetworkServer.Spawn(go);
 
         this.missile_timer = this.missile_delay;
     }

@@ -20,6 +20,7 @@ public class ResourceSpawner : NetworkBehaviour
 
     private bool isSpawning = true;
 
+    [ServerCallback]
     private void Awake()
     {
         this.spawningX = new float[this.numberSpawned];
@@ -72,7 +73,7 @@ public class ResourceSpawner : NetworkBehaviour
     {
         for (int i = 0; i < this.numberSpawned; i++)
         {
-            var spawningPoint = new Vector3(this.spawningX[i]
+            Vector3 spawningPoint = new Vector3(this.spawningX[i]
                 , this.transform.position.y
                 , this.spawningZ[i]
                 );
@@ -82,7 +83,6 @@ public class ResourceSpawner : NetworkBehaviour
                 , spawningPoint
                 , this.transform.rotation
                 );
-            go.transform.SetParent(this.transform);
             go.transform.localScale = new Vector3(1, 1, 1) * this.scale;
 
             MobController mobController = go.GetComponent<MobController>();
