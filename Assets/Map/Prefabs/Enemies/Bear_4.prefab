@@ -1919,7 +1919,7 @@ GameObject:
   - component: {fileID: -8597489894013715181}
   - component: {fileID: 1083827149014151698}
   - component: {fileID: -1807705884736994761}
-  - component: {fileID: -7898174808596528213}
+  - component: {fileID: -8327546934977945268}
   m_Layer: 0
   m_Name: Bear_4
   m_TagString: Monster
@@ -2087,7 +2087,7 @@ MonoBehaviour:
   gold: 0
   spawnerResource: {fileID: 0}
   Id: 0
---- !u!114 &-7898174808596528213
+--- !u!114 &-8327546934977945268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2111,7 +2111,7 @@ MonoBehaviour:
   scaleSensitivity: 0.01
   syncPosition: 1
   syncRotation: 1
-  syncScale: 0
+  syncScale: 1
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
