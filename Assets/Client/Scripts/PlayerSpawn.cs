@@ -35,7 +35,17 @@ public class PlayerSpawn : NetworkBehaviour
             return;
         }
 
-        GameObject playerInstance = Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
+        GameObject playerInstance = (GameObject)Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
+        switch (args.PlayerId % 2)
+        {
+            case 0:
+                playerInstance.layer = Enums.Layers.blueTeamLayer;
+                break;
+            case 1:
+                playerInstance.layer = Enums.Layers.redTeamLayer;
+                break;
+        }
+        Debug.Log(playerInstance.layer);
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
     }
 }
