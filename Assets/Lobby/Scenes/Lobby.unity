@@ -2370,6 +2370,7 @@ MonoBehaviour:
   - {fileID: 1462720695320296, guid: e9a03d46b76afe246a9ffd58d255bb65, type: 3}
   - {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
   - {fileID: 8955456752022936422, guid: 39138665ecc3c6f449b894ef5f5e814a, type: 3}
+  - {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
   timeInterpolationGui: 0
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
