@@ -1,14 +1,14 @@
 using Mirror;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerController : NetworkBehaviour
 {
     public Outline outline;
     public GameObject missile;
     public float missile_timer = 0f;
-
-    public float deleteOutlineTimer = 0f;
 
     private List<GameObject> enemies = new List<GameObject>();
     private readonly float missile_delay = 5f;
@@ -34,10 +34,6 @@ public class TowerController : NetworkBehaviour
     [ServerCallback]
     private void FixedUpdate()
     {
-        if (this.outline.OutlineWidth > 0 && Time.time > this.deleteOutlineTimer)
-        {
-            this.outline.OutlineWidth = 0f;
-        }
         if (this.enemies.Count > 0 && this.missile_timer < 0)
         {
             foreach (GameObject enemy in this.enemies)
@@ -54,6 +50,13 @@ public class TowerController : NetworkBehaviour
         {
             this.missile_timer -= Time.deltaTime;
         }
+    }
+
+    [ClientCallback]
+    public IEnumerator DeleteOutline(float timeDelay)
+    {
+        yield return new WaitForSeconds(timeDelay);
+        this.outline.OutlineWidth = 0f;
     }
 
     void OnTriggerEnter(Collider other)

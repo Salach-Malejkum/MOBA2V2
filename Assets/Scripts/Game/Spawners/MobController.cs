@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,8 +10,6 @@ public class MobController : NetworkBehaviour
     public Transform spawner;
     private NavMeshAgent agent;
     private Outline outline;
-
-    public float deleteOutlineTimer = 0f;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -28,10 +27,6 @@ public class MobController : NetworkBehaviour
     [ServerCallback]
     private void FixedUpdate()
     {
-        if (this.outline.OutlineWidth > 0 && Time.time > this.deleteOutlineTimer)
-        {
-            this.outline.OutlineWidth = 0f;
-        }
         if (this.isChasing == true)
         {
             if (Vector3.Distance(this.spawnPosition, this.target.transform.position) > this.maximumDistance)
@@ -47,6 +42,13 @@ public class MobController : NetworkBehaviour
         {
             this.agent.SetDestination(this.spawnPosition);
         }
+    }
+
+    [ClientCallback]
+    public IEnumerator DeleteOutline(float timeDelay)
+    {
+        yield return new WaitForSeconds(timeDelay);
+        this.outline.OutlineWidth = 0f;
     }
 
     [ServerCallback]

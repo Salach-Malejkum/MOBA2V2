@@ -9,8 +9,7 @@ public class PlayerScriptV2 : NetworkBehaviour
     private IAttack playerAttackScript;
     private IMovement playerMovementScript;
 
-    private readonly float componentDeleteDelay = .5f;
-    private float deleteOutlineTimer = 0f;
+    private float deleteOutlineTimer = 0.5f;
 
     private bool followAttack = false;
     private GameObject followAttackObject;
@@ -69,8 +68,6 @@ public class PlayerScriptV2 : NetworkBehaviour
 
         if (Physics.Raycast(ray, out hit, 100, layerMask, QueryTriggerInteraction.Ignore))
         {
-            this.deleteOutlineTimer = Time.time + componentDeleteDelay;
-
             if (hit.transform.gameObject.TryGetComponent<Outline>(out Outline outline))
             {
                 Debug.Log(hit.transform.gameObject.name);
@@ -78,11 +75,13 @@ public class PlayerScriptV2 : NetworkBehaviour
                 {
                     case "Monster":
                         outline.OutlineWidth = 3f;
-                        hit.transform.gameObject.GetComponent<MobController>().deleteOutlineTimer = this.deleteOutlineTimer;
+                        MobController mobController = hit.transform.gameObject.GetComponent<MobController>();
+                        StartCoroutine(mobController.DeleteOutline(this.deleteOutlineTimer));
                         break;
                     case "Tower":
                         outline.OutlineWidth = 5f;
-                        hit.transform.gameObject.GetComponent<TowerController>().deleteOutlineTimer = this.deleteOutlineTimer;
+                        TowerController towerController = hit.transform.gameObject.GetComponent<TowerController>();
+                        StartCoroutine(towerController.DeleteOutline(this.deleteOutlineTimer));
                         break;
                 }
             }
