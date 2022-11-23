@@ -1152,6 +1152,9 @@ GameObject:
   - component: {fileID: -1617357513034855279}
   - component: {fileID: 254873095693412847}
   - component: {fileID: -4517192971491605936}
+  - component: {fileID: 8574919848033341603}
+  - component: {fileID: 283772628966446105}
+  - component: {fileID: 6045052033911073617}
   m_Layer: 0
   m_Name: Polygonal Metalon Green
   m_TagString: Monster
@@ -1224,6 +1227,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd2d039db86619448e49df5e32fdcd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
   target: {fileID: 0}
   spawnerResource: {fileID: 0}
   spawner: {fileID: 0}
@@ -1290,6 +1296,77 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &8574919848033341603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783563462218004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 834600542
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
+--- !u!114 &283772628966446105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783563462218004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dd57ee7886039f48a4cd085bd923434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
+  gold: 0
+  spawnerResource: {fileID: 0}
+  Id: 0
+--- !u!114 &6045052033911073617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783563462218004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 4215789226532830}
+  clientAuthority: 0
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1 &1804318802084684
 GameObject:
   m_ObjectHideFlags: 0
