@@ -34,8 +34,11 @@ public class CrowdControl : NetworkBehaviour
 
     public void Stun(float time)
     {
-        this.stunned = true;
-        this.stunDuration = time;
-        this.navMesh.isStopped = true;
+        if (time > this.stunDuration - this.stunTime)
+        {
+            this.stunned = true;
+            this.stunDuration = time;
+            this.navMesh.isStopped = true;
+        }
     }
 }
