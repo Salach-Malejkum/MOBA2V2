@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
@@ -128,6 +127,7 @@ public class ShopManager : MonoBehaviour
             Inventory.instance.RemoveItem(this.sellItemIndex);
             this.sellItemIndex = -1;
         }
+        this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
     }
 
     public void Buy(ShopItemSo item)
@@ -137,6 +137,7 @@ public class ShopManager : MonoBehaviour
         {
             this.SubtractPurchasedItemCostFromOwnedGold(currPrice);
             Inventory.instance.AddToEquipment(item);
+            this.PlayerStats.AddItemStatsToPlayer(item);
         }
     }
 

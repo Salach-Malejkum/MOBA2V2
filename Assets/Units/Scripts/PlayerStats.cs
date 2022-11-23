@@ -45,4 +45,30 @@ public class PlayerStats : UnitStats
     {
         playerGold = value;
     }
+
+    public void AddItemStatsToPlayer(ShopItemSo item)
+    {
+        this.unitMaxHealth += item.Health;
+        this.unitArmor += item.Armor;
+        this.unitMagicResist += item.MagicResist;
+        this.unitAttackDamage += item.Attack;
+        this.unitAbilityPower += item.AbilityPower;
+        this.unitCooldownReduction += item.CooldownReduction;
+    }
+
+    public void SubtractItemStatsFromPlayer(ShopItemSo item)
+    {
+        this.unitMaxHealth -= item.Health;
+
+        if (this.unitMaxHealth > this.unitCurrentHealth)
+        {
+            this.unitCurrentHealth = this.unitMaxHealth;
+        }
+
+        this.unitArmor -= item.Armor;
+        this.unitMagicResist -= item.MagicResist;
+        this.unitAttackDamage -= item.Attack;
+        this.unitAbilityPower -= item.AbilityPower;
+        this.unitCooldownReduction -= item.CooldownReduction;
+    }
 }

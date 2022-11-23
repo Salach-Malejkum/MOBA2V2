@@ -70,7 +70,7 @@ public class TabManager : MonoBehaviour
                 {
                     if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(this.shopItemSo[i]))
                     {
-                        if (OneComponentsBought(this.shopItemSo[i]))
+                        if (Inventory.instance.OneComponentsBought(this.shopItemSo[i]))
                         {
                             this.myBuyButtons[i].interactable = true;
                         }
@@ -95,18 +95,6 @@ public class TabManager : MonoBehaviour
             }
         }
         this.RefreshInfoPanel();
-    }
-
-    public bool OneComponentsBought(ShopItemSo item)
-    {
-        foreach (ShopItemSo component in item.Components)
-        {
-            if (Inventory.instance.ItemInEq(component))
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     public void GetItemNo(int itemNo)
@@ -200,7 +188,7 @@ public class TabManager : MonoBehaviour
                 {
                     if (item.Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(item))
                     {
-                        if (OneComponentsBought(item))
+                        if (Inventory.instance.OneComponentsBought(item))
                         {
                             infoPanelTemplate.BuyBtn.interactable = true;
                         }

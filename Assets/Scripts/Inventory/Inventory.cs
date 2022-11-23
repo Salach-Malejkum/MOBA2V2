@@ -130,4 +130,16 @@ public class Inventory : MonoBehaviour
         }
         return false;
     }
+
+    public bool OneComponentsBought(ShopItemSo item)
+    {
+        foreach (ShopItemSo component in item.Components)
+        {
+            if (this.ItemInEq(component))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
