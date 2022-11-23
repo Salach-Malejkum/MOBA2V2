@@ -54,7 +54,7 @@ public class TabManager : MonoBehaviour
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    if (this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(this.shopItemSo[i]))
                     {
                         this.myBuyButtons[i].interactable = true;
                     }
@@ -68,7 +68,7 @@ public class TabManager : MonoBehaviour
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.GoldValue >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(this.shopItemSo[i]))
                     {
                         if (OneComponentsBought(this.shopItemSo[i]))
                         {
@@ -187,7 +187,7 @@ public class TabManager : MonoBehaviour
             {
                 if (!Inventory.instance.IsEqFull())
                 {
-                    if (this.shopManager.GoldValue >= this.shopManager.CurrPrice(item))
+                    if (this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(item))
                     {
                         infoPanelTemplate.BuyBtn.interactable = true;
                     }
@@ -198,7 +198,7 @@ public class TabManager : MonoBehaviour
                 }
                 else
                 {
-                    if (item.Components.Count > 0 && this.shopManager.GoldValue >= this.shopManager.CurrPrice(item))
+                    if (item.Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(item))
                     {
                         if (OneComponentsBought(item))
                         {

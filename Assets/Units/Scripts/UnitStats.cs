@@ -12,6 +12,8 @@ public abstract class UnitStats : NetworkBehaviour
     [SyncVar][SerializeField] protected float unitArmor = 0f;
     [SyncVar][SerializeField] protected float unitMagicResist = 0f;
     [SyncVar][SerializeField] protected float unitAttackDamage = 0f;
+    [SerializeField] protected float unitGoldReward = 0f;
+    [SerializeField] protected float unitExpReward = 0f;
     public float UnitAttackDamage
     {
         get { return unitAttackDamage; }

@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 1291226054648557584}
   - component: {fileID: 1810412577}
   - component: {fileID: 1810412587}
+  - component: {fileID: 992326564213750921}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -286,6 +287,33 @@ MonoBehaviour:
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &992326564213750921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4656188166199423107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52088db0a125a3e499d0b3816d1b3505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  unitMaxHealth: 100
+  unitCurrentHealth: 0
+  unitArmor: 0
+  unitMagicResist: 0
+  unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
+  unitAbilityPower: 0
+  unitMovementSpeed: 0
+  unitCooldownReduction: 0
+  playerGold: 0
+  playerExp: 0
+  playerHealthRegen: 2.5
 --- !u!1 &8132713474715186355
 GameObject:
   m_ObjectHideFlags: 0

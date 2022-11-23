@@ -9,11 +9,10 @@ public class ShopManager : MonoBehaviour
 {
     private int delayAmount = 1;
     private TMP_Text goldValueText;
-    private int goldValue = 0;
-    public int GoldValue
+    private PlayerStats playerStats ;
+    public PlayerStats PlayerStats
     {
-        get { return goldValue; }
-        set { goldValue = value; }
+        get { return playerStats; }
     }
 
     private GameObject shopCanva;
@@ -58,6 +57,7 @@ public class ShopManager : MonoBehaviour
         this.DetailsPanels[0].SetActive(false);
         this.DetailsPanels[1].SetActive(false);
         this.DetailsPanels[2].SetActive(false);
+        this.playerStats = this.transform.GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -67,9 +67,8 @@ public class ShopManager : MonoBehaviour
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.goldValue++;
-            this.goldValueText.text = "G: " + this.goldValue;
-            this.openShop.GetComponentInChildren<TMP_Text>().text = this.goldValue + " g";
+            this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
+            this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
         }
         
         if (!IsInBorder())
@@ -80,8 +79,9 @@ public class ShopManager : MonoBehaviour
 
     public void SubtractPurchasedItemCostFromOwnedGold(int amount)
     {
-        this.goldValue -= amount;
-        this.goldValueText.text = "G: " + this.goldValue;
+        this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() - amount);
+        this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
     }
 
     public bool IsInBorder()
@@ -119,8 +119,9 @@ public class ShopManager : MonoBehaviour
     public void Sell()
     {
         float amount = this.sellItem.TotalPrice * 0.8f;
-        this.goldValue += (int) amount;
-        this.goldValueText.text = "G: " + this.goldValue;
+        this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() + amount);
+        this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
         this.sellBtn.interactable = false;
         if(this.sellItemIndex != -1)
         {
@@ -132,7 +133,7 @@ public class ShopManager : MonoBehaviour
     public void Buy(ShopItemSo item)
     {
         int currPrice = CurrPrice(item);
-        if (this.GoldValue >= currPrice)
+        if (this.PlayerStats.GetPlayerGold() >= currPrice)
         {
             this.SubtractPurchasedItemCostFromOwnedGold(currPrice);
             Inventory.instance.AddToEquipment(item);

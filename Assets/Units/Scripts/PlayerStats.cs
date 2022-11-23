@@ -5,6 +5,8 @@ using Mirror;
 
 public class PlayerStats : UnitStats
 {
+    [SyncVar] [SerializeField] protected float playerGold = 0f;
+    [SyncVar] [SerializeField] protected float playerExp = 0f;
     [SerializeField] private float playerHealthRegen = 2.5f;
     private float timer;
 
@@ -31,5 +33,16 @@ public class PlayerStats : UnitStats
     [ClientRpc]
     private void RpcHandlePlayerDeath() {
         this.gameObject.SetActive(false);
+    }
+
+
+    public float GetPlayerGold()
+    {
+        return playerGold;
+    }
+
+    public void SetPlayerGold(float value)
+    {
+        playerGold = value;
     }
 }
