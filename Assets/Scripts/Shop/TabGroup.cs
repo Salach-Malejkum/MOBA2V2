@@ -43,8 +43,10 @@ public class TabGroup : NetworkBehaviour
         
     }
 
+    [Client]
     public void OnTabExit(TabButtons _) => this.ResetTabs(); //client
 
+    [Client]
     public void OnTabSelected(TabButtons button)//client
     {
         this.selectedTab = button;
@@ -65,6 +67,7 @@ public class TabGroup : NetworkBehaviour
 
     }
 
+    [Client]
     private void ResetTabs()//client
     {
         foreach (TabButtons button in this.tabButtons)

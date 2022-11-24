@@ -38,12 +38,12 @@ public class PlayerStats : UnitStats
 
     public float GetPlayerGold()
     {
-        return playerGold;
+        return this.playerGold;
     }
 
     public void SetPlayerGold(float value)
     {
-        playerGold = value;
+        this.playerGold = value;
     }
 
     public void AddItemStatsToPlayer(ShopItemSo item)

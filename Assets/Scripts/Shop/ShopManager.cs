@@ -48,7 +48,7 @@ public class ShopManager : NetworkBehaviour
     private ShopItemSo sellItem;
     private int sellItemIndex = -1;
 
-    [Client]
+    [ClientCallback]
     private void Awake()// client
     {
         //this.openShop = GameObject.Find("OpenShop");

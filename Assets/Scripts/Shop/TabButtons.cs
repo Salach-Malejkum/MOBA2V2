@@ -35,7 +35,7 @@ public class TabButtons : NetworkBehaviour, IPointerEnterHandler, IPointerClickH
         this.tabGroup.OnTabExit(this);
     }
 
-    [Client]
+    [ClientCallback]
     void Start()//client
     {
         this.backGround = GetComponent<Image>();
