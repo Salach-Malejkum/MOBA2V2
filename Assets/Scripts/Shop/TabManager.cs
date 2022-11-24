@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabManager : MonoBehaviour
+public class TabManager : NetworkBehaviour
 {
     [SerializeField]
     private List<ShopItemSo> shopItemSo;
@@ -24,7 +25,8 @@ public class TabManager : MonoBehaviour
     private readonly int delayAmount = 1;
     private float timer;
 
-    void Start()
+    [ServerCallback]
+    void Start()//server
     {
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {
@@ -34,7 +36,8 @@ public class TabManager : MonoBehaviour
         this.CheckPurchasable();
     }
 
-    void FixedUpdate()
+    [ServerCallback]
+    void FixedUpdate()//server
     {
         this.timer += Time.deltaTime;
 
@@ -45,7 +48,8 @@ public class TabManager : MonoBehaviour
         }
     }
 
-    private void CheckPurchasable()
+    [TargetRpc]
+    private void CheckPurchasable() //target
     {
         
         if (this.shopManager.IsInBorder())
@@ -97,13 +101,15 @@ public class TabManager : MonoBehaviour
         this.RefreshInfoPanel();
     }
 
-    public void GetItemNo(int itemNo)
+    [TargetRpc]
+    public void GetItemNo(int itemNo)//target
     {
         this.shopManager.Buy(this.shopItemSo[itemNo]);
         this.CheckPurchasable();
     }
 
-    public void InfoItem(int itemNo)
+    [TargetRpc]
+    public void InfoItem(int itemNo)//target
     {
         this.shopManager.DesactivateAllInfoPanels();
 
@@ -146,7 +152,8 @@ public class TabManager : MonoBehaviour
         infoPanelTemplate.BuyBtn.onClick.AddListener(delegate { GetItemNo(itemNo); });
     }
 
-    public void RefreshInfoPanel()
+    [TargetRpc]
+    public void RefreshInfoPanel()// target
     {
         if (this.activeInfoPanel != null)
         {
@@ -210,7 +217,8 @@ public class TabManager : MonoBehaviour
         }
     }
 
-    private void LoadPanels()
+    [Server]
+    private void LoadPanels()//server?
     {
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {

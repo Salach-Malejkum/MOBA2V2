@@ -1,10 +1,12 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : NetworkBehaviour
 {
     public static Inventory instance;
 
+    [SerializeField]
     private List<InventorySlot> eqDisplaySlots = new List<InventorySlot>();
     [HideInInspector]
     private ShopItemSo[] equipment = new ShopItemSo[5];
@@ -16,7 +18,8 @@ public class Inventory : MonoBehaviour
 
     private ShopManager shop;
 
-    private void Awake()
+    [ClientCallback]
+    private void Awake()//client
     {
         if (instance == null)
         {
@@ -30,18 +33,20 @@ public class Inventory : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    private void Start()
+    [ServerCallback]
+    private void Start()//server
     {
         RefreshSlots();
         this.shop = this.transform.GetComponent<ShopManager>();
-        this.eqDisplaySlots.Add(GameObject.Find("slot (0)").GetComponent<InventorySlot>());
-        this.eqDisplaySlots.Add(GameObject.Find("slot (1)").GetComponent<InventorySlot>());
-        this.eqDisplaySlots.Add(GameObject.Find("slot (2)").GetComponent<InventorySlot>());
-        this.eqDisplaySlots.Add(GameObject.Find("slot (3)").GetComponent<InventorySlot>());
-        this.eqDisplaySlots.Add(GameObject.Find("slot (4)").GetComponent<InventorySlot>());
+        //this.eqDisplaySlots.Add(GameObject.Find("slot (0)").GetComponent<InventorySlot>());
+        //this.eqDisplaySlots.Add(GameObject.Find("slot (1)").GetComponent<InventorySlot>());
+        //this.eqDisplaySlots.Add(GameObject.Find("slot (2)").GetComponent<InventorySlot>());
+        //this.eqDisplaySlots.Add(GameObject.Find("slot (3)").GetComponent<InventorySlot>());
+        //this.eqDisplaySlots.Add(GameObject.Find("slot (4)").GetComponent<InventorySlot>());
     }
 
-    public void RefreshSlots()
+    [TargetRpc]
+    public void RefreshSlots()//target
     {
         for (int i = 0; i < this.eqDisplaySlots.Count; i++)
         {
@@ -49,7 +54,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public bool IsEqFull()
+    //[TargetRpc]
+    public bool IsEqFull()//target
     {
         for (int i = 0; i < this.equipment.Length; i++)
         {
@@ -59,7 +65,8 @@ public class Inventory : MonoBehaviour
         return true;
     }
 
-    public void AddToEquipment(ShopItemSo item)
+    [TargetRpc]
+    public void AddToEquipment(ShopItemSo item)//target
     {
 
         foreach (ShopItemSo component in item.Components)
@@ -88,7 +95,8 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public void PassItemToSellToShopManager(int itemIndex)
+    [TargetRpc]
+    public void PassItemToSellToShopManager(int itemIndex)//target
     {
         if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
         {
@@ -96,7 +104,8 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void PassItemToInstaSellToShopManager(int itemIndex)
+    [TargetRpc]
+    public void PassItemToInstaSellToShopManager(int itemIndex)//target
     {
         if (this.shop.IsInBorder())
         {
@@ -105,18 +114,21 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void RemoveItem(int itemIndex)
+    [TargetRpc]
+    public void RemoveItem(int itemIndex)// target
     {
         this.equipment[itemIndex] = null;
         RefreshSlots();
     }
 
-    public void BlockSell()
+    [Client]
+    public void BlockSell()//client
     {
         this.shop.SellBtn.interactable = false;
     }
 
-    public bool ItemInEq(ShopItemSo itemToCheck)
+    //[TargetRpc]
+    public bool ItemInEq(ShopItemSo itemToCheck)//target
     {
         foreach (ShopItemSo item in Equipment)
         {
@@ -131,7 +143,8 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    public bool OneComponentsBought(ShopItemSo item)
+    //[TargetRpc]
+    public bool OneComponentsBought(ShopItemSo item)//target
     {
         foreach (ShopItemSo component in item.Components)
         {

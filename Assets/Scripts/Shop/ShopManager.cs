@@ -1,3 +1,4 @@
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,9 +6,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     private int delayAmount = 1;
+    [SerializeField]
     private TMP_Text goldValueText;
     private PlayerStats playerStats ;
     public PlayerStats PlayerStats
@@ -15,6 +17,7 @@ public class ShopManager : MonoBehaviour
         get { return playerStats; }
     }
 
+    [SerializeField]
     private GameObject shopCanva;
     public GameObject ShopCanva
     {
@@ -23,35 +26,39 @@ public class ShopManager : MonoBehaviour
 
     private bool shopInRange;
 
+    [SerializeField]
     private List<GameObject> detailsPanels = new List<GameObject>();
     public List<GameObject> DetailsPanels
     {
         get { return detailsPanels; }
     }
 
+    [SerializeField]
     private Button sellBtn;
     public Button SellBtn
     {
         get { return sellBtn; }
     }
 
-    private GameObject openShop;
+    [SerializeField]
+    private Button openShop;
 
     private float timer;
 
     private ShopItemSo sellItem;
     private int sellItemIndex = -1;
 
-    private void Awake()
+    [Client]
+    private void Awake()// client
     {
-        this.openShop = GameObject.Find("OpenShop");
-        this.openShop.GetComponent<Button>().onClick.AddListener(this.ToggleShop);
-        this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
-        this.shopCanva = GameObject.Find("ShopCanvas");
-        this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
-        this.detailsPanels.Add(GameObject.Find("DetailsPanel (2)"));
-        this.detailsPanels.Add(GameObject.Find("DetailsPanel (3)"));
-        this.sellBtn = GameObject.Find("SellBtn").GetComponent<Button>();
+        //this.openShop = GameObject.Find("OpenShop");
+        this.openShop.onClick.AddListener(this.ToggleShop);
+        //this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
+        //this.shopCanva = GameObject.Find("ShopCanvas");
+        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
+        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (2)"));
+        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (3)"));
+        //this.sellBtn = GameObject.Find("SellBtn").GetComponent<Button>();
         this.SellBtn.onClick.AddListener(this.Sell);
         this.shopCanva.SetActive(false);
         this.DetailsPanels[0].SetActive(false);
@@ -60,7 +67,8 @@ public class ShopManager : MonoBehaviour
         this.playerStats = this.transform.GetComponent<PlayerStats>();
     }
 
-    private void Update()
+    [ServerCallback]
+    private void FixedUpdate() // server callback
     {
         this.timer += Time.deltaTime;
 
@@ -77,19 +85,22 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void SubtractPurchasedItemCostFromOwnedGold(float amount)
+    [TargetRpc]
+    public void SubtractPurchasedItemCostFromOwnedGold(float amount)// target
     {
         this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() - amount);
         this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
     }
 
-    public bool IsInBorder()
+    //[TargetRpc]
+    public bool IsInBorder() //target
     {
         return this.shopInRange;
     }
 
-    public void ToggleShop()
+    [Client]
+    public void ToggleShop() // client
     {
         if (this.shopCanva.activeSelf)
         {
@@ -102,21 +113,24 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
+    [TargetRpc]
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex) // target
     {
         this.sellItem = itemToSell;
         this.sellItemIndex = itemToSellIndex;
         this.sellBtn.interactable = true;
     }
 
-    public void InstaSell(ShopItemSo itemToSell)
+    [TargetRpc]
+    public void InstaSell(ShopItemSo itemToSell) // target
     {
         this.sellItemIndex = -1;
         this.sellItem = itemToSell;
         this.Sell();
     }
 
-    public void Sell()
+    [TargetRpc]
+    public void Sell() // target
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
         this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() + amount);
@@ -131,7 +145,8 @@ public class ShopManager : MonoBehaviour
         this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
     }
 
-    public void Buy(ShopItemSo item)
+    [TargetRpc]
+    public void Buy(ShopItemSo item) // target
     {
         float currPrice = CurrPrice(item);
         if (this.PlayerStats.GetPlayerGold() >= currPrice)
@@ -142,7 +157,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public float CurrPrice(ShopItemSo itemToCheck)
+    //[TargetRpc]
+    public float CurrPrice(ShopItemSo itemToCheck) // target
     {
         float currPrice = itemToCheck.TotalPrice;
 
@@ -156,7 +172,8 @@ public class ShopManager : MonoBehaviour
         return currPrice;
     }
 
-    public void DesactivateAllInfoPanels()
+    [Server]
+    public void DesactivateAllInfoPanels()// server
     {
         foreach (GameObject panel in detailsPanels)
         {
@@ -164,7 +181,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    [Client]
+    void OnTriggerEnter(Collider other)// client
     {
         if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
         {
@@ -172,7 +190,8 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    [Client]
+    private void OnTriggerExit(Collider other)// client
     {
         if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
         {

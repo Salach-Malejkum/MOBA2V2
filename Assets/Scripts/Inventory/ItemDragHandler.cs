@@ -1,13 +1,15 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class ItemDragHandler : NetworkBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     private Transform originalSlot;
     private readonly float clickTreshold = 0.5f;
     private float pointerDownTime;
 
-    public void OnPointerDown(PointerEventData eventData)
+    //[Client]
+    public void OnPointerDown(PointerEventData eventData)//client
     {
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
@@ -19,7 +21,8 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
     }
 
-    public void OnDrag(PointerEventData eventData)
+    //[Client]
+    public void OnDrag(PointerEventData eventData)//client
     {
         if (InventorySlotNotEmpty(this.originalSlot.transform.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
         {
@@ -27,7 +30,8 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    //[TargetRpc]
+    public void OnPointerUp(PointerEventData eventData)//target
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -40,7 +44,8 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     }
 
-    private void LeftClick()
+    [TargetRpc]
+    private void LeftClick()//target
     {
         this.transform.SetParent(this.originalSlot);
         this.transform.localPosition = Vector3.zero;
@@ -60,7 +65,8 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
     }
 
-    private void RightClick()
+    [TargetRpc]
+    private void RightClick()//target
     {
         if (Time.time - this.pointerDownTime < this.clickTreshold)
         {
@@ -68,7 +74,8 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         }
     }
 
-    private bool InventorySlotNotEmpty(int index, PointerEventData eventData)
+    [Client]
+    private bool InventorySlotNotEmpty(int index, PointerEventData eventData)//client
     {
         return Inventory.instance.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
     }

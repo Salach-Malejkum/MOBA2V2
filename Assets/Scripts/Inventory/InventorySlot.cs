@@ -1,13 +1,15 @@
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot : NetworkBehaviour, IDropHandler
 {
     [SerializeField]
     private GameObject image;
 
-    public void OnDrop(PointerEventData eventData)
+    [Client]
+    public void OnDrop(PointerEventData eventData)// client
     {
         ShopItemSo droppedItem = Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
         if( eventData.pointerDrag.transform.parent.name == gameObject.name)
@@ -31,7 +33,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
     }
 
-    public void RefreshSlot()
+    [Client]
+    public void RefreshSlot()//client
     {
         if (Inventory.instance.Equipment[transform.GetSiblingIndex()] != null)
         {

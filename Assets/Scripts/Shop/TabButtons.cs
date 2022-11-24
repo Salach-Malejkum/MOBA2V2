@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Mirror;
 
 [RequireComponent(typeof(Image))]
-public class TabButtons : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
+public class TabButtons : NetworkBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
     [SerializeField]
     private TabGroup tabGroup;
@@ -16,22 +17,26 @@ public class TabButtons : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
         get { return backGround; }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    [Client]
+    public void OnPointerClick(PointerEventData eventData)//client
     {
         this.tabGroup.OnTabSelected(this);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    [Client]
+    public void OnPointerEnter(PointerEventData eventData)//client
     {
         this.tabGroup.OnTabEnter(this);
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    [Client]
+    public void OnPointerExit(PointerEventData eventData)//client
     {
         this.tabGroup.OnTabExit(this);
     }
 
-    void Start()
+    [Client]
+    void Start()//client
     {
         this.backGround = GetComponent<Image>();
         this.tabGroup.Subscribe(this);
