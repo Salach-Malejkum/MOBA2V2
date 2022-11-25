@@ -2,7 +2,7 @@ using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TabGroup : NetworkBehaviour
+public class TabGroup : MonoBehaviour
 {
     [SerializeField]
     private List<TabButtons> tabButtons;
@@ -22,8 +22,8 @@ public class TabGroup : NetworkBehaviour
     [SerializeField]
     private List<GameObject> objectToSwap;
 
-    [Client]
-    public void Subscribe(TabButtons button)//client
+    //[Client]
+    public void Subscribe(TabButtons button)
     {
         if (this.tabButtons == null)
         {
@@ -32,8 +32,8 @@ public class TabGroup : NetworkBehaviour
         this.tabButtons.Add(button);
     }
 
-    [Client]
-    public void OnTabEnter(TabButtons button)//client
+    //[Client]
+    public void OnTabEnter(TabButtons button)
     {
         this.ResetTabs();
         if (this.selectedTab == null || button != this.selectedTab)
@@ -43,11 +43,11 @@ public class TabGroup : NetworkBehaviour
         
     }
 
-    [Client]
-    public void OnTabExit(TabButtons _) => this.ResetTabs(); //client
+    //[Client]
+    public void OnTabExit(TabButtons _) => this.ResetTabs(); 
 
-    [Client]
-    public void OnTabSelected(TabButtons button)//client
+    //[Client]
+    public void OnTabSelected(TabButtons button)
     {
         this.selectedTab = button;
         this.ResetTabs();
@@ -67,8 +67,8 @@ public class TabGroup : NetworkBehaviour
 
     }
 
-    [Client]
-    private void ResetTabs()//client
+    //[Client]
+    private void ResetTabs()
     {
         foreach (TabButtons button in this.tabButtons)
         {

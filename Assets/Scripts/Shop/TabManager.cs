@@ -15,7 +15,7 @@ public class TabManager : NetworkBehaviour
     [SerializeField]
     private List<Button> myBuyButtons;
     [SerializeField]
-    private List<Button> infoBuyButtons;
+    private Inventory inventory;
 
     [SerializeField]
     private ShopManager shopManager;
@@ -25,19 +25,20 @@ public class TabManager : NetworkBehaviour
     private readonly int delayAmount = 1;
     private float timer;
 
-    [ServerCallback]
-    void Start()//server
+    public override void OnStartAuthority()//OnStartClient nie wywo³uje siê 
     {
+        //Debug.Log("OnStartClient Start");
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {
             this.shopPanelsGo[i].SetActive(true);
         }
         this.LoadPanels();
         this.CheckPurchasable();
+        //Debug.Log("OnStartClient End");
     }
 
     [ServerCallback]
-    void FixedUpdate()//server
+    void FixedUpdate()// przenieœæ gdzieœ indziej---------------------------------------------------------------------------------------------------------------------------------------------
     {
         this.timer += Time.deltaTime;
 
@@ -48,17 +49,17 @@ public class TabManager : NetworkBehaviour
         }
     }
 
-    [TargetRpc]
-    private void CheckPurchasable() //target
+    [Client]
+    private void CheckPurchasable()
     {
-        
+        //Debug.Log("CheckPurchasable Start");
         if (this.shopManager.IsInBorder())
         {
-            if (!Inventory.instance.IsEqFull())
+            if (!inventory.IsEqFull())
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    if (this.shopManager.PlayerStats.PlayerGold >= this.shopManager.CurrPrice(this.shopItemSo[i]))
                     {
                         this.myBuyButtons[i].interactable = true;
                     }
@@ -72,9 +73,9 @@ public class TabManager : NetworkBehaviour
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(this.shopItemSo[i]))
+                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.PlayerStats.PlayerGold >= this.shopManager.CurrPrice(this.shopItemSo[i]))
                     {
-                        if (Inventory.instance.OneComponentsBought(this.shopItemSo[i]))
+                        if (inventory.OneComponentsBought(this.shopItemSo[i]))
                         {
                             this.myBuyButtons[i].interactable = true;
                         }
@@ -99,17 +100,18 @@ public class TabManager : NetworkBehaviour
             }
         }
         this.RefreshInfoPanel();
+        //Debug.Log("CheckPurchasable End");
     }
 
-    [TargetRpc]
-    public void GetItemNo(int itemNo)//target
+    [Client]
+    public void GetItemNo(int itemNo)
     {
-        this.shopManager.Buy(this.shopItemSo[itemNo]);
+        this.CmdBuy(itemNo);
         this.CheckPurchasable();
     }
 
-    [TargetRpc]
-    public void InfoItem(int itemNo)//target
+    [Client]
+    public void InfoItem(int itemNo)
     {
         this.shopManager.DesactivateAllInfoPanels();
 
@@ -134,7 +136,7 @@ public class TabManager : NetworkBehaviour
 
             infoPanelTemplate.ItemImComp[i].sprite = this.shopItemSo[itemNo].Components[i].Image;
             infoPanelTemplate.PriceValComp[i].text = this.shopItemSo[itemNo].Components[i].TotalPrice.ToString();
-            if (Inventory.instance.ItemInEq(this.shopItemSo[itemNo].Components[i]))
+            if (inventory.ItemInEq(this.shopItemSo[itemNo].Components[i]))
             {
                 Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
                 newCompColor.a = 0.5f;
@@ -150,11 +152,13 @@ public class TabManager : NetworkBehaviour
             }
         }
         infoPanelTemplate.BuyBtn.onClick.AddListener(delegate { GetItemNo(itemNo); });
+        RefreshInfoPanel();
     }
 
-    [TargetRpc]
-    public void RefreshInfoPanel()// target
+    [Client]
+    public void RefreshInfoPanel()
     {
+        //Debug.Log("RefreshInfoPanel Start");
         if (this.activeInfoPanel != null)
         {
             InfoPanelsTemplate infoPanelTemplate = this.activeInfoPanel.GetComponent<InfoPanelsTemplate>();
@@ -162,7 +166,7 @@ public class TabManager : NetworkBehaviour
             infoPanelTemplate.PriceVal.text = this.shopManager.CurrPrice(item).ToString();
             for (int i = 0; i < item.Components.Count; i++)
             {
-                if (Inventory.instance.ItemInEq(item.Components[i]))
+                if (inventory.ItemInEq(item.Components[i]))
                 {
                     infoPanelTemplate.PriceValComp[i].fontStyle = TMPro.FontStyles.Strikethrough;
                     Color newCompColor = infoPanelTemplate.ItemImComp[i].color;
@@ -180,9 +184,9 @@ public class TabManager : NetworkBehaviour
 
             if (this.shopManager.IsInBorder())
             {
-                if (!Inventory.instance.IsEqFull())
+                if (!inventory.IsEqFull())
                 {
-                    if (this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(item))
+                    if (this.shopManager.PlayerStats.PlayerGold >= this.shopManager.CurrPrice(item))
                     {
                         infoPanelTemplate.BuyBtn.interactable = true;
                     }
@@ -193,9 +197,9 @@ public class TabManager : NetworkBehaviour
                 }
                 else
                 {
-                    if (item.Components.Count > 0 && this.shopManager.PlayerStats.GetPlayerGold() >= this.shopManager.CurrPrice(item))
+                    if (item.Components.Count > 0 && this.shopManager.PlayerStats.PlayerGold >= this.shopManager.CurrPrice(item))
                     {
-                        if (Inventory.instance.OneComponentsBought(item))
+                        if (inventory.OneComponentsBought(item))
                         {
                             infoPanelTemplate.BuyBtn.interactable = true;
                         }
@@ -215,16 +219,76 @@ public class TabManager : NetworkBehaviour
                 infoPanelTemplate.BuyBtn.interactable = false;
             }
         }
+        //Debug.Log("RefreshInfoPanel Start");
     }
 
-    [Server]
-    private void LoadPanels()//server?
+    [Client]
+    private void LoadPanels()
     {
+        //Debug.Log("LoadPanels Start");
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {
             this.shopPanels[i].TitleTxt.text = this.shopItemSo[i].Title;
             this.shopPanels[i].PriceVal.text = "Price: " + this.shopItemSo[i].TotalPrice.ToString();
             this.shopPanels[i].ItemIm.sprite = this.shopItemSo[i].Image;
+        }
+        //Debug.Log("LoadPanels End");
+    }
+
+    //Z Inventory------------------------------------------------------------------------------------------------------------------
+    [Command]
+    public void CmdAddToEquipment(int itemIndex)
+    {
+        RpcAddToEquipment(itemIndex);
+    }
+
+    [TargetRpc]
+    public void RpcAddToEquipment(int itemIndex)
+    {
+        ShopItemSo item = this.shopItemSo[itemIndex];
+        foreach (ShopItemSo component in item.Components)
+        {
+            for (int i = 0; i < this.inventory.Equipment.Length; i++)
+            {
+                if (this.inventory.Equipment[i] != null)
+                {
+                    if (this.inventory.Equipment[i].Title == component.Title)
+                    {
+                        this.inventory.CmdRemoveItem(i);
+                        Debug.Log("usuniêcie przedmiotu");
+                        break;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < this.inventory.Equipment.Length; i++)
+        {
+            if (this.inventory.Equipment[i] == null)
+            {
+                this.inventory.Equipment[i] = item;
+                this.inventory.CmdRefreshSlots();
+                return;
+            }
+        }
+    }
+
+    //Z shopManagera------------------------------------------------------------------------------------------------------------------
+    [Command]
+    public void CmdBuy(int itemIndex)
+    {
+        RpcBuy(itemIndex);
+    }
+
+    [ClientRpc]
+    public void RpcBuy(int itemIndex)
+    {
+        ShopItemSo item = this.shopItemSo[itemIndex];
+        float currPrice = this.shopManager.CurrPrice(item);
+        if (this.shopManager.PlayerStats.PlayerGold >= currPrice)
+        {
+            this.shopManager.CmdSubtractPurchasedItemCostFromOwnedGold(currPrice);
+            this.CmdAddToEquipment(itemIndex);
+            this.shopManager.PlayerStats.AddItemStatsToPlayer(item);
         }
     }
 }

@@ -46,37 +46,52 @@ public class ShopManager : NetworkBehaviour
     private float timer;
 
     private ShopItemSo sellItem;
+    public ShopItemSo SellItem
+    {
+        get { return sellItem; }
+        set { sellItem = value; }
+    }
     private int sellItemIndex = -1;
+    public int SellItemIndex
+    {
+        get { return sellItemIndex; }
+        set { sellItemIndex = value; }
+    }
+
+    private Inventory inventory;
 
     [ClientCallback]
-    private void Awake()// client
+    private void Awake()
     {
-        //this.openShop = GameObject.Find("OpenShop");
         this.openShop.onClick.AddListener(this.ToggleShop);
+        //this.openShop = GameObject.Find("OpenShop");
         //this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
         //this.shopCanva = GameObject.Find("ShopCanvas");
         //this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
         //this.detailsPanels.Add(GameObject.Find("DetailsPanel (2)"));
         //this.detailsPanels.Add(GameObject.Find("DetailsPanel (3)"));
         //this.sellBtn = GameObject.Find("SellBtn").GetComponent<Button>();
-        this.SellBtn.onClick.AddListener(this.Sell);
+        
+        
+        this.SellBtn.onClick.AddListener(this.CmdSell);
         this.shopCanva.SetActive(false);
         this.DetailsPanels[0].SetActive(false);
         this.DetailsPanels[1].SetActive(false);
         this.DetailsPanels[2].SetActive(false);
         this.playerStats = this.transform.GetComponent<PlayerStats>();
+        this.inventory = this.transform.GetComponent<Inventory>();
     }
 
     [ServerCallback]
-    private void FixedUpdate() // server callback
+    private void FixedUpdate()
     {
         this.timer += Time.deltaTime;
 
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
-            this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
+            this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+            this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         }
         
         if (!IsInBorder())
@@ -85,86 +100,124 @@ public class ShopManager : NetworkBehaviour
         }
     }
 
-    [TargetRpc]
-    public void SubtractPurchasedItemCostFromOwnedGold(float amount)// target
+    [Command]
+    public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
-        this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() - amount);
-        this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
+        RpcSubtractPurchasedItemCostFromOwnedGold(amount);
     }
 
-    //[TargetRpc]
-    public bool IsInBorder() //target
+    [TargetRpc]
+    public void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
+    {
+        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
+        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+    }
+
+    [Client]
+    public bool IsInBorder()
     {
         return this.shopInRange;
     }
 
     [Client]
-    public void ToggleShop() // client
+    public void ToggleShop()
     {
-        if (this.shopCanva.activeSelf)
+        if (isLocalPlayer)
         {
-            this.shopCanva.SetActive(false);
-            this.sellBtn.interactable = false;
+            Debug.Log("toggle");
+            if (this.shopCanva.activeSelf)
+            {
+                this.shopCanva.SetActive(false);
+                this.sellBtn.interactable = false;
+            }
+            else
+            {
+
+                this.shopCanva.SetActive(true);
+            }
         }
         else
         {
-            this.shopCanva.SetActive(true);
+            Debug.Log("toggle 2");
         }
     }
 
-    [TargetRpc]
-    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex) // target
+    [Client]
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
     {
         this.sellItem = itemToSell;
         this.sellItemIndex = itemToSellIndex;
         this.sellBtn.interactable = true;
     }
 
-    [TargetRpc]
-    public void InstaSell(ShopItemSo itemToSell) // target
+
+    ////przenieœ do inventory?
+    //[Command]
+    //public void CmdInstaSell(ShopItemSo itemToSell)//---------------------------------------------
+    //{
+    //    RpcInstaSell(itemToSell);
+    //}
+    ////przenieœ do inventory?
+    //[TargetRpc]
+    //public void RpcInstaSell(ShopItemSo itemToSell)//---------------------------------------------
+    //{
+    //    this.sellItemIndex = -1;
+    //    this.sellItem = itemToSell;
+    //    this.CmdSell();
+    //}
+
+    [Command]
+    public void CmdSell()
     {
-        this.sellItemIndex = -1;
-        this.sellItem = itemToSell;
-        this.Sell();
+        RpcSell();
     }
 
-    [TargetRpc]
-    public void Sell() // target
+    [ClientRpc]
+    public void RpcSell()
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
-        this.PlayerStats.SetPlayerGold(this.PlayerStats.GetPlayerGold() + amount);
-        this.goldValueText.text = "G: " + this.PlayerStats.GetPlayerGold();
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.GetPlayerGold() + " g";
+        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold + amount;
+        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         this.sellBtn.interactable = false;
         if(this.sellItemIndex != -1)
         {
-            Inventory.instance.RemoveItem(this.sellItemIndex);
+            inventory.CmdRemoveItem(this.sellItemIndex);
             this.sellItemIndex = -1;
         }
         this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
     }
 
-    [TargetRpc]
-    public void Buy(ShopItemSo item) // target
-    {
-        float currPrice = CurrPrice(item);
-        if (this.PlayerStats.GetPlayerGold() >= currPrice)
-        {
-            this.SubtractPurchasedItemCostFromOwnedGold(currPrice);
-            Inventory.instance.AddToEquipment(item);
-            this.PlayerStats.AddItemStatsToPlayer(item);
-        }
-    }
 
-    //[TargetRpc]
-    public float CurrPrice(ShopItemSo itemToCheck) // target
+    ////przenieœæ do tabManagera?
+    //[Command]
+    //public void CmdBuy(ShopItemSo item) //prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
+    //{
+    //    RpcBuy(item);
+    //}
+
+    ////przenieœæ do tabManagera?
+    //[ClientRpc]
+    //public void RpcBuy(ShopItemSo item) // prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
+    //{
+    //    float currPrice = CurrPrice(item);
+    //    if (this.PlayerStats.PlayerGold >= currPrice)
+    //    {
+    //        this.CmdSubtractPurchasedItemCostFromOwnedGold(currPrice);
+    //        inventory.CmdAddToEquipment(item);
+    //        this.PlayerStats.AddItemStatsToPlayer(item);
+    //    }
+    //}
+
+    [Client]
+    public float CurrPrice(ShopItemSo itemToCheck)
     {
         float currPrice = itemToCheck.TotalPrice;
 
         foreach (ShopItemSo component in itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First())) // je¿eli bed¹ przepisy o g³êbokoœci wiêkszej ni¿ 1 to bedzie to trzeba przerobiæ
         {
-            if (Inventory.instance.ItemInEq(component))
+            if (inventory.ItemInEq(component))
             {
                 currPrice -= component.TotalPrice;
             }
@@ -172,8 +225,8 @@ public class ShopManager : NetworkBehaviour
         return currPrice;
     }
 
-    [Server]
-    public void DesactivateAllInfoPanels()// server
+    [Client]
+    public void DesactivateAllInfoPanels()
     {
         foreach (GameObject panel in detailsPanels)
         {
@@ -182,7 +235,7 @@ public class ShopManager : NetworkBehaviour
     }
 
     [Client]
-    void OnTriggerEnter(Collider other)// client
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
         {
@@ -191,7 +244,7 @@ public class ShopManager : NetworkBehaviour
     }
 
     [Client]
-    private void OnTriggerExit(Collider other)// client
+    private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
         {

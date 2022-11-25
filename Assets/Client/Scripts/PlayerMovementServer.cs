@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class PlayerMovementServer : NetworkBehaviour
 {
@@ -24,10 +25,13 @@ public class PlayerMovementServer : NetworkBehaviour
         {
             if (Input.GetMouseButtonDown(1))
             {
-                Vector3 clickedPlace = GetClickedMapPoint();
-                if (clickedPlace != new Vector3(0, -5, 0))
+                if (!EventSystem.current.IsPointerOverGameObject())// warunek ¿eby nie chodzi³ gdy klika siê na UI
                 {
-                    CmdMove(clickedPlace);
+                    Vector3 clickedPlace = GetClickedMapPoint();
+                    if (clickedPlace != new Vector3(0, -5, 0))
+                    {
+                        CmdMove(clickedPlace);
+                    }
                 }
             }
         }

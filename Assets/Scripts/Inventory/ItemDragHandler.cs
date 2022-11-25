@@ -2,15 +2,31 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : NetworkBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
+    [SerializeField]
+    private InventoryOnClick inventoryOnClick;
     private Transform originalSlot;
-    private readonly float clickTreshold = 0.5f;
-    private float pointerDownTime;
-
-    //[Client]
-    public void OnPointerDown(PointerEventData eventData)//client
+    public Transform OriginalSlot
     {
+        get { return originalSlot; }
+    }
+    private readonly float clickTreshold = 0.5f;
+    public float ClickTreshold
+    {
+        get { return clickTreshold; }
+    }
+    private float pointerDownTime;
+    public float PointerDownTime
+    {
+        get { return pointerDownTime; }
+    }
+    [SerializeField]
+    private Inventory inventory;
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("OnPointerDown start with index" + this.transform.parent.GetSiblingIndex());
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
         if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
@@ -19,10 +35,10 @@ public class ItemDragHandler : NetworkBehaviour, IPointerDownHandler, IDragHandl
             this.transform.SetParent(this.transform.parent.parent);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
+        Debug.Log("OnPointerDown end");
     }
 
-    //[Client]
-    public void OnDrag(PointerEventData eventData)//client
+    public void OnDrag(PointerEventData eventData)
     {
         if (InventorySlotNotEmpty(this.originalSlot.transform.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
         {
@@ -30,54 +46,26 @@ public class ItemDragHandler : NetworkBehaviour, IPointerDownHandler, IDragHandl
         }
     }
 
-    //[TargetRpc]
-    public void OnPointerUp(PointerEventData eventData)//target
+    public void OnPointerUp(PointerEventData eventData)
     {
+        Debug.Log("OnPointerUp start");
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            LeftClick();
+            this.transform.SetParent(this.OriginalSlot);
+            this.transform.localPosition = Vector3.zero;
+            this.GetComponent<CanvasGroup>().blocksRaycasts = true;
+            inventoryOnClick.CmdLeftClick(this.transform.parent.GetSiblingIndex());
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            RightClick();
+            inventoryOnClick.CmdRightClick(this.transform.parent.GetSiblingIndex());
         }
-
+        Debug.Log("OnPointerUp end");
     }
 
-    [TargetRpc]
-    private void LeftClick()//target
+    private bool InventorySlotNotEmpty(int index, PointerEventData eventData)
     {
-        this.transform.SetParent(this.originalSlot);
-        this.transform.localPosition = Vector3.zero;
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-
-        if (Time.time - this.pointerDownTime < this.clickTreshold)
-        {
-            if (Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()])
-            {
-                if (Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
-                {
-                    Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].OnItemUse();
-                }
-            }
-
-            Inventory.instance.PassItemToSellToShopManager(this.transform.parent.GetSiblingIndex());
-        }
-    }
-
-    [TargetRpc]
-    private void RightClick()//target
-    {
-        if (Time.time - this.pointerDownTime < this.clickTreshold)
-        {
-            Inventory.instance.PassItemToInstaSellToShopManager(this.transform.parent.GetSiblingIndex());
-        }
-    }
-
-    [Client]
-    private bool InventorySlotNotEmpty(int index, PointerEventData eventData)//client
-    {
-        return Inventory.instance.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
+        return inventory.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
     }
 
 }

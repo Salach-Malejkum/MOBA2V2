@@ -190,13 +190,13 @@ public class NetworkManagerLobby : NetworkManager {
 
                 Debug.Log("Room player " + Instance.RoomPlayers[i].DisplayName + " changed to inGamePlayer ");
 
-                NetworkServer.Destroy(conn.identity.gameObject);
+                //NetworkServer.Destroy(conn.identity.gameObject);
 
-                //wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
-                NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
-                if(Instance.connType == "remote") {
-                    Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
-                }
+                ////wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
+                //NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
+                //if(Instance.connType == "remote") {
+                //    Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
+                //}
             }
 
             base.ServerChangeScene(mapName);

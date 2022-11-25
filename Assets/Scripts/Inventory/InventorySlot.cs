@@ -3,42 +3,44 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : NetworkBehaviour, IDropHandler
+public class InventorySlot : MonoBehaviour, IDropHandler
 {
     [SerializeField]
     private GameObject image;
+    [SerializeField]
+    private Inventory inventory;
 
-    [Client]
-    public void OnDrop(PointerEventData eventData)// client
+    public void OnDrop(PointerEventData eventData)
     {
-        ShopItemSo droppedItem = Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
+        Debug.Log("OnDrop start");
+        ShopItemSo droppedItem = inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
         if( eventData.pointerDrag.transform.parent.name == gameObject.name)
         {
             return;
         }
-        if (Inventory.instance.Equipment[this.transform.GetSiblingIndex()] == null)
+        if (inventory.Equipment[this.transform.GetSiblingIndex()] == null)
         {
-            Inventory.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
-            Inventory.instance.RefreshSlots();
-            Inventory.instance.BlockSell();
+            inventory.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
+            inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
+            inventory.CmdRefreshSlots();
+            inventory.BlockSell();
         }
         else
         {
-            ShopItemSo tempItem = Inventory.instance.Equipment[transform.GetSiblingIndex()];
-            Inventory.instance.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            Inventory.instance.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
-            Inventory.instance.RefreshSlots();
-            Inventory.instance.BlockSell();
+            ShopItemSo tempItem = inventory.Equipment[transform.GetSiblingIndex()];
+            inventory.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
+            inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
+            inventory.CmdRefreshSlots();
+            inventory.BlockSell();
         }
+        Debug.Log("OnDrop end");
     }
 
-    [Client]
-    public void RefreshSlot()//client
+    public void RefreshSlot()
     {
-        if (Inventory.instance.Equipment[transform.GetSiblingIndex()] != null)
+        if (inventory.Equipment[transform.GetSiblingIndex()] != null)
         {
-            this.image.GetComponent<Image>().sprite = Inventory.instance.Equipment[this.transform.GetSiblingIndex()].Image;
+            this.image.GetComponent<Image>().sprite = inventory.Equipment[this.transform.GetSiblingIndex()].Image;
             this.image.SetActive(true);
         }
         else
