@@ -99,7 +99,7 @@ public class PlayerSkills : NetworkBehaviour
                 this.QSkill();
                 break;
             case "W":
-                this.CmdWSkill();
+                this.ClientWSkill();
                 break;
             case "E":
                 this.ESkill();
@@ -111,7 +111,7 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
-    [Client]
+    [Command]
     private void QSkill()
     {
         if (this.qOnCooldown)
@@ -132,17 +132,12 @@ public class PlayerSkills : NetworkBehaviour
             GameObject go = Instantiate(this.qPrefab, hit.point, Quaternion.identity);
             go.GetComponent<QScript>();
             go.layer = this.gameObject.layer;
+            NetworkServer.Spawn(go);
         }
     }
 
-    [Command]
-    private void CmdWSkill()
-    {
-        this.RpcWSkill();
-    }
-
-    [ClientRpc]
-    private void RpcWSkill()
+    [Client]
+    private void ClientWSkill()
     {
         if (this.wOnCooldown)
         {
@@ -162,12 +157,13 @@ public class PlayerSkills : NetworkBehaviour
         }
         // rzucenie czegos i koliduje tylko z danym layerem
     }
-
+    [Command]
     public void WSkill()
     {
         GameObject ball = Instantiate(this.wPrefab, transform.position, transform.rotation);
         ball.GetComponent<WProjectileScript>().Direction = this.wDirection;
         ball.layer = this.gameObject.layer;
+        NetworkServer.Spawn(ball);
     }
 
     [Client]
@@ -213,6 +209,7 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
+    [Command]
     public void RSkill()
     {
         GameObject ball = Instantiate(this.rPrefab, transform.position + 2 * Vector3.up, transform.rotation);
@@ -222,6 +219,7 @@ public class PlayerSkills : NetworkBehaviour
         missile.owner = this.gameObject;
         missile.stun = true;
         missile.stunTime = 2.0f;
+        NetworkServer.Spawn(ball);
     }
 
     private void AssignAttackableLayer()

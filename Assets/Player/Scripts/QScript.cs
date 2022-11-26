@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 
-public class QScript : MonoBehaviour
+public class QScript : NetworkBehaviour
 {
     private float damage = 200f;
     private float timer = 0f;
@@ -14,17 +13,19 @@ public class QScript : MonoBehaviour
     }
 
     // Update is called once per frame
+    [ServerCallback]
     void FixedUpdate()
     {
         this.timer += Time.deltaTime;
 
         if (this.timer >= this.castTime)
         {
-            DealDamage();
-            Destroy(this.gameObject);
+            this.DealDamage();
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 
+    [ServerCallback]
     private void DealDamage()
     {
         LayerMask maskToHit = this.gameObject.layer;

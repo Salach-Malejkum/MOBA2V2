@@ -25,8 +25,21 @@ public class WProjectileScript : NetworkBehaviour
 
         if (this.traveledDist > this.distLimit)
         {
-            Destroy(this.gameObject);
+            NetworkServer.Destroy(this.gameObject);
         }
+    }
+
+    [Command]
+    private void CmdMoveProjectile()
+    {
+        this.RpcMoveProjectile();
+    }
+
+    [ClientRpc]
+    private void RpcMoveProjectile()
+    {
+        this.transform.Translate(this.direction.x * this.speed, 0f, this.direction.z * this.speed, Space.World);
+        this.traveledDist += this.direction.magnitude * this.speed;
     }
 
     [Server]
@@ -41,7 +54,7 @@ public class WProjectileScript : NetworkBehaviour
                     {
                         Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
-                        Destroy(this.gameObject);
+                        NetworkServer.Destroy(this.gameObject);
                     }
                     break;
                 case Enums.Layers.redTeamLayer:
@@ -49,7 +62,7 @@ public class WProjectileScript : NetworkBehaviour
                     {
                         Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
-                        Destroy(this.gameObject);
+                        NetworkServer.Destroy(this.gameObject);
                     }
                     break;
             }

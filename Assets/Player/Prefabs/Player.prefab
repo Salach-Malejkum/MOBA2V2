@@ -97,7 +97,6 @@ GameObject:
   - component: {fileID: -1004645586584782925}
   - component: {fileID: 328011266372457115}
   - component: {fileID: -6186647944352726796}
-  - component: {fileID: -6476525291194515553}
   - component: {fileID: 2091363610217191735}
   - component: {fileID: -5794324876374196433}
   - component: {fileID: -486382682619686337}
@@ -105,6 +104,7 @@ GameObject:
   - component: {fileID: -4592679397602601105}
   - component: {fileID: 4957298812896819437}
   - component: {fileID: 7443113177396949519}
+  - component: {fileID: 7889612985299338341}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -241,7 +241,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 2091363610217191735}
         m_TargetAssemblyTypeName: PlayerAttack, Assembly-CSharp
-        m_MethodName: Attack
+        m_MethodName: AttackClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -379,25 +379,8 @@ MonoBehaviour:
   syncInterval: 0.1
   qPrefab: {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
   wPrefab: {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
+  wDirection: {x: 0, y: 0, z: 0}
   rPrefab: {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
---- !u!114 &-6476525291194515553
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739550223701580035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!114 &2091363610217191735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +396,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  projectile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
 --- !u!114 &-5794324876374196433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,6 +432,7 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -521,6 +506,21 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 4957298812896819437}
+--- !u!114 &7889612985299338341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739550223701580035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 624068a50deade74ab1a6d3c7b7259e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!1 &5782627593083486420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2158,7 +2158,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6160483113632065073}
-  - component: {fileID: 6070187106349958145}
   m_Layer: 0
   m_Name: PT_Medieval_Priest_StPatrick
   m_TagString: Untagged
@@ -2183,26 +2182,6 @@ Transform:
   m_Father: {fileID: 5748295861216972401}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6070187106349958145
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6154977334123712863}
-  m_Enabled: 0
-  m_Avatar: {fileID: 9000000, guid: cb65eb249b552d742b211f18f4f01f7e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4eccc05f5e0f68d41ad1347f2c9ea713, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6155016046409148571
 GameObject:
   m_ObjectHideFlags: 0
@@ -2706,7 +2685,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6160631876109465147}
   - component: {fileID: 6090077727146057691}
-  - component: {fileID: 1953949316988139588}
   m_Layer: 0
   m_Name: PT_Medieval_Priest_StPatrick
   m_TagString: Untagged
@@ -2843,26 +2821,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: -0.13488495, z: -0.025272414}
     m_Extent: {x: 0.92835015, y: 0.9995614, z: 0.37952304}
   m_DirtyAABB: 0
---- !u!95 &1953949316988139588
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6155717274430396023}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 582cdf65bb7f970479be0751030fea74, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6155736062827962143
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,30 +2,43 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 
 public class PlayerAttack : NetworkBehaviour, IAttack
 {
+    public GameObject projectile;
     private readonly int rayCastMaxDist = 100;
     private PlayerStats stats;
     private HashSet<GameObject> objectsInRangeHashSet;
     private LayerMask attackableLayer;
-    private float aaCooldown;
-    private float timeAfterAA = 0;
     private bool followAttack = false;
-    private GameObject followAttackObject;
+    private GameObject targetEnemy;
+    private Animator animator;
+    private NetworkAnimator networkAnimator;
+    private PlayerMovement playerMovement;
 
     void Start()
     {
         this.stats = GetComponent<PlayerStats>();
         this.objectsInRangeHashSet = new HashSet<GameObject>();
         this.AssignAttackableLayer();
+        this.animator = GetComponent<Animator>();
+        this.networkAnimator = GetComponent<NetworkAnimator>();
+        this.playerMovement = GetComponent<PlayerMovement>();
     }
+
+    [ClientCallback]
     void FixedUpdate()
     {
         this.FollowAttack();
+        if (this.targetEnemy != null)
+        {
+            Debug.Log(this.targetEnemy.name);
+        }
     }
 
-    public void Attack()
+    [ClientCallback]
+    public void AttackClick()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -33,9 +46,38 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         {
             if (this.objectsInRangeHashSet.Contains(hit.transform.gameObject))
             {
-                hit.transform.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.stats.UnitAttackDamage);
+                this.networkAnimator.SetTrigger("Attack");
+                this.animator.speed = this.stats.AttackSpeed;
+                this.transform.LookAt(hit.transform);
+                switch (hit.transform.tag)
+                {
+                    case "Monster":
+                        hit.transform.gameObject.GetComponent<MobController>().ChasePlayer(this.gameObject);
+                        break;
+                    default:
+                        break;
+                }
             }
+            this.followAttack = true;
+            this.targetEnemy = hit.transform.gameObject;
         }
+        else
+        {
+            this.followAttack = false;
+            this.targetEnemy = null;
+        }
+    }
+
+    [ServerCallback]
+    public void Attack()
+    {
+        GameObject instProjectile = Instantiate(this.projectile, new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z), Quaternion.identity);
+        HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
+        missile.target = this.targetEnemy;
+        missile.owner = this.gameObject;
+        missile.damage = this.stats.UnitAttackDamage;
+
+        NetworkServer.Spawn(instProjectile);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -67,8 +109,31 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         this.attackableLayer = neutralLayer | enemyTeamLayer;
     }
 
+    [ClientCallback]
     private void FollowAttack()
     {
+        if (!this.followAttack)
+        {
+            return;
+        }
 
+        if (this.targetEnemy == null)
+        {
+            this.followAttack = false;
+            return;
+        }
+
+        
+        if (this.objectsInRangeHashSet.Contains(this.targetEnemy.gameObject))
+        {
+            this.networkAnimator.SetTrigger("Attack");
+            this.animator.speed = this.stats.AttackSpeed;
+            this.transform.LookAt(this.targetEnemy.gameObject.transform);
+
+        }
+        else
+        {
+            this.playerMovement.MoveToPoint(this.targetEnemy.transform.position);
+        }
     }
 }
