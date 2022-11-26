@@ -24,7 +24,7 @@ namespace Enums
 
     public enum MinionSpawnTime  // Can be changed for the debug option
     {
-        FirstSpawnTimePeriod = 9,
+        FirstSpawnTimePeriod = 90,
         NormalSpawnTimePeriod = 30
     }
 

@@ -47,7 +47,7 @@ public class PlayerSpawn : NetworkBehaviour
                 playerInstance.layer = Enums.Layers.redTeamLayer;
                 break;
         }
-        Debug.Log(playerInstance.layer);
+
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
     }
 }
