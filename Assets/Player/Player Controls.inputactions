@@ -1,5 +1,5 @@
 {
-    "name": "SteamPunkMoba",
+    "name": "Player Controls",
     "maps": [
         {
             "name": "Player",
@@ -95,7 +95,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move/Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
