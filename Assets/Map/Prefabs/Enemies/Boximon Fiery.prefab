@@ -1103,7 +1103,8 @@ GameObject:
   - component: {fileID: 8254978327381249903}
   - component: {fileID: -2507898823501359242}
   - component: {fileID: 5312911114888547397}
-  m_Layer: 0
+  - component: {fileID: 317208358148398771}
+  m_Layer: 9
   m_Name: Boximon Fiery
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -1176,7 +1177,6 @@ MonoBehaviour:
   target: {fileID: 0}
   spawnerResource: {fileID: 0}
   spawner: {fileID: 0}
-  deleteOutlineTimer: 0
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
@@ -1310,6 +1310,24 @@ MonoBehaviour:
   showGizmos: 0
   showOverlay: 0
   overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+--- !u!114 &317208358148398771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975194375736644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd2a27372037ce4dadce2077eb976aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  stunned: 0
+  stunDuration: 0
+  stunTime: 0
 --- !u!1 &1992369794795074
 GameObject:
   m_ObjectHideFlags: 0
