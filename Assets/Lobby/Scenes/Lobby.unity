@@ -2354,7 +2354,7 @@ MonoBehaviour:
   networkAddress: 127.0.0.1
   maxConnections: 4
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 6808380577650566543, guid: 0a92e7e876e479047a6b4848c4c9e481, type: 3}
+  playerPrefab: {fileID: 4656188166199423107, guid: 72208b746d2be494ebf80d9b14d8c94f, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
@@ -2362,6 +2362,7 @@ MonoBehaviour:
   - {fileID: 62657762906004160, guid: 28dc5864aaad3d64e89d9604cb384e92, type: 3}
   - {fileID: 62657762906004160, guid: bba202cc157f0db4d9e6e07b5049c5dc, type: 3}
   - {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
+  - {fileID: 6377794084287402632, guid: 645d810de1590294db6cc876fe799cb2, type: 3}
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
   roomPlayerPrefab: {fileID: 2461713667315046168, guid: dd44add7f8b612e498925759f728b846, type: 3}

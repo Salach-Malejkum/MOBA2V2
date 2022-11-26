@@ -10,8 +10,14 @@ public class InventoryOnClick : NetworkBehaviour
     [SerializeField]
     private Inventory inventory;
 
+    [Client]
+    public void LeftClick(int slotIndex)
+    {
+        CmdLeftClick(slotIndex);
+    }
+
     [Command]
-    public void CmdLeftClick(int slotIndex)
+    private void CmdLeftClick(int slotIndex)
     {
         RpcLeftClick(slotIndex);
     }
@@ -19,34 +25,30 @@ public class InventoryOnClick : NetworkBehaviour
     [TargetRpc]
     private void RpcLeftClick(int slotIndex)
     {
-        Debug.Log("RpcLeftClick start with slot index" + slotIndex);
         if (Time.time - this.inventorySlot[slotIndex].GetComponent<ItemDragHandler>().PointerDownTime < this.inventorySlot[slotIndex].GetComponent<ItemDragHandler>().ClickTreshold)
         {
-            if (inventory.Equipment[this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex()])
-            {
-                if (inventory.Equipment[this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
-                {
-                    inventory.Equipment[this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex()].OnItemUse();
-                }
-            }
-
-            inventory.CmdPassItemToSellToShopManager(this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex());
+            this.inventory.CmdPassItemToSellToShopManager(this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex());
         }
-        Debug.Log("RpcLeftClick end");
+    }
+
+    [Client]
+    public void RightClick(int slotindex)
+    {
+        CmdRightClick(slotindex);
     }
 
     [Command]
-    public void CmdRightClick(int slotIndex)
+    private void CmdRightClick(int slotindex)
     {
-        RpcRightClick(slotIndex);
+        RpcRightClick(slotindex);
     }
 
     [TargetRpc]
-    private void RpcRightClick(int slotIndex)
+    private void RpcRightClick(int slotindex)
     {
-        if (Time.time - this.inventorySlot[slotIndex].GetComponent<ItemDragHandler>().PointerDownTime < this.inventorySlot[slotIndex].GetComponent<ItemDragHandler>().ClickTreshold)
+        if (Time.time - this.inventorySlot[slotindex].GetComponent<ItemDragHandler>().PointerDownTime < this.inventorySlot[slotindex].GetComponent<ItemDragHandler>().ClickTreshold)
         {
-            inventory.CmdPassItemToInstaSellToShopManager(this.inventorySlot[slotIndex].transform.parent.GetSiblingIndex());
+            this.inventory.CmdInstaSell(this.inventorySlot[slotindex].transform.parent.GetSiblingIndex());
         }
     }
 }

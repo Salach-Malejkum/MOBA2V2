@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: MessageItem
-  m_EditorClassIdentifier: Assembly-CSharp::ItemTypeOne
+  m_Script: {fileID: 11500000, guid: d49dbe937cc99bd479532154ff059f11, type: 3}
+  m_Name: Katana
+  m_EditorClassIdentifier: 
   title: Miecz
   attack: 1
   abilityPower: 0
@@ -23,4 +23,3 @@ MonoBehaviour:
   components:
   - {fileID: 11400000, guid: 1089d105bb0158c46881cfcbf17e1c05, type: 2}
   image: {fileID: 21300000, guid: f594bf2df7f5c264f96b77d4c5537436, type: 3}
-  myMassage: Katana

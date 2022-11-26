@@ -5,7 +5,7 @@ using Mirror;
 
 public class PlayerStats : UnitStats
 {
-    [SyncVar] [SerializeField] protected float playerGold = 0f;
+    [SerializeField] protected float playerGold = 100f;
     public float PlayerGold
     {
         get { return playerGold; }

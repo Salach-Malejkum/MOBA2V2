@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Inventory : NetworkBehaviour
 {
-    //public static Inventory instance;
-
+    [SerializeField]
+    private GameObject inventoryCanva;
     [SerializeField]
     private List<InventorySlot> eqDisplaySlots = new List<InventorySlot>();
     [HideInInspector]
@@ -18,26 +18,22 @@ public class Inventory : NetworkBehaviour
 
     private ShopManager shop;
 
-    public override void OnStartClient()
+    public override void OnStartLocalPlayer()
     {
-        RpcRefreshSlots();
+        this.inventoryCanva.SetActive(true);
+        CmdRefreshSlots();
         this.shop = this.transform.GetComponent<ShopManager>();
     }
 
-    [Command]
+    [ClientCallback]
     public void CmdRefreshSlots()
-    {
-        RpcRefreshSlots();
-    }
-
-    [TargetRpc]
-    public void RpcRefreshSlots()
     {
         for (int i = 0; i < this.eqDisplaySlots.Count; i++)
         {
             this.eqDisplaySlots[i].RefreshSlot();
         }
     }
+
 
     [Client]
     public bool IsEqFull()
@@ -50,43 +46,6 @@ public class Inventory : NetworkBehaviour
         return true;
     }
 
-    ////przenieœ do tabManagera
-    //[Command]
-    //public void CmdAddToEquipment(ShopItemSo item)//prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
-    //{
-    //    RpcAddToEquipment(item);
-    //}
-
-    ////przenieœ do tabManagera
-    //[TargetRpc]
-    //public void RpcAddToEquipment(ShopItemSo item)//prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
-    //{
-
-    //    foreach (ShopItemSo component in item.Components)
-    //    {
-    //        for (int i = 0; i < this.equipment.Length; i++)
-    //        {
-    //            if (this.equipment[i] != null)
-    //            {
-    //                if (this.equipment[i].Title == component.Title)
-    //                {
-    //                    RpcRemoveItem(i);
-    //                    break;
-    //                }
-    //            }
-    //        }
-    //    }
-    //    for (int i = 0; i < this.equipment.Length; i++)
-    //    {
-    //        if (this.equipment[i] == null)
-    //        {
-    //            this.equipment[i] = item;
-    //            RpcRefreshSlots();
-    //            return;
-    //        }
-    //    }
-    //}
-
     [Command]
     public void CmdPassItemToSellToShopManager(int itemIndex)
     {
@@ -96,39 +55,32 @@ public class Inventory : NetworkBehaviour
     [TargetRpc]
     public void RpcPassItemToSellToShopManager(int itemIndex)
     {
-        if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
+        if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {
-            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex);
+            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex, true);
         }
     }
 
     [Command]
-    public void CmdPassItemToInstaSellToShopManager(int itemIndex)
+    public void CmdInstaSell(int itemIndex)
     {
-        RpcPassItemToInstaSellToShopManager(itemIndex);
+        RpcInstaSell(itemIndex);
     }
 
     [TargetRpc]
-    public void RpcPassItemToInstaSellToShopManager(int itemIndex)
+    public void RpcInstaSell(int itemIndex)
     {
-        if (this.shop.IsInBorder())
+        if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {
-            this.CmdInstaSell(itemIndex);
-            RpcRemoveItem(itemIndex);
+            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex, false);
+            this.shop.CmdSell();
         }
     }
 
-    [Command]
+    [ClientCallback]
     public void CmdRemoveItem(int itemIndex)
     {
-        RpcRemoveItem(itemIndex);
-    }
-
-    [TargetRpc]
-    public void RpcRemoveItem(int itemIndex)
-    {
         this.equipment[itemIndex] = null;
-        RpcRefreshSlots();
     }
 
     [Client]
@@ -164,20 +116,5 @@ public class Inventory : NetworkBehaviour
             }
         }
         return false;
-    }
-
-    //Z ShopManagera
-    [Command]
-    public void CmdInstaSell(int itemIndex)
-    {
-        RpcInstaSell(itemIndex);
-    }
-
-    [TargetRpc]
-    public void RpcInstaSell(int itemIndex)
-    {
-        this.shop.SellItemIndex = -1;
-        this.shop.SellItem = this.equipment[itemIndex];
-        this.shop.CmdSell();
     }
 }

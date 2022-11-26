@@ -11,6 +11,8 @@ public class ShopManager : NetworkBehaviour
     private int delayAmount = 1;
     [SerializeField]
     private TMP_Text goldValueText;
+
+    [SerializeField]
     private PlayerStats playerStats ;
     public PlayerStats PlayerStats
     {
@@ -25,6 +27,10 @@ public class ShopManager : NetworkBehaviour
     }
 
     private bool shopInRange;
+    public bool ShopInRange
+    {
+        get { return shopInRange; }
+    }
 
     [SerializeField]
     private List<GameObject> detailsPanels = new List<GameObject>();
@@ -58,31 +64,15 @@ public class ShopManager : NetworkBehaviour
         set { sellItemIndex = value; }
     }
 
+    [SerializeField]
     private Inventory inventory;
 
-    [ClientCallback]
-    private void Awake()
+    public override void OnStartLocalPlayer()
     {
         this.openShop.onClick.AddListener(this.ToggleShop);
-        //this.openShop = GameObject.Find("OpenShop");
-        //this.goldValueText = GameObject.Find("GoldCounter").GetComponent<TextMeshProUGUI>();
-        //this.shopCanva = GameObject.Find("ShopCanvas");
-        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (1)"));
-        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (2)"));
-        //this.detailsPanels.Add(GameObject.Find("DetailsPanel (3)"));
-        //this.sellBtn = GameObject.Find("SellBtn").GetComponent<Button>();
-        
-        
-        this.SellBtn.onClick.AddListener(this.CmdSell);
-        this.shopCanva.SetActive(false);
-        this.DetailsPanels[0].SetActive(false);
-        this.DetailsPanels[1].SetActive(false);
-        this.DetailsPanels[2].SetActive(false);
-        this.playerStats = this.transform.GetComponent<PlayerStats>();
-        this.inventory = this.transform.GetComponent<Inventory>();
     }
 
-    [ServerCallback]
+    [ClientCallback]
     private void FixedUpdate()
     {
         this.timer += Time.deltaTime;
@@ -94,7 +84,7 @@ public class ShopManager : NetworkBehaviour
             this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         }
         
-        if (!IsInBorder())
+        if (!this.shopInRange)
         {
             this.sellBtn.interactable = false;
         }
@@ -115,57 +105,26 @@ public class ShopManager : NetworkBehaviour
     }
 
     [Client]
-    public bool IsInBorder()
-    {
-        return this.shopInRange;
-    }
-
-    [Client]
     public void ToggleShop()
     {
-        if (isLocalPlayer)
+        if (this.shopCanva.activeSelf)
         {
-            Debug.Log("toggle");
-            if (this.shopCanva.activeSelf)
-            {
-                this.shopCanva.SetActive(false);
-                this.sellBtn.interactable = false;
-            }
-            else
-            {
-
-                this.shopCanva.SetActive(true);
-            }
+            this.shopCanva.SetActive(false);
+            this.sellBtn.interactable = false;
         }
         else
         {
-            Debug.Log("toggle 2");
+            this.shopCanva.SetActive(true);
         }
     }
 
     [Client]
-    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex, bool isNotInsta)
     {
         this.sellItem = itemToSell;
         this.sellItemIndex = itemToSellIndex;
-        this.sellBtn.interactable = true;
+        this.sellBtn.interactable = isNotInsta;
     }
-
-
-    ////przenieœ do inventory?
-    //[Command]
-    //public void CmdInstaSell(ShopItemSo itemToSell)//---------------------------------------------
-    //{
-    //    RpcInstaSell(itemToSell);
-    //}
-    ////przenieœ do inventory?
-    //[TargetRpc]
-    //public void RpcInstaSell(ShopItemSo itemToSell)//---------------------------------------------
-    //{
-    //    this.sellItemIndex = -1;
-    //    this.sellItem = itemToSell;
-    //    this.CmdSell();
-    //}
 
     [Command]
     public void CmdSell()
@@ -173,7 +132,7 @@ public class ShopManager : NetworkBehaviour
         RpcSell();
     }
 
-    [ClientRpc]
+    [TargetRpc]
     public void RpcSell()
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
@@ -181,48 +140,9 @@ public class ShopManager : NetworkBehaviour
         this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         this.sellBtn.interactable = false;
-        if(this.sellItemIndex != -1)
-        {
-            inventory.CmdRemoveItem(this.sellItemIndex);
-            this.sellItemIndex = -1;
-        }
+        this.inventory.CmdRemoveItem(this.sellItemIndex);
         this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
-    }
-
-
-    ////przenieœæ do tabManagera?
-    //[Command]
-    //public void CmdBuy(ShopItemSo item) //prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
-    //{
-    //    RpcBuy(item);
-    //}
-
-    ////przenieœæ do tabManagera?
-    //[ClientRpc]
-    //public void RpcBuy(ShopItemSo item) // prawdopodobnie bedzie trzeba przenieœæ gdzieœ indziej bo przekazuje obiekt typu ShopItemSo----------------------------------------------
-    //{
-    //    float currPrice = CurrPrice(item);
-    //    if (this.PlayerStats.PlayerGold >= currPrice)
-    //    {
-    //        this.CmdSubtractPurchasedItemCostFromOwnedGold(currPrice);
-    //        inventory.CmdAddToEquipment(item);
-    //        this.PlayerStats.AddItemStatsToPlayer(item);
-    //    }
-    //}
-
-    [Client]
-    public float CurrPrice(ShopItemSo itemToCheck)
-    {
-        float currPrice = itemToCheck.TotalPrice;
-
-        foreach (ShopItemSo component in itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First())) // je¿eli bed¹ przepisy o g³êbokoœci wiêkszej ni¿ 1 to bedzie to trzeba przerobiæ
-        {
-            if (inventory.ItemInEq(component))
-            {
-                currPrice -= component.TotalPrice;
-            }
-        }
-        return currPrice;
+        this.inventory.CmdRefreshSlots();
     }
 
     [Client]

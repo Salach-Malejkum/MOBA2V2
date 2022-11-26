@@ -83,21 +83,3 @@ public class ShopItemSo : ScriptableObject
     }
 
 }
-
-[Serializable]
-[CreateAssetMenu(fileName = "ShopMenu", menuName = "scriptable Objects/New Shop Item custom message", order = 2)]
-public class ItemTypeOne : ShopItemSo
-{
-    [SerializeField]
-    private string myMassage;
-    public string MyMassage
-    {
-        get { return myMassage; }
-    }
-
-    public override void OnItemUse()
-    {
-        //TODO Umiejêtnoœci przedmiotów u¿ywanych
-        Debug.Log(this.myMassage);
-    }
-}

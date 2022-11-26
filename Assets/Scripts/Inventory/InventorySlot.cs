@@ -12,7 +12,6 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("OnDrop start");
         ShopItemSo droppedItem = inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
         if( eventData.pointerDrag.transform.parent.name == gameObject.name)
         {
@@ -33,9 +32,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             inventory.CmdRefreshSlots();
             inventory.BlockSell();
         }
-        Debug.Log("OnDrop end");
     }
-
+    
     public void RefreshSlot()
     {
         if (inventory.Equipment[transform.GetSiblingIndex()] != null)

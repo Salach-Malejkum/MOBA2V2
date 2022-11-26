@@ -26,7 +26,6 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("OnPointerDown start with index" + this.transform.parent.GetSiblingIndex());
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
         if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData) && eventData.button == PointerEventData.InputButton.Left)
@@ -35,7 +34,6 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             this.transform.SetParent(this.transform.parent.parent);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
-        Debug.Log("OnPointerDown end");
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -48,19 +46,17 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("OnPointerUp start");
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.SetParent(this.OriginalSlot);
             this.transform.localPosition = Vector3.zero;
             this.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            inventoryOnClick.CmdLeftClick(this.transform.parent.GetSiblingIndex());
+            inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            inventoryOnClick.CmdRightClick(this.transform.parent.GetSiblingIndex());
+            inventoryOnClick.RightClick(this.transform.parent.GetSiblingIndex());
         }
-        Debug.Log("OnPointerUp end");
     }
 
     private bool InventorySlotNotEmpty(int index, PointerEventData eventData)
