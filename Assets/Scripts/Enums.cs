@@ -84,5 +84,6 @@ namespace Enums
         public const int blueTeamLayer = 7;
         public const int redTeamLayer = 6;
         public const int terrainLayer = 8;
+        public const int neutral = 9;
     }
 }
