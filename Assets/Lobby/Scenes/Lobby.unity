@@ -2355,7 +2355,7 @@ MonoBehaviour:
   networkAddress: 127.0.0.1
   maxConnections: 4
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 6808380577650566543, guid: 0a92e7e876e479047a6b4848c4c9e481, type: 3}
+  playerPrefab: {fileID: 4739550223701580035, guid: b7d8253ea0f718a4897be16f4d5a18bd, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
@@ -2371,6 +2371,9 @@ MonoBehaviour:
   - {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
   - {fileID: 8955456752022936422, guid: 39138665ecc3c6f449b894ef5f5e814a, type: 3}
   - {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  - {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
+  - {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
+  - {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
   timeInterpolationGui: 0
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
