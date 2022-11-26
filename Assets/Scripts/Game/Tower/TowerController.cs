@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TowerController : NetworkBehaviour
+public class TowerController : NetworkBehaviour, IOutlinable
 {
     public Outline outline;
     public GameObject missile;
