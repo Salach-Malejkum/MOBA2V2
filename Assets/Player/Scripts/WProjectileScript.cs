@@ -9,7 +9,7 @@ public class WProjectileScript : NetworkBehaviour
     private float damage = 200f;
     private float traveledDist = 0f;
     private readonly float distLimit = 100f;
-    private float speed = 0.3f;
+    private float speed = 0.5f;
     private Vector3 direction;
     public Vector3 Direction
     {
