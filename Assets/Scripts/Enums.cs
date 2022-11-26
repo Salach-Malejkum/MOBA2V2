@@ -4,9 +4,11 @@ namespace Enums
 {
     public enum AttackResult
     {
-        CanAttack = 1,
+        OnCooldown = -1,
         OutOfRange = 0,
-        OnCooldown = -1
+        CanAttack = 1,
+        Dead = 2,
+        FriendlyFire = 3,
     }
     public static class MinionPaths
     {
@@ -22,7 +24,7 @@ namespace Enums
 
     public enum MinionSpawnTime  // Can be changed for the debug option
     {
-        FirstSpawnTimePeriod = 1,
+        FirstSpawnTimePeriod = 9,
         NormalSpawnTimePeriod = 30
     }
 
@@ -77,9 +79,11 @@ namespace Enums
         public readonly static Vector3 blueTeamSpawn = new Vector3(116f, 0.5f, -15f);
     }
 
-    public static class TeamMinionsLayers
+    public static class Layers
     {
         public const int blueTeamLayer = 7;
         public const int redTeamLayer = 6;
+        public const int terrainLayer = 8;
+        public const int neutral = 9;
     }
 }

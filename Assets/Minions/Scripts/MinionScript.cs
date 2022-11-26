@@ -58,6 +58,8 @@ public class MinionScript : NetworkBehaviour
                 missile.target = this.targetEnemy;
                 missile.owner = this.gameObject;
                 missile.damage = this.gameObject.GetComponent<UnitStats>().UnitAttackDamage;
+
+                NetworkServer.Spawn(instProjectile);
             }
             navMeshAgent.destination = this.transform.position;
         }

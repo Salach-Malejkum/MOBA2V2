@@ -2347,7 +2347,8 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 0
-  serverTickRate: 30
+  autoConnectClientBuild: 0
+  sendRate: 30
   offlineScene: 
   onlineScene: 
   transport: {fileID: 693488853}
@@ -2359,9 +2360,18 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 1369216056555088242, guid: dd44add7f8b612e498925759f728b846, type: 3}
-  - {fileID: 62657762906004160, guid: 28dc5864aaad3d64e89d9604cb384e92, type: 3}
-  - {fileID: 62657762906004160, guid: bba202cc157f0db4d9e6e07b5049c5dc, type: 3}
+  - {fileID: 62657762906004160, guid: 93f8a12344a8678458838b03af75ecb9, type: 3}
+  - {fileID: 62657762906004160, guid: 9375cfed40cc34f418c8adf9378ce548, type: 3}
   - {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
+  - {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+  - {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
+  - {fileID: 4020983980232809014, guid: 81a381c7f66e67a4bb36c56924e485b7, type: 3}
+  - {fileID: 1783563462218004, guid: 7f931d4b5c97d194d8726ddf5acdd440, type: 3}
+  - {fileID: 1462720695320296, guid: e9a03d46b76afe246a9ffd58d255bb65, type: 3}
+  - {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
+  - {fileID: 8955456752022936422, guid: 39138665ecc3c6f449b894ef5f5e814a, type: 3}
+  - {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  timeInterpolationGui: 0
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
   roomPlayerPrefab: {fileID: 2461713667315046168, guid: dd44add7f8b612e498925759f728b846, type: 3}
@@ -7172,6 +7182,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildType: {fileID: 1246543052}
+--- !u!1 &1772845340
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1772845341}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1772845341
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772845340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 110.21768, y: 4.3381567, z: -13.928522}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1828946777
 GameObject:
   m_ObjectHideFlags: 0
@@ -7614,7 +7655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1862978190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8060,7 +8101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1978596480
 RectTransform:
   m_ObjectHideFlags: 0

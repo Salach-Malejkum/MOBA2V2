@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ImportedAssets/Blink.meta
+guid: 9a4bea4c57c93ee4db7cea603782e975
+folderAsset: yes
+========
 guid: 918b3b06e15e1f74aab160dfc26f9678
+>>>>>>>> main:Assets/WizardPolyArt/SRP/HDRP_PA.zip.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

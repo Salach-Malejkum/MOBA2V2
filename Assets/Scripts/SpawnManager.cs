@@ -16,21 +16,21 @@ public class SpawnManager : NetworkBehaviour
         this.blueTeamTopMinions = new MinionSpawnerScript
             (
             Enums.TeamMinionSpawnerPosition.blueTeamSpawn,
-            Enums.TeamMinionsLayers.blueTeamLayer,
+            Enums.Layers.blueTeamLayer,
             Enums.MinionPaths.topPathPoints
             );
 
         this.blueTeamBotMinions = new MinionSpawnerScript
             (
             Enums.TeamMinionSpawnerPosition.blueTeamSpawn,
-            Enums.TeamMinionsLayers.blueTeamLayer,
+            Enums.Layers.blueTeamLayer,
             Enums.MinionPaths.botPathPoints
             );
 
         this.redTeamTopMinions = new MinionSpawnerScript
             (
             Enums.TeamMinionSpawnerPosition.redTeamSpawn,
-            Enums.TeamMinionsLayers.redTeamLayer,
+            Enums.Layers.redTeamLayer,
             Enumerable.Reverse(Enums.MinionPaths.topPathPoints).ToArray()
             );
 
@@ -38,7 +38,7 @@ public class SpawnManager : NetworkBehaviour
         this.redTeamBotMinions = new MinionSpawnerScript
             (
             Enums.TeamMinionSpawnerPosition.redTeamSpawn,
-            Enums.TeamMinionsLayers.redTeamLayer,
+            Enums.Layers.redTeamLayer,
             Enumerable.Reverse(Enums.MinionPaths.botPathPoints).ToArray()
             );
     }

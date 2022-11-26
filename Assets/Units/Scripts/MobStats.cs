@@ -6,6 +6,7 @@ using Mirror;
 
 public class MobStats : UnitStats
 {
+    public int gold = 0;
     //TODO: na spawn minona musi być event Action który robi Invoke 
     public event Action OnMobSpawn;
 
@@ -32,16 +33,13 @@ public class MobStats : UnitStats
         OnMobSpawn?.Invoke();
     }
 
-    public void onMonsterLoseAggro() {
-        base.AddHealth(this.unitMaxHealth);
-    }
-
     public void TakeDamage(float damageAmount) {
         base.RemoveHealthOnNormalAttack(damageAmount);
     }
     
     [Server]
-    private void HandleMobDeath() {
+    protected virtual void HandleMobDeath()
+    {
         NetworkServer.Destroy(this.gameObject);
     }
 }
