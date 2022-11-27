@@ -6,7 +6,7 @@ using TMPro;
 
 public class LobbyTimer : NetworkBehaviour
 {
-    [SyncVar] private float timeLeft = 5f;
+    [SyncVar] private float timeLeft = 30f;
     private bool LobbyNotReady = true;
     public static event Action<float> OnTimeUpdated;
 
