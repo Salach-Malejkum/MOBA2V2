@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OM",
+                    "type": "Button",
+                    "id": "0d22aa12-eb8a-45ee-8925-570b1d30823c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -143,6 +152,17 @@
                     "action": "Skills",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b19c36d6-ebeb-4ce0-a172-9ddb28209524",
+                    "path": "<Keyboard>/#(O)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OM",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -236,6 +256,15 @@
                     "type": "PassThrough",
                     "id": "a124043a-2140-494a-b226-2ab822d3b41a",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OPenMenu",
+                    "type": "Button",
+                    "id": "65f64c98-4e22-4876-adfa-ff660b018b4a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -657,6 +686,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fbc5e2da-bdcc-482d-9da2-f5a4ae90897a",
+                    "path": "<Keyboard>/#(K)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OPenMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

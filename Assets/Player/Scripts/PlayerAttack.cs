@@ -11,6 +11,8 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     private PlayerStats stats;
     private HashSet<GameObject> objectsInRangeHashSet;
     private LayerMask attackableLayer;
+    private float aaCooldown;
+    private float timeAfterAA = 0;
     private bool followAttack = false;
     private GameObject targetEnemy;
     private Animator animator;
@@ -56,7 +58,7 @@ public class PlayerAttack : NetworkBehaviour, IAttack
             }
             this.followAttack = true;
             this.targetEnemy = hit.transform.gameObject;
-        }
+            }
         else
         {
             this.followAttack = false;

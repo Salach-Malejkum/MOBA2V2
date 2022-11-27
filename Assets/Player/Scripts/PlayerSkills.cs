@@ -112,6 +112,7 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
+    [Client]
     private void QSkill()
     {
         if (this.qOnCooldown)

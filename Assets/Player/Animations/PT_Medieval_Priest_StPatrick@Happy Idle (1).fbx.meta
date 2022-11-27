@@ -114,6 +114,7 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
+<<<<<<< HEAD
     human:
     - boneName: PT_Medieval_Hips
       humanName: Hips
@@ -897,6 +898,10 @@ ModelImporter:
       position: {x: -0.000025255247, y: 0.1438179, z: -0.0088649485}
       rotation: {x: 0.32279548, y: -0.088842876, z: 0.030450381, w: 0.94179773}
       scale: {x: 1.0000008, y: 1.0000005, z: 1.0000004}
+=======
+    human: []
+    skeleton: []
+>>>>>>> main
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

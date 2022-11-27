@@ -217,7 +217,11 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+<<<<<<< HEAD
     isReadable: 1
+=======
+    isReadable: 0
+>>>>>>> main
   meshes:
     lODScreenPercentages: []
     globalScale: 1
