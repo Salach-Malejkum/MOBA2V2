@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.HID;
 public class PlayerSkills : NetworkBehaviour
 {
     public GameObject qPrefab;
-    private Vector3 qPoint;
     private float qCooldown = 2.0f;
     private bool qOnCooldown = false;
     private float qTimer = 0f;
@@ -143,7 +142,6 @@ public class PlayerSkills : NetworkBehaviour
         qScript.Owner = owner;
         NetworkServer.Spawn(go);
     }
-
 
     private void ClientWSkill()
     {
