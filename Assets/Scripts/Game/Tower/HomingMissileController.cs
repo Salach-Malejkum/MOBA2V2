@@ -38,7 +38,7 @@ public class HomingMissileController : NetworkBehaviour
         if (!other.isTrigger && other.gameObject == this.target)
         {
             other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.owner);
-            if (this.stun)
+            if (this.stun && other.tag != Enums.Tags.tower)
             {
                 other.gameObject.GetComponent<CrowdControl>().Stun(this.stunTime);
             }

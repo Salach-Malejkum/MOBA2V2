@@ -6,6 +6,13 @@ public class QScript : NetworkBehaviour
     private float damage = 200f;
     private float timer = 0f;
     private float castTime = 0.5f;
+    [SerializeField]
+    private LayerMask attackableLayer;
+    public LayerMask AttackableLayer
+    {
+        get { return attackableLayer; }
+        set { attackableLayer = value; }
+    }
 
     private GameObject owner;
     public GameObject Owner
@@ -29,18 +36,7 @@ public class QScript : NetworkBehaviour
     [ServerCallback]
     private void DealDamage()
     {
-        LayerMask maskToHit = this.gameObject.layer;
-
-        switch (this.gameObject.layer)
-        {
-            case Enums.Layers.blueTeamLayer:
-                maskToHit = LayerMask.GetMask(LayerMask.LayerToName(Enums.Layers.redTeamLayer));
-                break;
-            case Enums.Layers.redTeamLayer:
-                maskToHit = LayerMask.GetMask(LayerMask.LayerToName(Enums.Layers.blueTeamLayer));
-                break;
-        }
-        Collider[] hitColliders = Physics.OverlapBox(this.transform.position, transform.localScale / 2, Quaternion.identity, maskToHit, QueryTriggerInteraction.Ignore);
+        Collider[] hitColliders = Physics.OverlapBox(this.transform.position, transform.localScale / 2, Quaternion.identity, this.attackableLayer, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < hitColliders.Length; i++)
         {
             hitColliders[i].gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.owner);

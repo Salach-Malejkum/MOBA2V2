@@ -27,12 +27,12 @@ public class PlayerSkills : NetworkBehaviour
     private bool rOnCooldown = false;
     private float rTimer = 0f;
 
+    [SerializeField]
     private LayerMask attackableLayer;
     private NetworkAnimator networkAnimator;
 
     private void Start()
     {
-        this.AssignAttackableLayer();
         this.networkAnimator = GetComponent<NetworkAnimator>();
     }
 
@@ -40,6 +40,11 @@ public class PlayerSkills : NetworkBehaviour
     [ClientCallback]
     private void FixedUpdate()
     {
+        if (this.attackableLayer == 0)
+        {
+            this.attackableLayer = GetComponent<PlayerAttack>().AttackableLayer;
+        }
+
         if (this.qOnCooldown)
         {
             this.qTimer += Time.deltaTime;
@@ -129,17 +134,18 @@ public class PlayerSkills : NetworkBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             this.transform.LookAt(hit.point);
-            this.CmdQSkill(hit.point, this.gameObject.layer, this.gameObject);
+            this.CmdQSkill(hit.point, this.gameObject, this.attackableLayer);
         }
     }
 
     [Command]
-    private void CmdQSkill(Vector3 point, LayerMask layer, GameObject owner)
+    private void CmdQSkill(Vector3 point, GameObject owner, int attackableLayer)
     {
         GameObject go = Instantiate(this.qPrefab, point, Quaternion.identity);
         QScript qScript = go.GetComponent<QScript>();
-        go.layer = layer;
+        go.layer = owner.layer;
         qScript.Owner = owner;
+        qScript.AttackableLayer = attackableLayer;
         NetworkServer.Spawn(go);
     }
 
@@ -166,17 +172,23 @@ public class PlayerSkills : NetworkBehaviour
 
     public void WSkill()
     {
-        this.CmdWSkill(this.wDirection, this.gameObject);
+        if (!isOwned)
+        {
+            return;
+        }
+
+        this.CmdWSkill(this.wDirection, this.gameObject, this.attackableLayer);
     }
 
     [Command]
-    private void CmdWSkill(Vector3 direction, GameObject owner)
+    private void CmdWSkill(Vector3 direction, GameObject owner, int attackableLayer)
     {
         GameObject ball = Instantiate(this.wPrefab, transform.position, transform.rotation);
         WProjectileScript wProjectileScript = ball.GetComponent<WProjectileScript>();
         wProjectileScript.Direction = direction;
         wProjectileScript.Owner = owner;
-        ball.layer = this.gameObject.layer;
+        wProjectileScript.AttackableLayer = attackableLayer;
+        ball.layer = owner.layer;
         NetworkServer.Spawn(ball);
     }
 
@@ -231,35 +243,20 @@ public class PlayerSkills : NetworkBehaviour
             return;
         }
 
-        this.CmdRSkill(this.gameObject.layer, this.rTarget, this.gameObject);
+        this.CmdRSkill(this.rTarget, this.gameObject);
     }
 
     [Command]
-    private void CmdRSkill(LayerMask layer, GameObject target, GameObject owner) 
+    private void CmdRSkill(GameObject target, GameObject owner) 
     {
         GameObject ball = Instantiate(this.rPrefab, transform.position + 2 * Vector3.up, transform.rotation);
-        ball.layer = layer;
+        ball.layer = owner.layer;
         HomingMissileController missile = ball.GetComponent<HomingMissileController>();
         missile.target = target;
         missile.owner = owner;
         missile.stun = true;
-        missile.stunTime = 2.0f;
+        missile.stunTime = 3.0f;
+        missile.damage = 50f;
         NetworkServer.Spawn(ball);
-    }
-
-    private void AssignAttackableLayer()
-    {
-        LayerMask enemyTeamLayer = this.gameObject.layer;
-        switch (enemyTeamLayer)
-        {
-            case Enums.Layers.blueTeamLayer:
-                enemyTeamLayer = 1 << Enums.Layers.redTeamLayer;
-                break;
-            case Enums.Layers.redTeamLayer:
-                enemyTeamLayer = 1 << Enums.Layers.blueTeamLayer;
-                break;
-        }
-        LayerMask neutralLayer = 1 << Enums.Layers.neutral;
-        this.attackableLayer = neutralLayer | enemyTeamLayer;
     }
 }
