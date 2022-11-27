@@ -36,6 +36,7 @@ public class WProjectileScript : NetworkBehaviour
                 case Enums.Layers.blueTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.redTeamLayer)
                     {
+                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
                         NetworkServer.Destroy(this.gameObject);
                     }
@@ -43,6 +44,7 @@ public class WProjectileScript : NetworkBehaviour
                 case Enums.Layers.redTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.blueTeamLayer)
                     {
+                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
                         NetworkServer.Destroy(this.gameObject);
                     }

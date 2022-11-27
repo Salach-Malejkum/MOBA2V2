@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: a80b056c3b62c4d4580c0b2a50f15d02, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3ae3e9f45295aad49946964be6e4ff9b, type: 2}
 --- !u!4 &6304002
 Transform:
   m_ObjectHideFlags: 0
@@ -1200,7 +1200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d053ecef8ddb545b99aa7e96614e93d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
 --- !u!114 &65295350
@@ -1216,9 +1215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1252452273
-  _assetId: 0
   serverOnly: 0
   visible: 0
+  m_AssetId: 
   hasSpawned: 0
 --- !u!1001 &66297759
 PrefabInstance:
@@ -1889,7 +1888,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4183516897102132, guid: 7689b2d5def66f04eb3b0905d7b65084, type: 3}
   m_PrefabInstance: {fileID: 114153284}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &114769532
+--- !u!1001 &117018632
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1902,7 +1901,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1986,12 +1985,12 @@ PrefabInstance:
       objectReference: {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
---- !u!1 &114769533 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-  m_PrefabInstance: {fileID: 114769532}
+--- !u!4 &117018633 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  m_PrefabInstance: {fileID: 117018632}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &117018632
+--- !u!1001 &117018634
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2072,10 +2071,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fc2010b5899cfd488a0ddf205679e2b, type: 3}
---- !u!4 &117018633 stripped
+--- !u!4 &117018635 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4548539680920072, guid: 6fc2010b5899cfd488a0ddf205679e2b, type: 3}
-  m_PrefabInstance: {fileID: 117018632}
+  m_PrefabInstance: {fileID: 117018634}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &119553781
 PrefabInstance:
@@ -2462,7 +2461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 141223263}
@@ -2523,9 +2521,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 481464067
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &141223262
 MonoBehaviour:
@@ -2539,7 +2537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -2547,9 +2544,12 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades: []
 --- !u!114 &141223263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3227,7 +3227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 1stTierMidTurret
+      value: 1stTierTurretMidBlue
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -3333,10 +3333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  outline: {fileID: 181190921}
+  outline: {fileID: 0}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
 --- !u!135 &181190915
@@ -3394,9 +3393,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 12192681
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &181190920
 MonoBehaviour:
@@ -3410,7 +3409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -3418,9 +3416,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &181190921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3433,7 +3440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outlineMode: 3
+  outlineMode: 0
   outlineColor: {r: 1, g: 0, b: 0, a: 1}
   outlineWidth: 0
   precomputeOutline: 0
@@ -5626,7 +5633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 2ndTierBotTurret
+      value: 2ndTierTurretBotBlue
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -5732,7 +5739,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 305868644}
@@ -5793,9 +5799,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 111983385
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &305868643
 MonoBehaviour:
@@ -5809,7 +5815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -5817,9 +5822,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &305868644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6075,7 +6089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6087,7 +6101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50
+      value: -46.7
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6193,11 +6207,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 316057933}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -10992,7 +11015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 2ndTierMidTurret
+      value: 2ndTierTurretMidBlue
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -11098,7 +11121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 602522921}
@@ -11159,9 +11181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1015105147
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &602522920
 MonoBehaviour:
@@ -11175,7 +11197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -11183,9 +11204,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &602522921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13625,137 +13655,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4208458315195486, guid: c96016c34e7be62488e588470988ef5b, type: 3}
   m_PrefabInstance: {fileID: 721866524}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &734983473
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1889840151}
-    m_Modifications:
-    - target: {fileID: 2522742808077133371, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: sceneId
-      value: 1819563852
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -36.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -25.27
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.045118768
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.99898165
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 185.172
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: m_Name
-      value: RedSpawnerDevils
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: spawnRadius
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: nextSpawnTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: numberSpawned
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: resourcePrefab
-      value: 
-      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: resourcePrefab.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: resourcePrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: resourcePrefab.Array.data[0]
-      value: 
-      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
-    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-      propertyPath: resourcePrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
---- !u!1 &734983474 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-  m_PrefabInstance: {fileID: 734983473}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &737368899 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-  m_PrefabInstance: {fileID: 114769532}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &737368900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114769533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 737368899}
-  clientAuthority: 0
-  onlySyncOnChange: 1
-  bufferResetMultiplier: 5
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1001 &737621600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17245,7 +17144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 1stTierBotTurret
+      value: 1stTierTurretBotBlue
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -17351,7 +17250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 960327448}
@@ -17412,9 +17310,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3813198160
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &960327447
 MonoBehaviour:
@@ -17428,7 +17326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -17436,9 +17333,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &960327448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17548,7 +17454,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 2ndTierBotTurret
+      value: 2ndTierTurretBotRed
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -17654,7 +17560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 961752869}
@@ -17715,9 +17620,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 4134548119
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &961752868
 MonoBehaviour:
@@ -17731,7 +17636,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -17739,9 +17643,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &961752869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18101,7 +18014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 1stTierBotTurret
+      value: 1stTierTurretBotRed
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -18207,7 +18120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 992270099}
@@ -18268,9 +18180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 350085851
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &992270098
 MonoBehaviour:
@@ -18284,7 +18196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -18292,9 +18203,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &992270099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20872,11 +20792,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 1141318511}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -21979,7 +21908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23391,7 +23320,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1685426733795514, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685426733795514, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1685426733795514, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_TagString
@@ -23415,7 +23348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4538438218131234, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.8415587
+      value: 1.9347416
       objectReference: {fileID: 0}
     - target: {fileID: 4538438218131234, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23427,7 +23360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4538438218131234, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 72.54
+      value: 72.506
       objectReference: {fileID: 0}
     - target: {fileID: 4538438218131234, guid: f31c6bb6e68212e41b0bcae74612a240, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24788,7 +24721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24800,7 +24733,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 76.5
+      value: 74.8
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalRotation.w
@@ -24906,11 +24839,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 1384574539}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -25706,11 +25648,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 1434203916}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -25915,7 +25866,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 2ndTierMidTurret
+      value: 2ndTierTurretMidRed
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -26021,7 +25972,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1440365263}
@@ -26082,9 +26032,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3277244132
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1440365262
 MonoBehaviour:
@@ -26098,7 +26048,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -26106,9 +26055,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &1440365263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28163,7 +28121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Name
-      value: 1stTierMidTurret
+      value: 1stTierTurretMidRed
       objectReference: {fileID: 0}
     - target: {fileID: 1326093064322132, guid: a425124410f363a43adb6788601cc3e0, type: 3}
       propertyPath: m_Layer
@@ -28269,7 +28227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1567017625}
@@ -28330,9 +28287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 4100288671
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1567017624
 MonoBehaviour:
@@ -28346,7 +28303,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -28354,9 +28310,18 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades:
+  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
+  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
+  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
+  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
+  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
+  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &1567017625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29450,7 +29415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1619859267}
@@ -29511,9 +29475,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1115834234
-  _assetId: 2938488301
   serverOnly: 0
   visible: 0
+  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1619859266
 MonoBehaviour:
@@ -29527,7 +29491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -29535,9 +29498,12 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  activeUpgrades: []
+  upgrades: []
 --- !u!114 &1619859267
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29854,6 +29820,7 @@ GameObject:
   - component: {fileID: 1635793415}
   - component: {fileID: 1635793414}
   - component: {fileID: 1635793413}
+  - component: {fileID: 1635793417}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Terrain
@@ -29938,6 +29905,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635793417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635793412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 4251928813
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1001 &1640991719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31489,7 +31473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1948060979}
-  - {fileID: 117018633}
+  - {fileID: 117018635}
   - {fileID: 268391196}
   - {fileID: 2053104613}
   - {fileID: 961117167}
@@ -31806,11 +31790,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 1016909021}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -32243,39 +32236,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
   m_PrefabInstance: {fileID: 1793553357}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1803650933 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
-  m_PrefabInstance: {fileID: 734983473}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1803650934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 734983474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 1803650933}
-  clientAuthority: 0
-  onlySyncOnChange: 1
-  bufferResetMultiplier: 5
-  positionSensitivity: 0.01
-  rotationSensitivity: 0.01
-  scaleSensitivity: 0.01
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1001 &1805997040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32526,6 +32486,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4517740199119114, guid: 0fd5be61d8c00de419d45d6bf745a69c, type: 3}
   m_PrefabInstance: {fileID: 1818440109}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1818594559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1818594562}
+  - component: {fileID: 1818594561}
+  - component: {fileID: 1818594560}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1818594560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818594559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1818594561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818594559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1818594562
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818594559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1828966589
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33325,8 +33353,7 @@ Transform:
   - {fileID: 1141318511}
   - {fileID: 1016909021}
   - {fileID: 424990103}
-  - {fileID: 1803650933}
-  - {fileID: 737368899}
+  - {fileID: 117018633}
   - {fileID: 1434203916}
   - {fileID: 316057933}
   - {fileID: 1384574539}
@@ -34791,11 +34818,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  target: {fileID: 424990103}
   clientAuthority: 0
+  sendRate: 30
+  bufferTimeMultiplier: 2
+  bufferSizeLimit: 64
+  catchupNegativeThreshold: -1
+  catchupPositiveThreshold: 1
+  catchupSpeed: 0.009999999776482582
+  slowdownSpeed: 0.009999999776482582
+  driftEmaDuration: 1
+  dynamicAdjustment: 1
+  dynamicAdjustmentTolerance: 1
+  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01

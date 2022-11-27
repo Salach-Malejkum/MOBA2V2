@@ -6,7 +6,8 @@ public class QScript : NetworkBehaviour
     private float damage = 200f;
     private float timer = 0f;
     private float castTime = 0.5f;
-
+    // Start is called before the first frame update
+        
     [ServerCallback]
     void FixedUpdate()
     {
