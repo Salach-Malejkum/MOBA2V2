@@ -64,7 +64,6 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         }
     }
 
-    
     public void Attack()
     {
         this.CmdAttack(this.targetEnemy, this.gameObject, this.stats.UnitAttackDamage);

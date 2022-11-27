@@ -24,7 +24,7 @@ public class PlayerMovement : NetworkBehaviour, IMovement
     [ClientCallback]
     public void FixedUpdate()
     {
-        if (!isLocalPlayer) { return;  }
+        if (!isLocalPlayer) { return; }
         this.animator.SetBool("IsWalking", this.IsMoving());
         this.StopMovingForSkillAnimations();
     }
