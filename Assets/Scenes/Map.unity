@@ -1200,6 +1200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d053ecef8ddb545b99aa7e96614e93d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
 --- !u!114 &65295350
@@ -1215,9 +1216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1252452273
+  _assetId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
   hasSpawned: 0
 --- !u!1001 &66297759
 PrefabInstance:
@@ -2461,6 +2462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 141223263}
@@ -2521,9 +2523,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 481464067
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &141223262
 MonoBehaviour:
@@ -2537,6 +2539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -3333,6 +3336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 0}
@@ -3393,9 +3397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 12192681
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &181190920
 MonoBehaviour:
@@ -3409,6 +3413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -5739,6 +5744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 305868644}
@@ -5799,9 +5805,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 111983385
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &305868643
 MonoBehaviour:
@@ -5815,6 +5821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -5861,6 +5868,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 312743952}
+  - component: {fileID: 312743954}
   - component: {fileID: 312743953}
   m_Layer: 0
   m_Name: SpawnPoint_4
@@ -5896,6 +5904,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926283057ed02a347b9233f5744618a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  playerAssigned: {fileID: 0}
+--- !u!114 &312743954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 312743951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1563499980
+  _assetId: 0
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1001 &313619933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6207,20 +6236,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 316057933}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -9298,6 +9318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486652403}
+  - component: {fileID: 486652405}
   - component: {fileID: 486652404}
   m_Layer: 0
   m_Name: SpawnPoint_1
@@ -9333,6 +9354,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926283057ed02a347b9233f5744618a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  playerAssigned: {fileID: 0}
+--- !u!114 &486652405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486652402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1622742066
+  _assetId: 0
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1001 &496039577
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11121,6 +11163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 602522921}
@@ -11181,9 +11224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1015105147
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &602522920
 MonoBehaviour:
@@ -11197,6 +11240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -14846,6 +14890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828272662}
+  - component: {fileID: 828272664}
   - component: {fileID: 828272663}
   m_Layer: 0
   m_Name: SpawnPoint_3
@@ -14881,6 +14926,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926283057ed02a347b9233f5744618a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  playerAssigned: {fileID: 0}
+--- !u!114 &828272664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828272661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1557093086
+  _assetId: 0
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1001 &838421869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17250,6 +17316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 960327448}
@@ -17310,9 +17377,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3813198160
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &960327447
 MonoBehaviour:
@@ -17326,6 +17393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -17560,6 +17628,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 961752869}
@@ -17620,9 +17689,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 4134548119
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &961752868
 MonoBehaviour:
@@ -17636,6 +17705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -18120,6 +18190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 992270099}
@@ -18180,9 +18251,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 350085851
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &992270098
 MonoBehaviour:
@@ -18196,6 +18267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -18819,6 +18891,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1020993106}
+  - component: {fileID: 1020993108}
   - component: {fileID: 1020993107}
   m_Layer: 0
   m_Name: SpawnPoint_2
@@ -18854,6 +18927,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 926283057ed02a347b9233f5744618a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  playerAssigned: {fileID: 0}
+--- !u!114 &1020993108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020993105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2873476940
+  _assetId: 0
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1001 &1024926201
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20792,20 +20886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 1141318511}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -24839,20 +24924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 1384574539}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -25648,20 +25724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 1434203916}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -25972,6 +26039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1440365263}
@@ -26032,9 +26100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 3277244132
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1440365262
 MonoBehaviour:
@@ -26048,6 +26116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -28227,6 +28296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1567017625}
@@ -28287,9 +28357,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 4100288671
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1567017624
 MonoBehaviour:
@@ -28303,6 +28373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -29415,6 +29486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef00a2b2f31df7479b4bbbbd2996f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   outline: {fileID: 1619859267}
@@ -29475,9 +29547,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 1115834234
+  _assetId: 2938488301
   serverOnly: 0
   visible: 0
-  m_AssetId: a425124410f363a43adb6788601cc3e0
   hasSpawned: 0
 --- !u!114 &1619859266
 MonoBehaviour:
@@ -29491,6 +29563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233b9c5583251474caa55dc2812d7a5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -29918,9 +29991,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 4251928813
+  _assetId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
   hasSpawned: 0
 --- !u!1001 &1640991719
 PrefabInstance:
@@ -31790,20 +31863,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 1016909021}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -34818,20 +34882,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  target: {fileID: 424990103}
   clientAuthority: 0
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01

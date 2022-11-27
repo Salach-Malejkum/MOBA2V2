@@ -12,18 +12,8 @@ public class PlayerStats : UnitStats
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
-        this.onUnitDeath += RpcHandlePlayerDeath;
         this.timer = this.regenerationIntervalSeconds;
-    }
-
-    [ServerCallback]
-    private void Update() {
-        this.timer -= Time.deltaTime;
-
-        if (regenerationIntervalSeconds <= 0) {
-            base.AddHealth(playerHealthRegen);
-            this.timer += this.regenerationIntervalSeconds;
-        }
+        this.onUnitDeath += HandlePlayerDeath;
     }
 
     public void TakeDamage(float damageAmount, GameObject agressor) {
@@ -31,7 +21,7 @@ public class PlayerStats : UnitStats
     }
 
     [ClientRpc]
-    private void RpcHandlePlayerDeath() {
+    private void HandlePlayerDeath() {
         this.gameObject.SetActive(false);
     }
 }
