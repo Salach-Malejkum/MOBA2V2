@@ -49,9 +49,9 @@ public class NetworkRoomPlayer : NetworkBehaviour
             this.playerReadyTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
         }
 
-        if (!hasAuthority) {
+        if (!isLocalPlayer) {
             foreach(var player in NetworkManagerLobby.Instance.RoomPlayers) {
-                if (player.hasAuthority) {
+                if (player.isLocalPlayer) {
                     player.UpdateDisplay();
                     break;
                 }
