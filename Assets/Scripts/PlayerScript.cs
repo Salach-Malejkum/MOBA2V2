@@ -74,11 +74,11 @@ public class PlayerScript : MonoBehaviour
                 {
                     case "Monster":
                         outline.OutlineWidth = 3f;
-                        hit.transform.gameObject.GetComponent<MobController>().deleteOutlineTimer = this.deleteOutlineTimer;
+                        //hit.transform.gameObject.GetComponent<MobController>().deleteOutlineTimer = this.deleteOutlineTimer;
                         break;
                     case "Tower":
                         outline.OutlineWidth = 5f;
-                        hit.transform.gameObject.GetComponent<TowerController>().deleteOutlineTimer = this.deleteOutlineTimer;
+                        //hit.transform.gameObject.GetComponent<TowerController>().deleteOutlineTimer = this.deleteOutlineTimer;
                         break;
                 }
             }
