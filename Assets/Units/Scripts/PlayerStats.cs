@@ -33,8 +33,8 @@ public class PlayerStats : UnitStats
         }
     }
 
-    public void TakeDamage(float damageAmount) {
-        base.RemoveHealthOnNormalAttack(damageAmount);
+    public void TakeDamage(float damageAmount, GameObject agressor) {
+        base.RemoveHealthOnNormalAttack(damageAmount, agressor);
     }
 
     [ClientRpc]

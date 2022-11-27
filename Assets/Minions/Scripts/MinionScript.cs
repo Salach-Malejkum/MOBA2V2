@@ -3,32 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.HID;
 
 public class MinionScript : NetworkBehaviour
 {
     public GameObject projectile;
     private IMinionMovement minionMovement;
-    private MinionAttack minionAttack;
     private bool followAttack = false;
     private HashSet<GameObject> objectsInRangeHashSet;
     private NavMeshAgent navMeshAgent;
-    private float timer = 0;
+    [SerializeField]
     private GameObject targetEnemy;
+    private Animator animator;
+    private NetworkAnimator networkAnimator;
+    private UnitStats stats;
 
     // Start is called before the first frame update
     void Awake()
     {
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.minionMovement = new MinionMovement(Enums.MinionPaths.topPathPoints, this.navMeshAgent, this.gameObject.layer);
-        this.minionAttack = new MinionAttack();
         this.objectsInRangeHashSet = new HashSet<GameObject>();
+        this.animator = GetComponent<Animator>();
+        this.networkAnimator = GetComponent<NetworkAnimator>();
+        this.stats = this.gameObject.GetComponent<UnitStats>();
     }
 
     [ServerCallback]
     void FixedUpdate()
     {
-        this.timer += Time.fixedDeltaTime;
-
         GameObject? closestEnemy = this.GetTheClosestEnemy();
         if (closestEnemy == null)
         {
@@ -46,20 +49,12 @@ public class MinionScript : NetworkBehaviour
             this.SetTargetEnemy(closestEnemy);
         }
 
-        if (this.followAttack)
+        if (this.followAttack && targetEnemy != null)
         {
-            // follow enemy
-            int attackResult = this.minionAttack.CanAttack();
-
-            if (attackResult == 1)
             {
-                GameObject instProjectile = Instantiate(this.projectile, new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z), Quaternion.identity);
-                HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
-                missile.target = this.targetEnemy;
-                missile.owner = this.gameObject;
-                missile.damage = this.gameObject.GetComponent<UnitStats>().UnitAttackDamage;
-
-                NetworkServer.Spawn(instProjectile);
+                this.networkAnimator.SetTrigger("Attack");
+                this.animator.speed = this.stats.AttackSpeed;
+                this.transform.LookAt(this.targetEnemy.transform);
             }
             navMeshAgent.destination = this.transform.position;
         }
@@ -67,6 +62,18 @@ public class MinionScript : NetworkBehaviour
         {
             this.minionMovement.Move();
         }
+    }
+
+    [ServerCallback]
+    public void Attack()
+    {
+        GameObject instProjectile = Instantiate(this.projectile, new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z), Quaternion.identity);
+        HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
+        missile.target = this.targetEnemy;
+        missile.owner = this.gameObject;
+        missile.damage = this.stats.UnitAttackDamage;
+
+        NetworkServer.Spawn(instProjectile);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -42,7 +42,7 @@ public abstract class UnitStats : NetworkBehaviour
     }
 
     [Server]
-    public virtual void RemoveHealthOnNormalAttack(float hpAmount)
+    public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
 

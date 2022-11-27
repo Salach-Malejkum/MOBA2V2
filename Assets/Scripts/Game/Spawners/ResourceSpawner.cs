@@ -90,6 +90,7 @@ public class ResourceSpawner : NetworkBehaviour
             mobController.spawnerResource = this.GetComponent<ResourceSpawner>();
 
             MonsterStats monsterStats = go.GetComponent<MonsterStats>();
+            monsterStats.spawnerResource = this.GetComponent<ResourceSpawner>();
             monsterStats.Id = i;
 
             NetworkServer.Spawn(go);
