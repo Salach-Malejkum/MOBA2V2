@@ -4,9 +4,11 @@ namespace Enums
 {
     public enum AttackResult
     {
-        CanAttack = 1,
+        OnCooldown = -1,
         OutOfRange = 0,
-        OnCooldown = -1
+        CanAttack = 1,
+        Dead = 2,
+        FriendlyFire = 3,
     }
     public static class MinionPaths
     {

@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/ImportedAssets.meta
+guid: 93f8a12344a8678458838b03af75ecb9
+folderAsset: yes
+DefaultImporter:
+========
 guid: 28dc5864aaad3d64e89d9604cb384e92
 PrefabImporter:
+>>>>>>>> main:Assets/Minions/Resources/MinionBlue.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

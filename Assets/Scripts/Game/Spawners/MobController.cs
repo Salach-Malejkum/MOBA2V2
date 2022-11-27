@@ -1,73 +1,65 @@
+using Mirror;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MobController : MonoBehaviour
+public class MobController : NetworkBehaviour
 {
     public GameObject target;
     public ResourceSpawner spawnerResource;
     public Transform spawner;
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
+    private Outline outline;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    private readonly float componentDeleteDelay = 1f;
-    private float deleteTime = 0f;
-
-    private int hitPoints = 3;
-    public float maximumDistance = 15f;
+    public float maximumDistance = 15f; // Erwin czy to nie lepiej wyciagnac dla kazdego moba gdzies jako stala? nawet tu czy cos
     public bool isChasing = false;
+    private Vector3 spawnPosition;
 
     private void Awake()
     {
-        target = GameObject.Find("Cube");
-        agent = GetComponent<NavMeshAgent>();
+        this.spawnPosition = this.transform.position;
+        this.agent = GetComponent<NavMeshAgent>();
+        this.outline = GetComponent<Outline>();
     }
 
+    [ServerCallback]
     private void FixedUpdate()
     {
-        if (Time.time > this.deleteTime)    Destroy(GetComponent<Outline>());
-
         if (this.isChasing == true)
         {
-            if (Vector3.Distance(spawner.position, target.transform.position) > maximumDistance)
-                this.isChasing = false;
-            else
-                ChasePlayer();
-        }
-        else if (isChasing == false && Vector3.Distance(spawner.position, this.transform.position) > 0)
-            agent.SetDestination(spawner.position);
-    }
-
-    private void OnMouseOver()
-    {
-        this.deleteTime = Time.time + componentDeleteDelay;
-
-        if (!GetComponent<Outline>())
-        {
-            var outline = gameObject.AddComponent<Outline>();
-
-            outline.OutlineMode = Outline.Mode.OutlineVisible;
-            outline.OutlineColor = Color.red;
-            outline.OutlineWidth = 5f;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Pozyskano Unity-chan");
-            this.hitPoints -= 1;
-            isChasing = true;
-            if (this.hitPoints <= 0)
+            if (Vector3.Distance(this.spawnPosition, this.target.transform.position) > this.maximumDistance)
             {
-                this.spawnerResource.StartSpawner();
-                Destroy(this.gameObject);
+                this.isChasing = false;
+            }
+            else
+            {
+                this.SetTargetPosition();
             }
         }
+        else if (this.isChasing == false && Vector3.Distance(this.spawnPosition, this.transform.position) > 0)
+        {
+            this.agent.SetDestination(this.spawnPosition);
+        }
     }
 
-    private void ChasePlayer()
+    [ClientCallback]
+    public IEnumerator DeleteOutline(float timeDelay)
     {
-        agent.SetDestination(target.transform.position);
+        yield return new WaitForSeconds(timeDelay);
+        this.outline.OutlineWidth = 0f;
+    }
+
+    [ServerCallback]
+    public void ChasePlayer(GameObject assaulter)
+    {
+        this.target = assaulter;
+        this.spawnerResource.NotifyAllChildren(this.target);
+    }
+
+    private void SetTargetPosition()
+    {
+        agent.SetDestination(this.target.transform.position);
     }
 }
