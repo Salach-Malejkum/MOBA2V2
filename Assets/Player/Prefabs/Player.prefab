@@ -835,9 +835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4829b7ccbe538eb4d8c42467bcdb4d17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
   template: {fileID: 5486994602246666032}
   playerStats: {fileID: -486382682619686337}
 --- !u!225 &5962617555373898835
@@ -3488,7 +3485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2675479758864667353, guid: 8b75336aa0cf8b744b9465a366e8b6d7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2675479758864667357, guid: 8b75336aa0cf8b744b9465a366e8b6d7, type: 3}
       propertyPath: m_Pivot.x
@@ -5547,7 +5544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4250912663078541870, guid: 9ff709b67565e8b4987da10c7edeb40b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ff709b67565e8b4987da10c7edeb40b, type: 3}
