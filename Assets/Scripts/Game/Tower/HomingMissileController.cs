@@ -32,7 +32,7 @@ public class HomingMissileController : NetworkBehaviour
     }
 
 
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger && other.gameObject == this.target)
