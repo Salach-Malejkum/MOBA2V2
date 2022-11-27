@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class CrowdControl : NetworkBehaviour
 {
     private NavMeshAgent navMesh;
+    private Animator animator;
     public bool stunned = false;
     public float stunDuration = 0f;
     public float stunTime = 0f;
@@ -15,6 +16,7 @@ public class CrowdControl : NetworkBehaviour
     void Awake()
     {
         this.navMesh = GetComponent<NavMeshAgent>();
+        this.animator = GetComponent<Animator>();
     }
 
     [ServerCallback]
@@ -30,6 +32,7 @@ public class CrowdControl : NetworkBehaviour
         {
             this.navMesh.isStopped = false;
             this.stunned = false;
+            this.animator.SetBool("IsStunned", false);
         }
     }
 
@@ -41,6 +44,7 @@ public class CrowdControl : NetworkBehaviour
             this.stunned = true;
             this.stunDuration = time;
             this.navMesh.isStopped = true;
+            this.animator.SetBool("IsStunned", true);
         }
     }
 }

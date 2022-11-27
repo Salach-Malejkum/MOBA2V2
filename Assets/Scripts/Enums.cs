@@ -86,4 +86,9 @@ namespace Enums
         public const int terrainLayer = 8;
         public const int neutral = 9;
     }
+
+    public static class Tags
+    {
+        public const string tower = "Tower";
+    }
 }

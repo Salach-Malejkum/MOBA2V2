@@ -7,18 +7,26 @@ public class WProjectileScript : NetworkBehaviour
     private float traveledDist = 0f;
     private readonly float distLimit = 100f;
     private float speed = 0.5f;
+    [SerializeField]
     private Vector3 direction;
     public Vector3 Direction
     {
         get { return direction; }
         set { direction = value; }
     }
-
+    [SerializeField]
     private GameObject owner;
     public GameObject Owner
     {
         get { return owner; }
         set { owner = value; }
+    }
+    [SerializeField]
+    private LayerMask attackableLayer;
+    public LayerMask AttackableLayer
+    {
+        get { return attackableLayer; }
+        set { attackableLayer = value; }
     }
 
 
@@ -37,25 +45,10 @@ public class WProjectileScript : NetworkBehaviour
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger)
+        if (!other.isTrigger && (this.attackableLayer == (this.attackableLayer | (1 << other.gameObject.layer))))
         {
-            switch (this.gameObject.layer)
-            {
-                case Enums.Layers.blueTeamLayer:
-                    if (other.gameObject.layer == Enums.Layers.redTeamLayer)
-                    {
-                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
-                        NetworkServer.Destroy(this.gameObject);
-                    }
-                    break;
-                case Enums.Layers.redTeamLayer:
-                    if (other.gameObject.layer == Enums.Layers.blueTeamLayer)
-                    {
-                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
-                        NetworkServer.Destroy(this.gameObject);
-                    }
-                    break;
-            }
+            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 }
