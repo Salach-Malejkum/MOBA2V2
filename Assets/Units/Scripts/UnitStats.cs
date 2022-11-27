@@ -46,7 +46,7 @@ public abstract class UnitStats : NetworkBehaviour
 
         if (this.unitCurrentHealth <= 0)
         {
-            this.onUnitDeath?.Invoke();
+            onUnitDeath?.Invoke();
         }
     }
 
@@ -57,7 +57,7 @@ public abstract class UnitStats : NetworkBehaviour
 
         if (this.unitCurrentHealth <= 0)
         {
-            this.onUnitDeath?.Invoke();
+            onUnitDeath?.Invoke();
         }
     }
 }

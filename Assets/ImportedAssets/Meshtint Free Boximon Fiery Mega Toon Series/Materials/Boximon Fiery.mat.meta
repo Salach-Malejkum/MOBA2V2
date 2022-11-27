@@ -1,12 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/ScriptibleObjects/Katana.asset.meta
-guid: 1f141f21f9e1a344083a67afcabf4386
-========
 guid: f1779f0d8b6a05547af012556b3fd93a
->>>>>>>> main:Assets/ImportedAssets/Meshtint Free Boximon Fiery Mega Toon Series/Materials/Boximon Fiery.mat.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 11400000
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
