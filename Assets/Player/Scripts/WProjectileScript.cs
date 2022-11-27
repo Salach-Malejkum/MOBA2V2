@@ -14,6 +14,14 @@ public class WProjectileScript : NetworkBehaviour
         set { direction = value; }
     }
 
+    private GameObject owner;
+    public GameObject Owner
+    {
+        get { return owner; }
+        set { owner = value; }
+    }
+
+
     [ServerCallback]
     void FixedUpdate()
     {
@@ -36,16 +44,14 @@ public class WProjectileScript : NetworkBehaviour
                 case Enums.Layers.blueTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.redTeamLayer)
                     {
-                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
-                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
+                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
                         NetworkServer.Destroy(this.gameObject);
                     }
                     break;
                 case Enums.Layers.redTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.blueTeamLayer)
                     {
-                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
-                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
+                        other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
                         NetworkServer.Destroy(this.gameObject);
                     }
                     break;

@@ -66,10 +66,8 @@ public class PlayerSpawn : NetworkBehaviour
                 break;
         }
 
-        playerInstance.GetComponent<UpgradeManager>().SetTurrets();
-
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
 
-        playerInstance.GetComponent<UpgradeManager>();
+        playerInstance.GetComponent<UpgradeManager>().SetTurrets();
     }
 }
