@@ -15,8 +15,6 @@ TagManager:
   - StructuresBlue
   - Monster
   - Tower
-  - Shop
-  - Inventory
   layers:
   - Default
   - TransparentFX
