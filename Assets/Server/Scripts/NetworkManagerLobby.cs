@@ -28,6 +28,8 @@ public class NetworkManagerLobby : NetworkManager {
     
     public static event Action OnClientConnected;
     public static event Action OnClientDisconnected;
+    public static event Action OnLobbyIsReady;
+    public static event Action OnServerNotReady;
     public static event EventHandler<OnPlayerSpawnArgs> OnServerReadied;
 
     public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
@@ -41,6 +43,13 @@ public class NetworkManagerLobby : NetworkManager {
         base.Awake();
         Instance = this;
         NetworkServer.RegisterHandler<AuthenticateMessage>(OnReceiveAuthenticateMessage);
+        OnServerNotReady += OnApplicationQuit;
+    }
+    //jak wywali na lokal to nie da sie znowu shostować
+    public override void OnApplicationQuit()
+    {
+        NetworkServer.Shutdown();
+        base.OnApplicationQuit();
     }
 
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {
@@ -149,8 +158,10 @@ public class NetworkManagerLobby : NetworkManager {
         }
     }
     //dobry check na akceptacje meczu, można dać OnApplicationQuit() NetworkServer.Shutdown() jeżeli nie będzie ready w odpowiednim czasie i powrócić do menu
-    private bool IsReadyToStart() {
-        if (Instance.numPlayers < Instance.minPlayers) { return false; }
+    public bool IsReadyToStart() {
+        if (Instance.numPlayers < Instance.minPlayers) { 
+            return false; 
+        }
 
         foreach (var player in Instance.RoomPlayers) {
             if (!player.IsReady) { return false; }
