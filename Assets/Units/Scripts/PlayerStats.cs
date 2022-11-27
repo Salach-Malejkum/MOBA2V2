@@ -13,15 +13,20 @@ public class PlayerStats : UnitStats
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.timer = this.regenerationIntervalSeconds;
-        this.onUnitDeath += HandlePlayerDeath;
+        this.onUnitDeath += CmdReadyToRespawn;
     }
 
-    public void TakeDamage(float damageAmount, GameObject agressor) {
+    public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject agressor) {
         base.RemoveHealthOnNormalAttack(damageAmount, agressor);
     }
 
+    [Command]
+    private void CmdReadyToRespawn() {
+        RpcReadyToRespawn();
+    }
+
     [ClientRpc]
-    private void HandlePlayerDeath() {
+    private void RpcReadyToRespawn() {
         this.gameObject.SetActive(false);
     }
 }

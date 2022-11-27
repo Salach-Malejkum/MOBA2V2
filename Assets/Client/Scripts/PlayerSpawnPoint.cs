@@ -41,6 +41,7 @@ public class PlayerSpawnPoint : NetworkBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawSphere(transform.position, 1f);
     }
+    
 
     [ClientRpc]
     private void RpcHandlePlayerRespawn() {
