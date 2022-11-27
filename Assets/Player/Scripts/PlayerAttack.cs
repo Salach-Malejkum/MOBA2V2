@@ -45,14 +45,6 @@ public class PlayerAttack : NetworkBehaviour, IAttack
                 this.networkAnimator.SetTrigger("Attack");
                 this.animator.speed = this.stats.AttackSpeed;
                 this.transform.LookAt(hit.transform);
-                switch (hit.transform.tag)
-                {
-                    case "Monster":
-                        hit.transform.gameObject.GetComponent<MobController>().ChasePlayer(this.gameObject);
-                        break;
-                    default:
-                        break;
-                }
             }
             this.followAttack = true;
             this.targetEnemy = hit.transform.gameObject;

@@ -129,16 +129,17 @@ public class PlayerSkills : NetworkBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             this.transform.LookAt(hit.point);
-            this.CmdQSkill(hit.point, this.gameObject.layer);
+            this.CmdQSkill(hit.point, this.gameObject.layer, this.gameObject);
         }
     }
 
     [Command]
-    private void CmdQSkill(Vector3 point, LayerMask layer)
+    private void CmdQSkill(Vector3 point, LayerMask layer, GameObject owner)
     {
         GameObject go = Instantiate(this.qPrefab, point, Quaternion.identity);
-        go.GetComponent<QScript>();
+        QScript qScript = go.GetComponent<QScript>();
         go.layer = layer;
+        qScript.Owner = owner;
         NetworkServer.Spawn(go);
     }
 
@@ -166,14 +167,16 @@ public class PlayerSkills : NetworkBehaviour
 
     public void WSkill()
     {
-        this.CmdWSkill(this.wDirection);
+        this.CmdWSkill(this.wDirection, this.gameObject);
     }
 
     [Command]
-    private void CmdWSkill(Vector3 direction)
+    private void CmdWSkill(Vector3 direction, GameObject owner)
     {
         GameObject ball = Instantiate(this.wPrefab, transform.position, transform.rotation);
-        ball.GetComponent<WProjectileScript>().Direction = direction;
+        WProjectileScript wProjectileScript = ball.GetComponent<WProjectileScript>();
+        wProjectileScript.Direction = direction;
+        wProjectileScript.Owner = owner;
         ball.layer = this.gameObject.layer;
         NetworkServer.Spawn(ball);
     }
