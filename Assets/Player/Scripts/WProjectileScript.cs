@@ -1,7 +1,4 @@
 using Mirror;
-using Mirror.Examples.Pong;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WProjectileScript : NetworkBehaviour
@@ -29,20 +26,7 @@ public class WProjectileScript : NetworkBehaviour
         }
     }
 
-    [Command]
-    private void CmdMoveProjectile()
-    {
-        this.RpcMoveProjectile();
-    }
-
-    [ClientRpc]
-    private void RpcMoveProjectile()
-    {
-        this.transform.Translate(this.direction.x * this.speed, 0f, this.direction.z * this.speed, Space.World);
-        this.traveledDist += this.direction.magnitude * this.speed;
-    }
-
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger)
@@ -52,7 +36,6 @@ public class WProjectileScript : NetworkBehaviour
                 case Enums.Layers.blueTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.redTeamLayer)
                     {
-                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
                         NetworkServer.Destroy(this.gameObject);
                     }
@@ -60,7 +43,6 @@ public class WProjectileScript : NetworkBehaviour
                 case Enums.Layers.redTeamLayer:
                     if (other.gameObject.layer == Enums.Layers.blueTeamLayer)
                     {
-                        Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
                         NetworkServer.Destroy(this.gameObject);
                     }

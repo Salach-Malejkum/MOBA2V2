@@ -1,5 +1,5 @@
 using Mirror;
-using Mirror.Examples.Pong;
+using Telepathy;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
@@ -7,12 +7,13 @@ using UnityEngine.InputSystem.HID;
 public class PlayerSkills : NetworkBehaviour
 {
     public GameObject qPrefab;
+    private Vector3 qPoint;
     private float qCooldown = 2.0f;
     private bool qOnCooldown = false;
     private float qTimer = 0f;
 
     public GameObject wPrefab;
-    public Vector3 wDirection;
+    private Vector3 wDirection;
     private float wCooldown = 0.5f;
     private bool wOnCooldown = false;
     private float wTimer = 0f;
@@ -37,7 +38,7 @@ public class PlayerSkills : NetworkBehaviour
     }
 
 
-    [Client]
+    [ClientCallback]
     private void FixedUpdate()
     {
         if (this.qOnCooldown)
@@ -85,10 +86,10 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
-    [ClientCallback]
+
     public void Skills(InputAction.CallbackContext context)
     {
-        if (!hasAuthority)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -111,7 +112,6 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
-    [Command]
     private void QSkill()
     {
         if (this.qOnCooldown)
@@ -129,14 +129,20 @@ public class PlayerSkills : NetworkBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             this.transform.LookAt(hit.point);
-            GameObject go = Instantiate(this.qPrefab, hit.point, Quaternion.identity);
-            go.GetComponent<QScript>();
-            go.layer = this.gameObject.layer;
-            NetworkServer.Spawn(go);
+            this.CmdQSkill(hit.point, this.gameObject.layer);
         }
     }
 
-    [Client]
+    [Command]
+    private void CmdQSkill(Vector3 point, LayerMask layer)
+    {
+        GameObject go = Instantiate(this.qPrefab, point, Quaternion.identity);
+        go.GetComponent<QScript>();
+        go.layer = layer;
+        NetworkServer.Spawn(go);
+    }
+
+
     private void ClientWSkill()
     {
         if (this.wOnCooldown)
@@ -157,11 +163,17 @@ public class PlayerSkills : NetworkBehaviour
         }
         // rzucenie czegos i koliduje tylko z danym layerem
     }
-    [Command]
+
     public void WSkill()
     {
+        this.CmdWSkill(this.wDirection);
+    }
+
+    [Command]
+    private void CmdWSkill(Vector3 direction)
+    {
         GameObject ball = Instantiate(this.wPrefab, transform.position, transform.rotation);
-        ball.GetComponent<WProjectileScript>().Direction = this.wDirection;
+        ball.GetComponent<WProjectileScript>().Direction = direction;
         ball.layer = this.gameObject.layer;
         NetworkServer.Spawn(ball);
     }
@@ -209,14 +221,25 @@ public class PlayerSkills : NetworkBehaviour
         }
     }
 
-    [Command]
+    [ClientCallback]
     public void RSkill()
     {
+        if (!isOwned)
+        {
+            return;
+        }
+
+        this.CmdRSkill(this.gameObject.layer, this.rTarget, this.gameObject);
+    }
+
+    [Command]
+    private void CmdRSkill(LayerMask layer, GameObject target, GameObject owner) 
+    {
         GameObject ball = Instantiate(this.rPrefab, transform.position + 2 * Vector3.up, transform.rotation);
-        ball.layer = this.gameObject.layer;
+        ball.layer = layer;
         HomingMissileController missile = ball.GetComponent<HomingMissileController>();
-        missile.target =this.rTarget;
-        missile.owner = this.gameObject;
+        missile.target = target;
+        missile.owner = owner;
         missile.stun = true;
         missile.stunTime = 2.0f;
         NetworkServer.Spawn(ball);

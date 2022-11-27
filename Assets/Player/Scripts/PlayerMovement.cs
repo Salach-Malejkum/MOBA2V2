@@ -1,6 +1,8 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : NetworkBehaviour, IMovement
 {
@@ -8,24 +10,33 @@ public class PlayerMovement : NetworkBehaviour, IMovement
     private NavMeshAgent navMeshAgent;
     private Animator animator;
     private NetworkAnimator networkAnimator;
+    public PlayerInput playerInput;
 
-    [ClientCallback]
+
     public void Start()
     {
         this.navMeshAgent = this.GetComponent<NavMeshAgent>();
         this.animator = this.GetComponent<Animator>();
         this.networkAnimator = this.GetComponent<NetworkAnimator>();
+        this.playerInput.enabled = true;
     }
 
     [ClientCallback]
     public void FixedUpdate()
     {
+        if (!isLocalPlayer) { return;  }
         this.animator.SetBool("IsWalking", this.IsMoving());
         this.StopMovingForSkillAnimations();
     }
 
-    [ClientCallback]
+    [Command]
     public void Move()
+    {
+        this.RpcMove();
+    }
+
+    [ClientRpc]
+    private void RpcMove()
     {
         if (!isLocalPlayer)
         {
@@ -43,8 +54,14 @@ public class PlayerMovement : NetworkBehaviour, IMovement
         }
     }
 
-    [ClientCallback]
+    [Command]
     public void MoveToPoint(Vector3 destinationPoint)
+    {
+        this.RpcMoveToPoint(destinationPoint);
+    }
+
+    [ClientRpc]
+    private void RpcMoveToPoint(Vector3 destinationPoint)
     {
         this.navMeshAgent.destination = destinationPoint;
     }
