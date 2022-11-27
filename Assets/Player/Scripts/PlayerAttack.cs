@@ -11,8 +11,6 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     private PlayerStats stats;
     private HashSet<GameObject> objectsInRangeHashSet;
     private LayerMask attackableLayer;
-    private float aaCooldown;
-    private float timeAfterAA = 0;
     private bool followAttack = false;
     private GameObject targetEnemy;
     private Animator animator;
@@ -66,7 +64,6 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         }
     }
 
-    
     public void Attack()
     {
         this.CmdAttack(this.targetEnemy, this.gameObject, this.stats.UnitAttackDamage);
