@@ -2151,11 +2151,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 647308891}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 335acd87c5cc6184381c34e20181e1a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6dcbc08879e75b34595d3adb39ee9d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  timeLeft: 30
 --- !u!114 &647308894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2169,9 +2171,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 759938847
+  _assetId: 0
   serverOnly: 0
   visible: 0
-  m_AssetId: 
   hasSpawned: 0
 --- !u!1 &668266893
 GameObject:
@@ -2411,14 +2413,15 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 0
-  serverTickRate: 30
+  autoConnectClientBuild: 0
+  sendRate: 30
   offlineScene: 
   onlineScene: 
   transport: {fileID: 693488853}
   networkAddress: 127.0.0.1
   maxConnections: 4
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 6808380577650566543, guid: 0a92e7e876e479047a6b4848c4c9e481, type: 3}
+  playerPrefab: {fileID: 4739550223701580035, guid: b7d8253ea0f718a4897be16f4d5a18bd, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
@@ -2426,6 +2429,19 @@ MonoBehaviour:
   - {fileID: 62657762906004160, guid: 93f8a12344a8678458838b03af75ecb9, type: 3}
   - {fileID: 62657762906004160, guid: 9375cfed40cc34f418c8adf9378ce548, type: 3}
   - {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
+  - {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
+  - {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
+  - {fileID: 4020983980232809014, guid: 81a381c7f66e67a4bb36c56924e485b7, type: 3}
+  - {fileID: 1783563462218004, guid: 7f931d4b5c97d194d8726ddf5acdd440, type: 3}
+  - {fileID: 1462720695320296, guid: e9a03d46b76afe246a9ffd58d255bb65, type: 3}
+  - {fileID: 1128758269040250, guid: f88c6ad57910d8648807bcf0c131f49d, type: 3}
+  - {fileID: 8955456752022936422, guid: 39138665ecc3c6f449b894ef5f5e814a, type: 3}
+  - {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  - {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
+  - {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
+  - {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
+  - {fileID: 6377794084287402632, guid: 645d810de1590294db6cc876fe799cb2, type: 3}
+  timeInterpolationGui: 0
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/Lobby.unity
   roomPlayerPrefab: {fileID: 2461713667315046168, guid: dd44add7f8b612e498925759f728b846, type: 3}

@@ -17,6 +17,7 @@ public class CrowdControl : NetworkBehaviour
         this.navMesh = GetComponent<NavMeshAgent>();
     }
 
+    [ServerCallback]
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -32,6 +33,7 @@ public class CrowdControl : NetworkBehaviour
         }
     }
 
+    [ServerCallback]
     public void Stun(float time)
     {
         if (time > this.stunDuration - this.stunTime)

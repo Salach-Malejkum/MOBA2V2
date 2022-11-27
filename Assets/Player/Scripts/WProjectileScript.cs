@@ -25,11 +25,11 @@ public class WProjectileScript : NetworkBehaviour
 
         if (this.traveledDist > this.distLimit)
         {
-            Destroy(this.gameObject);
+            NetworkServer.Destroy(this.gameObject);
         }
     }
 
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger)
@@ -41,7 +41,7 @@ public class WProjectileScript : NetworkBehaviour
                     {
                         Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
-                        Destroy(this.gameObject);
+                        NetworkServer.Destroy(this.gameObject);
                     }
                     break;
                 case Enums.Layers.redTeamLayer:
@@ -49,7 +49,7 @@ public class WProjectileScript : NetworkBehaviour
                     {
                         Debug.Log(other.gameObject.name + " " + LayerMask.LayerToName(other.gameObject.layer));
                         other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
-                        Destroy(this.gameObject);
+                        NetworkServer.Destroy(this.gameObject);
                     }
                     break;
             }
