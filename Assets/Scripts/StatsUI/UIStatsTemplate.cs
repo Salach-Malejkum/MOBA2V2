@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIStatsTemplate : MonoBehaviour
 {
@@ -57,5 +58,19 @@ public class UIStatsTemplate : MonoBehaviour
     public TMP_Text HealthRegenVal
     {
         get { return healthRegenVal; }
+    }
+
+    [SerializeField]
+    private TMP_Text attackSpeed;
+    public TMP_Text AttackSpeed
+    {
+        get { return attackSpeed; }
+    }
+
+    [SerializeField]
+    private Image healthBarImage;
+    public Image HealthBarImage
+    {
+        get { return healthBarImage; }
     }
 }

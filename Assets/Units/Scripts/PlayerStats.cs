@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class PlayerStats : UnitStats
 {
@@ -12,10 +13,16 @@ public class PlayerStats : UnitStats
         set { playerGold = value; }
     }
     [SyncVar] [SerializeField] protected float playerExp = 0f;
-    [SerializeField] private float playerHealthRegen = 2.5f;
+    [SyncVar(hook = nameof(OnHealthRegenChanged))] [SerializeField] private float playerHealthRegen = 2.5f;
+    public float PlayerHealthRegen
+    {
+        get { return playerHealthRegen; }
+    }
     private float timer;
     [SyncVar] public string lane;
     [SyncVar] public string side;
+
+    public event Action<float> OnHealthRegenUptade;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
@@ -25,6 +32,11 @@ public class PlayerStats : UnitStats
 
     public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject agressor) {
         base.RemoveHealthOnNormalAttack(damageAmount, agressor);
+    }
+
+    private void OnHealthRegenChanged(float oldHPRegen, float newHPRegen)
+    {
+        OnHealthRegenUptade?.Invoke(newHPRegen);
     }
 
     [Command]
