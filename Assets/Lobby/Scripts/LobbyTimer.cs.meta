@@ -1,5 +1,9 @@
 fileFormatVersion: 2
-guid: 82ad42e44a32dd94281cd62bf062e6a6
+<<<<<<<< HEAD:Assets/Lobby/Scripts/LobbyTimer.cs.meta
+guid: 335acd87c5cc6184381c34e20181e1a4
+========
+guid: 8040b647af5de1d4c85e4b0d1d563586
+>>>>>>>> main:Assets/CameraTest.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
