@@ -30,12 +30,46 @@ public class PlayerSpawn : NetworkBehaviour
         Debug.Log("Spawning player: " + args.conn.ToString() + " on point: " + args.PlayerId.ToString());
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(args.PlayerId);
 
-        if(spawnPoint == null) {
+        if (spawnPoint == null) {
             Debug.LogError("Missing spawn");
             return;
         }
 
-        GameObject playerInstance = Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
+        Debug.Log(spawnPoints[args.PlayerId].position);
+        GameObject playerInstance = (GameObject)Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
+        Debug.Log(playerInstance.transform.position);
+
+        PlayerStats playerStats = playerInstance.GetComponent<PlayerStats>();
+
+        switch (args.PlayerId % 2)
+        {
+            case 0:
+                playerStats.side = "Blue";
+                playerInstance.gameObject.layer = LayerMask.NameToLayer("Blue");
+                break;
+            case 1:
+                playerStats.side = "Red";
+                playerInstance.gameObject.layer = LayerMask.NameToLayer("Red");
+                break;
+        }
+        Debug.Log(playerInstance.layer);
+
+        switch (args.PlayerId)
+        {
+            case 0:
+            case 1:
+                playerStats.lane = "Mid";
+                break;
+            case 2:
+            case 3:
+                playerStats.lane = "Bot";
+                break;
+        }
+
+        playerInstance.GetComponent<UpgradeManager>().SetTurrets();
+
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
+
+        playerInstance.GetComponent<UpgradeManager>();
     }
 }

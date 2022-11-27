@@ -12,15 +12,15 @@ public class PlayerMovementServer : NetworkBehaviour
 
     void Start()
     {
-        camera = Camera.main;
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        this.camera = Camera.main;
+        this.navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     [ClientCallback]
     void Update()
     {
-        if(hasAuthority)
+        if(this.hasAuthority)
         {
             if (Input.GetMouseButtonDown(1))
             {
@@ -52,6 +52,6 @@ public class PlayerMovementServer : NetworkBehaviour
     [ClientRpc]
     private void RpcMove(Vector3 movementDestination) 
     {
-        navMeshAgent.destination = movementDestination;
+        this.navMeshAgent.destination = movementDestination;
     } 
 }
