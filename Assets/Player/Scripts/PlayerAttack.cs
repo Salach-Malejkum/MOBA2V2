@@ -31,10 +31,6 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     void FixedUpdate()
     {
         this.FollowAttack();
-        if (this.targetEnemy != null)
-        {
-            Debug.Log(this.targetEnemy.name);
-        }
     }
 
     [ClientCallback]
@@ -68,14 +64,20 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         }
     }
 
-    [ServerCallback]
+    
     public void Attack()
+    {
+        this.CmdAttack(this.targetEnemy, this.gameObject, this.stats.UnitAttackDamage);
+    }
+
+    [Command]
+    private void CmdAttack(GameObject target, GameObject owner, float damage)
     {
         GameObject instProjectile = Instantiate(this.projectile, new Vector3(this.transform.position.x, this.transform.position.y + 0.4f, this.transform.position.z), Quaternion.identity);
         HomingMissileController missile = instProjectile.GetComponent<HomingMissileController>();
-        missile.target = this.targetEnemy;
-        missile.owner = this.gameObject;
-        missile.damage = this.stats.UnitAttackDamage;
+        missile.target = target;
+        missile.owner = owner;
+        missile.damage = damage;
 
         NetworkServer.Spawn(instProjectile);
     }
@@ -122,14 +124,12 @@ public class PlayerAttack : NetworkBehaviour, IAttack
             this.followAttack = false;
             return;
         }
-
         
         if (this.objectsInRangeHashSet.Contains(this.targetEnemy.gameObject))
         {
             this.networkAnimator.SetTrigger("Attack");
             this.animator.speed = this.stats.AttackSpeed;
             this.transform.LookAt(this.targetEnemy.gameObject.transform);
-
         }
         else
         {

@@ -37,7 +37,6 @@ public class PlayerSpawn : NetworkBehaviour
 
         Debug.Log(spawnPoints[args.PlayerId].position);
         GameObject playerInstance = (GameObject)Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].position, spawnPoints[args.PlayerId].rotation);
-        Debug.Log(playerInstance.transform.position);
         switch (args.PlayerId % 2)
         {
             case 0:

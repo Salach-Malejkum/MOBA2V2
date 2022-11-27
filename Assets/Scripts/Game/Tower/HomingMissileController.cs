@@ -35,7 +35,6 @@ public class HomingMissileController : NetworkBehaviour
     [Server]
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.transform.name);
         if (!other.isTrigger && other.gameObject == this.target)
         {
             other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
