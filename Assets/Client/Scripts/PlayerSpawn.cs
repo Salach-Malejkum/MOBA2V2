@@ -44,11 +44,11 @@ public class PlayerSpawn : NetworkBehaviour
         switch (args.PlayerId % 2)
         {
             case 0:
-                playerStats.side = "Blue";
+                playerStats.playerSide = "Blue";
                 playerInstance.gameObject.layer = LayerMask.NameToLayer("Blue");
                 break;
             case 1:
-                playerStats.side = "Red";
+                playerStats.playerSide = "Red";
                 playerInstance.gameObject.layer = LayerMask.NameToLayer("Red");
                 break;
         }
@@ -57,11 +57,11 @@ public class PlayerSpawn : NetworkBehaviour
         {
             case 0:
             case 1:
-                playerStats.lane = "Mid";
+                playerStats.playerLane = "Mid";
                 break;
             case 2:
             case 3:
-                playerStats.lane = "Bot";
+                playerStats.playerLane = "Bot";
                 break;
         }
 

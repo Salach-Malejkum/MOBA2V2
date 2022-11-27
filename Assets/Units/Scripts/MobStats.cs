@@ -6,7 +6,6 @@ using Mirror;
 
 public class MobStats : UnitStats
 {
-    public int gold = 0;
     //TODO: na spawn minona musi być event Action który robi Invoke 
     public event Action OnMobSpawn;
 
@@ -40,6 +39,10 @@ public class MobStats : UnitStats
     [Server]
     protected virtual void HandleMobDeath()
     {
+        //if (this.lastAggressor.tag == "Player")
+        //{
+        //    this.lastAggressor.GetComponent<PlayerStats>().AddGold(this.goldOnDeath);
+        //}
         NetworkServer.Destroy(this.gameObject);
     }
 }

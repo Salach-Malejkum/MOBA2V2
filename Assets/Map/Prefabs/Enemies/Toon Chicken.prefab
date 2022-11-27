@@ -187,7 +187,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  gold: 0
+  resourcesOnDeath: 3
+  goldOnDeath: 80
   spawnerResource: {fileID: 0}
   Id: 0
 --- !u!114 &355835013808351319

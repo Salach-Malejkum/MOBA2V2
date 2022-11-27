@@ -2,6 +2,7 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,14 +10,16 @@ public class ResourceSpawner : NetworkBehaviour
 {
     public GameObject[] resourcePrefabs;
     public float scale = 1f;
-    public float nextSpawnTime = 5;
+    public float nextSpawnTime;
     public float time = 0;
-    public  float spawnDelay = 10;
-    public int numberSpawned = 1;
-    public float spawnRadius = 0;
+    public float spawnRadius;
+    public float spawnDelay;
+    public int numberSpawned;
+    public Dictionary<int, GameObject> children = new();
+    public string ownedBy;
+
     private float[] spawningX;
     private float[] spawningZ;
-    public Dictionary<int, GameObject> children = new();
 
     private bool isSpawning = true;
 
@@ -123,12 +126,16 @@ public class ResourceSpawner : NetworkBehaviour
     [Server]
     public void RemoveFromChildren(int id)
     {
-        if (this.children.ContainsKey(id))
+        if (this.children[id])
         {
+            if (this.children.Count == 1)
+            {
+                GameObject killer = this.children[id].GetComponent<MonsterStats>().lastAggressor;
+                string playerSide = killer.GetComponent<PlayerStats>().playerSide;
+
+                if (this.ownedBy != playerSide) { this.ownedBy = playerSide; }
+            }
             this.children.Remove(id);
-        } else
-        {
-            Debug.Log("WTF");
         }
 
         if (children.Count == 0)

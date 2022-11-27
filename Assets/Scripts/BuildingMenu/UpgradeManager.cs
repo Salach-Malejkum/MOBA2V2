@@ -10,15 +10,15 @@ public class UpgradeManager : NetworkBehaviour
     [SerializeField]
     private GameObject buildingMenuCanva;
 
-    public GameObject firstTierTurret;
-    public GameObject secondTierTurret;
+    [SyncVar] public GameObject firstTierTurret;
+    [SyncVar] public GameObject secondTierTurret;
     public bool found = false;
 
     public void SetTurrets()
     {
         PlayerStats playerStats = GetComponent<PlayerStats>();
-        string lane = playerStats.lane;
-        string side = playerStats.side;
+        string lane = playerStats.playerLane;
+        string side = playerStats.playerSide;
         string string_FTT = "1stTierTurret" + lane + side;
         string string_STT = "2ndTierTurret" + lane + side;
         this.firstTierTurret = GameObject.Find(string_FTT);

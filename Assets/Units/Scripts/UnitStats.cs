@@ -15,16 +15,20 @@ public abstract class UnitStats : NetworkBehaviour
     {
         get { return unitAttackDamage; }
     }
-    [SyncVar][SerializeField] protected float attackSpeed = 1f;
-    public float AttackSpeed
+    [SyncVar][SerializeField] protected float unitAttackSpeed = 1f;
+    public float UnitAttackSpeed
     {
-        get { return attackSpeed; }
+        get { return unitAttackSpeed; }
     }
     [SyncVar][SerializeField] protected float unitAbilityPower = 0f;
     [SyncVar][SerializeField] protected float unitMovementSpeed = 0f;
     [SyncVar][SerializeField] protected float unitCooldownReduction = 0f;
-    protected int currentLevel = 1;
-    protected float regenerationIntervalSeconds = 1f;
+    protected int unitCurrentLevel = 1;
+    protected float unitRegenerationIntervalSeconds = 1f;
+
+    [SyncVar][SerializeField] public int resourcesOnDeath;
+    [SyncVar][SerializeField] public int goldOnDeath;
+    [SyncVar] public GameObject lastAggressor;
 
     public event Action onUnitDeath;
 
@@ -41,7 +45,16 @@ public abstract class UnitStats : NetworkBehaviour
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
-        
+
+        if (aggresor.tag == "Player")
+        {
+            this.lastAggressor = aggresor;
+        }
+
+        if (this.unitCurrentHealth <= 0)
+        {
+            onUnitDeath?.Invoke();
+        }
     }
 
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)

@@ -1902,7 +1902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1953,12 +1953,16 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -2551,6 +2555,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &141223263
@@ -3425,6 +3431,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -5833,6 +5841,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -6118,7 +6128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6169,12 +6179,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -11252,6 +11266,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -12655,6 +12671,141 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4063210846265680, guid: 186ecc7a1f977cc4fab5658c00fa3c4d, type: 3}
   m_PrefabInstance: {fileID: 654437383}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &654522416
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1889840151}
+    m_Modifications:
+    - target: {fileID: 2522742808077133371, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: sceneId
+      value: 3750661315
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -36.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.045118768
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99898165
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 185.172
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: m_Name
+      value: RedSpawnerDevils
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnRadius
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: nextSpawnTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: numberSpawned
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: resourcePrefab
+      value: 
+      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: resourcePrefab.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: resourcePrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: resourcePrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: resourcePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+--- !u!4 &654522417 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  m_PrefabInstance: {fileID: 654522416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &654522418 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3093115993226750490, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+  m_PrefabInstance: {fileID: 654522416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &654522419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654522418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 654522417}
+  clientAuthority: 0
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1001 &659605100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13321,12 +13472,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -17405,6 +17560,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -17717,6 +17874,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -18279,6 +18438,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -21993,7 +22154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22044,12 +22205,16 @@ PrefabInstance:
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -24806,7 +24971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750488, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24857,12 +25022,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -26128,6 +26297,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -28385,6 +28556,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -29575,6 +29748,8 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &1619859267
@@ -31813,12 +31988,16 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
@@ -33417,6 +33596,7 @@ Transform:
   - {fileID: 1141318511}
   - {fileID: 1016909021}
   - {fileID: 424990103}
+  - {fileID: 654522417}
   - {fileID: 117018633}
   - {fileID: 1434203916}
   - {fileID: 316057933}
@@ -34832,12 +35012,16 @@ PrefabInstance:
       value: BlueSpawnerDevils
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
+      propertyPath: spawnDelay
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: spawnRadius
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: nextSpawnTime
-      value: 1
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3093115993226750491, guid: a960e7512adbffc4cb7b3e912441a369, type: 3}
       propertyPath: numberSpawned
