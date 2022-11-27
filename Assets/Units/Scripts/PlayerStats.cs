@@ -7,6 +7,8 @@ public class PlayerStats : UnitStats
 {
     [SerializeField] private float playerHealthRegen = 2.5f;
     private float timer;
+    [SyncVar] public string lane;
+    [SyncVar] public string side;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;

@@ -48,7 +48,7 @@ public class PlayerAttack : NetworkBehaviour, IAttack
             }
             this.followAttack = true;
             this.targetEnemy = hit.transform.gameObject;
-        }
+            }
         else
         {
             this.followAttack = false;

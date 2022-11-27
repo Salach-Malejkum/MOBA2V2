@@ -67,10 +67,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    public void HandleReadyToStart(bool readyToStart) {
-        this.startGameButton.interactable = readyToStart;
-    }
-
     [Command]
     private void CmdSetDisplayName(string displayName) {
         DisplayName = displayName;

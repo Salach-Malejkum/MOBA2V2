@@ -13,7 +13,7 @@ public class QScript : NetworkBehaviour
         get { return owner; }
         set { owner = value; }
     }
-
+        
     [ServerCallback]
     void FixedUpdate()
     {

@@ -22,6 +22,8 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
+    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
+      Ensure both rig type match\n"
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -114,6 +116,8 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
+    human: []
+    skeleton: []
     human:
     - boneName: PT_Medieval_Hips
       humanName: Hips
