@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MobController : NetworkBehaviour
+public class MobController : NetworkBehaviour, IOutlinable
 {
     public GameObject target;
     public ResourceSpawner spawnerResource;

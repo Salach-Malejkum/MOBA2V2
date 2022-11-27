@@ -18,6 +18,11 @@ public abstract class UnitStats : NetworkBehaviour
     {
         get { return unitAttackDamage; }
     }
+    [SyncVar][SerializeField] protected float attackSpeed = 1f;
+    public float AttackSpeed
+    {
+        get { return attackSpeed; }
+    }
     [SyncVar][SerializeField] protected float unitAbilityPower = 0f;
     [SyncVar][SerializeField] protected float unitMovementSpeed = 0f;
     [SyncVar][SerializeField] protected float unitCooldownReduction = 0f;

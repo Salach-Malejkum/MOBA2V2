@@ -58,8 +58,11 @@ public class NetworkRoomPlayer : NetworkBehaviour
         }
     }
 
-    public void HandleReadyToStart(bool readyToStart) {
-        this.startGameButton.interactable = readyToStart;
+    void DisplayTime(float timeToDisplay) {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     [Command]
