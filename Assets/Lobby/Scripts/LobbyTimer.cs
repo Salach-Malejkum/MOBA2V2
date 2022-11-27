@@ -21,7 +21,7 @@ public class LobbyTimer : NetworkBehaviour
         if(NetworkManagerLobby.Instance.RoomPlayers.Count > 0)
         {
             if (NetworkManagerLobby.Instance.IsReadyToStart() && LobbyNotReady) {
-                timeLeft = 10f;
+                timeLeft = 1f;
                 LobbyNotReady = false;
             }
             
