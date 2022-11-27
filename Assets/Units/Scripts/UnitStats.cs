@@ -65,7 +65,7 @@ public abstract class UnitStats : NetworkBehaviour
     private void OnHealthChanged(float oldHP, float newHP) {
         if (this.unitCurrentHealth <= 0)
         {
-            onUnitDeath?.Invoke();
+            this.onUnitDeath?.Invoke();
         }
     }
 }
