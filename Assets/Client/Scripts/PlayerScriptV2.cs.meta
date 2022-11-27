@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Inventory/InventoryOnClick.cs.meta
+guid: 0e83060b498d0bd44a1fa688a7cb4c2c
+========
+guid: 82ad42e44a32dd94281cd62bf062e6a6
+>>>>>>>> main:Assets/Client/Scripts/PlayerScriptV2.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
