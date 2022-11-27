@@ -52,7 +52,6 @@ public class PlayerSpawn : NetworkBehaviour
                 playerInstance.gameObject.layer = LayerMask.NameToLayer("Red");
                 break;
         }
-        Debug.Log(playerInstance.layer);
 
         switch (args.PlayerId)
         {
