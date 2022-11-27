@@ -101,12 +101,12 @@ GameObject:
   - component: {fileID: 2091363610217191735}
   - component: {fileID: -5794324876374196433}
   - component: {fileID: -486382682619686337}
-  - component: {fileID: -4480280596648368509}
   - component: {fileID: 2564117619035827070}
   - component: {fileID: -4592679397602601105}
   - component: {fileID: 4957298812896819437}
   - component: {fileID: 7443113177396949519}
   - component: {fileID: 7889612985299338341}
+  - component: {fileID: 6919936215818968322}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -170,7 +170,6 @@ MonoBehaviour:
   _assetId: 2105910285
   serverOnly: 0
   visible: 0
-  m_AssetId: b7d8253ea0f718a4897be16f4d5a18bd
   hasSpawned: 0
 --- !u!114 &-1238880710905833227
 MonoBehaviour:
@@ -189,17 +188,6 @@ MonoBehaviour:
   syncInterval: 0
   target: {fileID: 5748295861216972401}
   clientAuthority: 1
-  sendRate: 30
-  bufferTimeMultiplier: 2
-  bufferSizeLimit: 64
-  catchupNegativeThreshold: -1
-  catchupPositiveThreshold: 1
-  catchupSpeed: 0.009999999776482582
-  slowdownSpeed: 0.009999999776482582
-  driftEmaDuration: 1
-  dynamicAdjustment: 1
-  dynamicAdjustmentTolerance: 1
-  deliveryTimeEmaDuration: 2
   onlySyncOnChange: 1
   bufferResetMultiplier: 5
   positionSensitivity: 0.01
@@ -372,7 +360,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!54 &-1004645586584782925
 Rigidbody:
@@ -426,7 +414,6 @@ MonoBehaviour:
   syncInterval: 0.1
   qPrefab: {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
   wPrefab: {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
-  wDirection: {x: 0, y: 0, z: 0}
   rPrefab: {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
 --- !u!114 &-6476525291194515553
 MonoBehaviour:
@@ -505,24 +492,6 @@ MonoBehaviour:
   playerHealthRegen: 2.5
   lane: 
   side: 
---- !u!114 &-4480280596648368509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4739550223701580035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddd2a27372037ce4dadce2077eb976aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
-  stunned: 0
-  stunDuration: 0
-  stunTime: 0
 --- !u!114 &2564117619035827070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +504,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7370ee792de99845b203c7f5b3ae177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   buildingMenuCanva: {fileID: 2913673917802773283}
@@ -607,6 +577,24 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &6919936215818968322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739550223701580035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab523fb803c078b4e88005f84b7a2744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  stunned: 0
+  stunDuration: 0
+  stunTime: 0
 --- !u!1 &5782627593083486420
 GameObject:
   m_ObjectHideFlags: 0
@@ -3219,19 +3207,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2731459479184979399, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2731459479184979399, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2731459479184979399, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2731459479184979399, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -57
       objectReference: {fileID: 0}
     - target: {fileID: 3630833286515276481, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3405,6 +3393,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildingMenuCanva
       objectReference: {fileID: 0}
+    - target: {fileID: 7624610474410110700, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7801872014597276009, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3423,19 +3415,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7832599240840020432, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7832599240840020432, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7832599240840020432, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7832599240840020432, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -57
       objectReference: {fileID: 0}
     - target: {fileID: 8167888014653648569, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
