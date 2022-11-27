@@ -1,21 +1,26 @@
+using Mirror;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
-    [SerializeField]
     private int delayAmount = 1;
-
     [SerializeField]
     private TMP_Text goldValueText;
-
-    private int goldValue = 0;
-    public int GoldValue
+    public TMP_Text GoldValueText
     {
-        get { return goldValue; }
-        set { goldValue = value; }
+        get { return goldValueText; }
+    }
+
+    [SerializeField]
+    private PlayerStats playerStats ;
+    public PlayerStats PlayerStats
+    {
+        get { return playerStats; }
     }
 
     [SerializeField]
@@ -25,11 +30,17 @@ public class ShopManager : MonoBehaviour
         get { return shopCanva; }
     }
 
-    [SerializeField]
-    private GameObject marketPlace;
-    public GameObject MarketPlace
+    private bool shopInRange;
+    public bool ShopInRange
     {
-        get { return marketPlace; }
+        get { return shopInRange; }
+    }
+
+    [SerializeField]
+    private List<GameObject> detailsPanels = new List<GameObject>();
+    public List<GameObject> DetailsPanels
+    {
+        get { return detailsPanels; }
     }
 
     [SerializeField]
@@ -39,47 +50,70 @@ public class ShopManager : MonoBehaviour
         get { return sellBtn; }
     }
 
-    private readonly float border = 10f;
-    public float Border
+    [SerializeField]
+    private Button openShop;
+    public Button OpenShop
     {
-        get { return border; }
+        get { return openShop; }
     }
 
     private float timer;
 
     private ShopItemSo sellItem;
+    public ShopItemSo SellItem
+    {
+        get { return sellItem; }
+        set { sellItem = value; }
+    }
     private int sellItemIndex = -1;
+    public int SellItemIndex
+    {
+        get { return sellItemIndex; }
+        set { sellItemIndex = value; }
+    }
 
-    private void Update()
+    [SerializeField]
+    private Inventory inventory;
+
+    public override void OnStartLocalPlayer()
+    {
+        this.openShop.onClick.AddListener(this.ToggleShop);
+    }
+
+    [ClientCallback]
+    private void FixedUpdate()
     {
         this.timer += Time.deltaTime;
 
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.goldValue++;
-            this.goldValueText.text = "G: " + this.goldValue;
+            this.GoldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+            this.OpenShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         }
-        
-        if (!IsInBorder())
+
+        if (!this.ShopInRange)
         {
-            this.sellBtn.interactable = false;
+            this.SellBtn.interactable = false;
         }
     }
 
-    public void SubtractPurchasedItemCostFromOwnedGold(int amount)
+    [Command]
+    public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
-        this.goldValue -= amount;
-        this.goldValueText.text = "G: " + this.goldValue;
+        this.RpcSubtractPurchasedItemCostFromOwnedGold(amount);
     }
 
-    public bool IsInBorder()
+    [TargetRpc]
+    private void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
-        
-        return Vector3.Distance(this.transform.position, this.MarketPlace.transform.position) <= this.Border;
+        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
+        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
     }
 
-    public void ToggleShop(InputAction.CallbackContext _)
+    [Client]
+    public void ToggleShop()
     {
         if (this.shopCanva.activeSelf)
         {
@@ -92,30 +126,57 @@ public class ShopManager : MonoBehaviour
         }
     }
 
-    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
+    [Client]
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex, bool isNotInsta)
     {
         this.sellItem = itemToSell;
         this.sellItemIndex = itemToSellIndex;
-        this.sellBtn.interactable = true;
+        this.sellBtn.interactable = isNotInsta;
     }
 
-    public void InstaSell(ShopItemSo itemToSell)
+    [Command]
+    public void CmdSell()
     {
-        this.sellItemIndex = -1;
-        this.sellItem = itemToSell;
-        this.Sell();
+        this.RpcSell();
     }
 
-    private void Sell()
+    [TargetRpc]
+    private void RpcSell()
     {
-        float amount = this.sellItem.Price * 0.8f;
-        this.goldValue += (int) amount;
-        this.goldValueText.text = "G: " + this.goldValue;
+        float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
+        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold + amount;
+        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         this.sellBtn.interactable = false;
-        if(this.sellItemIndex != -1)
+        this.inventory.CmdRemoveItem(this.sellItemIndex);
+        this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
+        this.inventory.CmdRefreshSlots();
+    }
+
+    [Client]
+    public void DesactivateAllInfoPanels()
+    {
+        foreach (GameObject panel in detailsPanels)
         {
-            Inventory.instance.RemoveItem(this.sellItemIndex);
-            this.sellItemIndex = -1;
+            panel.SetActive(false);
+        }
+    }
+
+    [Client]
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
+        {
+            this.shopInRange = true;
+        }
+    }
+
+    [Client]
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
+        {
+            this.shopInRange = false;
         }
     }
 }
