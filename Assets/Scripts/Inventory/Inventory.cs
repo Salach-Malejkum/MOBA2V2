@@ -1,11 +1,13 @@
+using Mirror;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : NetworkBehaviour
 {
-    public static Inventory instance;
-
     [SerializeField]
-    private InventorySlot[] eqDisplaySlots;
+    private GameObject inventoryCanva;
+    [SerializeField]
+    private List<InventorySlot> eqDisplaySlots = new List<InventorySlot>();
     [HideInInspector]
     private ShopItemSo[] equipment = new ShopItemSo[5];
     public ShopItemSo[] Equipment
@@ -16,82 +18,105 @@ public class Inventory : MonoBehaviour
 
     private ShopManager shop;
 
-    private void Awake()
+    public override void OnStartLocalPlayer()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        DontDestroyOnLoad(this);
-    }
-
-    private void Start()
-    {
-        RefreshSlots();
+        this.inventoryCanva.SetActive(true);
+        this.CmdRefreshSlots();
         this.shop = this.transform.GetComponent<ShopManager>();
     }
 
-    public void RefreshSlots()
+    [ClientCallback]
+    public void CmdRefreshSlots()
     {
-        for (int i = 0; i < this.eqDisplaySlots.Length; i++)
+        foreach(var slot in this.eqDisplaySlots)
         {
-            this.eqDisplaySlots[i].RefreshSlot();
+            slot.RefreshSlot();
         }
     }
 
+
+    [Client]
     public bool IsEqFull()
     {
-        for (int i = 0; i < this.equipment.Length; i++)
+        foreach(ShopItemSo item in this.equipment)
         {
-            if (this.equipment[i] == null)
+            if (item == null)
+            {
                 return false;
+            }
         }
         return true;
     }
 
-    public void AddToEquipment(ShopItemSo item)
+    [Command]
+    public void CmdPassItemToSellToShopManager(int itemIndex)
     {
-        for (int i = 0; i < this.equipment.Length; i++)
+        this.RpcPassItemToSellToShopManager(itemIndex);
+    }
+
+    [TargetRpc]
+    private void RpcPassItemToSellToShopManager(int itemIndex)
+    {
+        if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {
-            if (this.equipment[i] == null)
-            {
-                this.equipment[i] = item;
-                RefreshSlots();
-                return;
-            }
+            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex, true);
         }
     }
 
-    public void PassItemToSellToShopManager(int itemIndex)
+    [Command]
+    public void CmdInstaSell(int itemIndex)
     {
-        if (this.shop.ShopCanva.activeSelf && this.shop.IsInBorder())
+        this.RpcInstaSell(itemIndex);
+    }
+
+    [TargetRpc]
+    private void RpcInstaSell(int itemIndex)
+    {
+        if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {
-            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex);
+            this.shop.PrepareToSell(this.equipment[itemIndex], itemIndex, false);
+            this.shop.CmdSell();
         }
     }
 
-    public void PassItemToInstaSellToShopManager(int itemIndex)
-    {
-        if (this.shop.IsInBorder())
-        {
-            this.shop.InstaSell(this.equipment[itemIndex]);
-            RemoveItem(itemIndex);
-        }
-    }
-
-    public void RemoveItem(int itemIndex)
+    [ClientCallback]
+    public void CmdRemoveItem(int itemIndex)
     {
         this.equipment[itemIndex] = null;
-        RefreshSlots();
     }
 
+    [Client]
     public void BlockSell()
     {
         this.shop.SellBtn.interactable = false;
+    }
+
+    [Client]
+    public bool ItemInEq(ShopItemSo itemToCheck)
+    {
+        foreach (ShopItemSo item in Equipment)
+        {
+            if (item != null)
+            {
+                if (itemToCheck.Title == item.Title)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    [Client]
+    public bool OneComponentsBought(ShopItemSo item)
+    {
+        foreach (ShopItemSo component in item.Components)
+        {
+            if (this.ItemInEq(component))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

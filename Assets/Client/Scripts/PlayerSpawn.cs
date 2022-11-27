@@ -27,6 +27,7 @@ public class PlayerSpawn : NetworkBehaviour
 
     [Server]
     public void SpawnPlayer(object sender, OnPlayerSpawnArgs args) {
+        
         Debug.Log("Spawning player: " + args.conn.ToString() + " on point: " + args.PlayerId.ToString());
         Transform spawnPoint = spawnPoints.ElementAtOrDefault(args.PlayerId);
 
