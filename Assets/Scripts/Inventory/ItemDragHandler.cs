@@ -3,32 +3,16 @@ using UnityEngine.EventSystems;
 
 public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    [SerializeField]
-    private InventoryOnClick inventoryOnClick;
     private Transform originalSlot;
-    public Transform OriginalSlot
-    {
-        get { return originalSlot; }
-    }
     private readonly float clickTreshold = 0.5f;
-    public float ClickTreshold
-    {
-        get { return clickTreshold; }
-    }
     private float pointerDownTime;
-    public float PointerDownTime
-    {
-        get { return pointerDownTime; }
-    }
-    [SerializeField]
-    private Inventory inventory;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         this.pointerDownTime = Time.time;
-        this.originalSlot = this.transform.parent;
-        if (this.InventorySlotNotEmptyAndLMBClicked(this.transform.parent.GetSiblingIndex(), eventData))
+        if (InventorySlotNotEmpty(this.transform.parent.GetSiblingIndex(), eventData))
         {
+            this.originalSlot = this.transform.parent;
             this.transform.SetParent(this.transform.parent.parent);
             GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
@@ -36,7 +20,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (this.InventorySlotNotEmptyAndLMBClicked(this.originalSlot.transform.GetSiblingIndex(), eventData))
+        if (InventorySlotNotEmpty(this.originalSlot.transform.GetSiblingIndex(), eventData))
         {
             this.transform.position = Input.mousePosition;
         }
@@ -46,20 +30,46 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            this.transform.SetParent(this.OriginalSlot);
-            this.transform.localPosition = Vector3.zero;
-            this.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
+            LeftClick();
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            this.inventoryOnClick.RightClick(this.transform.parent.GetSiblingIndex());
+            RightClick();
+        }
+
+    }
+
+    private void LeftClick()
+    {
+        this.transform.SetParent(this.originalSlot);
+        this.transform.localPosition = Vector3.zero;
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        if (Time.time - this.pointerDownTime < this.clickTreshold)
+        {
+            if (Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()])
+            {
+                if (Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].GetType() == typeof(ItemTypeOne))
+                {
+                    Inventory.instance.Equipment[this.transform.parent.GetSiblingIndex()].OnItemUse();
+                }
+            }
+
+            Inventory.instance.PassItemToSellToShopManager(this.transform.parent.GetSiblingIndex());
         }
     }
 
-    private bool InventorySlotNotEmptyAndLMBClicked(int index, PointerEventData eventData)
+    private void RightClick()
     {
-        return this.inventory.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
+        if (Time.time - this.pointerDownTime < this.clickTreshold)
+        {
+            Inventory.instance.PassItemToInstaSellToShopManager(this.transform.parent.GetSiblingIndex());
+        }
+    }
+
+    private bool InventorySlotNotEmpty(int index, PointerEventData eventData)
+    {
+        return Inventory.instance.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
     }
 
 }

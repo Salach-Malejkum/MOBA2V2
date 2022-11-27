@@ -1,26 +1,21 @@
-using Mirror;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ShopManager : NetworkBehaviour
+public class ShopManager : MonoBehaviour
 {
-    private int delayAmount = 1;
     [SerializeField]
-    private TMP_Text goldValueText;
-    public TMP_Text GoldValueText
-    {
-        get { return goldValueText; }
-    }
+    private int delayAmount = 1;
 
     [SerializeField]
-    private PlayerStats playerStats ;
-    public PlayerStats PlayerStats
+    private TMP_Text goldValueText;
+
+    private int goldValue = 0;
+    public int GoldValue
     {
-        get { return playerStats; }
+        get { return goldValue; }
+        set { goldValue = value; }
     }
 
     [SerializeField]
@@ -30,17 +25,11 @@ public class ShopManager : NetworkBehaviour
         get { return shopCanva; }
     }
 
-    private bool shopInRange;
-    public bool ShopInRange
-    {
-        get { return shopInRange; }
-    }
-
     [SerializeField]
-    private List<GameObject> detailsPanels = new List<GameObject>();
-    public List<GameObject> DetailsPanels
+    private GameObject marketPlace;
+    public GameObject MarketPlace
     {
-        get { return detailsPanels; }
+        get { return marketPlace; }
     }
 
     [SerializeField]
@@ -50,70 +39,47 @@ public class ShopManager : NetworkBehaviour
         get { return sellBtn; }
     }
 
-    [SerializeField]
-    private Button openShop;
-    public Button OpenShop
+    private readonly float border = 10f;
+    public float Border
     {
-        get { return openShop; }
+        get { return border; }
     }
 
     private float timer;
 
     private ShopItemSo sellItem;
-    public ShopItemSo SellItem
-    {
-        get { return sellItem; }
-        set { sellItem = value; }
-    }
     private int sellItemIndex = -1;
-    public int SellItemIndex
-    {
-        get { return sellItemIndex; }
-        set { sellItemIndex = value; }
-    }
 
-    [SerializeField]
-    private Inventory inventory;
-
-    public override void OnStartLocalPlayer()
-    {
-        this.openShop.onClick.AddListener(this.ToggleShop);
-    }
-
-    [ClientCallback]
-    private void FixedUpdate()
+    private void Update()
     {
         this.timer += Time.deltaTime;
 
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.GoldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-            this.OpenShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+            this.goldValue++;
+            this.goldValueText.text = "G: " + this.goldValue;
         }
-
-        if (!this.ShopInRange)
+        
+        if (!IsInBorder())
         {
-            this.SellBtn.interactable = false;
+            this.sellBtn.interactable = false;
         }
     }
 
-    [Command]
-    public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
+    public void SubtractPurchasedItemCostFromOwnedGold(int amount)
     {
-        this.RpcSubtractPurchasedItemCostFromOwnedGold(amount);
+        this.goldValue -= amount;
+        this.goldValueText.text = "G: " + this.goldValue;
     }
 
-    [TargetRpc]
-    private void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
+    public bool IsInBorder()
     {
-        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
-        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+        
+        return Vector3.Distance(this.transform.position, this.MarketPlace.transform.position) <= this.Border;
     }
 
-    [Client]
-    public void ToggleShop()
+    public void ToggleShop(InputAction.CallbackContext _)
     {
         if (this.shopCanva.activeSelf)
         {
@@ -126,57 +92,30 @@ public class ShopManager : NetworkBehaviour
         }
     }
 
-    [Client]
-    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex, bool isNotInsta)
+    public void PrepareToSell(ShopItemSo itemToSell, int itemToSellIndex)
     {
         this.sellItem = itemToSell;
         this.sellItemIndex = itemToSellIndex;
-        this.sellBtn.interactable = isNotInsta;
+        this.sellBtn.interactable = true;
     }
 
-    [Command]
-    public void CmdSell()
+    public void InstaSell(ShopItemSo itemToSell)
     {
-        this.RpcSell();
+        this.sellItemIndex = -1;
+        this.sellItem = itemToSell;
+        this.Sell();
     }
 
-    [TargetRpc]
-    private void RpcSell()
+    private void Sell()
     {
-        float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
-        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold + amount;
-        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+        float amount = this.sellItem.Price * 0.8f;
+        this.goldValue += (int) amount;
+        this.goldValueText.text = "G: " + this.goldValue;
         this.sellBtn.interactable = false;
-        this.inventory.CmdRemoveItem(this.sellItemIndex);
-        this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
-        this.inventory.CmdRefreshSlots();
-    }
-
-    [Client]
-    public void DesactivateAllInfoPanels()
-    {
-        foreach (GameObject panel in detailsPanels)
+        if(this.sellItemIndex != -1)
         {
-            panel.SetActive(false);
-        }
-    }
-
-    [Client]
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
-        {
-            this.shopInRange = true;
-        }
-    }
-
-    [Client]
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
-        {
-            this.shopInRange = false;
+            Inventory.instance.RemoveItem(this.sellItemIndex);
+            this.sellItemIndex = -1;
         }
     }
 }

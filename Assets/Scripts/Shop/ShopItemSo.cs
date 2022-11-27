@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -15,60 +13,31 @@ public class ShopItemSo : ScriptableObject
     }
 
     [SerializeField]
-    private float attack;
-    public float Attack
+    private int attack;
+    public int Attack
     {
         get { return attack; }
     }
 
     [SerializeField]
-    private float abilityPower;
-    public float AbilityPower
+    private int magic;
+    public int Magic
     {
-        get { return abilityPower; }
+        get { return magic; }
     }
 
     [SerializeField]
-    private float armor;
-    public float Armor
+    private int defence;
+    public int Defence
     {
-        get { return armor; }
+        get { return defence; }
     }
 
     [SerializeField]
-    private float magicResist;
-    public float MagicResist
+    private int price;
+    public int Price
     {
-        get { return magicResist; }
-    }
-
-    [SerializeField]
-    private float cooldownReduction;
-    public float CooldownReduction
-    {
-        get { return cooldownReduction; }
-    }
-
-    [SerializeField]
-    private float health;
-    public float Health
-    {
-        get { return health; }
-    }
-
-    [SerializeField]
-    private float unitPrice;
-
-    [SerializeField]
-    private List<ShopItemSo> components;
-    public List<ShopItemSo> Components
-    {
-        get { return components; }
-    }
-
-    public float TotalPrice
-    {
-        get { return unitPrice + components.Sum(component => component.unitPrice); }
+        get { return price; }
     }
 
     [SerializeField]
@@ -82,4 +51,22 @@ public class ShopItemSo : ScriptableObject
     {
     }
 
+}
+
+[Serializable]
+[CreateAssetMenu(fileName = "ShopMenu", menuName = "scriptable Objects/New Shop Item custom message", order = 2)]
+public class ItemTypeOne : ShopItemSo
+{
+    [SerializeField]
+    private string myMassage;
+    public string MyMassage
+    {
+        get { return myMassage; }
+    }
+
+    public override void OnItemUse()
+    {
+        //TODO Umiejêtnoœci przedmiotów u¿ywanych
+        Debug.Log(this.myMassage);
+    }
 }
