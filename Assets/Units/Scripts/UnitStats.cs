@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-//TODO: [DAR-182] Poprawić statystyki na synchronizację sieciową
 public abstract class UnitStats : NetworkBehaviour
 {
     [SerializeField] protected float unitMaxHealth = 100f;
-    [SyncVar][SerializeField] protected float unitCurrentHealth = 0f;
+    [SyncVar(hook = nameof(OnHealthChanged))][SerializeField] protected float unitCurrentHealth = 0f;
     [SyncVar][SerializeField] protected float unitArmor = 0f;
     [SyncVar][SerializeField] protected float unitMagicResist = 0f;
     [SyncVar][SerializeField] protected float unitAttackDamage = 0f;
@@ -40,26 +39,21 @@ public abstract class UnitStats : NetworkBehaviour
             this.unitCurrentHealth = this.unitMaxHealth;
         }
     }
-
-    [Server]
+    
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
-
-        if (this.unitCurrentHealth <= 0)
-        {
-            onUnitDeath?.Invoke();
-        }
     }
 
-    [Server]
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
+    }
 
+    private void OnHealthChanged(float oldHP, float newHP) {
         if (this.unitCurrentHealth <= 0)
         {
-            onUnitDeath?.Invoke();
+            this.onUnitDeath?.Invoke();
         }
     }
 }

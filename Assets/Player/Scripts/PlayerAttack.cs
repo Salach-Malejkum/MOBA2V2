@@ -10,7 +10,12 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     private readonly int rayCastMaxDist = 100;
     private PlayerStats stats;
     private HashSet<GameObject> objectsInRangeHashSet;
+    [SerializeField]
     private LayerMask attackableLayer;
+    public LayerMask AttackableLayer
+    {
+        get { return attackableLayer; }
+    }
     private bool followAttack = false;
     private GameObject targetEnemy;
     private Animator animator;
@@ -21,6 +26,7 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     {
         this.stats = GetComponent<PlayerStats>();
         this.objectsInRangeHashSet = new HashSet<GameObject>();
+        this.attackableLayer = new LayerMask();
         this.AssignAttackableLayer();
         this.animator = GetComponent<Animator>();
         this.networkAnimator = GetComponent<NetworkAnimator>();
@@ -89,18 +95,16 @@ public class PlayerAttack : NetworkBehaviour, IAttack
 
     private void AssignAttackableLayer()
     {
-        LayerMask enemyTeamLayer = this.gameObject.layer;
-        switch (enemyTeamLayer)
+        switch (this.gameObject.layer)
         {
             case Enums.Layers.blueTeamLayer:
-                enemyTeamLayer = 1 << Enums.Layers.redTeamLayer;
+                this.attackableLayer |= (1 << Enums.Layers.redTeamLayer);
                 break;
             case Enums.Layers.redTeamLayer:
-                enemyTeamLayer = 1 << Enums.Layers.blueTeamLayer;
+                this.attackableLayer |= (1 << Enums.Layers.blueTeamLayer);
                 break;
         }
-        LayerMask neutralLayer = 1 << Enums.Layers.neutral;
-        this.attackableLayer = neutralLayer | enemyTeamLayer;
+        this.attackableLayer |= 1 << Enums.Layers.neutral;
     }
 
     [ClientCallback]

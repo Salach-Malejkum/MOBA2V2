@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d49dbe937cc99bd479532154ff059f11, type: 3}
+  m_Name: Katana
+  m_EditorClassIdentifier: 
+  title: Miecz
+  attack: 1
+  abilityPower: 0
+  armor: 0
+  magicResist: 0
+  cooldownReduction: 1
+  health: 1
+  unitPrice: 3
+  components:
+  - {fileID: 11400000, guid: 1089d105bb0158c46881cfcbf17e1c05, type: 2}
+  image: {fileID: 21300000, guid: f594bf2df7f5c264f96b77d4c5537436, type: 3}
