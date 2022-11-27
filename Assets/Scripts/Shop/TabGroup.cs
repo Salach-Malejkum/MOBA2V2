@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,7 +41,7 @@ public class TabGroup : MonoBehaviour
         
     }
 
-    public void OnTabExit(TabButtons _) => this.ResetTabs();
+    public void OnTabExit(TabButtons _) => this.ResetTabs(); 
 
     public void OnTabSelected(TabButtons button)
     {

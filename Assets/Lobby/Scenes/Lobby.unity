@@ -2429,6 +2429,7 @@ MonoBehaviour:
   - {fileID: 62657762906004160, guid: 93f8a12344a8678458838b03af75ecb9, type: 3}
   - {fileID: 62657762906004160, guid: 9375cfed40cc34f418c8adf9378ce548, type: 3}
   - {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
+  - {fileID: 6377794084287402632, guid: 645d810de1590294db6cc876fe799cb2, type: 3}
   - {fileID: 7962199819078159310, guid: f5b41ba4c79702547a89de7544b80656, type: 3}
   - {fileID: 1975194375736644, guid: 128a80094e00bf34fa2555766a7eea0e, type: 3}
   - {fileID: 4020983980232809014, guid: 81a381c7f66e67a4bb36c56924e485b7, type: 3}
@@ -6856,7 +6857,6 @@ Transform:
   - {fileID: 1713145741}
   - {fileID: 693488855}
   - {fileID: 1941473015}
-  - {fileID: 647308892}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -12,6 +12,8 @@ public abstract class UnitStats : NetworkBehaviour
     [SyncVar][SerializeField] protected float unitArmor = 0f;
     [SyncVar][SerializeField] protected float unitMagicResist = 0f;
     [SyncVar][SerializeField] protected float unitAttackDamage = 0f;
+    [SerializeField] protected float unitGoldReward = 0f;
+    [SerializeField] protected float unitExpReward = 0f;
     public float UnitAttackDamage
     {
         get { return unitAttackDamage; }
@@ -46,7 +48,7 @@ public abstract class UnitStats : NetworkBehaviour
 
         if (this.unitCurrentHealth <= 0)
         {
-            onUnitDeath?.Invoke();
+            this.onUnitDeath?.Invoke();
         }
     }
 
@@ -57,7 +59,7 @@ public abstract class UnitStats : NetworkBehaviour
 
         if (this.unitCurrentHealth <= 0)
         {
-            onUnitDeath?.Invoke();
+            this.onUnitDeath?.Invoke();
         }
     }
 }

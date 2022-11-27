@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Scripts/Shop/InfoPanelsTemplate.cs.meta
-guid: 5630062c06756ed409d34d39b384202b
+<<<<<<<< HEAD:Assets/Scripts/Inventory/InventoryOnClick.cs.meta
+guid: 0e83060b498d0bd44a1fa688a7cb4c2c
 ========
-guid: 8040b647af5de1d4c85e4b0d1d563586
->>>>>>>> main:Assets/CameraTest.cs.meta
+guid: 82ad42e44a32dd94281cd62bf062e6a6
+>>>>>>>> main:Assets/Client/Scripts/PlayerScriptV2.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -2545,6 +2545,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -3417,6 +3419,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -5823,6 +5827,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -9046,6 +9052,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4019303215891802, guid: efd8147160aa6c64c8121a2ed788744e, type: 3}
   m_PrefabInstance: {fileID: 456579906}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &459169570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
+  m_PrefabInstance: {fileID: 1218457502}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &459252949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1324038414835907761, guid: c0fc79b1adb65de40841ac1a30ba48a6, type: 3}
@@ -11205,6 +11216,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -17334,6 +17347,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -17644,6 +17659,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -18204,6 +18221,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -22011,7 +22030,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Name
-      value: ChampionSpawner
+      value: BlueChampionSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Layer
@@ -22088,6 +22107,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4998326679312090, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
   m_PrefabInstance: {fileID: 1218457502}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1218457506
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459169570}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &1218457507
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459169570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: -1.0843159, y: 4.8431215, z: 0.025011066}
 --- !u!1001 &1219057643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23492,7 +23540,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Name
-      value: ChampionSpawner (1)
+      value: RedChampionSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Layer
@@ -26056,6 +26104,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -26961,6 +27011,40 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4252784401376168, guid: 22a3fd8d3e59a1149bdcd775c0e87241, type: 3}
   m_PrefabInstance: {fileID: 1492634530}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1492760444 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
+  m_PrefabInstance: {fileID: 1318705013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &1492760447
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492760444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 10
+  m_Center: {x: -1.0843124, y: 4.843122, z: 0.025026333}
+--- !u!54 &1492760448
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1492760444}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &1493357020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28311,6 +28395,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -29499,6 +29585,8 @@ MonoBehaviour:
   unitMagicResist: 0
   unitAttackDamage: 0
   attackSpeed: 1
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -33026,6 +33114,74 @@ Terrain:
   m_GroupingID: 0
   m_RenderingLayerMask: 1
   m_AllowAutoConnect: 1
+--- !u!1 &1874413985
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874413988}
+  - component: {fileID: 1874413987}
+  - component: {fileID: 1874413986}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1874413986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874413985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1874413987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874413985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &1874413988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874413985}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1879617409
 PrefabInstance:
   m_ObjectHideFlags: 0

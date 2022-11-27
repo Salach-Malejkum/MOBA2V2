@@ -9,12 +9,12 @@ public class NetworkInGamePlayer : NetworkBehaviour
     public override void OnStartClient()
     {
         DontDestroyOnLoad(gameObject);
-        NetworkManagerLobby.Instance.InGamePlayers.Add(this);
+        //NetworkManagerLobby.Instance.InGamePlayers.Add(this);
     }
 
     public override void OnStopClient()
     {
-        NetworkManagerLobby.Instance.InGamePlayers.Remove(this);
+        //NetworkManagerLobby.Instance.InGamePlayers.Remove(this);
     }
 
     [Server]
