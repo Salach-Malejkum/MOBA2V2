@@ -9,6 +9,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
     [SerializeField] private Button startGameButton = null;
+    [SerializeField] private TMP_Text timeText;
 
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
@@ -23,6 +24,7 @@ public class NetworkRoomPlayer : NetworkBehaviour
     public override void OnStartClient()
     {
         NetworkManagerLobby.Instance.RoomPlayers.Add(this);
+        LobbyTimer.OnTimeUpdated += DisplayTime;
         Debug.Log("Client started on Room Player");
         UpdateDisplay();
     }
@@ -58,6 +60,13 @@ public class NetworkRoomPlayer : NetworkBehaviour
         }
     }
 
+    void DisplayTime(float timeToDisplay) {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
     public void HandleReadyToStart(bool readyToStart) {
         this.startGameButton.interactable = readyToStart;
     }
@@ -71,11 +80,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
     public void CmdReadyUp() {
         IsReady = !IsReady;
         NetworkManagerLobby.Instance.NotifyPlayersOfReadyState();
-    }
-
-    [Command]
-    public void CmdStartGame() {
-        NetworkManagerLobby.Instance.StartGame();
     }
 
     [Command]
