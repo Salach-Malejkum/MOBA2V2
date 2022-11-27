@@ -2425,6 +2425,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -3273,6 +3275,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -5649,6 +5653,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -10831,6 +10837,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -16828,6 +16836,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -17108,6 +17118,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -17638,6 +17650,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -21270,7 +21284,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Name
-      value: ChampionSpawner
+      value: BlueChampionSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Layer
@@ -22776,7 +22790,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Name
-      value: ChampionSpawner (1)
+      value: RedChampionSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 1232766363669618, guid: 2b519101e10d4a74580d4c86ac9e03e6, type: 3}
       propertyPath: m_Layer
@@ -25138,6 +25152,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -27397,6 +27413,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
@@ -28555,6 +28573,8 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
+  unitGoldReward: 0
+  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0

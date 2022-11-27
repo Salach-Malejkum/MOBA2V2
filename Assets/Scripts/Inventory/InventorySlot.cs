@@ -1,4 +1,3 @@
-using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,38 +11,46 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        ShopItemSo droppedItem = inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
+        ShopItemSo droppedItem = this.inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()];
         if( eventData.pointerDrag.transform.parent.name == gameObject.name)
         {
             return;
         }
-        if (inventory.Equipment[this.transform.GetSiblingIndex()] == null)
+
+        if (this.IsSlotEmpty())
         {
-            inventory.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = null;
-            inventory.CmdRefreshSlots();
-            inventory.BlockSell();
+            this.OnDropHelper(droppedItem, eventData);
         }
         else
         {
-            ShopItemSo tempItem = inventory.Equipment[transform.GetSiblingIndex()];
-            inventory.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
-            inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = tempItem;
-            inventory.CmdRefreshSlots();
-            inventory.BlockSell();
+            ShopItemSo tempItem = this.inventory.Equipment[transform.GetSiblingIndex()];
+            this.OnDropHelper(droppedItem, eventData, tempItem);
         }
     }
     
     public void RefreshSlot()
     {
-        if (inventory.Equipment[transform.GetSiblingIndex()] != null)
+        if (!this.IsSlotEmpty())
         {
-            this.image.GetComponent<Image>().sprite = inventory.Equipment[this.transform.GetSiblingIndex()].Image;
+            this.image.GetComponent<Image>().sprite = this.inventory.Equipment[this.transform.GetSiblingIndex()].Image;
             this.image.SetActive(true);
         }
         else
         {
             this.image.SetActive(false);
         }
+    }
+
+    private void OnDropHelper(ShopItemSo droppedItem, PointerEventData eventData, ShopItemSo item = null)
+    {
+        this.inventory.Equipment[this.transform.GetSiblingIndex()] = droppedItem;
+        this.inventory.Equipment[eventData.pointerDrag.GetComponent<ItemDragHandler>().transform.parent.GetSiblingIndex()] = item;
+        this.inventory.CmdRefreshSlots();
+        this.inventory.BlockSell();
+    }
+
+    private bool IsSlotEmpty()
+    {
+        return this.inventory.Equipment[this.transform.GetSiblingIndex()] == null;
     }
 }

@@ -11,6 +11,10 @@ public class ShopManager : NetworkBehaviour
     private int delayAmount = 1;
     [SerializeField]
     private TMP_Text goldValueText;
+    public TMP_Text GoldValueText
+    {
+        get { return goldValueText; }
+    }
 
     [SerializeField]
     private PlayerStats playerStats ;
@@ -48,6 +52,10 @@ public class ShopManager : NetworkBehaviour
 
     [SerializeField]
     private Button openShop;
+    public Button OpenShop
+    {
+        get { return openShop; }
+    }
 
     private float timer;
 
@@ -80,24 +88,24 @@ public class ShopManager : NetworkBehaviour
         if (this.timer >= this.delayAmount)
         {
             this.timer = 0f;
-            this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-            this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+            this.GoldValueText.text = "G: " + this.PlayerStats.PlayerGold;
+            this.OpenShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
         }
-        
-        if (!this.shopInRange)
+
+        if (!this.ShopInRange)
         {
-            this.sellBtn.interactable = false;
+            this.SellBtn.interactable = false;
         }
     }
 
     [Command]
     public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
-        RpcSubtractPurchasedItemCostFromOwnedGold(amount);
+        this.RpcSubtractPurchasedItemCostFromOwnedGold(amount);
     }
 
     [TargetRpc]
-    public void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
+    private void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
         this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
         this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
@@ -129,11 +137,11 @@ public class ShopManager : NetworkBehaviour
     [Command]
     public void CmdSell()
     {
-        RpcSell();
+        this.RpcSell();
     }
 
     [TargetRpc]
-    public void RpcSell()
+    private void RpcSell()
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
         this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold + amount;
@@ -157,7 +165,7 @@ public class ShopManager : NetworkBehaviour
     [Client]
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
+        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
         {
             this.shopInRange = true;
         }
@@ -166,7 +174,7 @@ public class ShopManager : NetworkBehaviour
     [Client]
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.name == "ChampionSpawner" || other.gameObject.name == "ChampionSpawner (1)")
+        if (other.gameObject.name == "BlueChampionSpawner" || other.gameObject.name == "RedChampionSpawner")
         {
             this.shopInRange = false;
         }

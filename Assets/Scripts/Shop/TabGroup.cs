@@ -22,7 +22,6 @@ public class TabGroup : MonoBehaviour
     [SerializeField]
     private List<GameObject> objectToSwap;
 
-    //[Client]
     public void Subscribe(TabButtons button)
     {
         if (this.tabButtons == null)
@@ -32,7 +31,6 @@ public class TabGroup : MonoBehaviour
         this.tabButtons.Add(button);
     }
 
-    //[Client]
     public void OnTabEnter(TabButtons button)
     {
         this.ResetTabs();
@@ -43,10 +41,8 @@ public class TabGroup : MonoBehaviour
         
     }
 
-    //[Client]
     public void OnTabExit(TabButtons _) => this.ResetTabs(); 
 
-    //[Client]
     public void OnTabSelected(TabButtons button)
     {
         this.selectedTab = button;
@@ -67,7 +63,6 @@ public class TabGroup : MonoBehaviour
 
     }
 
-    //[Client]
     private void ResetTabs()
     {
         foreach (TabButtons button in this.tabButtons)

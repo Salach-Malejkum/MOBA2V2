@@ -21,16 +21,16 @@ public class Inventory : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         this.inventoryCanva.SetActive(true);
-        CmdRefreshSlots();
+        this.CmdRefreshSlots();
         this.shop = this.transform.GetComponent<ShopManager>();
     }
 
     [ClientCallback]
     public void CmdRefreshSlots()
     {
-        for (int i = 0; i < this.eqDisplaySlots.Count; i++)
+        foreach(var slot in this.eqDisplaySlots)
         {
-            this.eqDisplaySlots[i].RefreshSlot();
+            slot.RefreshSlot();
         }
     }
 
@@ -38,10 +38,12 @@ public class Inventory : NetworkBehaviour
     [Client]
     public bool IsEqFull()
     {
-        for (int i = 0; i < this.equipment.Length; i++)
+        foreach(ShopItemSo item in this.equipment)
         {
-            if (this.equipment[i] == null)
+            if (item == null)
+            {
                 return false;
+            }
         }
         return true;
     }
@@ -49,11 +51,11 @@ public class Inventory : NetworkBehaviour
     [Command]
     public void CmdPassItemToSellToShopManager(int itemIndex)
     {
-        RpcPassItemToSellToShopManager(itemIndex);
+        this.RpcPassItemToSellToShopManager(itemIndex);
     }
 
     [TargetRpc]
-    public void RpcPassItemToSellToShopManager(int itemIndex)
+    private void RpcPassItemToSellToShopManager(int itemIndex)
     {
         if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {
@@ -64,11 +66,11 @@ public class Inventory : NetworkBehaviour
     [Command]
     public void CmdInstaSell(int itemIndex)
     {
-        RpcInstaSell(itemIndex);
+        this.RpcInstaSell(itemIndex);
     }
 
     [TargetRpc]
-    public void RpcInstaSell(int itemIndex)
+    private void RpcInstaSell(int itemIndex)
     {
         if (this.shop.ShopCanva.activeSelf && this.shop.ShopInRange)
         {

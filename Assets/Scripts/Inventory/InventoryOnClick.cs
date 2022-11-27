@@ -1,5 +1,4 @@
 using Mirror;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,13 +12,13 @@ public class InventoryOnClick : NetworkBehaviour
     [Client]
     public void LeftClick(int slotIndex)
     {
-        CmdLeftClick(slotIndex);
+        this.CmdLeftClick(slotIndex);
     }
 
     [Command]
     private void CmdLeftClick(int slotIndex)
     {
-        RpcLeftClick(slotIndex);
+        this.RpcLeftClick(slotIndex);
     }
 
     [TargetRpc]
@@ -34,13 +33,13 @@ public class InventoryOnClick : NetworkBehaviour
     [Client]
     public void RightClick(int slotindex)
     {
-        CmdRightClick(slotindex);
+        this.CmdRightClick(slotindex);
     }
 
     [Command]
     private void CmdRightClick(int slotindex)
     {
-        RpcRightClick(slotindex);
+        this.RpcRightClick(slotindex);
     }
 
     [TargetRpc]

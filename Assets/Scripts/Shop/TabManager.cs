@@ -36,7 +36,7 @@ public class TabManager : NetworkBehaviour
     }
 
     [ClientCallback]
-    void FixedUpdate()// przenieœæ gdzieœ indziej---------------------------------------------------------------------------------------------------------------------------------------------
+    private void FixedUpdate()
     {
         this.timer += Time.deltaTime;
 
@@ -56,31 +56,16 @@ public class TabManager : NetworkBehaviour
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(i))
-                    {
-                        this.myBuyButtons[i].interactable = true;
-                    }
-                    else
-                    {
-                        this.myBuyButtons[i].interactable = false;
-                    }
+                    this.myBuyButtons[i].interactable = IsAffordable(i);
                 }
             }
             else
             {
                 for (int i = 0; i < this.shopItemSo.Count; i++)
                 {
-                    if (this.shopItemSo[i].Components.Count > 0 && this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(i))
+                    if (this.shopItemSo[i].Components.Count > 0 && IsAffordable(i))
                     {
-                        if (inventory.OneComponentsBought(this.shopItemSo[i]))
-                        {
-                            this.myBuyButtons[i].interactable = true;
-                        }
-                        else
-                        {
-                            this.myBuyButtons[i].interactable = false;
-                        }
-                        
+                        this.myBuyButtons[i].interactable = inventory.OneComponentsBought(this.shopItemSo[i]);
                     }
                     else
                     {
@@ -110,7 +95,6 @@ public class TabManager : NetworkBehaviour
     public void InfoItem(int itemNo)
     {
         this.shopManager.DesactivateAllInfoPanels();
-        //Obecnie ob³s³uguje przepisy tylko o g³êbokoœci 1
         int panelIndex = this.shopItemSo[itemNo].Components.Count;
         this.activeInfoPanel = this.shopManager.DetailsPanels[panelIndex];
         this.activeInfoPanel.SetActive(true);
@@ -151,7 +135,7 @@ public class TabManager : NetworkBehaviour
     }
 
     [Client]
-    public void RefreshInfoPanel()
+    private void RefreshInfoPanel()
     {
         if (this.activeInfoPanel != null)
         {
@@ -181,27 +165,13 @@ public class TabManager : NetworkBehaviour
             {
                 if (!inventory.IsEqFull())
                 {
-                    if (this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(itemIndex))
-                    {
-                        infoPanelTemplate.BuyBtn.interactable = true;
-                    }
-                    else
-                    {
-                        infoPanelTemplate.BuyBtn.interactable = false;
-                    }
+                    infoPanelTemplate.BuyBtn.interactable = IsAffordable(itemIndex);
                 }
                 else
                 {
                     if (item.Components.Count > 0 && this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(itemIndex))
                     {
-                        if (inventory.OneComponentsBought(item))
-                        {
-                            infoPanelTemplate.BuyBtn.interactable = true;
-                        }
-                        else
-                        {
-                            infoPanelTemplate.BuyBtn.interactable = false;
-                        }
+                        infoPanelTemplate.BuyBtn.interactable = inventory.OneComponentsBought(this.shopItemSo[itemIndex]);
                     }
                     else
                     {
@@ -230,11 +200,11 @@ public class TabManager : NetworkBehaviour
     [Command]
     public void CmdAddToEquipment(int itemIndex)
     {
-        RpcAddToEquipment(itemIndex);
+        this.RpcAddToEquipment(itemIndex);
     }
 
     [TargetRpc]
-    public void RpcAddToEquipment(int itemIndex)
+    private void RpcAddToEquipment(int itemIndex)
     {
         ShopItemSo item = this.shopItemSo[itemIndex];
         foreach (ShopItemSo component in item.Components)
@@ -263,13 +233,13 @@ public class TabManager : NetworkBehaviour
     }
 
     [Command]
-    public void CmdBuy(int itemIndex)
+    private void CmdBuy(int itemIndex)
     {
-        RpcBuy(itemIndex);
+        this.RpcBuy(itemIndex);
     }
 
     [TargetRpc]
-    public void RpcBuy(int itemIndex)
+    private void RpcBuy(int itemIndex)
     {
         ShopItemSo item = this.shopItemSo[itemIndex];
         float currPrice = this.CurrPrice(itemIndex);
@@ -281,12 +251,12 @@ public class TabManager : NetworkBehaviour
         }
     }
 
-    public float CurrPrice(int itemIndex)
+    private float CurrPrice(int itemIndex)
     {
         ShopItemSo itemToCheck = this.shopItemSo[itemIndex];
         float currPrice = itemToCheck.TotalPrice;
-        
-        foreach (ShopItemSo component in itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First())) // je¿eli bed¹ przepisy o g³êbokoœci wiêkszej ni¿ 1 to bedzie to trzeba przerobiæ
+        List<ShopItemSo> components = itemToCheck.Components.GroupBy(item => item.Title, (key, group) => group.First()).ToList();
+        foreach (ShopItemSo component in components)
         {
             if (inventory.ItemInEq(component))
             {
@@ -294,5 +264,11 @@ public class TabManager : NetworkBehaviour
             }
         }
         return currPrice;
+    }
+
+    [Client]
+    private bool IsAffordable(int itemIndex)
+    {
+        return this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(itemIndex);
     }
 }
