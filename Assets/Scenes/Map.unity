@@ -2549,14 +2549,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades: []
 --- !u!114 &141223263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3427,20 +3422,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &181190921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5839,20 +5823,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &305868644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11240,20 +11213,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &602522921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17375,20 +17337,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &960327448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17691,20 +17642,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &961752869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18257,20 +18197,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &992270099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26168,20 +26097,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &1440365263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28463,20 +28381,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades:
-  - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
-  - {fileID: 11400000, guid: cfe70f2377c518c49aa96ec9c136733a, type: 2}
-  - {fileID: 11400000, guid: cf5096d630ccf024d8a1106ea3d2448a, type: 2}
-  - {fileID: 11400000, guid: 3cc879f4aae0db242bdf9b750d855f29, type: 2}
-  - {fileID: 11400000, guid: 6a0b43b07091fe143b9bc8ce60688f85, type: 2}
-  - {fileID: 11400000, guid: 18bbf2f06f606d747875e2a5a2f9d84c, type: 2}
 --- !u!114 &1567017625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29657,14 +29564,9 @@ MonoBehaviour:
   unitAttackDamage: 0
   unitGoldReward: 0
   unitExpReward: 0
-  attackSpeed: 1
-  unitGoldReward: 0
-  unitExpReward: 0
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  activeUpgrades: []
-  upgrades: []
 --- !u!114 &1619859267
 MonoBehaviour:
   m_ObjectHideFlags: 0

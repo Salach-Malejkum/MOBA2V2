@@ -33,6 +33,7 @@ public class NetworkManagerLobby : NetworkManager
 
     public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
+    public List<GameObject> PlayersLoadedToGame = new List<GameObject>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
     public string connType = "remote";
