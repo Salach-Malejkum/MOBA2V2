@@ -6,11 +6,16 @@ using TMPro;
 
 public class LobbyTimer : NetworkBehaviour
 {
-    [SyncVar] private float timeLeft = 30f;
+    [SyncVar] public float timeLeft = 30f;
     private bool LobbyNotReady = true;
     public static event Action<float> OnTimeUpdated;
 
-    [ServerCallback]
+    public override void OnStopServer()
+    {
+        timeLeft = 30f;
+        base.OnStopServer();
+    }
+
     void Update()
     {
         if(NetworkManagerLobby.Instance.RoomPlayers.Count > 0)
@@ -20,18 +25,19 @@ public class LobbyTimer : NetworkBehaviour
                 LobbyNotReady = false;
             }
             
-            if (timeLeft > 0) {
+            if (timeLeft > 0.1) {
                 timeLeft -= Time.deltaTime;
                 OnTimeUpdated?.Invoke(timeLeft);
             } else {
                 timeLeft = 0f;
                 OnTimeUpdated?.Invoke(timeLeft);
             }
-
-            if(!LobbyNotReady && timeLeft == 0f) {
-                NetworkManagerLobby.Instance.StartGame();
-            } else if (timeLeft == 0f) {
-                NetworkManagerLobby.Instance.OnApplicationQuit();
+            if(isServer) {
+                if(!LobbyNotReady && timeLeft == 0f) {
+                    NetworkManagerLobby.Instance.StartGame();
+                } else if (timeLeft == 0f) {
+                    NetworkManagerLobby.Instance.OnApplicationQuit();
+                }
             }
         }
     }

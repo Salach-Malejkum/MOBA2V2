@@ -153,9 +153,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
     //można zmienić przycisk na countdown, na razie do testowania przycisk jest ok
     public void NotifyPlayersOfReadyState() {
-        foreach (var player in Instance.RoomPlayers) {
-            player.HandleReadyToStart(IsReadyToStart());
-        }
+
     }
     //dobry check na akceptacje meczu, można dać OnApplicationQuit() NetworkServer.Shutdown() jeżeli nie będzie ready w odpowiednim czasie i powrócić do menu
     public bool IsReadyToStart() {
