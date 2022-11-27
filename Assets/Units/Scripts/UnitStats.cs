@@ -41,7 +41,6 @@ public abstract class UnitStats : NetworkBehaviour
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
-        
     }
 
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)
@@ -52,7 +51,7 @@ public abstract class UnitStats : NetworkBehaviour
     private void OnHealthChanged(float oldHP, float newHP) {
         if (this.unitCurrentHealth <= 0)
         {
-            onUnitDeath?.Invoke();
+            this.onUnitDeath?.Invoke();
         }
     }
 }
