@@ -589,7 +589,6 @@ MonoBehaviour:
   - {fileID: 8700958840904814219}
   - {fileID: 1978690810017053406}
   - {fileID: 1595029404229587266}
-  startGameButton: {fileID: 0}
   timeText: {fileID: 1088185757663561808}
   IsReady: 0
   DisplayName: Loading...

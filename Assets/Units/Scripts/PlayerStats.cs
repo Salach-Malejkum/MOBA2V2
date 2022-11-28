@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System;
 
 public class PlayerStats : UnitStats
 {
@@ -12,10 +11,28 @@ public class PlayerStats : UnitStats
         set { playerGold = value; }
     }
     [SyncVar] [SerializeField] protected float playerExp = 0f;
-    [SerializeField] private float playerHealthRegen = 2.5f;
+    [SyncVar(hook = nameof(OnHealthRegenChanged))] [SerializeField] private float playerHealthRegen = 2.5f;
+    public float PlayerHealthRegen
+    {
+        get { return playerHealthRegen; }
+    }
+
+    [SyncVar] public string playerName;
+
     private float timer;
     [SyncVar] public string lane;
     [SyncVar] public string side;
+
+    public event Action<float> OnHealthRegenUptade;
+    public event Action<float, float> OnHealthUptade;
+    public event Action<float, float> OnMaxHealthUptade;
+    public event Action<float> OnAttackUptade;
+    public event Action<float> OnAbilityPowerUptade;
+    public event Action<float> OnArmorUptade;
+    public event Action<float> OnMagicResistUptade;
+    public event Action<float> OnMovementSpeedUptade;
+    public event Action<float> OnAttackSpeedUptade;
+    public event Action<float> OnCooldownReductionUptade;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
@@ -28,6 +45,11 @@ public class PlayerStats : UnitStats
         base.RemoveHealthOnNormalAttack(damageAmount, agressor);
     }
 
+    private void OnHealthRegenChanged(float oldHPRegen, float newHPRegen)
+    {
+        OnHealthRegenUptade?.Invoke(newHPRegen);
+    }
+
     [Command]
     private void CmdReadyToRespawn() {
         this.gameObject.SetActive(false);
@@ -38,30 +60,95 @@ public class PlayerStats : UnitStats
     private void RpcReadyToRespawn() {
         this.gameObject.SetActive(false);
     }
-
+    
     public void AddItemStatsToPlayer(ShopItemSo item)
     {
-        this.unitMaxHealth += item.Health;
-        this.unitArmor += item.Armor;
-        this.unitMagicResist += item.MagicResist;
-        this.unitAttackDamage += item.Attack;
-        this.unitAbilityPower += item.AbilityPower;
-        this.unitCooldownReduction += item.CooldownReduction;
+        if (item.Health != 0)
+        {
+            this.unitMaxHealth += item.Health;
+            this.OnMaxHealthUptade?.Invoke(this.unitCurrentHealth, this.unitMaxHealth);
+        }
+
+        if (item.Armor != 0)
+        {
+            this.unitArmor += item.Armor;
+            this.OnArmorUptade?.Invoke(this.unitArmor);
+        }
+
+
+        if (item.MagicResist != 0)
+        {
+            this.unitMagicResist += item.MagicResist;
+            this.OnMagicResistUptade?.Invoke(this.unitMagicResist);
+        }
+
+
+        if (item.Attack != 0)
+        {
+            this.unitAttackDamage += item.Attack;
+            this.OnAttackUptade?.Invoke(this.unitAttackDamage);
+        }
+
+
+        if (item.AbilityPower != 0)
+        {
+            this.unitAbilityPower += item.AbilityPower;
+            this.OnAbilityPowerUptade?.Invoke(this.unitAbilityPower);
+        }
+
+
+        if (item.CooldownReduction != 0)
+        {
+            this.unitCooldownReduction += item.CooldownReduction;
+            this.OnCooldownReductionUptade?.Invoke(this.unitCooldownReduction);
+        }
+
     }
 
     public void SubtractItemStatsFromPlayer(ShopItemSo item)
     {
-        this.unitMaxHealth -= item.Health;
-
-        if (this.unitMaxHealth > this.unitCurrentHealth)
+        if (item.Health != 0)
         {
-            this.unitCurrentHealth = this.unitMaxHealth;
+            this.unitMaxHealth -= item.Health;
+            this.OnMaxHealthUptade?.Invoke(this.unitCurrentHealth, this.unitMaxHealth);
+            if (this.unitMaxHealth > this.unitCurrentHealth)
+            {
+                this.unitCurrentHealth = this.unitMaxHealth;
+            }
         }
 
-        this.unitArmor -= item.Armor;
-        this.unitMagicResist -= item.MagicResist;
-        this.unitAttackDamage -= item.Attack;
-        this.unitAbilityPower -= item.AbilityPower;
-        this.unitCooldownReduction -= item.CooldownReduction;
+        if (item.Armor != 0)
+        {
+            this.unitArmor -= item.Armor;
+            this.OnArmorUptade?.Invoke(this.unitArmor);
+        }
+
+
+        if (item.MagicResist != 0)
+        {
+            this.unitMagicResist -= item.MagicResist;
+            this.OnMagicResistUptade?.Invoke(this.unitMagicResist);
+        }
+
+
+        if (item.Attack != 0)
+        {
+            this.unitAttackDamage -= item.Attack;
+            this.OnAttackUptade?.Invoke(this.unitAttackDamage);
+        }
+
+
+        if (item.AbilityPower != 0)
+        {
+            this.unitAbilityPower -= item.AbilityPower;
+            this.OnAbilityPowerUptade?.Invoke(this.unitAbilityPower);
+        }
+
+
+        if (item.CooldownReduction != 0)
+        {
+            this.unitCooldownReduction -= item.CooldownReduction;
+            this.OnCooldownReductionUptade?.Invoke(this.unitCooldownReduction);
+        }
     }
 }
