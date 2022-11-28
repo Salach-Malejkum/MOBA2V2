@@ -103,8 +103,9 @@ public abstract class UnitStats : NetworkBehaviour
     private void OnAttackChanged(float oldAttack, float newAttack)
     {
         Debug.Log("AttackChanged");
-        Debug.Log(this.OnAttackUptade.GetInvocationList().Length);
-        this.OnAttackUptade.Invoke(newAttack);
+        //Debug.Log(this.OnAttackUptade.GetInvocationList().Length);
+        Debug.Log("old attack: " + oldAttack + "new attack" + newAttack);
+        this.OnAttackUptade?.Invoke(newAttack);
     }
 
     private void OnAbilityPowerChanged(float oldAP, float newAP)

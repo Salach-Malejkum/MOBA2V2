@@ -47,7 +47,7 @@ public class PlayerStats : UnitStats
         this.gameObject.SetActive(false);
     }
     
-    [Client]
+    //[Client]
     public void AddItemStatsToPlayer(ShopItemSo item)
     {
         this.unitMaxHealth += item.Health;
@@ -58,7 +58,7 @@ public class PlayerStats : UnitStats
         this.unitCooldownReduction += item.CooldownReduction;
     }
 
-    [Client]
+    //[Client]
     public void SubtractItemStatsFromPlayer(ShopItemSo item)
     {
         this.unitMaxHealth -= item.Health;
