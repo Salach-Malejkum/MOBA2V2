@@ -3,12 +3,13 @@ using UnityEngine;
 public class DisplayLocalPlayerStats : MonoBehaviour
 {
     [SerializeField]
-    private UIStatsTemplate template;
+    private UIStatsTemplate template = null;
     [SerializeField]
-    private PlayerStats playerStats;
+    private PlayerStats playerStats = null;
 
     private void Awake()
     {
+        Debug.Log("Listeners added");
         playerStats.OnHealthUptade += LocalPlayerHealthUpdated;
         playerStats.OnMaxHealthUptade += LocalPlayerHealthUpdated;
         playerStats.OnAttackUptade += LocalPlayerAttackUpdated;
@@ -23,6 +24,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log("Listeners removed");
         playerStats.OnHealthUptade -= LocalPlayerHealthUpdated;
         playerStats.OnMaxHealthUptade -= LocalPlayerHealthUpdated;
         playerStats.OnAttackUptade -= LocalPlayerAttackUpdated;
@@ -37,6 +39,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("Base Stats Loaded");
         LoadLocalPlayerStats();
     }
 
@@ -46,12 +49,13 @@ public class DisplayLocalPlayerStats : MonoBehaviour
         {
             newCurrHP = newMaxHP;
         }
-        template.HealthBarImage.fillAmount = newCurrHP / newMaxHP;
-        template.HealthVal.text = newCurrHP + "/" + newMaxHP;
+        this.template.HealthBarImage.fillAmount = newCurrHP / newMaxHP;
+        this.template.HealthVal.text = newCurrHP + "/" + newMaxHP;
     }
 
     private void LocalPlayerAttackUpdated(float newStat)
     {
+        Debug.Log("Attack updated");
         this.template.AttackVal.text = "Attack: " + newStat.ToString();
     }
 
@@ -92,15 +96,15 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void LoadLocalPlayerStats()
     {
-        template.HealthBarImage.fillAmount = playerStats.UnitCurrentHealth / playerStats.UnitMaxHealth;
-        template.HealthVal.text = playerStats.UnitCurrentHealth + "/" + playerStats.UnitMaxHealth;
-        this.template.AttackVal.text = "Attack: " + playerStats.UnitAttackDamage.ToString();
-        this.template.AbilityPowerVal.text = "Abiliti Power: " + playerStats.UnitAbilityPower.ToString();
-        this.template.ArmorVal.text = "Armor: " + playerStats.UnitArmor.ToString();
-        this.template.MagicResistVal.text = "Magic Resist: " + playerStats.UnitMagicResist.ToString();
-        this.template.MovmentSpeedVal.text = "Movement Speed: " + playerStats.UnitMovementSpeed.ToString();
-        this.template.AttackSpeed.text = "Attack Speed: " + playerStats.AttackSpeed.ToString();
-        this.template.CooldownReductionVal.text = "Cooldown Reduction: " + playerStats.UnitCooldownReduction.ToString();
-        this.template.HealthRegenVal.text = "+" + playerStats.PlayerHealthRegen.ToString();
+        this.template.HealthBarImage.fillAmount = this.playerStats.UnitCurrentHealth / playerStats.UnitMaxHealth;
+        this.template.HealthVal.text = this.playerStats.UnitCurrentHealth + "/" + playerStats.UnitMaxHealth;
+        this.template.AttackVal.text = "Attack: " + this.playerStats.UnitAttackDamage.ToString();
+        this.template.AbilityPowerVal.text = "Abiliti Power: " + this.playerStats.UnitAbilityPower.ToString();
+        this.template.ArmorVal.text = "Armor: " + this.playerStats.UnitArmor.ToString();
+        this.template.MagicResistVal.text = "Magic Resist: " + this.playerStats.UnitMagicResist.ToString();
+        this.template.MovmentSpeedVal.text = "Movement Speed: " + this.playerStats.UnitMovementSpeed.ToString();
+        this.template.AttackSpeed.text = "Attack Speed: " + this.playerStats.AttackSpeed.ToString();
+        this.template.CooldownReductionVal.text = "Cooldown Reduction: " + this.playerStats.UnitCooldownReduction.ToString();
+        this.template.HealthRegenVal.text = "+" + this.playerStats.PlayerHealthRegen.ToString();
     }
 }

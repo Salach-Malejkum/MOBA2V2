@@ -88,7 +88,7 @@ public abstract class UnitStats : NetworkBehaviour
     }
 
     private void OnHealthChanged(float oldHP, float newHP) {
-        OnHealthUptade?.Invoke(newHP, unitMaxHealth);
+        this.OnHealthUptade?.Invoke(newHP, unitMaxHealth);
         if (this.unitCurrentHealth <= 0)
         {
             this.onUnitDeath?.Invoke();
@@ -97,41 +97,43 @@ public abstract class UnitStats : NetworkBehaviour
 
     private void OnMaxHealthChanged(float oldMaxHP, float newMaxHP)
     {
-        OnMaxHealthUptade?.Invoke(unitCurrentHealth, newMaxHP);
+        this.OnMaxHealthUptade?.Invoke(this.unitCurrentHealth, newMaxHP);
     }
 
     private void OnAttackChanged(float oldAttack, float newAttack)
     {
-        OnAttackUptade?.Invoke(newAttack);
+        Debug.Log("AttackChanged");
+        Debug.Log(this.OnAttackUptade.GetInvocationList().Length);
+        this.OnAttackUptade.Invoke(newAttack);
     }
 
     private void OnAbilityPowerChanged(float oldAP, float newAP)
     {
-        OnAbilityPowerUptade?.Invoke(newAP);
+        this.OnAbilityPowerUptade?.Invoke(newAP);
     }
 
     private void OnArmorChanged(float oldArmor, float newArmor)
     {
-        OnArmorUptade?.Invoke(newArmor);
+        this.OnArmorUptade?.Invoke(newArmor);
     }
 
     private void OnMagicResistChanged(float oldMR, float newMR)
     {
-        OnMagicResistUptade?.Invoke(newMR);
+        this.OnMagicResistUptade?.Invoke(newMR);
     }
 
     private void OnMovementSpeedChanged(float oldMS, float newMS)
     {
-        OnMovementSpeedUptade?.Invoke(newMS);
+        this.OnMovementSpeedUptade?.Invoke(newMS);
     }
 
     private void OnAttackSpeedChanged(float oldAS, float newAS)
     {
-        OnAttackSpeedUptade?.Invoke(newAS);
+        this.OnAttackSpeedUptade?.Invoke(newAS);
     }
 
     private void OnCooldownReductionChanged(float oldCD, float newCD)
     {
-        OnCooldownReductionUptade?.Invoke(newCD);
+        this.OnCooldownReductionUptade?.Invoke(newCD);
     }
 }

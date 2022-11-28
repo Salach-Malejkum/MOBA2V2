@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System;
@@ -48,7 +46,8 @@ public class PlayerStats : UnitStats
     private void RpcReadyToRespawn() {
         this.gameObject.SetActive(false);
     }
-
+    
+    [Client]
     public void AddItemStatsToPlayer(ShopItemSo item)
     {
         this.unitMaxHealth += item.Health;
@@ -59,6 +58,7 @@ public class PlayerStats : UnitStats
         this.unitCooldownReduction += item.CooldownReduction;
     }
 
+    [Client]
     public void SubtractItemStatsFromPlayer(ShopItemSo item)
     {
         this.unitMaxHealth -= item.Health;
