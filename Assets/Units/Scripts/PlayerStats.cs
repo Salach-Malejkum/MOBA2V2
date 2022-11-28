@@ -5,22 +5,24 @@ using Mirror;
 
 public class PlayerStats : UnitStats
 {
-    [SerializeField] protected float playerGold = 100f;
-    public float PlayerGold
-    {
-        get { return playerGold; }
-        set { playerGold = value; }
-    }
     [SyncVar] [SerializeField] protected float playerExp = 0f;
     [SerializeField] private float playerHealthRegen = 2.5f;
     private float timer;
     [SyncVar] public string playerLane;
     [SyncVar] public string playerSide;
-    [SerializeField] protected float playerGold;
+
+    [SyncVar][SerializeField] protected float playerGold = 100f;
     public float PlayerGold
     {
         get { return playerGold; }
         set { playerGold = value; }
+    }
+
+    [SyncVar][SerializeField] protected float playerResources = 3f;
+    public float PlayerResources
+    {
+        get { return playerResources; }
+        set { playerResources = value; }
     }
 
     public override void OnStartAuthority() {
@@ -39,11 +41,11 @@ public class PlayerStats : UnitStats
         }
     }
 
-    public void AddGold(int goldAmount)
-    {
-        this.playerGold += goldAmount;
-        Debug.Log("Gold: " + this.playerGold);
-    }
+    //public void AddGold(int goldAmount)
+    //{
+    //    this.playerGold += goldAmount;
+    //    Debug.Log("Gold: " + this.playerGold);
+    //}
 
     public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject aggressor)
     {

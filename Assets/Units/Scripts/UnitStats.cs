@@ -26,8 +26,8 @@ public abstract class UnitStats : NetworkBehaviour
     protected int unitCurrentLevel = 1;
     protected float unitRegenerationIntervalSeconds = 1f;
 
-    [SyncVar][SerializeField] public int resourcesOnDeath;
-    [SyncVar][SerializeField] public int goldOnDeath;
+    [SyncVar][SerializeField] public float resourcesOnDeath;
+    [SyncVar][SerializeField] public float goldOnDeath;
     [SyncVar] public GameObject lastAggressor;
 
     public event Action onUnitDeath;
@@ -49,11 +49,6 @@ public abstract class UnitStats : NetworkBehaviour
         if (aggresor.tag == "Player")
         {
             this.lastAggressor = aggresor;
-        }
-
-        if (this.unitCurrentHealth <= 0)
-        {
-            onUnitDeath?.Invoke();
         }
     }
 

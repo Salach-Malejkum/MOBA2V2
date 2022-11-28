@@ -39,10 +39,12 @@ public class MobStats : UnitStats
     [Server]
     protected virtual void HandleMobDeath()
     {
-        //if (this.lastAggressor.tag == "Player")
-        //{
-        //    this.lastAggressor.GetComponent<PlayerStats>().AddGold(this.goldOnDeath);
-        //}
+        if (this.lastAggressor.tag == "Player")
+        {
+            PlayerStats stats = this.lastAggressor.GetComponent<PlayerStats>();
+            stats.PlayerGold += this.goldOnDeath;
+            //this.lastAggressor.GetComponent<PlayerStats>().AddGold(this.goldOnDeath);
+        }
         NetworkServer.Destroy(this.gameObject);
     }
 }
