@@ -8,6 +8,6 @@ public class SetActiveStatsCanvas : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        statsCanvas.SetActive(true);
+        this.statsCanvas.SetActive(true);
     }
 }
