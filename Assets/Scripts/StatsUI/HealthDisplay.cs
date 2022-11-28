@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +11,7 @@ public class HealthDisplay : MonoBehaviour
     {
         this.unitStats.OnUnitMaxHealthUptade += LocalPlayerHealthUpdated;
         this.unitStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
-        transf = GetComponent<RectTransform>();
+        this.transf = GetComponent<RectTransform>();
     }
 
     private void OnDestroy()
@@ -25,7 +22,7 @@ public class HealthDisplay : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transf.rotation = Quaternion.Euler(-45f, 0, 0);
+        this.transf.rotation = Quaternion.Euler(-45f, 0, 0);
     }
 
     private void LocalPlayerHealthUpdated(float newCurrHP, float newMaxHP)

@@ -65,7 +65,6 @@ public class PlayerStats : UnitStats
         this.gameObject.SetActive(false);
     }
     
-    //[Client]
     public void AddItemStatsToPlayer(ShopItemSo item)
     {
         if (item.Health != 0)
@@ -110,7 +109,6 @@ public class PlayerStats : UnitStats
 
     }
 
-    //[Client]
     public void SubtractItemStatsFromPlayer(ShopItemSo item)
     {
         if (item.Health != 0)

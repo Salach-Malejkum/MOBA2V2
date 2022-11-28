@@ -9,12 +9,8 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     [SerializeField]
     private PlayerSkills playerSkills = null;
 
-    private readonly int delayAmount = 1;
-    private float timer;
-
     private void Awake()
     {
-        Debug.Log("Listeners added");
         this.playerStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
         this.playerStats.OnHealthUptade += LocalPlayerHealthUpdated;
         this.playerStats.OnMaxHealthUptade += LocalPlayerHealthUpdated;
@@ -38,7 +34,6 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log("Listeners removed");
         this.playerStats.OnUnitHealthUptade -= LocalPlayerHealthUpdated;
         this.playerStats.OnHealthUptade -= LocalPlayerHealthUpdated;
         this.playerStats.OnMaxHealthUptade -= LocalPlayerHealthUpdated;
@@ -62,8 +57,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Base Stats Loaded");
-        LoadLocalPlayerStats();
+        this.LoadLocalPlayerStats();
     }
 
     private void LocalPlayerHealthUpdated(float newCurrHP, float newMaxHP)
@@ -78,7 +72,6 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void LocalPlayerAttackUpdated(float newStat)
     {
-        Debug.Log("Attack updated");
         this.template.AttackVal.text = "Attack: " + newStat.ToString();
     }
 
