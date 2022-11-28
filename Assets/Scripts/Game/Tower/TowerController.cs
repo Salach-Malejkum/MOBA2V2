@@ -83,6 +83,11 @@ public class TowerController : NetworkBehaviour, IOutlinable
         Vector3 currentPos = this.transform.position;
         foreach (GameObject go in enemies)
         {
+            if (go.tag == "Player" && !go.active)
+            {
+                continue;
+            }
+
             float dist = Vector3.Distance(go.transform.position, currentPos);
             if (dist < minDist)
             {
