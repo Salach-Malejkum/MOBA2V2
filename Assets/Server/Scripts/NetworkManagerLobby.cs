@@ -48,11 +48,12 @@ public class NetworkManagerLobby : NetworkManager
         OnServerNotReady += OnApplicationQuit;
     }
 
-     //jak wywali na lokal to nie da sie znowu shostować
+    //jak wywali na lokal to nie da sie znowu shostować
     public override void OnApplicationQuit()
     {
         NetworkServer.Shutdown();
         base.OnApplicationQuit();
+    }
 
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message)
     {
