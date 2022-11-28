@@ -81,13 +81,13 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [Command]
     public void CmdCancelQueue()
     {
-        if (NetworkManagerLobby.Instance.connType == "remote")
+        if (NetworkManagerLobby.Instance.connType == "host")
         {
-            NetworkManagerLobby.Instance.StopClient();
+            NetworkManagerLobby.Instance.StopHost();
         }
         else
         {
-            NetworkManagerLobby.Instance.StopHost();
+            NetworkManagerLobby.Instance.StopClient();
         }
 
     }

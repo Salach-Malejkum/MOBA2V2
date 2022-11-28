@@ -14,6 +14,7 @@ public class PlayerStats : UnitStats
         this.unitCurrentHealth = this.unitMaxHealth;
         this.timer = this.regenerationIntervalSeconds;
         this.onUnitDeath += CmdReadyToRespawn;
+        NetworkManagerLobby.Instance.PlayerSide = this.side;
     }
 
     public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject agressor) {
@@ -22,6 +23,7 @@ public class PlayerStats : UnitStats
 
     [Command]
     private void CmdReadyToRespawn() {
+        this.gameObject.SetActive(false);
         RpcReadyToRespawn();
     }
 

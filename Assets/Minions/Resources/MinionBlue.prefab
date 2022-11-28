@@ -67,6 +67,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   gold: 0
 --- !u!114 &7066884865019517646
 MonoBehaviour:

@@ -24,10 +24,10 @@ public class PlayerSpawnPoint : NetworkBehaviour
         if(this.playerAssigned != null) {
             if(!playerAssigned.gameObject.activeSelf) {
                 if(respawnTimer > 0.1f) {
-                    Debug.Log("current timer: " + respawnTimer.ToString());
                     this.respawnTimer -= Time.deltaTime;
                 } else {
-                    Debug.Log("current timer: " + respawnTimer.ToString());
+                    this.playerAssigned.transform.position = this.transform.position;
+                    this.playerAssigned.SetActive(true);
                     RpcHandlePlayerRespawn();
                     this.respawnTimer = this.respawnTimeInterval;
                 }

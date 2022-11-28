@@ -13,11 +13,14 @@ public class NetworkManagerLobby : NetworkManager {
     
     [SerializeField] private int minPlayers = 2;
     [Scene] [SerializeField] private string menuScene = string.Empty;
+    [Scene] [SerializeField] private string mapScene = string.Empty;
 
     [SerializeField] private NetworkRoomPlayer roomPlayerPrefab = default;
 
     [SerializeField] private NetworkInGamePlayer inGamePlayerPrefab = default;
     [SerializeField] private GameObject playerSpawnSystem = default;
+    public string PlayerSide = "";
+    [SerializeField] public string whichSideLost = "";
 
     public static NetworkManagerLobby Instance { get; private set; }
     //event Action nie działa tutaj
@@ -31,9 +34,12 @@ public class NetworkManagerLobby : NetworkManager {
     public static event Action OnLobbyIsReady;
     public static event Action OnServerNotReady;
     public static event EventHandler<OnPlayerSpawnArgs> OnServerReadied;
+    public static event Action OnGameWon;
+    public static event Action OnGameLost;
 
     public List<NetworkRoomPlayer> RoomPlayers = new List<NetworkRoomPlayer>();
     public List<NetworkInGamePlayer> InGamePlayers = new List<NetworkInGamePlayer>();
+    public List<NetworkIdentity> PlayersLoadedToScene = new List<NetworkIdentity>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
     public string connType = "remote";
@@ -44,6 +50,7 @@ public class NetworkManagerLobby : NetworkManager {
         Instance = this;
         NetworkServer.RegisterHandler<AuthenticateMessage>(OnReceiveAuthenticateMessage);
         OnServerNotReady += OnApplicationQuit;
+        UnitStats.onWinConditionMet += OnGameEnd;
     }
     //jak wywali na lokal to nie da sie znowu shostować
     public override void OnApplicationQuit()
@@ -127,6 +134,11 @@ public class NetworkManagerLobby : NetworkManager {
                 Debug.Log(rplayer.DisplayName);
             }
         }
+        if (SceneManager.GetActiveScene().name == "AfterGameScene") {
+
+            var inGamePlayer = Instantiate(inGamePlayerPrefab);
+            NetworkServer.AddPlayerForConnection(conn, inGamePlayer.gameObject);
+        }
     }
     //uusnięcie obiektu gracza i połączenia z listy przy evencie rozłączenia
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
@@ -167,6 +179,35 @@ public class NetworkManagerLobby : NetworkManager {
 
         return true;
     }
+
+    public override void ServerChangeScene(string mapName)
+    {
+        if (SceneManager.GetActiveScene().path == menuScene)
+        {
+            for (int i = Instance.RoomPlayers.Count - 1; i >= 0; i--)
+            {
+                var conn = Instance.RoomPlayers[i].connectionToClient;
+                var playerConn = Instance.playerConnections.Find(c => c.Connection == conn);
+                playerConn.ConnectionToClient = conn;
+                Debug.Log(conn);
+                if (playerConn != null)
+                {
+                    playerConn.inGamePlayerId = i;
+                }
+                else
+                {
+                    Instance.playerConnections.Add(new PlayerConnection()
+                    {
+                        Connection = conn,
+                        ConnectionId = conn.connectionId,
+                        inGamePlayerId = i,
+                    });
+                }
+            }
+        } 
+        base.ServerChangeScene(mapName);
+    }
+
     //zmiana sceny po ready check
     public void StartGame() {
         if(SceneManager.GetActiveScene().path == menuScene) {
@@ -176,41 +217,6 @@ public class NetworkManagerLobby : NetworkManager {
         }
     }
 
-    public override void ServerChangeScene(string mapName) {
-        if(SceneManager.GetActiveScene().path == menuScene) {
-            for (int i = Instance.RoomPlayers.Count - 1; i >= 0; i--) {
-                var conn = Instance.RoomPlayers[i].connectionToClient;
-                var playerConn = Instance.playerConnections.Find(c => c.Connection == conn);
-
-                if (playerConn != null) {
-                    playerConn.inGamePlayerId = i;
-                } else {
-                    Instance.playerConnections.Add(new PlayerConnection() {
-                        Connection = conn,
-                        ConnectionId = conn.connectionId,
-                        inGamePlayerId = i,
-                    });
-                }
-                
-                var inGamePlayerInstance = Instantiate(inGamePlayerPrefab);
-
-                inGamePlayerInstance.SetDisplayName(Instance.RoomPlayers[i].DisplayName);
-                inGamePlayerInstance.playerIdx = i;
-
-                Debug.Log("Room player " + Instance.RoomPlayers[i].DisplayName + " changed to inGamePlayer ");
-
-                NetworkServer.Destroy(conn.identity.gameObject);
-
-                //wymiana obiektów z lobby na ingame, potem można z nich pobierać nick i ewentualnie ustawić im UI do pokazania graczom.
-                NetworkServer.ReplacePlayerForConnection(conn, inGamePlayerInstance.gameObject);
-                if(Instance.connType == "remote") {
-                    Instance.InGamePlayers.Add(conn.identity.GetComponent<NetworkInGamePlayer>());
-                }
-            }
-
-            base.ServerChangeScene(mapName);
-        }
-    }
     //po zmianie sceny spawn graczy, tutaj można też dodać cooldown na spawn minionów itp.
     public override void OnServerSceneChanged(string newSceneName)
     {
@@ -218,6 +224,12 @@ public class NetworkManagerLobby : NetworkManager {
             GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
             NetworkServer.Spawn(playerSpawnSystemInstance);
         }
+    }
+
+    private void OnGameEnd() {
+       
+        
+        ServerChangeScene("AfterGameScene");
     }
 
     public override void OnServerReady(NetworkConnectionToClient conn)
@@ -234,6 +246,7 @@ public class PlayerConnection {
     public string LobbyId;
     public int ConnectionId;
     public NetworkConnection Connection;
+    public NetworkConnectionToClient ConnectionToClient;
     public int inGamePlayerId;
 }
 //musi być struct bo NonNullable
