@@ -49,6 +49,7 @@ public abstract class UnitStats : NetworkBehaviour
         if (aggresor.tag == "Player")
         {
             this.lastAggressor = aggresor;
+            Debug.Log("Aggressor: " + aggresor);
         }
     }
 

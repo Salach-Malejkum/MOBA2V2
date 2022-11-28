@@ -70,6 +70,7 @@ public class PlayerSpawn : NetworkBehaviour
 
         spawnPoints[args.PlayerId].AssignPlayerToThisSpawnPoint(playerInstance);
 
+        GameObject.Find("SpawnPoints").GetComponent<PassiveIncomeManager>().AddPlayer(playerInstance);
         playerInstance.GetComponent<UpgradeManager>().SetTurrets();
     }
 
