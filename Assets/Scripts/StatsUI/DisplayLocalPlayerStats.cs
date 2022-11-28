@@ -1,19 +1,26 @@
+using Mirror;
 using UnityEngine;
 
 public class DisplayLocalPlayerStats : MonoBehaviour
 {
     [SerializeField]
     private UIStatsTemplate template = null;
-    [SerializeField]
+    //[SerializeField]
     private PlayerStats playerStats = null;
     [SerializeField]
     private PlayerSkills playerSkills = null;
 
     private void Awake()
     {
+        foreach(NetworkIdentity player in NetworkManagerLobby.Instance.PlayersLoadedToScene)
+        {
+            if (player.isLocalPlayer)
+            {
+                playerStats = player.gameObject.GetComponent<PlayerStats>();
+            }
+        }
         this.playerStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
-        this.playerStats.OnHealthUptade += LocalPlayerHealthUpdated;
-        this.playerStats.OnMaxHealthUptade += LocalPlayerHealthUpdated;
+        this.playerStats.OnUnitMaxHealthUptade += LocalPlayerHealthUpdated;
         this.playerStats.OnAttackUptade += LocalPlayerAttackUpdated;
         this.playerStats.OnAbilityPowerUptade += LocalPlayerAbilityPowerUpdated;
         this.playerStats.OnArmorUptade += LocalPlayerArmorUpdated;
@@ -35,8 +42,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     private void OnDestroy()
     {
         this.playerStats.OnUnitHealthUptade -= LocalPlayerHealthUpdated;
-        this.playerStats.OnHealthUptade -= LocalPlayerHealthUpdated;
-        this.playerStats.OnMaxHealthUptade -= LocalPlayerHealthUpdated;
+        this.playerStats.OnUnitMaxHealthUptade -= LocalPlayerHealthUpdated;
         this.playerStats.OnAttackUptade -= LocalPlayerAttackUpdated;
         this.playerStats.OnAbilityPowerUptade -= LocalPlayerAbilityPowerUpdated;
         this.playerStats.OnArmorUptade -= LocalPlayerArmorUpdated;
@@ -59,6 +65,11 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     {
         this.LoadLocalPlayerStats();
     }
+
+    //private void Update()
+    //{
+    //    this.template.AttackVal.text = "Attack: " + this.playerStats.UnitAttackDamage.ToString();
+    //}
 
     private void LocalPlayerHealthUpdated(float newCurrHP, float newMaxHP)
     {
