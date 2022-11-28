@@ -37,7 +37,7 @@ public class AfterGameMenu : MonoBehaviour
     private void DisconnectLogic() {
         if (NetworkManagerLobby.Instance.connType == "host") {
             NetworkManagerLobby.Instance.StopHost();
-        } else if (NetworkManagerLobby.Instance.connType == "local") {
+        } else if (NetworkManagerLobby.Instance.connType == "remoteClient") {
             NetworkManagerLobby.Instance.StopClient();
         } else {
             NetworkManagerLobby.Instance.OnApplicationQuit();

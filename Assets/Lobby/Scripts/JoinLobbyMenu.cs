@@ -22,7 +22,7 @@ public class JoinLobbyMenu : MonoBehaviour
 
     public void JoinLobby() {
         string ipAddress = ipAddressInputField.text;
-        NetworkManagerLobby.Instance.connType = "local";
+        NetworkManagerLobby.Instance.connType = "remoteClient";
         NetworkManagerLobby.Instance.networkAddress = ipAddress;
         NetworkManagerLobby.Instance.StartClient();
     
