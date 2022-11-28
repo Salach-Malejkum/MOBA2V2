@@ -10,7 +10,7 @@ public class GameResultHold : NetworkBehaviour
 
     void Update() {
         if (gameResult == "") {
-            gameResult = NetworkManagerLobby.Instance.whichSideLost;
+            this.gameResult = NetworkManagerLobby.Instance.whichSideLost;
         }
         
     }
