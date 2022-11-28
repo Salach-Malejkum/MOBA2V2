@@ -42,7 +42,7 @@ public class NetworkManagerLobby : NetworkManager {
     public List<NetworkIdentity> PlayersLoadedToScene = new List<NetworkIdentity>();
     public List<PlayerConnection> playerConnections = new List<PlayerConnection>();
 
-    public string connType = "remote";
+    public string connType = "remoteServer";
 
     public override void Awake()
     {
@@ -124,7 +124,7 @@ public class NetworkManagerLobby : NetworkManager {
 
             NetworkServer.AddPlayerForConnection(conn, roomPlayerInstance.gameObject);
             //klient nie może tego dodać, musi to być serwer, OnServerRemovePlayer powinien usuwać ale nie wiem jak dać call dla ClientScene.RemovePlayer().
-            if(Instance.connType == "remote") {
+            if(Instance.connType == "remoteServer") {
                 Instance.RoomPlayers.Add(conn.identity.GetComponent<NetworkRoomPlayer>());
             }
 

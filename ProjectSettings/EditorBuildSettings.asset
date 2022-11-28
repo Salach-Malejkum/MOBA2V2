@@ -9,7 +9,13 @@ EditorBuildSettings:
     path: Assets/Lobby/Scenes/Lobby.unity
     guid: 3a9e938909240734484a21d0fefa8cc5
   - enabled: 1
+    path: Assets/Lobby/Scenes/RoomForLoadingPlayers.unity
+    guid: 799b7e0e5a1f1d447aed872f522eac0a
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: 4ee96fd8e891372489ff487b6c79f1bc
+  - enabled: 1
+    path: Assets/Lobby/Scenes/AfterGameScene.unity
+    guid: 3cc1ff65563258e4aa137952337113bd
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: cf0f093f68e415f4ea65342ca2d4853d, type: 2}
