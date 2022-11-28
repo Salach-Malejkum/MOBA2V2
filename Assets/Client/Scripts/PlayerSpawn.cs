@@ -72,6 +72,8 @@ public class PlayerSpawn : NetworkBehaviour
 
         spawnPoints[args.PlayerId].AssignPlayerToThisSpawnPoint(playerInstance);
 
+        NetworkManagerLobby.Instance.PlayersLoadedToScene.Add(playerInstance.GetComponent<NetworkIdentity>());
+
         playerInstance.GetComponent<UpgradeManager>().SetTurrets();
     }
 

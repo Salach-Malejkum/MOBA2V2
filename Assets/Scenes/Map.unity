@@ -2812,6 +2812,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 1
   activeUpgrades: []
   upgrades: []
 --- !u!114 &141223263
@@ -3694,6 +3695,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &181190921
@@ -6180,6 +6182,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &305868644
@@ -11956,6 +11959,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &602522921
@@ -18442,6 +18446,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &960327448
@@ -18756,6 +18761,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &961752869
@@ -19320,6 +19326,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &992270099
@@ -27807,6 +27814,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &1440365263
@@ -30505,6 +30513,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades: []
 --- !u!114 &1567017625
@@ -31697,6 +31706,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 1
   activeUpgrades: []
   upgrades: []
 --- !u!114 &1619859267

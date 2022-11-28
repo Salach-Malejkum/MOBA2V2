@@ -51,10 +51,13 @@ public abstract class UnitStats : NetworkBehaviour
     {
         get { return unitCooldownReduction; }
     }
+    [SerializeField] private bool IsWinCondition = false;
+
     protected int currentLevel = 1;
     protected float regenerationIntervalSeconds = 1f;
 
     public event Action onUnitDeath;
+    public static event Action onWinConditionMet;
 
     [Server]
     public virtual void AddHealth(float hpAmount)
@@ -79,26 +82,33 @@ public abstract class UnitStats : NetworkBehaviour
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
-
-        if (this.unitCurrentHealth <= 0)
-        {
-            this.onUnitDeath?.Invoke();
-        }
+        this.OnDeathCheck();
     }
 
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
+        this.OnDeathCheck();
     }
 
     private void OnHealthChanged(float oldHP, float newHP) {
         this.OnUnitHealthUptade?.Invoke(newHP, unitMaxHealth);
-        if (this.unitCurrentHealth <= 0)
-        {
-            this.onUnitDeath?.Invoke();
-        }
+        this.OnDeathCheck();
     }
 
+    protected void OnDeathCheck() 
+    {
+        if (this.unitCurrentHealth <= 0) 
+        {
+            if (this.IsWinCondition) 
+            {
+                NetworkManagerLobby.Instance.whichSideLost = LayerMask.LayerToName(this.gameObject.layer);
+                onWinConditionMet?.Invoke();
+            }
+            onUnitDeath?.Invoke();
+        }
+    }
+    
     private void OnMaxHealthChanged(float oldMaxHP, float newMaxHP)
     {
         this.OnUnitMaxHealthUptade?.Invoke(this.unitCurrentHealth, newMaxHP);

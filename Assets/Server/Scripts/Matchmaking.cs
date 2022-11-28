@@ -21,6 +21,7 @@ public class Matchmaking : MonoBehaviour
         this.playButton.SetActive(false);
         this.queueStatusText.text = "Submitting ticker";
         this.queueStatusText.gameObject.SetActive(true);
+        NetworkManagerLobby.Instance.connType = "remoteClient";
 
         PlayFabMultiplayerAPI.CreateMatchmakingTicket(
             new CreateMatchmakingTicketRequest {
