@@ -47,7 +47,6 @@ public class NetworkManagerLobby : NetworkManager
         NetworkServer.RegisterHandler<AuthenticateMessage>(OnReceiveAuthenticateMessage);
         OnServerNotReady += OnApplicationQuit;
     }
-
     //jak wywali na lokal to nie da sie znowu shostować
     public override void OnApplicationQuit()
     {
