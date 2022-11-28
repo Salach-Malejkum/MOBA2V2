@@ -8,7 +8,7 @@ public class StructureStats : UnitStats
 {
     [SyncVar][SerializeField] protected List<StructureUpgradeSo> activeUpgrades = new();
     [SyncVar][SerializeField] protected List<StructureUpgradeSo> upgrades = new();
-    
+
     public override void OnStartServer() {
         this.unitCurrentHealth = this.unitMaxHealth;
         this.onUnitDeath += HandleStructureDestroyed;
