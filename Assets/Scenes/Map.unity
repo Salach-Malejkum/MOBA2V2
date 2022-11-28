@@ -2553,6 +2553,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 1
   activeUpgrades: []
   upgrades: []
 --- !u!114 &141223263
@@ -3429,6 +3430,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -5839,6 +5841,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -5914,6 +5917,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerAssigned: {fileID: 0}
+  respawnTimeInterval: 5.1
+  respawnTimer: 0
 --- !u!114 &312743954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9386,6 +9391,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerAssigned: {fileID: 0}
+  respawnTimeInterval: 5.1
+  respawnTimer: 0
 --- !u!114 &486652405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11282,6 +11289,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -14960,6 +14968,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerAssigned: {fileID: 0}
+  respawnTimeInterval: 5.1
+  respawnTimer: 0
 --- !u!114 &828272664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17437,6 +17447,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -17751,6 +17762,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -18315,6 +18327,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -18967,6 +18980,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerAssigned: {fileID: 0}
+  respawnTimeInterval: 5.1
+  respawnTimer: 0
 --- !u!114 &1020993108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26246,6 +26261,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -28539,6 +28555,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   activeUpgrades: []
   upgrades:
   - {fileID: 11400000, guid: 681bf9fd0e00b5142a3534b16be5e550, type: 2}
@@ -29731,6 +29748,7 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 1
   activeUpgrades: []
   upgrades: []
 --- !u!114 &1619859267

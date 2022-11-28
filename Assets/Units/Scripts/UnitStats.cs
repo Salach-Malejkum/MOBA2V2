@@ -23,10 +23,12 @@ public abstract class UnitStats : NetworkBehaviour
     [SyncVar][SerializeField] protected float unitAbilityPower = 0f;
     [SyncVar][SerializeField] protected float unitMovementSpeed = 0f;
     [SyncVar][SerializeField] protected float unitCooldownReduction = 0f;
+    [SerializeField] private bool IsWinCondition = false;
     protected int currentLevel = 1;
     protected float regenerationIntervalSeconds = 1f;
 
     public event Action onUnitDeath;
+    public static event Action onWinConditionMet;
 
     [Server]
     public virtual void AddHealth(float hpAmount)
@@ -41,17 +43,32 @@ public abstract class UnitStats : NetworkBehaviour
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
+        this.OnDeathCheck();
     }
 
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
+        this.OnDeathCheck();
     }
 
-    private void OnHealthChanged(float oldHP, float newHP) {
-        if (this.unitCurrentHealth <= 0)
+    private void OnHealthChanged(float oldHP, float newHP) 
+    {
+        this.OnDeathCheck();
+    }
+
+    protected void OnDeathCheck() 
+    {
+        if (this.unitCurrentHealth <= 0) 
         {
-            this.onUnitDeath?.Invoke();
+            Debug.Log("Unit death");
+            if (this.IsWinCondition) 
+            {
+                Debug.Log("End game");
+                NetworkManagerLobby.Instance.whichSideLost = LayerMask.LayerToName(this.gameObject.layer);
+                onWinConditionMet?.Invoke();
+            }
+            onUnitDeath?.Invoke();
         }
     }
 }
