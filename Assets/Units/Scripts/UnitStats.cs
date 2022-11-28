@@ -76,7 +76,6 @@ public abstract class UnitStats : NetworkBehaviour
     public event Action<float> OnAttackSpeedUptade;
     public event Action<float> OnCooldownReductionUptade;
 
-
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
