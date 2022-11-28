@@ -9,7 +9,7 @@ public class GameResultHold : NetworkBehaviour
     [SyncVar] public string gameResult = "";
 
     void Update() {
-        if (gameResult == "") {
+        if (this.gameResult == "") {
             this.gameResult = NetworkManagerLobby.Instance.whichSideLost;
         }
         
