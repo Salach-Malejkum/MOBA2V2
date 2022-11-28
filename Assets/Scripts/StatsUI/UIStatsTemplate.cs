@@ -73,4 +73,33 @@ public class UIStatsTemplate : MonoBehaviour
     {
         get { return healthBarImage; }
     }
+
+    [SerializeField]
+    private GameObject qOverlay;
+    public GameObject QOverlay
+    {
+        get { return qOverlay; }
+    }
+
+    [SerializeField]
+    private GameObject wOverlay;
+    public GameObject WOverlay
+    {
+        get { return wOverlay; }
+    }
+
+    [SerializeField]
+    private GameObject eOverlay;
+    public GameObject EOverlay
+    {
+        get { return eOverlay; }
+    }
+
+    [SerializeField]
+    private GameObject rOverlay;
+    public GameObject ROverlay
+    {
+        get { return rOverlay; }
+    }
+
 }

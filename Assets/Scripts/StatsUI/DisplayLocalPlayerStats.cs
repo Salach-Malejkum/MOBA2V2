@@ -6,35 +6,58 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     private UIStatsTemplate template = null;
     [SerializeField]
     private PlayerStats playerStats = null;
+    [SerializeField]
+    private PlayerSkills playerSkills = null;
+
+    private readonly int delayAmount = 1;
+    private float timer;
 
     private void Awake()
     {
         Debug.Log("Listeners added");
-        playerStats.OnHealthUptade += LocalPlayerHealthUpdated;
-        playerStats.OnMaxHealthUptade += LocalPlayerHealthUpdated;
-        playerStats.OnAttackUptade += LocalPlayerAttackUpdated;
-        playerStats.OnAbilityPowerUptade += LocalPlayerAbilityPowerUpdated;
-        playerStats.OnArmorUptade += LocalPlayerArmorUpdated;
-        playerStats.OnMagicResistUptade += LocalPlayerMagicResistUpdated;
-        playerStats.OnAttackSpeedUptade += LocalPlayerAttackSpeedUpdated;
-        playerStats.OnMovementSpeedUptade += LocalPlayerMovementSpeedUpdated;
-        playerStats.OnCooldownReductionUptade += LocalPlayerCooldownReductionUpdated;
-        playerStats.OnHealthRegenUptade += LocalPlayerHealthRegenUpdated;
+        this.playerStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
+        this.playerStats.OnHealthUptade += LocalPlayerHealthUpdated;
+        this.playerStats.OnMaxHealthUptade += LocalPlayerHealthUpdated;
+        this.playerStats.OnAttackUptade += LocalPlayerAttackUpdated;
+        this.playerStats.OnAbilityPowerUptade += LocalPlayerAbilityPowerUpdated;
+        this.playerStats.OnArmorUptade += LocalPlayerArmorUpdated;
+        this.playerStats.OnMagicResistUptade += LocalPlayerMagicResistUpdated;
+        this.playerStats.OnAttackSpeedUptade += LocalPlayerAttackSpeedUpdated;
+        this.playerStats.OnMovementSpeedUptade += LocalPlayerMovementSpeedUpdated;
+        this.playerStats.OnCooldownReductionUptade += LocalPlayerCooldownReductionUpdated;
+        this.playerStats.OnHealthRegenUptade += LocalPlayerHealthRegenUpdated;
+        this.playerSkills.QUsed += LocalPlayerUsedQ;
+        this.playerSkills.WUsed += LocalPlayerUsedW;
+        this.playerSkills.EUsed += LocalPlayerUsedE;
+        this.playerSkills.RUsed += LocalPlayerUsedR;
+        this.playerSkills.QRedy += LocalPlayerQRedy;
+        this.playerSkills.WRedy += LocalPlayerWRedy;
+        this.playerSkills.ERedy += LocalPlayerERedy;
+        this.playerSkills.RRedy += LocalPlayerRRedy;
     }
 
     private void OnDestroy()
     {
         Debug.Log("Listeners removed");
-        playerStats.OnHealthUptade -= LocalPlayerHealthUpdated;
-        playerStats.OnMaxHealthUptade -= LocalPlayerHealthUpdated;
-        playerStats.OnAttackUptade -= LocalPlayerAttackUpdated;
-        playerStats.OnAbilityPowerUptade -= LocalPlayerAbilityPowerUpdated;
-        playerStats.OnArmorUptade -= LocalPlayerArmorUpdated;
-        playerStats.OnMagicResistUptade -= LocalPlayerMagicResistUpdated;
-        playerStats.OnAttackSpeedUptade -= LocalPlayerAttackSpeedUpdated;
-        playerStats.OnMovementSpeedUptade -= LocalPlayerMovementSpeedUpdated;
-        playerStats.OnCooldownReductionUptade -= LocalPlayerCooldownReductionUpdated;
-        playerStats.OnHealthRegenUptade -= LocalPlayerHealthRegenUpdated;
+        this.playerStats.OnUnitHealthUptade -= LocalPlayerHealthUpdated;
+        this.playerStats.OnHealthUptade -= LocalPlayerHealthUpdated;
+        this.playerStats.OnMaxHealthUptade -= LocalPlayerHealthUpdated;
+        this.playerStats.OnAttackUptade -= LocalPlayerAttackUpdated;
+        this.playerStats.OnAbilityPowerUptade -= LocalPlayerAbilityPowerUpdated;
+        this.playerStats.OnArmorUptade -= LocalPlayerArmorUpdated;
+        this.playerStats.OnMagicResistUptade -= LocalPlayerMagicResistUpdated;
+        this.playerStats.OnAttackSpeedUptade -= LocalPlayerAttackSpeedUpdated;
+        this.playerStats.OnMovementSpeedUptade -= LocalPlayerMovementSpeedUpdated;
+        this.playerStats.OnCooldownReductionUptade -= LocalPlayerCooldownReductionUpdated;
+        this.playerStats.OnHealthRegenUptade -= LocalPlayerHealthRegenUpdated;
+        this.playerSkills.QUsed -= LocalPlayerUsedQ;
+        this.playerSkills.WUsed -= LocalPlayerUsedW;
+        this.playerSkills.EUsed -= LocalPlayerUsedE;
+        this.playerSkills.RUsed -= LocalPlayerUsedR;
+        this.playerSkills.QRedy -= LocalPlayerQRedy;
+        this.playerSkills.WRedy -= LocalPlayerWRedy;
+        this.playerSkills.ERedy -= LocalPlayerERedy;
+        this.playerSkills.RRedy -= LocalPlayerRRedy;
     }
 
     void Start()
@@ -92,6 +115,46 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     private void LocalPlayerHealthRegenUpdated(float newStat)
     {
         this.template.HealthRegenVal.text = "+" + newStat.ToString();
+    }
+
+    private void LocalPlayerUsedQ()
+    {
+        this.template.QOverlay.SetActive(true);
+    }
+
+    private void LocalPlayerUsedW()
+    {
+        this.template.WOverlay.SetActive(true);
+    }
+
+    private void LocalPlayerUsedE()
+    {
+        this.template.EOverlay.SetActive(true);
+    }
+
+    private void LocalPlayerUsedR()
+    {
+        this.template.ROverlay.SetActive(true);
+    }
+
+    private void LocalPlayerQRedy()
+    {
+        this.template.QOverlay.SetActive(false);
+    }
+
+    private void LocalPlayerWRedy()
+    {
+        this.template.WOverlay.SetActive(false);
+    }
+
+    private void LocalPlayerERedy()
+    {
+        this.template.EOverlay.SetActive(false);
+    }
+
+    private void LocalPlayerRRedy()
+    {
+        this.template.ROverlay.SetActive(false);
     }
 
     private void LoadLocalPlayerStats()
