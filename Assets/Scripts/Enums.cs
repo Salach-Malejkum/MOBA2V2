@@ -24,7 +24,7 @@ namespace Enums
 
     public enum MinionSpawnTime  // Can be changed for the debug option
     {
-        FirstSpawnTimePeriod = 1,
+        FirstSpawnTimePeriod = 9,
         NormalSpawnTimePeriod = 30
     }
 
@@ -79,9 +79,16 @@ namespace Enums
         public readonly static Vector3 blueTeamSpawn = new Vector3(116f, 0.5f, -15f);
     }
 
-    public static class TeamMinionsLayers
+    public static class Layers
     {
         public const int blueTeamLayer = 7;
         public const int redTeamLayer = 6;
+        public const int terrainLayer = 8;
+        public const int neutral = 9;
+    }
+
+    public static class Tags
+    {
+        public const string tower = "Tower";
     }
 }

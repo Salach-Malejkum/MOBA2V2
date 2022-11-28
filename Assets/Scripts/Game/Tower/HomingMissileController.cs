@@ -8,7 +8,9 @@ public class HomingMissileController : NetworkBehaviour
     public GameObject target;
     public GameObject owner;
     public float damage;
-    private float speed = 10f;
+    public bool stun = false;
+    public float stunTime = 0f;
+    private float speed = 20f;
 
     private void Awake()
     {
@@ -30,12 +32,16 @@ public class HomingMissileController : NetworkBehaviour
     }
 
 
-    [Server]
+    [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {
         if (!other.isTrigger && other.gameObject == this.target)
         {
-            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage);
+            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.owner);
+            if (this.stun && other.tag != Enums.Tags.tower)
+            {
+                other.gameObject.GetComponent<CrowdControl>().Stun(this.stunTime);
+            }
             NetworkServer.Destroy(this.gameObject);
         }
     }

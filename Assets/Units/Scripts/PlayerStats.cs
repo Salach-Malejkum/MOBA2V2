@@ -14,29 +14,26 @@ public class PlayerStats : UnitStats
     [SyncVar] [SerializeField] protected float playerExp = 0f;
     [SerializeField] private float playerHealthRegen = 2.5f;
     private float timer;
+    [SyncVar] public string lane;
+    [SyncVar] public string side;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
-        this.onUnitDeath += RpcHandlePlayerDeath;
         this.timer = this.regenerationIntervalSeconds;
+        this.onUnitDeath += CmdReadyToRespawn;
     }
 
-    [ServerCallback]
-    private void Update() {
-        this.timer -= Time.deltaTime;
-
-        if (regenerationIntervalSeconds <= 0) {
-            base.AddHealth(playerHealthRegen);
-            this.timer += this.regenerationIntervalSeconds;
-        }
+    public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject agressor) {
+        base.RemoveHealthOnNormalAttack(damageAmount, agressor);
     }
 
-    public void TakeDamage(float damageAmount) {
-        base.RemoveHealthOnNormalAttack(damageAmount);
+    [Command]
+    private void CmdReadyToRespawn() {
+        RpcReadyToRespawn();
     }
 
     [ClientRpc]
-    private void RpcHandlePlayerDeath() {
+    private void RpcReadyToRespawn() {
         this.gameObject.SetActive(false);
     }
 

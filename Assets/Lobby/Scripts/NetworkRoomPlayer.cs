@@ -8,7 +8,8 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SerializeField] private GameObject lobbyUI = null;
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
-    [SerializeField] private Button startGameButton = null;
+    //[SerializeField] private Button startGameButton = null;
+    [SerializeField] private TMP_Text timeText;
 
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
     public bool IsReady = false;
@@ -47,9 +48,9 @@ public class NetworkRoomPlayer : NetworkBehaviour
             this.playerReadyTexts[i].text = NetworkManagerLobby.Instance.RoomPlayers[i].IsReady ? "Ready" : "Not ready";
         }
 
-        if (!hasAuthority) {
+        if (!isLocalPlayer) {
             foreach(var player in NetworkManagerLobby.Instance.RoomPlayers) {
-                if (player.hasAuthority) {
+                if (player.isLocalPlayer) {
                     player.UpdateDisplay();
                     break;
                 }
@@ -58,8 +59,11 @@ public class NetworkRoomPlayer : NetworkBehaviour
         }
     }
 
-    public void HandleReadyToStart(bool readyToStart) {
-        this.startGameButton.interactable = readyToStart;
+    void DisplayTime(float timeToDisplay) {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     [Command]
