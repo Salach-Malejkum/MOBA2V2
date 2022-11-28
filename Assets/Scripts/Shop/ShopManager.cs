@@ -116,7 +116,7 @@ public class ShopManager : NetworkBehaviour
     [ClientCallback]
     public void OpenShopCanva(InputAction.CallbackContext context)
     {
-        if (!hasAuthority)
+        if (!isOwned)
         {
             return;
         }

@@ -9,7 +9,7 @@ public class MenuUI : NetworkBehaviour
     [ClientCallback]
     public void OpenMenu(InputAction.CallbackContext context)
     {
-        if (!hasAuthority)
+        if (!isOwned)
         {
             return;
         }
