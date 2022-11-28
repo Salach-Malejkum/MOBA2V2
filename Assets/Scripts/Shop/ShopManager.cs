@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShopManager : NetworkBehaviour
@@ -110,6 +111,19 @@ public class ShopManager : NetworkBehaviour
         this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
         this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+    }
+
+    [ClientCallback]
+    public void OpenShopCanva(InputAction.CallbackContext context)
+    {
+        if (!hasAuthority)
+        {
+            return;
+        }
+        if (context.control.displayName == "P")
+        {
+            this.ToggleShop();
+        }
     }
 
     [Client]

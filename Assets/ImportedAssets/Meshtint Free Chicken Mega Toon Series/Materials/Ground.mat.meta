@@ -1,12 +1,8 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/ScriptibleObjects/Knife.asset.meta
-guid: 7f0fb687fa363fe49bd646e3cb78ace4
-========
 guid: eada0a3852f7626479047625b03134b0
->>>>>>>> main:Assets/ImportedAssets/Meshtint Free Chicken Mega Toon Series/Materials/Ground.mat.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 11400000
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

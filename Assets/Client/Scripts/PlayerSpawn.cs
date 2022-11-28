@@ -66,6 +66,8 @@ public class PlayerSpawn : NetworkBehaviour
                 break;
         }
 
+        playerStats.playerName = "Player" + args.PlayerId.ToString();
+
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
 
         spawnPoints[args.PlayerId].AssignPlayerToThisSpawnPoint(playerInstance);
