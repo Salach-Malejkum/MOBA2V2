@@ -10,17 +10,17 @@ public class AfterGameMenu : MonoBehaviour
     [SerializeField] private GameResultHold resultHold = default;
 
     void Awake() {
-        afterGameText.text = "";
+        this.afterGameText.text = "";
     }
 
     void Update() {
         Debug.Log(resultHold.gameResult);
         Debug.Log(NetworkManagerLobby.Instance.PlayerSide);
-        if(this.resultHold.gameResult != "" && afterGameText.text == "") {
+        if(this.resultHold.gameResult != "" && this.afterGameText.text == "") {
             if (NetworkManagerLobby.Instance.PlayerSide == this.resultHold.gameResult) {
-                afterGameText.text = "Defeat";
+                this.afterGameText.text = "Defeat";
             } else {
-                afterGameText.text = "Victory";
+                this.afterGameText.text = "Victory";
             }
         }
     }
