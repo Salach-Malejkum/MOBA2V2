@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 5962617555373898835}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -423,6 +423,9 @@ MonoBehaviour:
   qPrefab: {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
   wPrefab: {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
   rPrefab: {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
+  attackableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &-6476525291194515553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,6 +460,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   projectile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
+  attackableLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &-5794324876374196433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,8 +499,6 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
-  unitGoldReward: 0
-  unitExpReward: 0
   attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0

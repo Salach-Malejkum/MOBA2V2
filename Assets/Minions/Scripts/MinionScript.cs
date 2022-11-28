@@ -33,6 +33,7 @@ public class MinionScript : NetworkBehaviour
     void FixedUpdate()
     {
         GameObject? closestEnemy = this.GetTheClosestEnemy();
+        RemovePlayerWhenNotActive();
         if (closestEnemy == null)
         {
             this.followAttack = false;
@@ -127,5 +128,13 @@ public class MinionScript : NetworkBehaviour
     public void SetMinionPath(Vector3[] path)
     {
         this.minionMovement.SetPathPoints(path);
+    }
+
+    private void RemovePlayerWhenNotActive()
+    {
+        if (this.targetEnemy != null && this.targetEnemy.tag == "Player" && !this.targetEnemy.active)
+        {
+            this.objectsInRangeHashSet.Remove(this.targetEnemy);
+        }
     }
 }

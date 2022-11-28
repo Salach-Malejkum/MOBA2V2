@@ -20,7 +20,7 @@ public class HomingMissileController : NetworkBehaviour
     [ServerCallback]
     private void FixedUpdate()
     {
-        if (this.target == null)
+        if (this.target == null || (this.target != null && this.target.tag == "Player" && !this.target.active))
         {
             NetworkServer.Destroy(this.gameObject);
         }
