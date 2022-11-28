@@ -17,7 +17,6 @@ public class PlayerStats : UnitStats
         get { return playerHealthRegen; }
     }
 
-
     [SyncVar] public string playerName;
 
     private float timer;
