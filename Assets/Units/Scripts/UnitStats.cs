@@ -52,14 +52,18 @@ public abstract class UnitStats : NetworkBehaviour
         this.OnDeathCheck();
     }
 
-    private void OnHealthChanged(float oldHP, float newHP) {
+    private void OnHealthChanged(float oldHP, float newHP) 
+    {
         this.OnDeathCheck();
     }
 
-    protected void OnDeathCheck() {
-        if (this.unitCurrentHealth <= 0) {
+    protected void OnDeathCheck() 
+    {
+        if (this.unitCurrentHealth <= 0) 
+        {
             Debug.Log("Unit death");
-            if (this.IsWinCondition) {
+            if (this.IsWinCondition) 
+            {
                 Debug.Log("End game");
                 NetworkManagerLobby.Instance.whichSideLost = LayerMask.LayerToName(this.gameObject.layer);
                 onWinConditionMet?.Invoke();
