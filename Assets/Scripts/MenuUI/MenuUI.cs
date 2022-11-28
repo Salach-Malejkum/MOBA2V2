@@ -13,10 +13,9 @@ public class MenuUI : NetworkBehaviour
         {
             return;
         }
-        Debug.Log(context.control.displayName);
+
         if (context.control.displayName == "Esc")
         {
-            Debug.Log("im in");
             this.ToggleMenu();
         }
     }

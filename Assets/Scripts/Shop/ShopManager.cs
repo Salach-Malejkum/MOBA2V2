@@ -120,10 +120,8 @@ public class ShopManager : NetworkBehaviour
         {
             return;
         }
-        Debug.Log(context.control.displayName);
         if (context.control.displayName == "P")
         {
-            Debug.Log("im in");
             this.ToggleShop();
         }
     }

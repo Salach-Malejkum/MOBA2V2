@@ -8,6 +8,6 @@ public class DisplayPlayerName : MonoBehaviour
 
     private void Start()
     {
-        this.playerName.text = this.playerStats.PlayerName.ToString();
+        this.playerName.text = this.playerStats.playerName.ToString();
     }
 }

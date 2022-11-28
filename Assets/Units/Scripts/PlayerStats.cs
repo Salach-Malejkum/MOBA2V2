@@ -17,13 +17,8 @@ public class PlayerStats : UnitStats
         get { return playerHealthRegen; }
     }
 
-    [SerializeField]
-    private string playerName;
-    public string PlayerName
-    {
-        get { return playerName; }
-        set { playerName = value; }
-    }
+
+    [SyncVar] public string playerName;
 
     private float timer;
     [SyncVar] public string lane;

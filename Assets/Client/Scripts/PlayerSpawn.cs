@@ -66,7 +66,7 @@ public class PlayerSpawn : NetworkBehaviour
                 break;
         }
 
-        playerStats.PlayerName = "Player" + args.PlayerId.ToString();
+        playerStats.playerName = "Player" + args.PlayerId.ToString();
 
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
 
