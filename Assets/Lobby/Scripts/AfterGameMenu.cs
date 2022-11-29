@@ -47,7 +47,6 @@ public class AfterGameMenu : MonoBehaviour
 
     private IEnumerator AutomatedServerShutdown() {
         yield return new WaitForSeconds(10f);
-        NetworkManagerLobby.Instance.StopServer();
-        NetworkManagerLobby.Instance.OnApplicationQuit();
+        Application.Quit();
     }
 }

@@ -6,13 +6,18 @@ using PlayFab.MultiplayerAgent.Model;
 
 public class ServerStartUp : MonoBehaviour
 {
-    [SerializeField] private BuildType buildType;
-
     private List<ConnectedPlayer> connectedPlayers;
+    public static ServerStartUp singleton { get; private set; }
 
     void Start()
     {
-        if(buildType.chosenBuild == BuildType.Build.RemoteServer) {
+        DontDestroyOnLoad(this.gameObject);
+        if (singleton == null) {
+            singleton = this;
+        } else {
+            Destroy(this.gameObject);
+        }
+        if(BuildType.singleton.chosenBuild == BuildType.Build.RemoteServer) {
             StartRemoteServer();
         }
     }
@@ -20,7 +25,7 @@ public class ServerStartUp : MonoBehaviour
     private void StartRemoteServer() {
         Debug.Log("This is a test log. Please ignore.");
         PlayFabMultiplayerAgentAPI.Start();
-        PlayFabMultiplayerAgentAPI.IsDebugging = buildType.debugBuild;
+        PlayFabMultiplayerAgentAPI.IsDebugging = BuildType.singleton.debugBuild;
 		PlayFabMultiplayerAgentAPI.OnShutDownCallback += OnShutdown;
 		PlayFabMultiplayerAgentAPI.OnServerActiveCallback += OnServerActive;
 		PlayFabMultiplayerAgentAPI.OnAgentErrorCallback += OnAgentError;
@@ -64,7 +69,7 @@ public class ServerStartUp : MonoBehaviour
     }
 
     IEnumerator Shutdown() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(.5f);
         Application.Quit();
     }
 }
