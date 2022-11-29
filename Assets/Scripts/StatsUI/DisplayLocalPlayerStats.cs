@@ -5,7 +5,6 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 {
     [SerializeField]
     private UIStatsTemplate template = null;
-    //[SerializeField]
     private PlayerStats playerStats = null;
     [SerializeField]
     private PlayerSkills playerSkills = null;
