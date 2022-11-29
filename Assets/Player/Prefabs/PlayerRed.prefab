@@ -115,8 +115,8 @@ GameObject:
   - component: {fileID: 5962617555373898835}
   - component: {fileID: 5982736424730191811}
   - component: {fileID: 1833871118147384101}
-  m_Layer: 0
-  m_Name: Player
+  m_Layer: 6
+  m_Name: PlayerRed
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  _assetId: 2105910285
+  _assetId: 2727468586
   serverOnly: 0
   visible: 0
   hasSpawned: 0
@@ -536,11 +536,12 @@ MonoBehaviour:
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 0
+  unitAttackDamage: 80
   attackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   playerGold: 100
   playerExp: 0
   playerHealthRegen: 2.5

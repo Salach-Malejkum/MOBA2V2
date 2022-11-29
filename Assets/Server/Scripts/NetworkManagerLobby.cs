@@ -188,8 +188,10 @@ public class NetworkManagerLobby : NetworkManager {
             for (int i = Instance.RoomPlayers.Count - 1; i >= 0; i--)
             {
                 var conn = Instance.RoomPlayers[i].connectionToClient;
+                var playerName = Instance.RoomPlayers[i].DisplayName;
                 var playerConn = Instance.playerConnections.Find(c => c.Connection == conn);
                 playerConn.ConnectionToClient = conn;
+                playerConn.PlayerName = playerName;
                 Debug.Log(conn);
                 if (playerConn != null)
                 {
@@ -202,6 +204,7 @@ public class NetworkManagerLobby : NetworkManager {
                         Connection = conn,
                         ConnectionId = conn.connectionId,
                         inGamePlayerId = i,
+                        PlayerName = playerName,
                     });
                 }
             }
@@ -236,7 +239,8 @@ public class NetworkManagerLobby : NetworkManager {
     public override void OnServerReady(NetworkConnectionToClient conn)
     {
         base.OnServerReady(conn);
-        OnServerReadied?.Invoke(Instance, new OnPlayerSpawnArgs(Instance.playerConnections.Find(c => c.Connection == conn).inGamePlayerId, conn));
+        PlayerConnection playerConnection = Instance.playerConnections.Find(c => c.Connection == conn);
+        OnServerReadied?.Invoke(Instance, new OnPlayerSpawnArgs(playerConnection.inGamePlayerId, conn, playerConnection.PlayerName));
     }
 }
 
@@ -245,6 +249,7 @@ public class PlayerConnection {
     public bool Authenticated;
     public string PlayfabId;
     public string LobbyId;
+    public string PlayerName;
     public int ConnectionId;
     public NetworkConnection Connection;
     public NetworkConnectionToClient ConnectionToClient;
@@ -258,10 +263,12 @@ public struct AuthenticateMessage : NetworkMessage {
 public class OnPlayerSpawnArgs : EventArgs
 {
     public int PlayerId;
+    public string PlayerName;
     public NetworkConnectionToClient conn;
 
-    public OnPlayerSpawnArgs(int playerId, NetworkConnectionToClient networkConnectionToClient) {
+    public OnPlayerSpawnArgs(int playerId, NetworkConnectionToClient networkConnectionToClient, string playerName) {
         PlayerId = playerId;
         conn = networkConnectionToClient;
+        PlayerName = playerName;
     }
 }

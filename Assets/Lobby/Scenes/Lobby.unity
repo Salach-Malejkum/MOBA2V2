@@ -2488,6 +2488,7 @@ MonoBehaviour:
   - {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
   - {fileID: 6377794084287402632, guid: 645d810de1590294db6cc876fe799cb2, type: 3}
   - {fileID: 4209595897884448940, guid: d7cb3d3ccd98a344c877d6d0dad9a1c3, type: 3}
+  - {fileID: 4739550223701580035, guid: 21542215a0e6f2648bd77ece528bdfbf, type: 3}
   timeInterpolationGui: 0
   minPlayers: 1
   menuScene: Assets/Lobby/Scenes/RoomForLoadingPlayers.unity
