@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1066488599071353795}
   - component: {fileID: 464450251030549296}
   - component: {fileID: -175712545696156868}
+  - component: {fileID: 6428276136881405955}
   m_Layer: 0
   m_Name: PlayerTest
   m_TagString: Untagged
@@ -46,9 +47,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
+  _assetId: 1744330422
   serverOnly: 0
   visible: 0
-  m_AssetId: d7cb3d3ccd98a344c877d6d0dad9a1c3
   hasSpawned: 0
 --- !u!114 &-175712545696156868
 MonoBehaviour:
@@ -62,6 +63,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc70c263b115f74c8117e49fb6478da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   DisplayName: Loading...
+  playerIdx: 0
+--- !u!114 &6428276136881405955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4209595897884448940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 1066488599071353795}
+  clientAuthority: 1
+  onlySyncOnChange: 1
+  bufferResetMultiplier: 5
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}

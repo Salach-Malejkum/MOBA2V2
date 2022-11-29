@@ -1,4 +1,5 @@
 using Mirror;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.HID;
@@ -30,6 +31,15 @@ public class PlayerSkills : NetworkBehaviour
     private LayerMask attackableLayer;
     private NetworkAnimator networkAnimator;
 
+    public event Action QUsed;
+    public event Action WUsed;
+    public event Action EUsed;
+    public event Action RUsed;
+    public event Action QRedy;
+    public event Action WRedy;
+    public event Action ERedy;
+    public event Action RRedy;
+
     private void Start()
     {
         this.networkAnimator = GetComponent<NetworkAnimator>();
@@ -53,6 +63,7 @@ public class PlayerSkills : NetworkBehaviour
         {
             this.qOnCooldown = false;
             this.qTimer = 0f;
+            this.QRedy?.Invoke();
         }
 
         if (this.wOnCooldown)
@@ -64,6 +75,7 @@ public class PlayerSkills : NetworkBehaviour
         {
             this.wOnCooldown = false;
             this.wTimer = 0f;
+            this.WRedy?.Invoke();
         }
 
         if (this.eOnCooldown)
@@ -75,6 +87,7 @@ public class PlayerSkills : NetworkBehaviour
         {
             this.eOnCooldown = false;
             this.eTimer = 0f;
+            this.ERedy?.Invoke();
         }
 
         if (this.rOnCooldown)
@@ -86,6 +99,7 @@ public class PlayerSkills : NetworkBehaviour
         {
             this.rOnCooldown = false;
             this.rTimer = 0f;
+            this.RRedy?.Invoke();
         }
     }
 
@@ -100,15 +114,19 @@ public class PlayerSkills : NetworkBehaviour
         switch (context.control.displayName)
         {
             case "Q":
+                this.QUsed?.Invoke();
                 this.QSkill();
                 break;
             case "W":
+                this.WUsed?.Invoke();
                 this.ClientWSkill();
                 break;
             case "E":
+                this.EUsed?.Invoke();
                 this.ESkill();
                 break;
             case "R":
+                this.RUsed?.Invoke();
                 this.RSkillAnim();
                 break;
 

@@ -6,7 +6,8 @@ using Mirror;
 
 public class PlayerSpawn : NetworkBehaviour
 {
-    [SerializeField] private GameObject playerPrefab = default;
+    [SerializeField] private GameObject playerPrefabRed = default;
+    [SerializeField] private GameObject playerPrefabBlue = default;
 
     private static List<PlayerSpawnPoint> spawnPoints = new List<PlayerSpawnPoint>();
     public static void AddSpawnPoint(PlayerSpawnPoint spawnPoint) {
@@ -36,21 +37,20 @@ public class PlayerSpawn : NetworkBehaviour
             return;
         }
 
-        Debug.Log(spawnPoints[args.PlayerId].transform.position);
-        GameObject playerInstance = (GameObject)Instantiate(this.playerPrefab, spawnPoints[args.PlayerId].transform.position, spawnPoints[args.PlayerId].transform.rotation);
-        Debug.Log(playerInstance.transform.position);
-
-        PlayerStats playerStats = playerInstance.GetComponent<PlayerStats>();
+        GameObject playerInstance = default;
+        PlayerStats playerStats = default;
 
         switch (args.PlayerId % 2)
         {
             case 0:
+                playerInstance = Instantiate(this.playerPrefabBlue, spawnPoints[args.PlayerId].transform.position, spawnPoints[args.PlayerId].transform.rotation);
+                playerStats = playerInstance.GetComponent<PlayerStats>();
                 playerStats.playerSide = "Blue";
-                playerInstance.gameObject.layer = LayerMask.NameToLayer("Blue");
                 break;
             case 1:
+                playerInstance = Instantiate(this.playerPrefabRed, spawnPoints[args.PlayerId].transform.position, spawnPoints[args.PlayerId].transform.rotation);
+                playerStats = playerInstance.GetComponent<PlayerStats>();
                 playerStats.playerSide = "Red";
-                playerInstance.gameObject.layer = LayerMask.NameToLayer("Red");
                 break;
         }
 
@@ -66,12 +66,16 @@ public class PlayerSpawn : NetworkBehaviour
                 break;
         }
 
+        playerStats.playerName = args.PlayerName;
+
         NetworkServer.ReplacePlayerForConnection(args.conn, playerInstance);
 
         spawnPoints[args.PlayerId].AssignPlayerToThisSpawnPoint(playerInstance);
 
-        GameObject.Find("SpawnPoints").GetComponent<PassiveIncomeManager>().AddPlayer(playerInstance);
+        NetworkManagerLobby.Instance.PlayersLoadedToScene.Add(playerInstance.GetComponent<NetworkIdentity>());
+
         playerInstance.GetComponent<UpgradeManager>().SetTurrets();
+        GameObject.Find("SpawnPoints").GetComponent<PassiveIncomeManager>().AddPlayer(playerInstance);
     }
 
 }

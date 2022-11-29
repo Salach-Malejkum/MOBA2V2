@@ -8,8 +8,8 @@ public class MainMenu : MonoBehaviour
 
     //zmiana funkcjonalności na hostowanie custom lobby, dlatego zostawiam kod
     public void HostLobby() {
-        NetworkManagerLobby.Instance.connType = "local";
-        NetworkManagerLobby.Instance.StartHost();
+        NetworkManagerLobby.Instance.connType = "remoteServer";
+        NetworkManagerLobby.Instance.StartServer();
 
 
         ToggleLandingPageNonActive();

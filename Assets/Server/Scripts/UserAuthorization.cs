@@ -17,8 +17,17 @@ public class UserAuthorization : MonoBehaviour
     [SerializeField] private TMP_InputField passwordInputFieldLogin = default;
     [SerializeField] private ClientStartup client = default;
 
-    public static string EntityId = null;
+    [SerializeField] public static string EntityId = null;
     public static string SessionTicket = null;
+
+    void Awake() {
+        if (EntityId != null) {
+            this.signInDisplay.SetActive(false);
+            this.signUpDisplay.SetActive(false);
+            this.loginScreenBackground.SetActive(false);
+            this.afterLoginScreen.SetActive(true);
+        }
+    }
 
     public void CreateAccount() {
         this.transform.GetComponent<Feedback>().ChangeInputFieldsWhite(this.usernameInputFieldRegister, this.emailInputFieldRegister, this.passwordInputFieldRegister);
@@ -32,7 +41,6 @@ public class UserAuthorization : MonoBehaviour
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            this.client.RequestServerData();
             this.signInDisplay.SetActive(false);
             this.signUpDisplay.SetActive(false);
             this.loginScreenBackground.SetActive(false);
@@ -56,7 +64,6 @@ public class UserAuthorization : MonoBehaviour
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            this.client.RequestServerData();
             this.signInDisplay.SetActive(false);
             this.signUpDisplay.SetActive(false);
             this.loginScreenBackground.SetActive(false);

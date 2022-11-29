@@ -8,7 +8,6 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [SerializeField] private GameObject lobbyUI = null;
     [SerializeField] private TMP_Text[] playerNameTexts = new TMP_Text[4];
     [SerializeField] private TMP_Text[] playerReadyTexts = new TMP_Text[4];
-    //[SerializeField] private Button startGameButton = null;
     [SerializeField] private TMP_Text timeText;
 
     [SyncVar(hook = nameof(HandleReadyStatusChanged))]
@@ -81,13 +80,13 @@ public class NetworkRoomPlayer : NetworkBehaviour
     [Command]
     public void CmdCancelQueue()
     {
-        if (NetworkManagerLobby.Instance.connType == "remote")
+        if (NetworkManagerLobby.Instance.connType == "host")
         {
-            NetworkManagerLobby.Instance.StopClient();
+            NetworkManagerLobby.Instance.StopHost();
         }
         else
         {
-            NetworkManagerLobby.Instance.StopHost();
+            NetworkManagerLobby.Instance.StopClient();
         }
 
     }
