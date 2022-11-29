@@ -77,37 +77,37 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void LocalPlayerAttackUpdated(float newStat)
     {
-        this.template.AttackVal.text = "Attack: " + newStat.ToString();
+        this.template.AttackVal.text = "AD " + newStat.ToString();
     }
 
     private void LocalPlayerAbilityPowerUpdated(float newStat)
     {
-        this.template.AbilityPowerVal.text = "Abiliti Power: " + newStat.ToString();
+        this.template.AbilityPowerVal.text = "AP " + newStat.ToString();
     }
 
     private void LocalPlayerArmorUpdated(float newStat)
     {
-        this.template.ArmorVal.text = "Armor: " + newStat.ToString();
+        this.template.ArmorVal.text = "A " + newStat.ToString();
     }
 
     private void LocalPlayerMagicResistUpdated(float newStat)
     {
-        this.template.MagicResistVal.text = "Magic Resist: " + newStat.ToString();
+        this.template.MagicResistVal.text = "MR " + newStat.ToString();
     }
 
     private void LocalPlayerMovementSpeedUpdated(float newStat)
     {
-        this.template.MovmentSpeedVal.text = "Movement Speed: " + newStat.ToString();
+        this.template.MovmentSpeedVal.text = "MS " + newStat.ToString();
     }
 
     private void LocalPlayerAttackSpeedUpdated(float newStat)
     {
-        this.template.AttackSpeed.text = "Attack Speed: " + newStat.ToString();
+        this.template.AttackSpeed.text = "AS " + newStat.ToString();
     }
 
     private void LocalPlayerCooldownReductionUpdated(float newStat)
     {
-        this.template.CooldownReductionVal.text = "Cooldown Reduction: " + newStat.ToString();
+        this.template.CooldownReductionVal.text = "CD " + newStat.ToString();
     }
 
     private void LocalPlayerHealthRegenUpdated(float newStat)
@@ -159,13 +159,13 @@ public class DisplayLocalPlayerStats : MonoBehaviour
     {
         this.template.HealthBarImage.fillAmount = this.playerStats.UnitCurrentHealth / playerStats.UnitMaxHealth;
         this.template.HealthVal.text = this.playerStats.UnitCurrentHealth + "/" + playerStats.UnitMaxHealth;
-        this.template.AttackVal.text = "Attack: " + this.playerStats.UnitAttackDamage.ToString();
-        this.template.AbilityPowerVal.text = "Abiliti Power: " + this.playerStats.UnitAbilityPower.ToString();
-        this.template.ArmorVal.text = "Armor: " + this.playerStats.UnitArmor.ToString();
-        this.template.MagicResistVal.text = "Magic Resist: " + this.playerStats.UnitMagicResist.ToString();
-        this.template.MovmentSpeedVal.text = "Movement Speed: " + this.playerStats.UnitMovementSpeed.ToString();
-        this.template.AttackSpeed.text = "Attack Speed: " + this.playerStats.AttackSpeed.ToString();
-        this.template.CooldownReductionVal.text = "Cooldown Reduction: " + this.playerStats.UnitCooldownReduction.ToString();
+        this.template.AttackVal.text = "AD " + this.playerStats.UnitAttackDamage.ToString();
+        this.template.AbilityPowerVal.text = "AP " + this.playerStats.UnitAbilityPower.ToString();
+        this.template.ArmorVal.text = "A " + this.playerStats.UnitArmor.ToString();
+        this.template.MagicResistVal.text = "MR " + this.playerStats.UnitMagicResist.ToString();
+        this.template.MovmentSpeedVal.text = "MS " + this.playerStats.UnitMovementSpeed.ToString();
+        this.template.AttackSpeed.text = "AS " + this.playerStats.AttackSpeed.ToString();
+        this.template.CooldownReductionVal.text = "CD " + this.playerStats.UnitCooldownReduction.ToString();
         this.template.HealthRegenVal.text = "+" + this.playerStats.PlayerHealthRegen.ToString();
     }
 }
