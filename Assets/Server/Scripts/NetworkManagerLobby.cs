@@ -52,11 +52,12 @@ public class NetworkManagerLobby : NetworkManager {
         OnServerNotReady += OnApplicationQuit;
         UnitStats.onWinConditionMet += OnGameEnd;
     }
+
     //jak wywali na lokal to nie da sie znowu shostować
     public override void OnApplicationQuit()
     {
-        NetworkServer.Shutdown();
         base.OnApplicationQuit();
+        NetworkServer.Shutdown();
     }
 
     private void OnReceiveAuthenticateMessage(NetworkConnection nconn, AuthenticateMessage message) {

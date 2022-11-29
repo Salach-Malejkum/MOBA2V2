@@ -1907,7 +1907,7 @@ MonoBehaviour:
   passwordInputFieldRegister: {fileID: 1546565732}
   usernameInputFieldLogin: {fileID: 1625556853}
   passwordInputFieldLogin: {fileID: 985414783}
-  client: {fileID: 1713145743}
+  client: {fileID: 0}
 --- !u!114 &568886821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2351,6 +2351,51 @@ RectTransform:
   m_AnchoredPosition: {x: 3.7722168, y: 40.91916}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &668273048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 668273049}
+  - component: {fileID: 668273050}
+  m_Layer: 0
+  m_Name: BuildClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &668273049
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668273048}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -541.9707, y: -256.76987, z: -7.320532}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1605132645}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &668273050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668273048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1628bfa65cc20a468d82d075c4311a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildType: {fileID: 1246543052}
 --- !u!1 &693488852
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,6 +6908,7 @@ Transform:
   - {fileID: 693488855}
   - {fileID: 1941473015}
   - {fileID: 647308892}
+  - {fileID: 668273049}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7209,10 +7255,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1713145741}
-  - component: {fileID: 1713145743}
   - component: {fileID: 1713145742}
   m_Layer: 0
-  m_Name: Configuration
+  m_Name: BuildServer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7243,19 +7288,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c75f9cb6c23d17a4f9ef51af85545059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildType: {fileID: 1246543052}
---- !u!114 &1713145743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1713145740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1628bfa65cc20a468d82d075c4311a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buildType: {fileID: 1246543052}

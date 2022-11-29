@@ -24,21 +24,23 @@ public class ServerStartUp : MonoBehaviour
 		PlayFabMultiplayerAgentAPI.OnShutDownCallback += OnShutdown;
 		PlayFabMultiplayerAgentAPI.OnServerActiveCallback += OnServerActive;
 		PlayFabMultiplayerAgentAPI.OnAgentErrorCallback += OnAgentError;
-        NetworkManagerLobby.Instance.StartServer();
-        Debug.Log("Server started");
+        Debug.Log("Ready for players");
+        StartCoroutine(ReadyForPlayers());
+
+        Debug.Log("Server starting...");
+
         NetworkManagerLobby.Instance.OnPlayerAdded.AddListener(OnPlayerAdded);
         NetworkManagerLobby.Instance.OnPlayerRemoved.AddListener(OnPlayerRemoved);
-
-        StartCoroutine(ReadyForPlayers());
     }
 
     IEnumerator ReadyForPlayers() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         PlayFabMultiplayerAgentAPI.ReadyForPlayers();
     }
 
     private void OnServerActive() {
-        //TODO: cos do zrobienia po przejsciu serwera na active (jak otrzymuje graczy, startserver musi byc called wczesniej)
+        Debug.Log("Server has started");
+        NetworkManagerLobby.Instance.StartServer();
     }
 
     private void OnPlayerRemoved(string playfabId) {

@@ -41,7 +41,6 @@ public class UserAuthorization : MonoBehaviour
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            this.client.RequestServerData();
             this.signInDisplay.SetActive(false);
             this.signUpDisplay.SetActive(false);
             this.loginScreenBackground.SetActive(false);
@@ -65,7 +64,6 @@ public class UserAuthorization : MonoBehaviour
         }, resultCallback => {
             SessionTicket = resultCallback.SessionTicket;
             EntityId = resultCallback.EntityToken.Entity.Id;
-            this.client.RequestServerData();
             this.signInDisplay.SetActive(false);
             this.signUpDisplay.SetActive(false);
             this.loginScreenBackground.SetActive(false);

@@ -11,6 +11,9 @@ public class AfterGameMenu : MonoBehaviour
 
     void Awake() {
         this.afterGameText.text = "";
+        if (NetworkManagerLobby.Instance.connType != "host" && NetworkManagerLobby.Instance.connType != "remoteClient") {
+            StartCoroutine(nameof(AutomatedServerShutdown));
+        }
     }
 
     void Update() {
@@ -39,8 +42,12 @@ public class AfterGameMenu : MonoBehaviour
             NetworkManagerLobby.Instance.StopHost();
         } else if (NetworkManagerLobby.Instance.connType == "remoteClient") {
             NetworkManagerLobby.Instance.StopClient();
-        } else {
-            NetworkManagerLobby.Instance.OnApplicationQuit();
         }
+    }
+
+    private IEnumerator AutomatedServerShutdown() {
+        yield return new WaitForSeconds(10f);
+        NetworkManagerLobby.Instance.StopServer();
+        NetworkManagerLobby.Instance.OnApplicationQuit();
     }
 }
