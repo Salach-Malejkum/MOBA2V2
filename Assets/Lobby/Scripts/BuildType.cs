@@ -9,6 +9,18 @@ public class BuildType : MonoBehaviour
     public bool debugBuild = true;
     public string buildId;
 
+    public static BuildType singleton { get; private set; }
+
+    void Start() {
+        DontDestroyOnLoad(this.gameObject);
+
+        if(singleton == null) {
+            singleton = this;
+        } else {
+            Destroy(this.gameObject);
+        }
+    }
+
     public enum Build
     {
         RemoteServer,
