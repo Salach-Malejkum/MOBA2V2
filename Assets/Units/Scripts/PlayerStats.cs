@@ -60,6 +60,11 @@ public class PlayerStats : UnitStats
     private void RpcReadyToRespawn() {
         this.gameObject.SetActive(false);
     }
+
+    [Server]
+    public void OnRespawnHeal() {
+        this.unitCurrentHealth = this.unitMaxHealth;
+    }
     
     public void AddItemStatsToPlayer(ShopItemSo item)
     {

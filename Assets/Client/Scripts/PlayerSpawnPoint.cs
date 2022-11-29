@@ -28,6 +28,7 @@ public class PlayerSpawnPoint : NetworkBehaviour
                 } else {
                     this.playerAssigned.transform.position = this.transform.position;
                     this.playerAssigned.SetActive(true);
+                    this.playerAssigned.GetComponent<PlayerStats>().OnRespawnHeal();
                     RpcHandlePlayerRespawn();
                     this.respawnTimer = this.respawnTimeInterval;
                 }
