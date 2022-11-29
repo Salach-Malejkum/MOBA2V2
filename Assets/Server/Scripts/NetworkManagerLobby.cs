@@ -272,3 +272,5 @@ public class OnPlayerSpawnArgs : EventArgs
         PlayerName = playerName;
     }
 }
+//bez tego nie działa
+public struct ShutdownMessage : NetworkMessage {}
