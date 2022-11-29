@@ -65,4 +65,5 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  playerPrefab: {fileID: 4739550223701580035, guid: b7d8253ea0f718a4897be16f4d5a18bd, type: 3}
+  playerPrefabRed: {fileID: 4739550223701580035, guid: 21542215a0e6f2648bd77ece528bdfbf, type: 3}
+  playerPrefabBlue: {fileID: 4739550223701580035, guid: b7d8253ea0f718a4897be16f4d5a18bd, type: 3}
