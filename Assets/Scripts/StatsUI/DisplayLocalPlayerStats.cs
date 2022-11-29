@@ -65,11 +65,6 @@ public class DisplayLocalPlayerStats : MonoBehaviour
         this.LoadLocalPlayerStats();
     }
 
-    //private void Update()
-    //{
-    //    this.template.AttackVal.text = "Attack: " + this.playerStats.UnitAttackDamage.ToString();
-    //}
-
     private void LocalPlayerHealthUpdated(float newCurrHP, float newMaxHP)
     {
         if (newCurrHP > newMaxHP)
