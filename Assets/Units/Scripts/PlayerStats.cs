@@ -30,7 +30,7 @@ public class PlayerStats : UnitStats
         get { return playerHealthRegen; }
     }
 
-    public event Action<float> OnHealthRegenUptade;
+    public event Action<float> OnHealthRegenUpdate;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
@@ -57,7 +57,7 @@ public class PlayerStats : UnitStats
 
     private void OnHealthRegenChanged(float oldHPRegen, float newHPRegen)
     {
-        OnHealthRegenUptade?.Invoke(newHPRegen);
+        OnHealthRegenUpdate?.Invoke(newHPRegen);
     }
 
     [Command]

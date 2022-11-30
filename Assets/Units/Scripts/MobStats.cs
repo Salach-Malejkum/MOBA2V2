@@ -32,8 +32,8 @@ public class MobStats : UnitStats
         OnMobSpawn?.Invoke();
     }
 
-    public void TakeDamage(float damageAmount, GameObject aggresor) {
-        base.RemoveHealthOnNormalAttack(damageAmount, aggresor);
+    public void TakeDamage(float damageAmount, GameObject aggressor) {
+        base.RemoveHealthOnNormalAttack(damageAmount, aggressor);
     }
     
     [Server]
