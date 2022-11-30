@@ -9,15 +9,15 @@ public class HealthDisplay : MonoBehaviour
 
     private void Awake()
     {
-        this.unitStats.OnUnitMaxHealthUptade += LocalPlayerHealthUpdated;
-        this.unitStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
+        this.unitStats.OnUnitMaxHealthUpdate += LocalPlayerHealthUpdated;
+        this.unitStats.OnUnitHealthUpdate += LocalPlayerHealthUpdated;
         this.transf = GetComponent<RectTransform>();
     }
 
     private void OnDestroy()
     {
-        this.unitStats.OnUnitMaxHealthUptade -= LocalPlayerHealthUpdated;
-        this.unitStats.OnUnitHealthUptade -= LocalPlayerHealthUpdated;
+        this.unitStats.OnUnitMaxHealthUpdate -= LocalPlayerHealthUpdated;
+        this.unitStats.OnUnitHealthUpdate -= LocalPlayerHealthUpdated;
     }
 
     private void FixedUpdate()

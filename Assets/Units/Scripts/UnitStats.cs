@@ -31,10 +31,10 @@ public abstract class UnitStats : NetworkBehaviour
     {
         get { return unitAttackDamage; }
     }
-    [SyncVar(hook = nameof(OnAttackSpeedChanged))] [SerializeField] protected float attackSpeed = 1f;
-    public float AttackSpeed
+    [SyncVar(hook = nameof(OnAttackSpeedChanged))] [SerializeField] protected float unitAttackSpeed = 1f;
+    public float UnitAttackSpeed
     {
-        get { return attackSpeed; }
+        get { return unitAttackSpeed; }
     }
     [SyncVar(hook = nameof(OnAbilityPowerChanged))] [SerializeField] protected float unitAbilityPower = 0f;
     public float UnitAbilityPower
@@ -53,8 +53,12 @@ public abstract class UnitStats : NetworkBehaviour
     }
     [SerializeField] private bool IsWinCondition = false;
 
-    protected int currentLevel = 1;
-    protected float regenerationIntervalSeconds = 1f;
+    protected int unitCurrentLevel = 1;
+    protected float unitRegenerationIntervalSeconds = 1f;
+
+    [SyncVar][SerializeField] public float resourcesOnDeath;
+    [SyncVar][SerializeField] public float goldOnDeath;
+    [SyncVar] public GameObject lastAggressor;
 
     public event Action onUnitDeath;
     public static event Action onWinConditionMet;
@@ -69,19 +73,25 @@ public abstract class UnitStats : NetworkBehaviour
         }
     }
 
-    public event Action<float, float> OnUnitHealthUptade;
-    public event Action<float, float> OnUnitMaxHealthUptade;
-    public event Action<float> OnAttackUptade;
-    public event Action<float> OnAbilityPowerUptade;
-    public event Action<float> OnArmorUptade;
-    public event Action<float> OnMagicResistUptade;
-    public event Action<float> OnMovementSpeedUptade;
-    public event Action<float> OnAttackSpeedUptade;
-    public event Action<float> OnCooldownReductionUptade;
+    public event Action<float, float> OnUnitHealthUpdate;
+    public event Action<float, float> OnUnitMaxHealthUpdate;
+    public event Action<float> OnAttackUpdate;
+    public event Action<float> OnAbilityPowerUpdate;
+    public event Action<float> OnArmorUpdate;
+    public event Action<float> OnMagicResistUpdate;
+    public event Action<float> OnMovementSpeedUpdate;
+    public event Action<float> OnAttackSpeedUpdate;
+    public event Action<float> OnCooldownReductionUpdate;
 
-    public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggresor)
+    public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggressor)
     {
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
+
+        if (aggressor.tag == "Player")
+        {
+            this.lastAggressor = aggressor;
+            Debug.Log("Aggressor: " + aggressor);
+        }
         this.OnDeathCheck();
     }
 
@@ -92,7 +102,7 @@ public abstract class UnitStats : NetworkBehaviour
     }
 
     private void OnHealthChanged(float oldHP, float newHP) {
-        this.OnUnitHealthUptade?.Invoke(newHP, unitMaxHealth);
+        this.OnUnitHealthUpdate?.Invoke(newHP, unitMaxHealth);
         this.OnDeathCheck();
     }
 
@@ -111,41 +121,41 @@ public abstract class UnitStats : NetworkBehaviour
     
     private void OnMaxHealthChanged(float oldMaxHP, float newMaxHP)
     {
-        this.OnUnitMaxHealthUptade?.Invoke(this.unitCurrentHealth, newMaxHP);
+        this.OnUnitMaxHealthUpdate?.Invoke(this.unitCurrentHealth, newMaxHP);
     }
 
     private void OnAttackChanged(float oldAttack, float newAttack)
     {
-        this.OnAttackUptade?.Invoke(newAttack);
+        this.OnAttackUpdate?.Invoke(newAttack);
     }
 
     private void OnAbilityPowerChanged(float oldAP, float newAP)
     {
-        this.OnAbilityPowerUptade?.Invoke(newAP);
+        this.OnAbilityPowerUpdate?.Invoke(newAP);
     }
 
     private void OnArmorChanged(float oldArmor, float newArmor)
     {
-        this.OnArmorUptade?.Invoke(newArmor);
+        this.OnArmorUpdate?.Invoke(newArmor);
     }
 
     private void OnMagicResistChanged(float oldMR, float newMR)
     {
-        this.OnMagicResistUptade?.Invoke(newMR);
+        this.OnMagicResistUpdate?.Invoke(newMR);
     }
 
     private void OnMovementSpeedChanged(float oldMS, float newMS)
     {
-        this.OnMovementSpeedUptade?.Invoke(newMS);
+        this.OnMovementSpeedUpdate?.Invoke(newMS);
     }
 
     private void OnAttackSpeedChanged(float oldAS, float newAS)
     {
-        this.OnAttackSpeedUptade?.Invoke(newAS);
+        this.OnAttackSpeedUpdate?.Invoke(newAS);
     }
 
     private void OnCooldownReductionChanged(float oldCD, float newCD)
     {
-        this.OnCooldownReductionUptade?.Invoke(newCD);
+        this.OnCooldownReductionUpdate?.Invoke(newCD);
     }
 }

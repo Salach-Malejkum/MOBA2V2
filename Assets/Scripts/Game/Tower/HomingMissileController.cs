@@ -31,7 +31,6 @@ public class HomingMissileController : NetworkBehaviour
         }                
     }
 
-
     [ServerCallback]
     private void OnTriggerEnter(Collider other)
     {

@@ -39,33 +39,30 @@ public class PlayerSpawn : NetworkBehaviour
 
         GameObject playerInstance = default;
         PlayerStats playerStats = default;
-        
 
         switch (args.PlayerId % 2)
         {
             case 0:
                 playerInstance = Instantiate(this.playerPrefabBlue, spawnPoints[args.PlayerId].transform.position, spawnPoints[args.PlayerId].transform.rotation);
                 playerStats = playerInstance.GetComponent<PlayerStats>();
-                playerStats.side = "Blue";
+                playerStats.playerSide = "Blue";
                 break;
             case 1:
                 playerInstance = Instantiate(this.playerPrefabRed, spawnPoints[args.PlayerId].transform.position, spawnPoints[args.PlayerId].transform.rotation);
                 playerStats = playerInstance.GetComponent<PlayerStats>();
-                playerStats.side = "Red";
+                playerStats.playerSide = "Red";
                 break;
         }
-
-         
 
         switch (args.PlayerId)
         {
             case 0:
             case 1:
-                playerStats.lane = "Mid";
+                playerStats.playerLane = "Mid";
                 break;
             case 2:
             case 3:
-                playerStats.lane = "Bot";
+                playerStats.playerLane = "Bot";
                 break;
         }
 

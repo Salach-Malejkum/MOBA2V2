@@ -2,22 +2,27 @@ using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ResourceSpawner : NetworkBehaviour
 {
-    public GameObject[] resourcePrefabs;
-    public float scale = 1f;
-    public float nextSpawnTime = 5;
-    public float time = 0;
-    public  float spawnDelay = 10;
-    public int numberSpawned = 1;
-    public float spawnRadius = 0;
+    [SerializeField] public GameObject[] resourcePrefabs;
+    [SerializeField] public float scale = 1f;
+    [SerializeField] public float nextSpawnTime;
+    [SerializeField] public float time = 0;
+    [SerializeField] public float spawnRadius;
+    [SerializeField] public float spawnDelay;
+    [SerializeField] public int numberSpawned;
+    [SerializeField] public PassiveIncomeManager passiveIncomeManager;
+
+    [SyncVar] public string ownedBy;
+
     private float[] spawningX;
     private float[] spawningZ;
-    public Dictionary<int, GameObject> children = new();
 
+    private Dictionary<int, GameObject> children = new();
     private bool isSpawning = true;
 
     [ServerCallback]
@@ -117,18 +122,39 @@ public class ResourceSpawner : NetworkBehaviour
             MobController mc = child.Value.GetComponent<MobController>();
             mc.target = target;
             mc.isChasing = true;
+            child.Value.GetComponent<MonsterStats>().lastAggressor = target;
         }
     }
 
     [Server]
     public void RemoveFromChildren(int id)
     {
-        if (this.children.ContainsKey(id))
+        var childToDie = this.children.Where(x => x.Key == id).Select(x => x.Value).SingleOrDefault();
+
+        if (childToDie)
         {
+            if (this.children.Count == 1)
+            {
+                GameObject killer = childToDie.GetComponent<MonsterStats>().lastAggressor;
+                string playerSide = killer.GetComponent<PlayerStats>().playerSide;
+
+                if (this.ownedBy != playerSide)
+                {
+                    this.ownedBy = playerSide;
+                    float incomeIncrease = 0.1f * childToDie.GetComponent<MonsterStats>().resourcesOnDeath;
+
+                    switch (this.ownedBy)
+                    {
+                        case "Blue":
+                            this.passiveIncomeManager.resourceIncomeFromCampsBlue += incomeIncrease;
+                            break;
+                        case "Red":
+                            this.passiveIncomeManager.resourceIncomeFromCampsRed += incomeIncrease;
+                            break;
+                    }
+                }
+            }
             this.children.Remove(id);
-        } else
-        {
-            Debug.Log("WTF");
         }
 
         if (children.Count == 0)

@@ -4,12 +4,25 @@ using System;
 
 public class PlayerStats : UnitStats
 {
-    [SerializeField] protected float playerGold = 100f;
+    private float timer;
+    [SyncVar] public string playerLane;
+    [SyncVar] public string playerSide;
+    [SyncVar] public string playerName;
+
+    [SyncVar][SerializeField] protected float playerGold = 100f;
     public float PlayerGold
     {
         get { return playerGold; }
         set { playerGold = value; }
     }
+
+    [SyncVar][SerializeField] protected float playerResources = 3f;
+    public float PlayerResources
+    {
+        get { return playerResources; }
+        set { playerResources = value; }
+    }
+    
     [SyncVar] [SerializeField] protected float playerExp = 0f;
     [SyncVar(hook = nameof(OnHealthRegenChanged))] [SerializeField] private float playerHealthRegen = 2.5f;
     public float PlayerHealthRegen
@@ -17,29 +30,34 @@ public class PlayerStats : UnitStats
         get { return playerHealthRegen; }
     }
 
-    [SyncVar] public string playerName;
-
-    private float timer;
-    [SyncVar] public string lane;
-    [SyncVar] public string side;
-
-    public event Action<float> OnHealthRegenUptade;
+    public event Action<float> OnHealthRegenUpdate;
 
     public override void OnStartAuthority() {
         this.unitCurrentHealth = this.unitMaxHealth;
-        this.timer = this.regenerationIntervalSeconds;
+        this.timer = this.unitRegenerationIntervalSeconds;
         this.onUnitDeath += CmdReadyToRespawn;
-        NetworkManagerLobby.Instance.PlayerSide = this.side;
+        NetworkManagerLobby.Instance.PlayerSide = this.playerSide;
         NetworkManagerLobby.Instance.PlayersLoadedToScene.Add(this.gameObject.GetComponent<NetworkIdentity>());
     }
 
-    public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject agressor) {
-        base.RemoveHealthOnNormalAttack(damageAmount, agressor);
+    [ServerCallback]
+    private void Update() {
+        this.timer -= Time.deltaTime;
+
+        if (unitRegenerationIntervalSeconds <= 0) {
+            base.AddHealth(playerHealthRegen);
+            this.timer += this.unitRegenerationIntervalSeconds;
+        }
+    }
+
+    public override void RemoveHealthOnNormalAttack(float damageAmount, GameObject aggressor)
+    {
+        base.RemoveHealthOnNormalAttack(damageAmount, aggressor);
     }
 
     private void OnHealthRegenChanged(float oldHPRegen, float newHPRegen)
     {
-        OnHealthRegenUptade?.Invoke(newHPRegen);
+        OnHealthRegenUpdate?.Invoke(newHPRegen);
     }
 
     [Command]

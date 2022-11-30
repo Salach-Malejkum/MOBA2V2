@@ -49,7 +49,7 @@ public class PlayerAttack : NetworkBehaviour, IAttack
             if (this.objectsInRangeHashSet.Contains(hit.transform.gameObject))
             {
                 this.networkAnimator.SetTrigger("Attack");
-                this.animator.speed = this.stats.AttackSpeed;
+                this.animator.speed = this.stats.UnitAttackSpeed;
                 this.transform.LookAt(hit.transform);
             }
             this.followAttack = true;
@@ -124,7 +124,7 @@ public class PlayerAttack : NetworkBehaviour, IAttack
         if (this.objectsInRangeHashSet.Contains(this.targetEnemy.gameObject))
         {
             this.networkAnimator.SetTrigger("Attack");
-            this.animator.speed = this.stats.AttackSpeed;
+            this.animator.speed = this.stats.UnitAttackSpeed;
             this.transform.LookAt(this.targetEnemy.gameObject.transform);
         }
         else

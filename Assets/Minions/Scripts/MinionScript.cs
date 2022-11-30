@@ -54,7 +54,7 @@ public class MinionScript : NetworkBehaviour
         {
             {
                 this.networkAnimator.SetTrigger("Attack");
-                this.animator.speed = this.stats.AttackSpeed;
+                this.animator.speed = this.stats.UnitAttackSpeed;
                 this.transform.LookAt(this.targetEnemy.transform);
             }
             navMeshAgent.destination = this.transform.position;
