@@ -104,7 +104,7 @@ public class NetworkManagerLobby : NetworkManager {
             return;
         }
 
-        if (SceneManager.GetActiveScene().path != menuScene) {
+        if (SceneManager.GetActiveScene().path != Instance.menuScene) {
             conn.Disconnect();
             return;
         }
@@ -161,7 +161,7 @@ public class NetworkManagerLobby : NetworkManager {
             }
             Instance.playerConnections.Remove(playerConn);
         }
-        if (SceneManager.GetActiveScene().path == menuScene) {
+        if (SceneManager.GetActiveScene().path == Instance.menuScene) {
             Application.Quit();
         }
         base.OnServerDisconnect(conn);
