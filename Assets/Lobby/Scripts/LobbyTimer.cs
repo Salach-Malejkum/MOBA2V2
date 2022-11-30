@@ -27,10 +27,10 @@ public class LobbyTimer : NetworkBehaviour
             
             if (timeLeft > 0.1) {
                 this.timeLeft -= Time.deltaTime;
-                OnTimeUpdated?.Invoke(timeLeft);
+                OnTimeUpdated?.Invoke(this.timeLeft);
             } else {
                 this.timeLeft = 0f;
-                OnTimeUpdated?.Invoke(timeLeft);
+                OnTimeUpdated?.Invoke(this.timeLeft);
             }
             if (isServer) {
                 if (!LobbyNotReady && timeLeft == 0f) {
