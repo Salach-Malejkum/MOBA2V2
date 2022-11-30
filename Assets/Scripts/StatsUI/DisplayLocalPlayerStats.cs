@@ -87,7 +87,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void LocalPlayerArmorUpdated(float newStat)
     {
-        this.template.ArmorVal.text = "A " + newStat.ToString();
+        this.template.ArmorVal.text = "AR " + newStat.ToString();
     }
 
     private void LocalPlayerMagicResistUpdated(float newStat)
@@ -107,7 +107,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void LocalPlayerCooldownReductionUpdated(float newStat)
     {
-        this.template.CooldownReductionVal.text = "CD " + newStat.ToString();
+        this.template.CooldownReductionVal.text = "CDR " + newStat.ToString();
     }
 
     private void LocalPlayerHealthRegenUpdated(float newStat)
@@ -161,11 +161,11 @@ public class DisplayLocalPlayerStats : MonoBehaviour
         this.template.HealthVal.text = this.playerStats.UnitCurrentHealth + "/" + playerStats.UnitMaxHealth;
         this.template.AttackVal.text = "AD " + this.playerStats.UnitAttackDamage.ToString();
         this.template.AbilityPowerVal.text = "AP " + this.playerStats.UnitAbilityPower.ToString();
-        this.template.ArmorVal.text = "A " + this.playerStats.UnitArmor.ToString();
+        this.template.ArmorVal.text = "AR " + this.playerStats.UnitArmor.ToString();
         this.template.MagicResistVal.text = "MR " + this.playerStats.UnitMagicResist.ToString();
         this.template.MovmentSpeedVal.text = "MS " + this.playerStats.UnitMovementSpeed.ToString();
         this.template.AttackSpeed.text = "AS " + this.playerStats.AttackSpeed.ToString();
-        this.template.CooldownReductionVal.text = "CD " + this.playerStats.UnitCooldownReduction.ToString();
+        this.template.CooldownReductionVal.text = "CDR " + this.playerStats.UnitCooldownReduction.ToString();
         this.template.HealthRegenVal.text = "+" + this.playerStats.PlayerHealthRegen.ToString();
     }
 }
