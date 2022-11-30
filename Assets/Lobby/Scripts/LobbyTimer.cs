@@ -12,7 +12,7 @@ public class LobbyTimer : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        timeLeft = 30f;
+        this.timeLeft = 30f;
         base.OnStopServer();
     }
 
@@ -21,15 +21,15 @@ public class LobbyTimer : NetworkBehaviour
         if (NetworkManagerLobby.Instance.RoomPlayers.Count >= NetworkManagerLobby.Instance.MinPlayers)
         {
             if (NetworkManagerLobby.Instance.IsReadyToStart() && LobbyNotReady) {
-                timeLeft = 10f;
+                this.timeLeft = 10f;
                 LobbyNotReady = false;
             }
             
             if (timeLeft > 0.1) {
-                timeLeft -= Time.deltaTime;
+                this.timeLeft -= Time.deltaTime;
                 OnTimeUpdated?.Invoke(timeLeft);
             } else {
-                timeLeft = 0f;
+                this.timeLeft = 0f;
                 OnTimeUpdated?.Invoke(timeLeft);
             }
             if(isServer) {
