@@ -34,7 +34,6 @@ public class SpawnManager : NetworkBehaviour
             Enumerable.Reverse(Enums.MinionPaths.topPathPoints).ToArray()
             );
 
-
         this.redTeamBotMinions = new MinionSpawnerScript
             (
             Enums.TeamMinionSpawnerPosition.redTeamSpawn,

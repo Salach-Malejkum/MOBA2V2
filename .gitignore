@@ -65,4 +65,9 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 .vsconfig
+
 Assets/Jebany Auto-Save.meta
+Assets/Mirror.meta
+/Assets/PlayFabSDK.meta
+/Assets/PlayFabEditorExtensions.meta
+/Assets/ScriptTemplates.meta

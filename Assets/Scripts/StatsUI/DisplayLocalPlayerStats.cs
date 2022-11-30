@@ -18,16 +18,16 @@ public class DisplayLocalPlayerStats : MonoBehaviour
                 playerStats = player.gameObject.GetComponent<PlayerStats>();
             }
         }
-        this.playerStats.OnUnitHealthUptade += LocalPlayerHealthUpdated;
-        this.playerStats.OnUnitMaxHealthUptade += LocalPlayerHealthUpdated;
-        this.playerStats.OnAttackUptade += LocalPlayerAttackUpdated;
-        this.playerStats.OnAbilityPowerUptade += LocalPlayerAbilityPowerUpdated;
-        this.playerStats.OnArmorUptade += LocalPlayerArmorUpdated;
-        this.playerStats.OnMagicResistUptade += LocalPlayerMagicResistUpdated;
-        this.playerStats.OnAttackSpeedUptade += LocalPlayerAttackSpeedUpdated;
-        this.playerStats.OnMovementSpeedUptade += LocalPlayerMovementSpeedUpdated;
-        this.playerStats.OnCooldownReductionUptade += LocalPlayerCooldownReductionUpdated;
-        this.playerStats.OnHealthRegenUptade += LocalPlayerHealthRegenUpdated;
+        this.playerStats.OnUnitHealthUpdate += LocalPlayerHealthUpdated;
+        this.playerStats.OnUnitMaxHealthUpdate += LocalPlayerHealthUpdated;
+        this.playerStats.OnAttackUpdate += LocalPlayerAttackUpdated;
+        this.playerStats.OnAbilityPowerUpdate += LocalPlayerAbilityPowerUpdated;
+        this.playerStats.OnArmorUpdate += LocalPlayerArmorUpdated;
+        this.playerStats.OnMagicResistUpdate += LocalPlayerMagicResistUpdated;
+        this.playerStats.OnAttackSpeedUpdate += LocalPlayerAttackSpeedUpdated;
+        this.playerStats.OnMovementSpeedUpdate += LocalPlayerMovementSpeedUpdated;
+        this.playerStats.OnCooldownReductionUpdate += LocalPlayerCooldownReductionUpdated;
+        this.playerStats.OnHealthRegenUpdate += LocalPlayerHealthRegenUpdated;
         this.playerSkills.QUsed += LocalPlayerUsedQ;
         this.playerSkills.WUsed += LocalPlayerUsedW;
         this.playerSkills.EUsed += LocalPlayerUsedE;
@@ -40,16 +40,16 @@ public class DisplayLocalPlayerStats : MonoBehaviour
 
     private void OnDestroy()
     {
-        this.playerStats.OnUnitHealthUptade -= LocalPlayerHealthUpdated;
-        this.playerStats.OnUnitMaxHealthUptade -= LocalPlayerHealthUpdated;
-        this.playerStats.OnAttackUptade -= LocalPlayerAttackUpdated;
-        this.playerStats.OnAbilityPowerUptade -= LocalPlayerAbilityPowerUpdated;
-        this.playerStats.OnArmorUptade -= LocalPlayerArmorUpdated;
-        this.playerStats.OnMagicResistUptade -= LocalPlayerMagicResistUpdated;
-        this.playerStats.OnAttackSpeedUptade -= LocalPlayerAttackSpeedUpdated;
-        this.playerStats.OnMovementSpeedUptade -= LocalPlayerMovementSpeedUpdated;
-        this.playerStats.OnCooldownReductionUptade -= LocalPlayerCooldownReductionUpdated;
-        this.playerStats.OnHealthRegenUptade -= LocalPlayerHealthRegenUpdated;
+        this.playerStats.OnUnitHealthUpdate -= LocalPlayerHealthUpdated;
+        this.playerStats.OnUnitMaxHealthUpdate -= LocalPlayerHealthUpdated;
+        this.playerStats.OnAttackUpdate -= LocalPlayerAttackUpdated;
+        this.playerStats.OnAbilityPowerUpdate -= LocalPlayerAbilityPowerUpdated;
+        this.playerStats.OnArmorUpdate -= LocalPlayerArmorUpdated;
+        this.playerStats.OnMagicResistUpdate -= LocalPlayerMagicResistUpdated;
+        this.playerStats.OnAttackSpeedUpdate -= LocalPlayerAttackSpeedUpdated;
+        this.playerStats.OnMovementSpeedUpdate -= LocalPlayerMovementSpeedUpdated;
+        this.playerStats.OnCooldownReductionUpdate -= LocalPlayerCooldownReductionUpdated;
+        this.playerStats.OnHealthRegenUpdate -= LocalPlayerHealthRegenUpdated;
         this.playerSkills.QUsed -= LocalPlayerUsedQ;
         this.playerSkills.WUsed -= LocalPlayerUsedW;
         this.playerSkills.EUsed -= LocalPlayerUsedE;

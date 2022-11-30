@@ -1279,11 +1279,12 @@ MonoBehaviour:
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 0
-  attackSpeed: 1
+  unitAttackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
-  gold: 0
+  resourcesOnDeath: 10
+  goldOnDeath: 2
   spawnerResource: {fileID: 0}
   Id: 0
 --- !u!114 &5312911114888547397

@@ -28,7 +28,7 @@ public class StructureStats : UnitStats
 
     [Server]
     private void HandleStructureDestroyed() {
-        NetworkServer.Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 
     [Server]

@@ -8,7 +8,6 @@ public class MonsterStats : MobStats
 {
     public ResourceSpawner spawnerResource;
     public int Id;
-    // resources
 
     [Server]
     protected override void HandleMobDeath()
