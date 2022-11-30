@@ -75,7 +75,6 @@ public class PlayerSpawn : NetworkBehaviour
         NetworkManagerLobby.Instance.PlayersLoadedToScene.Add(playerInstance.GetComponent<NetworkIdentity>());
 
         playerInstance.GetComponent<UpgradeManager>().SetTurrets();
-        GameObject.Find("SpawnPoints").GetComponent<PassiveIncomeManager>().AddPlayer(playerInstance);
     }
 
 }

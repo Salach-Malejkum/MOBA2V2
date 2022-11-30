@@ -8,19 +8,10 @@ public class PassiveIncomeManager : NetworkBehaviour
     float timePassed = 1f;
     public float goldIncome = 2f;
 
-    [SyncVar] public List<GameObject> playersBlue;
-    [SyncVar] public List<GameObject> playersRed;
     [SyncVar] public float resourceIncomeFromCampsBlue = 0f;
     [SyncVar] public float resourceIncomeFromCampsRed = 0f;
 
-    [Server]
-    void Awake()
-    {
-        this.playersBlue = new List<GameObject>();
-        this.playersRed = new List<GameObject>();
-    }
-
-    [Server]
+    [ServerCallback]
     void Update()
     {
         this.timePassed += Time.deltaTime;
@@ -28,29 +19,19 @@ public class PassiveIncomeManager : NetworkBehaviour
         if (this.timePassed > 1f)
         {
             this.timePassed = 0f;
-            foreach (GameObject p in this.playersBlue)
+            foreach(NetworkIdentity conn in NetworkManagerLobby.Instance.PlayersLoadedToScene)
             {
-                p.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsBlue;
-                p.GetComponent<PlayerStats>().PlayerGold += this.goldIncome;
+                switch (LayerMask.LayerToName(conn.gameObject.layer))
+                {
+                    case "Blue":
+                        conn.gameObject.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsBlue;
+                        break;
+                    case "Red":
+                        conn.gameObject.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsRed;
+                        break;
+                }
+                conn.gameObject.GetComponent<PlayerStats>().PlayerGold += this.goldIncome;
             }
-            foreach (GameObject p in this.playersRed)
-            {
-                p.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsRed;
-                p.GetComponent<PlayerStats>().PlayerGold += this.goldIncome;
-            }
-        }
-    }
-
-    public void AddPlayer(GameObject player)
-    {
-        switch (player.GetComponent<PlayerStats>().playerSide)
-        {
-            case "Blue":
-                this.playersBlue.Add(player);
-                break;
-            case "Red":
-                this.playersRed.Add(player);
-                break;
         }
     }
 }

@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7370ee792de99845b203c7f5b3ae177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
   buildingMenuCanva: {fileID: 2913673917802773283, guid: b7d8253ea0f718a4897be16f4d5a18bd, type: 3}
