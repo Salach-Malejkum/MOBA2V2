@@ -18,7 +18,7 @@ public class LobbyTimer : NetworkBehaviour
 
     void Update()
     {
-        if(NetworkManagerLobby.Instance.RoomPlayers.Count > 0)
+        if (NetworkManagerLobby.Instance.RoomPlayers.Count >= NetworkManagerLobby.Instance.minPlayers)
         {
             if (NetworkManagerLobby.Instance.IsReadyToStart() && LobbyNotReady) {
                 timeLeft = 10f;
@@ -36,7 +36,11 @@ public class LobbyTimer : NetworkBehaviour
                 if(!LobbyNotReady && timeLeft == 0f) {
                     NetworkManagerLobby.Instance.StartGame();
                 } else if (timeLeft == 0f) {
-                    NetworkManagerLobby.Instance.OnApplicationQuit();
+                    if (NetworkManagerLobby.Instance.connType == "remoteClient") {
+                        NetworkManagerLobby.Instance.StopClient();
+                    } else {
+                        Application.Quit();
+                    }
                 }
             }
         }

@@ -11,7 +11,7 @@ using Mirror;
 
 public class NetworkManagerLobby : NetworkManager {
     
-    [SerializeField] private int minPlayers = 2;
+    [SerializeField] public int minPlayers = 2;
     [Scene] [SerializeField] private string menuScene = string.Empty;
     [Scene] [SerializeField] private string mapScene = string.Empty;
 
