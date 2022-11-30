@@ -18,7 +18,7 @@ public class LobbyTimer : NetworkBehaviour
 
     void Update()
     {
-        if (NetworkManagerLobby.Instance.RoomPlayers.Count >= NetworkManagerLobby.Instance.minPlayers)
+        if (NetworkManagerLobby.Instance.RoomPlayers.Count >= NetworkManagerLobby.Instance.MinPlayers)
         {
             if (NetworkManagerLobby.Instance.IsReadyToStart() && LobbyNotReady) {
                 timeLeft = 10f;
