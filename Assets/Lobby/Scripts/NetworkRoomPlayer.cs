@@ -77,18 +77,9 @@ public class NetworkRoomPlayer : NetworkBehaviour
         NetworkManagerLobby.Instance.NotifyPlayersOfReadyState();
     }
 
-    [Command]
-    public void CmdCancelQueue()
+    public void CancelMatchAsNotReady()
     {
-        if (NetworkManagerLobby.Instance.connType == "host")
-        {
-            NetworkManagerLobby.Instance.StopHost();
-        }
-        else
-        {
-            NetworkManagerLobby.Instance.StopClient();
-        }
-
+        NetworkManagerLobby.Instance.StopClient();
     }
 
 }

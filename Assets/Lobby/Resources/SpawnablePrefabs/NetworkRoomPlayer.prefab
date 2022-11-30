@@ -722,7 +722,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2461713667315046168}
         m_TargetAssemblyTypeName: NetworkRoomPlayer, Assembly-CSharp
-        m_MethodName: CmdCancelQueue
+        m_MethodName: CancelMatchAsNotReady
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
