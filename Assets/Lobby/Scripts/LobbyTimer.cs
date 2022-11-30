@@ -12,31 +12,35 @@ public class LobbyTimer : NetworkBehaviour
 
     public override void OnStopServer()
     {
-        timeLeft = 30f;
+        this.timeLeft = 30f;
         base.OnStopServer();
     }
 
     void Update()
     {
-        if(NetworkManagerLobby.Instance.RoomPlayers.Count > 0)
+        if (NetworkManagerLobby.Instance.RoomPlayers.Count >= NetworkManagerLobby.Instance.MinPlayers)
         {
             if (NetworkManagerLobby.Instance.IsReadyToStart() && LobbyNotReady) {
-                timeLeft = 10f;
+                this.timeLeft = 10f;
                 LobbyNotReady = false;
             }
             
             if (timeLeft > 0.1) {
-                timeLeft -= Time.deltaTime;
-                OnTimeUpdated?.Invoke(timeLeft);
+                this.timeLeft -= Time.deltaTime;
+                OnTimeUpdated?.Invoke(this.timeLeft);
             } else {
-                timeLeft = 0f;
-                OnTimeUpdated?.Invoke(timeLeft);
+                this.timeLeft = 0f;
+                OnTimeUpdated?.Invoke(this.timeLeft);
             }
-            if(isServer) {
-                if(!LobbyNotReady && timeLeft == 0f) {
+            if (isServer) {
+                if (!LobbyNotReady && timeLeft == 0f) {
                     NetworkManagerLobby.Instance.StartGame();
                 } else if (timeLeft == 0f) {
-                    NetworkManagerLobby.Instance.OnApplicationQuit();
+                    if (NetworkManagerLobby.Instance.connType == "remoteClient") {
+                        NetworkManagerLobby.Instance.StopClient();
+                    } else {
+                        Application.Quit();
+                    }
                 }
             }
         }
