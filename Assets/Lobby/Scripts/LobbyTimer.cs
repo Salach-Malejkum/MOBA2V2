@@ -32,8 +32,8 @@ public class LobbyTimer : NetworkBehaviour
                 this.timeLeft = 0f;
                 OnTimeUpdated?.Invoke(timeLeft);
             }
-            if(isServer) {
-                if(!LobbyNotReady && timeLeft == 0f) {
+            if (isServer) {
+                if (!LobbyNotReady && timeLeft == 0f) {
                     NetworkManagerLobby.Instance.StartGame();
                 } else if (timeLeft == 0f) {
                     if (NetworkManagerLobby.Instance.connType == "remoteClient") {
