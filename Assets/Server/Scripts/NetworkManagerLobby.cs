@@ -146,7 +146,7 @@ public class NetworkManagerLobby : NetworkManager {
     }
     //uusnięcie obiektu gracza i połączenia z listy przy evencie rozłączenia
     public override void OnServerDisconnect(NetworkConnectionToClient conn) {
-        if(conn.identity != null) {
+        if (conn.identity != null) {
             var player = conn.identity.GetComponent<NetworkRoomPlayer>();
 
             Instance.RoomPlayers.Remove(player);
@@ -155,11 +155,14 @@ public class NetworkManagerLobby : NetworkManager {
         }
         var playerConn = playerConnections.Find(c => c.ConnectionId == conn.connectionId);
 
-        if(playerConn != null) {
+        if (playerConn != null) {
             if(!string.IsNullOrEmpty(playerConn.PlayfabId)) {
                 OnPlayerRemoved.Invoke(playerConn.PlayfabId);
             }
             Instance.playerConnections.Remove(playerConn);
+        }
+        if (SceneManager.GetActiveScene().path == menuScene) {
+            Application.Quit();
         }
         base.OnServerDisconnect(conn);
     }
