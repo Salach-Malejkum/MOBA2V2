@@ -7,6 +7,7 @@ public class PlayerStats : UnitStats
     private float timer;
     [SyncVar] public string playerLane;
     [SyncVar] public string playerSide;
+    [SyncVar] public string playerName;
 
     [SyncVar][SerializeField] protected float playerGold = 100f;
     public float PlayerGold

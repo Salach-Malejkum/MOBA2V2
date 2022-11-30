@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52088db0a125a3e499d0b3816d1b3505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0.1
   unitMaxHealth: 100
@@ -541,16 +541,17 @@ MonoBehaviour:
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   resourcesOnDeath: 0
   goldOnDeath: 0
   lastAggressor: {fileID: 0}
+  playerLane: 
+  playerSide: 
+  playerName: 
   playerGold: 100
   playerResources: 3
   playerExp: 0
   playerHealthRegen: 2.5
-  playerName: 
-  playerLane: 
-  playerSide: 
 --- !u!114 &2564117619035827070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4098,7 +4099,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 12864432413176664, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 12864432413176664, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4130,7 +4131,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 680783823096972230, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 680783823096972230, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4166,7 +4167,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 1990298684379111084, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 1990298684379111084, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4202,7 +4203,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 3630833286515276481, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 3630833286515276481, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4238,7 +4239,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 3901555372312314121, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 3901555372312314121, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4270,7 +4271,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 4257853067348957838, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 4257853067348957838, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4302,7 +4303,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 4809276520048000000, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 4809276520048000000, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4334,7 +4335,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 6954705889949171709, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 6954705889949171709, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -4366,7 +4367,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 7546847971143602809, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 7546847971143602809, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4494,7 +4495,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 7801872014597276009, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 7801872014597276009, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -4522,7 +4523,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 8167888014653648569, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 8167888014653648569, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
@@ -4558,7 +4559,7 @@ PrefabInstance:
       objectReference: {fileID: 2564117619035827070}
     - target: {fileID: 8569498168077147282, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: upgradeTurretFFS
+      value: UpgradeTurretFFS
       objectReference: {fileID: 0}
     - target: {fileID: 8569498168077147282, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument

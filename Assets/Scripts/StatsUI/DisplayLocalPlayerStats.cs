@@ -164,7 +164,7 @@ public class DisplayLocalPlayerStats : MonoBehaviour
         this.template.ArmorVal.text = "Armor: " + this.playerStats.UnitArmor.ToString();
         this.template.MagicResistVal.text = "Magic Resist: " + this.playerStats.UnitMagicResist.ToString();
         this.template.MovmentSpeedVal.text = "Movement Speed: " + this.playerStats.UnitMovementSpeed.ToString();
-        this.template.AttackSpeed.text = "Attack Speed: " + this.playerStats.AttackSpeed.ToString();
+        this.template.AttackSpeed.text = "Attack Speed: " + this.playerStats.UnitAttackSpeed.ToString();
         this.template.CooldownReductionVal.text = "Cooldown Reduction: " + this.playerStats.UnitCooldownReduction.ToString();
         this.template.HealthRegenVal.text = "+" + this.playerStats.PlayerHealthRegen.ToString();
     }

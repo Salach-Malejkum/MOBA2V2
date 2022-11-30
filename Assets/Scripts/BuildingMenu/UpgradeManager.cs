@@ -60,7 +60,7 @@ public class UpgradeManager : NetworkBehaviour
     }
 
     [Client]
-    public void upgradeTurretFFS(string tier_index) // First character is turret tier, second is upgrade Id
+    public void UpgradeTurretFFS(string tier_index) // First character is turret tier, second is upgrade Id
     {
         if (this.gameObject.GetComponent<PlayerStats>().PlayerResources >= 1)
         {
