@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private InventoryOnClick inventoryOnClick;
@@ -22,11 +22,14 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     }
     [SerializeField]
     private Inventory inventory;
+    [SerializeField]
+    private GameObject hoverDisplay;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
+        hoverDisplay.SetActive(false);
         if (this.InventorySlotNotEmptyAndLMBClicked(this.transform.parent.GetSiblingIndex(), eventData))
         {
             this.transform.SetParent(this.transform.parent.parent);
@@ -62,4 +65,15 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         return this.inventory.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        hoverDisplay.SetActive(true);
+        int itemIndex = this.transform.parent.GetSiblingIndex();
+        hoverDisplay.GetComponent<HoverPannelHandler>().LoadPanel(this.inventory.Equipment[itemIndex]);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        hoverDisplay.SetActive(false);
+    }
 }
