@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject landingPangePanel = default;
+    [SerializeField] private GameObject itemDisplay = default;
 
     //zmiana funkcjonalności na hostowanie custom lobby, dlatego zostawiam kod
     public void HostLobby() {
@@ -13,17 +14,20 @@ public class MainMenu : MonoBehaviour
 
 
         ToggleLandingPageNonActive();
+        ToggleItemDisplayNonActive();
     }
 
     private void OnEnable()
     {
         NetworkManagerLobby.OnClientConnected += ToggleLandingPageNonActive;
+        NetworkManagerLobby.OnClientConnected += ToggleItemDisplayNonActive;
         NetworkManagerLobby.OnClientDisconnected += ToggleLandingPageActive;
     }
 
     private void OnDisable()
     {
         NetworkManagerLobby.OnClientConnected -= ToggleLandingPageNonActive;
+        NetworkManagerLobby.OnClientConnected -= ToggleItemDisplayNonActive;
         NetworkManagerLobby.OnClientDisconnected -= ToggleLandingPageActive;
     }
 
@@ -33,6 +37,11 @@ public class MainMenu : MonoBehaviour
     }
 
     private void ToggleLandingPageNonActive()
+    {
+        landingPangePanel.SetActive(false);
+    }
+
+    private void ToggleItemDisplayNonActive()
     {
         landingPangePanel.SetActive(false);
     }

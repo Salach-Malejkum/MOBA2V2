@@ -20,7 +20,7 @@ public class HealthDisplay : MonoBehaviour
         this.unitStats.OnUnitHealthUpdate -= LocalPlayerHealthUpdated;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         this.transf.rotation = Quaternion.Euler(-45f, 0, 0);
     }

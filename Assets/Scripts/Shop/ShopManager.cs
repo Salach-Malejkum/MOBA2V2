@@ -82,7 +82,7 @@ public class ShopManager : NetworkBehaviour
     }
 
     [ClientCallback]
-    private void FixedUpdate()
+    private void Update()
     {
         this.timer += Time.deltaTime;
 
