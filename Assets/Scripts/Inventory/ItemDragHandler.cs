@@ -50,7 +50,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.SetParent(this.OriginalSlot);
-            GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            this.transform.localPosition = Vector3.zero;
             this.GetComponent<CanvasGroup>().blocksRaycasts = true;
             this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
         }
