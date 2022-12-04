@@ -29,11 +29,11 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
-        hoverDisplay.SetActive(false);
+        this.hoverDisplay.SetActive(false);
         if (this.InventorySlotNotEmptyAndLMBClicked(this.transform.parent.GetSiblingIndex(), eventData))
         {
             this.transform.SetParent(this.transform.parent.parent);
-            GetComponent<CanvasGroup>().blocksRaycasts = false;
+            this.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
     }
 
@@ -50,7 +50,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.SetParent(this.OriginalSlot);
-            GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
+            this.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             this.GetComponent<CanvasGroup>().blocksRaycasts = true;
             this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
         }
@@ -67,13 +67,13 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        hoverDisplay.SetActive(true);
+        this.hoverDisplay.SetActive(true);
         int itemIndex = this.transform.parent.GetSiblingIndex();
-        hoverDisplay.GetComponent<HoverPannelHandler>().LoadPanel(this.inventory.Equipment[itemIndex]);
+        this.hoverDisplay.GetComponent<HoverPannelHandler>().LoadPanel(this.inventory.Equipment[itemIndex]);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        hoverDisplay.SetActive(false);
+        this.hoverDisplay.SetActive(false);
     }
 }

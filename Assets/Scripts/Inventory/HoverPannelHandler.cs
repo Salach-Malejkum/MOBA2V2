@@ -9,20 +9,11 @@ public class HoverPannelHandler : MonoBehaviour
     [SerializeField]
     private Canvas inventoryCanvas;
 
-    //private void Update()
-    //{
-    //    if (this.gameObject.activeSelf)
-    //    {
-    //        Vector2 pos;
-    //        RectTransformUtility.ScreenPointToLocalPointInRectangle(inventoryCanvas.transform as RectTransform, Input.mousePosition, inventoryCanvas.worldCamera, out pos);
-    //        pos.x += this.GetComponent<RectTransform>().rect.width/2 + 2;
-    //        pos.y += this.GetComponent<RectTransform>().rect.height/2 + 2;
-    //        transform.position = inventoryCanvas.transform.TransformPoint(pos);
-    //    }
-    //}
-
     public void LoadPanel(ShopItemSo item)
     {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(this.inventoryCanvas.transform as RectTransform, Input.mousePosition, this.inventoryCanvas.worldCamera, out pos);
+        transform.position = inventoryCanvas.transform.TransformPoint(pos);
         this.template.TitleTxt.text = item.Title;
         this.template.ItemIm.sprite = item.Image;
         this.template.AttackVal.text = "AD: " + item.Attack.ToString();
