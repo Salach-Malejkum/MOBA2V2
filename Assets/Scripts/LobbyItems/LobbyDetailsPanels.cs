@@ -9,7 +9,7 @@ public class LobbyDetailsPanels : MonoBehaviour
 
     public void DesactivateAllInfoPanels()
     {
-        foreach (GameObject panel in detailsPanels)
+        foreach (GameObject panel in this.detailsPanels)
         {
             panel.SetActive(false);
         }

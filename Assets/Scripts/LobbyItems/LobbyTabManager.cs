@@ -28,25 +28,25 @@ public class LobbyTabManager : MonoBehaviour
     public void InfoItem(int itemNo)
     {
         this.panels.DesactivateAllInfoPanels();
-        int panelIndex = this.shopItemSo[itemNo].Components.Count;
+        ShopItemSo item = this.shopItemSo[itemNo];
+        int panelIndex = item.Components.Count;
         this.activeInfoPanel = this.panels.detailsPanels[panelIndex];
         this.activeInfoPanel.SetActive(true);
         InfoPanelsTemplate infoPanelTemplate = this.activeInfoPanel.GetComponent<InfoPanelsTemplate>();
-        infoPanelTemplate.TitleTxt.text = this.shopItemSo[itemNo].Title;
-        infoPanelTemplate.AttackVal.text = "Attack: " + this.shopItemSo[itemNo].Attack.ToString();
-        infoPanelTemplate.AbilityPowerVal.text = "Ability Power: " + this.shopItemSo[itemNo].AbilityPower.ToString();
-        infoPanelTemplate.ArmorVal.text = "Armor: " + this.shopItemSo[itemNo].Armor.ToString();
-        infoPanelTemplate.MagicResistVal.text = "Magic Resist: " + this.shopItemSo[itemNo].MagicResist.ToString();
-        infoPanelTemplate.CooldownReductionVal.text = "Cooldown Reduction: " + this.shopItemSo[itemNo].CooldownReduction.ToString();
-        infoPanelTemplate.HealthVal.text = "Health: " + this.shopItemSo[itemNo].Health.ToString();
-        infoPanelTemplate.PriceVal.text = this.shopItemSo[itemNo].TotalPrice.ToString();
-        infoPanelTemplate.ItemIm.sprite = this.shopItemSo[itemNo].Image;
+        infoPanelTemplate.TitleTxt.text = item.Title;
+        infoPanelTemplate.AttackVal.text = "Attack: " + item.Attack.ToString();
+        infoPanelTemplate.AbilityPowerVal.text = "Ability Power: " + item.AbilityPower.ToString();
+        infoPanelTemplate.ArmorVal.text = "Armor: " + item.Armor.ToString();
+        infoPanelTemplate.MagicResistVal.text = "Magic Resist: " + item.MagicResist.ToString();
+        infoPanelTemplate.CooldownReductionVal.text = "Cooldown Reduction: " + item.CooldownReduction.ToString();
+        infoPanelTemplate.HealthVal.text = "Health: " + item.Health.ToString();
+        infoPanelTemplate.PriceVal.text = item.TotalPrice.ToString();
+        infoPanelTemplate.ItemIm.sprite = item.Image;
 
-        for (int i = 0; i < this.shopItemSo[itemNo].Components.Count; i++)
+        for (int i = 0; i < item.Components.Count; i++)
         {
-
-            infoPanelTemplate.ItemImComp[i].sprite = this.shopItemSo[itemNo].Components[i].Image;
-            infoPanelTemplate.PriceValComp[i].text = this.shopItemSo[itemNo].Components[i].TotalPrice.ToString();
+            infoPanelTemplate.ItemImComp[i].sprite = item.Components[i].Image;
+            infoPanelTemplate.PriceValComp[i].text = item.Components[i].TotalPrice.ToString();
         }
     }
 
@@ -54,9 +54,10 @@ public class LobbyTabManager : MonoBehaviour
     {
         for (int i = 0; i < this.shopItemSo.Count; i++)
         {
-            this.shopPanels[i].TitleTxt.text = this.shopItemSo[i].Title;
-            this.shopPanels[i].PriceVal.text = "Price: " + this.shopItemSo[i].TotalPrice.ToString();
-            this.shopPanels[i].ItemIm.sprite = this.shopItemSo[i].Image;
+            ShopItemSo item = this.shopItemSo[i];
+            this.shopPanels[i].TitleTxt.text = item.Title;
+            this.shopPanels[i].PriceVal.text = "Price: " + item.TotalPrice.ToString();
+            this.shopPanels[i].ItemIm.sprite = item.Image;
         }
     }
 }
