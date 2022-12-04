@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(fileName ="ShopMenu", menuName = "scriptable Objects/New Base Shop Item", order = 1)]
+[CreateAssetMenu(fileName ="ShopMenu", menuName = "Scriptable Objects/New Base Shop Item", order = 1)]
 public class ShopItemSo : ScriptableObject
 {
     [SerializeField]

@@ -33,7 +33,7 @@ public class MinionScript : NetworkBehaviour
     void FixedUpdate()
     {
         GameObject? closestEnemy = this.GetTheClosestEnemy();
-        RemovePlayerWhenNotActive();
+        this.RemovePlayerWhenNotActive();
         if (closestEnemy == null)
         {
             this.followAttack = false;

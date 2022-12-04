@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(fileName = "StructureUpgrade", menuName = "scriptable Objects/New Structure Upgrade", order = 3)]
+[CreateAssetMenu(fileName = "StructureUpgrade", menuName = "Scriptable Objects/New Structure Upgrade", order = 3)]
 public class StructureUpgradeSo : ScriptableObject
 {
     [SerializeField]

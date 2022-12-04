@@ -266,13 +266,15 @@ MonoBehaviour:
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 0
-  attackSpeed: 1
+  unitAttackDamage: 10
+  unitAttackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   resourcesOnDeath: 3
   goldOnDeath: 80
+  lastAggressor: {fileID: 0}
   spawnerResource: {fileID: 0}
   Id: 0
 --- !u!114 &355835013808351319

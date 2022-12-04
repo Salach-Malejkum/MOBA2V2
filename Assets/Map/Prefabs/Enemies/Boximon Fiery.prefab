@@ -1278,13 +1278,15 @@ MonoBehaviour:
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 0
+  unitAttackDamage: 10
   unitAttackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   resourcesOnDeath: 10
   goldOnDeath: 2
+  lastAggressor: {fileID: 0}
   spawnerResource: {fileID: 0}
   Id: 0
 --- !u!114 &5312911114888547397
@@ -1585,7 +1587,7 @@ PrefabInstance:
     - target: {fileID: 8979545335369940665, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
       propertyPath: UserName
       value: 
-      objectReference: {fileID: 5156565204476568307}
+      objectReference: {fileID: 0}
     - target: {fileID: 8979545335369940665, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
       propertyPath: unitStats
       value: 
@@ -1596,17 +1598,6 @@ PrefabInstance:
       objectReference: {fileID: 6102343245444986974}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
---- !u!114 &5156565204476568307 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2532647238275636503, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
-  m_PrefabInstance: {fileID: 7253620617662709732}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6102343245444986974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3460428472625432506, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
