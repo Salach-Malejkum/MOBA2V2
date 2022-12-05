@@ -36,7 +36,7 @@ public class TabManager : NetworkBehaviour
     }
 
     [ClientCallback]
-    private void FixedUpdate()
+    private void Update()
     {
         this.timer += Time.deltaTime;
 

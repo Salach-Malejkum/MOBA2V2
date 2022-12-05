@@ -16,6 +16,8 @@ public class UserAuthorization : MonoBehaviour
     [SerializeField] private TMP_InputField usernameInputFieldLogin = default;
     [SerializeField] private TMP_InputField passwordInputFieldLogin = default;
     [SerializeField] private ClientStartup client = default;
+    [SerializeField] private GameObject itemDisplay = default;
+    [SerializeField] private TMP_Text itemsBtnText = default;
 
     [SerializeField] public static string EntityId = null;
     public static string SessionTicket = null;
@@ -83,5 +85,7 @@ public class UserAuthorization : MonoBehaviour
         this.loginScreenBackground.SetActive(true);
         this.signInDisplay.SetActive(true);
         this.afterLoginScreen.SetActive(false);
+        this.itemDisplay.SetActive(false);
+        this.itemsBtnText.text = "Show Items";
     }
 }
