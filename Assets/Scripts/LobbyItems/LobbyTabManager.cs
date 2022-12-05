@@ -27,7 +27,7 @@ public class LobbyTabManager : MonoBehaviour
 
     public void InfoItem(int itemNo)
     {
-        this.panels.DesactivateAllInfoPanels();
+        this.panels.DisableAllInfoPanels();
         ShopItemSo item = this.shopItemSo[itemNo];
         int panelIndex = item.Components.Count;
         this.activeInfoPanel = this.panels.detailsPanels[panelIndex];

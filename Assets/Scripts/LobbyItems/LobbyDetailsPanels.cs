@@ -7,7 +7,7 @@ public class LobbyDetailsPanels : MonoBehaviour
     [SerializeField]
     public List<GameObject> detailsPanels;
 
-    public void DesactivateAllInfoPanels()
+    public void DisableAllInfoPanels()
     {
         foreach (GameObject panel in this.detailsPanels)
         {
