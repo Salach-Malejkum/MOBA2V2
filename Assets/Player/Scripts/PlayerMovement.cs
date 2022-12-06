@@ -1,6 +1,7 @@
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
@@ -43,14 +44,17 @@ public class PlayerMovement : NetworkBehaviour, IMovement
             return;
         }
 
-        LayerMask terrainLayer = 1 << 8;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, this.rayCastMaxDist, terrainLayer, QueryTriggerInteraction.Ignore))
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            this.networkAnimator.SetTrigger("CancelAutos");
-            this.navMeshAgent.destination = hit.point;
+            LayerMask terrainLayer = 1 << 8;
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, this.rayCastMaxDist, terrainLayer, QueryTriggerInteraction.Ignore))
+            {
+                this.networkAnimator.SetTrigger("CancelAutos");
+                this.navMeshAgent.destination = hit.point;
+            }
         }
     }
 

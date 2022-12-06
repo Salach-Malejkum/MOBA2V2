@@ -2,6 +2,7 @@ using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.HID;
 
 public class PlayerAttack : NetworkBehaviour, IAttack
@@ -42,23 +43,27 @@ public class PlayerAttack : NetworkBehaviour, IAttack
     [ClientCallback]
     public void AttackClick()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (!EventSystem.current.IsPointerOverGameObject())
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, this.rayCastMaxDist, this.attackableLayer, QueryTriggerInteraction.Ignore))
-        {
-            if (this.objectsInRangeHashSet.Contains(hit.transform.gameObject))
+            if (Physics.Raycast(ray, out RaycastHit hit, this.rayCastMaxDist, this.attackableLayer, QueryTriggerInteraction.Ignore))
             {
-                this.networkAnimator.SetTrigger("Attack");
-                this.animator.speed = this.stats.UnitAttackSpeed;
-                this.transform.LookAt(hit.transform);
+
+                if (this.objectsInRangeHashSet.Contains(hit.transform.gameObject))
+                {
+                    this.networkAnimator.SetTrigger("Attack");
+                    this.animator.speed = this.stats.UnitAttackSpeed;
+                    this.transform.LookAt(hit.transform);
+                }
+                this.followAttack = true;
+                this.targetEnemy = hit.transform.gameObject;
             }
-            this.followAttack = true;
-            this.targetEnemy = hit.transform.gameObject;
+            else
+            {
+                this.followAttack = false;
+                this.targetEnemy = null;
             }
-        else
-        {
-            this.followAttack = false;
-            this.targetEnemy = null;
         }
     }
 
