@@ -158,7 +158,7 @@ public class PlayerSkills : NetworkBehaviour
     [Command]
     private void CmdQSkill(Vector3 point, GameObject owner, int attackableLayer)
     {
-        GameObject go = Instantiate(this.qPrefab, point, Quaternion.identity);
+        GameObject go = Instantiate(this.qPrefab, new Vector3(point.x, 0.5f, point.z), Quaternion.identity);
         QScript qScript = go.GetComponent<QScript>();
         go.layer = owner.layer;
         qScript.Owner = owner;
