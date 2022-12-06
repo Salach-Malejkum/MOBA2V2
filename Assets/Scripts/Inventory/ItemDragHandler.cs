@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private InventoryOnClick inventoryOnClick;
@@ -22,15 +22,18 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     }
     [SerializeField]
     private Inventory inventory;
+    [SerializeField]
+    private GameObject hoverDisplay;
 
     public void OnPointerDown(PointerEventData eventData)
     {
         this.pointerDownTime = Time.time;
         this.originalSlot = this.transform.parent;
+        this.hoverDisplay.SetActive(false);
         if (this.InventorySlotNotEmptyAndLMBClicked(this.transform.parent.GetSiblingIndex(), eventData))
         {
             this.transform.SetParent(this.transform.parent.parent);
-            GetComponent<CanvasGroup>().blocksRaycasts = false;
+            this.GetComponent<CanvasGroup>().blocksRaycasts = false;
         }
     }
 
@@ -47,7 +50,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             this.transform.SetParent(this.OriginalSlot);
-            this.transform.localPosition = Vector3.zero;
+            this.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             this.GetComponent<CanvasGroup>().blocksRaycasts = true;
             this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
         }
@@ -62,4 +65,15 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         return this.inventory.Equipment[index] != null && eventData.button == PointerEventData.InputButton.Left;
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        this.hoverDisplay.SetActive(true);
+        int itemIndex = this.transform.parent.GetSiblingIndex();
+        this.hoverDisplay.GetComponent<HoverPannelHandler>().LoadPanel(this.inventory.Equipment[itemIndex]);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        this.hoverDisplay.SetActive(false);
+    }
 }
