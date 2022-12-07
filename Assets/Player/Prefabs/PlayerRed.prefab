@@ -901,6 +901,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   statsCanvas: {fileID: 5486994600730193529}
+  healthBarCanvas: {fileID: 577096493007891245}
 --- !u!114 &1833871118147384101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3713,6 +3714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHealthBarCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 323695514016802669, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1503132615821466855, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3807,6 +3812,11 @@ PrefabInstance:
       objectReference: {fileID: -486382682619686337}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+--- !u!1 &577096493007891245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 323695514016802669, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+  m_PrefabInstance: {fileID: 900646709342768192}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1775419150128615591 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1503132615821466855, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
