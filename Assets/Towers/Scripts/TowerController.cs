@@ -10,7 +10,8 @@ public class TowerController : NetworkBehaviour, IOutlinable
     public GameObject missile;
     public float missile_timer = 0f;
 
-    private List<GameObject> enemies = new List<GameObject>();
+    public HashSet<GameObject> objectsInRangeHashSet;
+    [SerializeField] private GameObject targetEnemy;
     private readonly float missile_delay = 5f;
     private int targetedLayer;
 
@@ -19,6 +20,7 @@ public class TowerController : NetworkBehaviour, IOutlinable
         int redLayer = LayerMask.NameToLayer("Red");
         int blueLayer = LayerMask.NameToLayer("Blue");
 
+        this.objectsInRangeHashSet = new HashSet<GameObject>();
         this.outline = GetComponent<Outline>();
 
         if (this.gameObject.layer == redLayer)
@@ -32,18 +34,14 @@ public class TowerController : NetworkBehaviour, IOutlinable
     }
 
     [ServerCallback]
-    private void FixedUpdate()
+    private void Update()
     {
-        if (this.enemies.Count > 0 && this.missile_timer < 0)
-        {
-            foreach (GameObject enemy in this.enemies)
-            {
-                if (enemy == null)
-                {
-                    this.enemies.Remove(enemy);
-                }
-            }
+        GameObject? closestEnemy = this.GetTheClosestEnemy();
+        RemovePlayerWhenNotActive();
 
+        if (this.objectsInRangeHashSet.Count > 0 && this.missile_timer < 0)
+        {
+            this.SetTargetEnemy(closestEnemy);
             this.Shoot();
         }
         else if (this.missile_timer >= 0)
@@ -61,49 +59,56 @@ public class TowerController : NetworkBehaviour, IOutlinable
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == this.targetedLayer && !other.gameObject.CompareTag("Missile"))
+        if (!other.isTrigger
+            && !other.gameObject.CompareTag("Missile")
+            && other.gameObject.layer == this.targetedLayer
+            )
         {
-            this.enemies.Add(other.gameObject);
+            this.objectsInRangeHashSet.Add(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == this.targetedLayer && !other.gameObject.CompareTag("Missile"))
-        {
-            this.enemies.Remove(other.gameObject);
-        }
+        this.objectsInRangeHashSet.Remove(other.gameObject);
+    }
+
+    private void SetTargetEnemy(GameObject gameObject)
+    {
+        this.targetEnemy = gameObject;
     }
 
     [ServerCallback]
-    GameObject GetClosestEnemy(List<GameObject> enemies)
+    GameObject GetTheClosestEnemy()
     {
-        GameObject tMin = null;
-        float minDist = Mathf.Infinity;
-        Vector3 currentPos = this.transform.position;
-        foreach (GameObject go in enemies)
-        {
-            if (go.tag == "Player" && !go.active)
-            {
-                continue;
-            }
+        GameObject closestEnemy = null;
 
-            float dist = Vector3.Distance(go.transform.position, currentPos);
-            if (dist < minDist)
-            {
-                tMin = go;
-                minDist = dist;
-            }
+        foreach (GameObject currEnemy in this.objectsInRangeHashSet)
+        {
+            if (currEnemy != null && closestEnemy == null)
+            { closestEnemy = currEnemy; }
+            else if (currEnemy != null && Utility.GetDistanceBetweenGameObjects(currEnemy, this.gameObject) < Utility.GetDistanceBetweenGameObjects(closestEnemy, this.gameObject))
+            { closestEnemy = currEnemy; }
         }
-        return tMin;
+        return closestEnemy;
+    }
+
+    private void RemovePlayerWhenNotActive()
+    {
+        if (this.targetEnemy != null && this.targetEnemy.tag == "Player" && !this.targetEnemy.activeSelf)
+        {
+            this.objectsInRangeHashSet.Remove(this.targetEnemy);
+        }
     }
 
     [ServerCallback]
     private void Shoot()
     {
+        if (this.gameObject == null) { return; }
+
         GameObject go = Instantiate(this.missile, this.transform.position, Quaternion.identity);
         HomingMissileController hmc = go.GetComponent<HomingMissileController>();
-        hmc.target = this.GetClosestEnemy(this.enemies);
+        hmc.target = this.targetEnemy;
         hmc.owner = this.gameObject;
         hmc.damage = this.gameObject.GetComponent<StructureStats>().UnitAttackDamage;
 

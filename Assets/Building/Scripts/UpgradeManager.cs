@@ -36,19 +36,22 @@ public class UpgradeManager : NetworkBehaviour
 
         if (context.control.displayName == "O")
         {
-            ToggleBuildingMenu();
+            this.ToggleBuildingMenu();
         }
     }
 
     [Client]
     public void ToggleBuildingMenu()
     {
+        Debug.Log(this.buildingMenuCanva.activeSelf);
         if (this.buildingMenuCanva.activeSelf)
         {
+            Debug.Log("Goblin mode deactivated");
             this.buildingMenuCanva.SetActive(false);
         }
         else
         {
+            Debug.Log("Goblin mode ACTIVATED");
             this.buildingMenuCanva.SetActive(true);
         }
     }
@@ -71,7 +74,7 @@ public class UpgradeManager : NetworkBehaviour
             switch (turretTier)
             {
                 case 1:
-                    if (this.firstTierTurret.activeSelf)
+                    if (this.firstTierTurret != null)
                     {
                         turretPrefix = "1st";
 
@@ -83,7 +86,7 @@ public class UpgradeManager : NetworkBehaviour
                     }
                     break;
                 case 2:
-                    if (this.secondTierTurret.activeSelf)
+                    if (this.secondTierTurret != null)
                     {
                         turretPrefix = "2nd";
 

@@ -2742,7 +2742,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 141223262}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &141223254 stripped
 Transform:
@@ -2772,6 +2778,7 @@ MonoBehaviour:
   outline: {fileID: 141223263}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!135 &141223257
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5952,7 +5959,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 305868643}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &305868635 stripped
 Transform:
@@ -5982,6 +5995,7 @@ MonoBehaviour:
   outline: {fileID: 305868644}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!135 &305868638
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11678,7 +11692,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 602522920}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &602522911 stripped
 Transform:
@@ -11708,6 +11728,7 @@ MonoBehaviour:
   outline: {fileID: 602522921}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!135 &602522915
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18329,7 +18350,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 960327447}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &960327439 stripped
 Transform:
@@ -18359,6 +18386,7 @@ MonoBehaviour:
   outline: {fileID: 960327448}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!135 &960327442
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18762,7 +18790,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 961752868}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &961752860 stripped
 Transform:
@@ -18792,6 +18826,7 @@ MonoBehaviour:
   outline: {fileID: 961752869}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!65 &961752863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19344,7 +19379,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 992270098}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &992270090 stripped
 Transform:
@@ -19374,6 +19415,7 @@ MonoBehaviour:
   outline: {fileID: 992270099}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!65 &992270093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27765,7 +27807,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 1440365262}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &1440365254 stripped
 Transform:
@@ -27795,6 +27843,7 @@ MonoBehaviour:
   outline: {fileID: 1440365263}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!65 &1440365257
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -30379,7 +30428,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 1567017624}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &1567017616 stripped
 Transform:
@@ -30409,6 +30464,7 @@ MonoBehaviour:
   outline: {fileID: 1567017625}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!65 &1567017619
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31597,7 +31653,13 @@ PrefabInstance:
       propertyPath: unitStats
       value: 
       objectReference: {fileID: 1619859266}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 181190915, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190916, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190914, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190919, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190920, guid: a425124410f363a43adb6788601cc3e0, type: 3}
+    - {fileID: 181190921, guid: a425124410f363a43adb6788601cc3e0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a425124410f363a43adb6788601cc3e0, type: 3}
 --- !u!4 &1619859258 stripped
 Transform:
@@ -31627,6 +31689,7 @@ MonoBehaviour:
   outline: {fileID: 1619859267}
   missile: {fileID: 7916430966287518999, guid: a4a79e20959c1ae4aa14ef6902e08c15, type: 3}
   missile_timer: 0
+  targetEnemy: {fileID: 0}
 --- !u!65 &1619859261
 BoxCollider:
   m_ObjectHideFlags: 0
