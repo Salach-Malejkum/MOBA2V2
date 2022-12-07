@@ -1,4 +1,5 @@
 using Mirror;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -58,41 +59,39 @@ public class SpawnManager : NetworkBehaviour
     {
         if (team.CheckIfCanSpawn(this.timePassed))
         {
-            this.SpawnMinionWave(team);
+            StartCoroutine(SpawnMinionWave(team));
         }
     }
 
     [ServerCallback]
-    private void SpawnMinionWave(MinionSpawnerScript team)
+    private IEnumerator SpawnMinionWave(MinionSpawnerScript team)
     {
         for (int i = 0; i < 3; i++)
         {
-            GameObject go = Instantiate(team.GetMeleeMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
-            go.layer = team.GetLayer();
-            go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
-
-            NetworkServer.Spawn(go);
-            go.GetComponent<MobStats>().OnMobSpawned();
+            SpawnMinion(team.GetMeleeMinionPrefab(), team.GetSpawnPosition(), team.GetLayer(), team.GetMinionPath());
+            yield return new WaitForSeconds(0.5f);
         }
 
         if (team.CheckIfCanSpawnCannon())
         {
-            GameObject go = Instantiate(team.GetCannonMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
-            go.layer = team.GetLayer();
-            go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
-
-            NetworkServer.Spawn(go);
-            go.GetComponent<MobStats>().OnMobSpawned();
+            SpawnMinion(team.GetCannonMinionPrefab(), team.GetSpawnPosition(), team.GetLayer(), team.GetMinionPath());
+            yield return new WaitForSeconds(0.5f);
         }
 
         for (int i = 0; i < 3; i++)
         {
-            GameObject go = Instantiate(team.GetRangedMinionPrefab(), team.GetSpawnPosition(), Quaternion.identity);
-            go.layer = team.GetLayer();
-            go.GetComponent<MinionScript>().SetMinionPath(team.GetMinionPath());
-
-            NetworkServer.Spawn(go);
-            go.GetComponent<MobStats>().OnMobSpawned();
+            SpawnMinion(team.GetRangedMinionPrefab(), team.GetSpawnPosition(), team.GetLayer(), team.GetMinionPath());
+            yield return new WaitForSeconds(0.5f);
         }
+    }
+
+    private void SpawnMinion(GameObject prefab, Vector3 position, LayerMask layer, Vector3[] path)
+    {
+        GameObject go = Instantiate(prefab, position, Quaternion.identity);
+        go.layer = layer;
+        go.GetComponent<MinionScript>().SetMinionPath(path);
+
+        NetworkServer.Spawn(go);
+        go.GetComponent<MobStats>().OnMobSpawned();
     }
 }
