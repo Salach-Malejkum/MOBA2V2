@@ -10,7 +10,7 @@ public class PlayerOutline : NetworkBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        AddOutlineToTarget();
+        this.AddOutlineToTarget();
     }
 
     [ClientCallback]
@@ -22,7 +22,9 @@ public class PlayerOutline : NetworkBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100, layerMask, QueryTriggerInteraction.Ignore))
         {
-            if (hit.transform.gameObject.TryGetComponent<Outline>(out Outline outline))
+            if (hit.transform.gameObject.TryGetComponent<Outline>(out Outline outline)
+                && !hit.transform.gameObject.CompareTag("Player")
+                )
             {
                 outline.OutlineWidth = this.outlineWidth;
                 IOutlinable outlinable = hit.transform.gameObject.GetComponent<IOutlinable>();

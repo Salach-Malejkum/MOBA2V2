@@ -32,12 +32,16 @@ public class PlayerStats : UnitStats
 
     public event Action<float> OnHealthRegenUpdate;
 
-    public override void OnStartAuthority() {
-        this.unitCurrentHealth = this.unitMaxHealth;
+    public override void OnStartAuthority()
+    {
         this.timer = this.unitRegenerationIntervalSeconds;
         this.onUnitDeath += CmdReadyToRespawn;
         NetworkManagerLobby.Instance.PlayerSide = this.playerSide;
         NetworkManagerLobby.Instance.PlayersLoadedToScene.Add(this.gameObject.GetComponent<NetworkIdentity>());
+    }
+
+    public override void OnStartServer() {
+        this.unitCurrentHealth = this.unitMaxHealth;
     }
 
     [ServerCallback]
