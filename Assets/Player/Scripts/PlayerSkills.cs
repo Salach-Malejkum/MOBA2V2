@@ -7,13 +7,13 @@ using UnityEngine.InputSystem.HID;
 public class PlayerSkills : NetworkBehaviour
 {
     public GameObject qPrefab;
-    private float qCooldown = 2.0f;
+    private float qCooldown = 8.0f;
     private bool qOnCooldown = false;
     private float qTimer = 0f;
 
     public GameObject wPrefab;
     private Vector3 wDirection;
-    private float wCooldown = 0.5f;
+    private float wCooldown = 10f;
     private bool wOnCooldown = false;
     private float wTimer = 0f;
 
@@ -23,7 +23,7 @@ public class PlayerSkills : NetworkBehaviour
 
     public GameObject rPrefab;
     private GameObject rTarget;
-    private float rCooldown = 2.0f;
+    private float rCooldown = 15.0f;
     private bool rOnCooldown = false;
     private float rTimer = 0f;
 
@@ -114,11 +114,9 @@ public class PlayerSkills : NetworkBehaviour
         switch (context.control.displayName)
         {
             case "Q":
-                this.QUsed?.Invoke();
                 this.QSkill();
                 break;
             case "W":
-                this.WUsed?.Invoke();
                 this.ClientWSkill();
                 break;
             case "E":
@@ -126,7 +124,6 @@ public class PlayerSkills : NetworkBehaviour
                 this.ESkill();
                 break;
             case "R":
-                this.RUsed?.Invoke();
                 this.RSkillAnim();
                 break;
 
@@ -144,6 +141,7 @@ public class PlayerSkills : NetworkBehaviour
         // AOE
         Debug.Log("Q");
         this.qOnCooldown = true;
+        this.QUsed?.Invoke();
 
         this.networkAnimator.SetTrigger("QSkill");
 
@@ -176,6 +174,7 @@ public class PlayerSkills : NetworkBehaviour
         Debug.Log("W");
 
         this.wOnCooldown = true;
+        this.WUsed?.Invoke();
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, Physics.AllLayers, QueryTriggerInteraction.Ignore))
@@ -241,14 +240,14 @@ public class PlayerSkills : NetworkBehaviour
 
         Debug.Log("R");
 
-        this.rOnCooldown = true;
-
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, this.attackableLayer, QueryTriggerInteraction.Ignore))
         {
+            this.RUsed?.Invoke();
             this.transform.LookAt(hit.point);
             this.networkAnimator.SetTrigger("RSkill");
             this.rTarget = hit.transform.gameObject;
+            this.rOnCooldown = true;
         }
     }
 
