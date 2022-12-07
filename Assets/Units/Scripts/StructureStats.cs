@@ -28,12 +28,14 @@ public class StructureStats : UnitStats
 
     [Server]
     private void HandleStructureDestroyed() {
-        this.gameObject.SetActive(false);
+        NetworkServer.Destroy(this.gameObject);
     }
 
     [Server]
     public virtual void ModifyStats(StructureUpgradeSo structureUpgradeSo)
     {
+        if (this.gameObject == null) { return; }
+
         this.unitMaxHealth += structureUpgradeSo.HealthModifier;
         this.unitCurrentHealth += structureUpgradeSo.HealthModifier;
         this.unitArmor += structureUpgradeSo.ArmorModifier;

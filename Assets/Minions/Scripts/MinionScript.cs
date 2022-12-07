@@ -12,8 +12,7 @@ public class MinionScript : NetworkBehaviour
     private bool followAttack = false;
     private HashSet<GameObject> objectsInRangeHashSet;
     private NavMeshAgent navMeshAgent;
-    [SerializeField]
-    private GameObject targetEnemy;
+    [SerializeField] private GameObject targetEnemy;
     private Animator animator;
     private NetworkAnimator networkAnimator;
     private UnitStats stats;
@@ -132,7 +131,7 @@ public class MinionScript : NetworkBehaviour
 
     private void RemovePlayerWhenNotActive()
     {
-        if (this.targetEnemy != null && this.targetEnemy.tag == "Player" && !this.targetEnemy.active)
+        if (this.targetEnemy != null && this.targetEnemy.tag == "Player" && !this.targetEnemy.activeSelf)
         {
             this.objectsInRangeHashSet.Remove(this.targetEnemy);
         }

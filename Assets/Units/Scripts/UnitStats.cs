@@ -9,47 +9,47 @@ public abstract class UnitStats : NetworkBehaviour
     [SyncVar(hook = nameof(OnMaxHealthChanged))][SerializeField] protected float unitMaxHealth = 100f;
     public float UnitMaxHealth
     {
-        get { return unitMaxHealth; }
+        get { return this.unitMaxHealth; }
     }
     [SyncVar(hook = nameof(OnHealthChanged))][SerializeField] protected float unitCurrentHealth = 0f;
     public float UnitCurrentHealth
     {
-        get { return unitCurrentHealth; }
+        get { return this.unitCurrentHealth; }
     }
     [SyncVar(hook = nameof(OnArmorChanged))] [SerializeField] protected float unitArmor = 0f;
     public float UnitArmor
     {
-        get { return unitArmor; }
+        get { return this.unitArmor; }
     }
     [SyncVar(hook = nameof(OnMagicResistChanged))] [SerializeField] protected float unitMagicResist = 0f;
     public float UnitMagicResist
     {
-        get { return unitMagicResist; }
+        get { return this.unitMagicResist; }
     }
     [SyncVar(hook = nameof(OnAttackChanged))] [SerializeField] protected float unitAttackDamage = 0f;
     public float UnitAttackDamage
     {
-        get { return unitAttackDamage; }
+        get { return this.unitAttackDamage; }
     }
     [SyncVar(hook = nameof(OnAttackSpeedChanged))] [SerializeField] protected float unitAttackSpeed = 1f;
     public float UnitAttackSpeed
     {
-        get { return unitAttackSpeed; }
+        get { return this.unitAttackSpeed; }
     }
     [SyncVar(hook = nameof(OnAbilityPowerChanged))] [SerializeField] protected float unitAbilityPower = 0f;
     public float UnitAbilityPower
     {
-        get { return unitAbilityPower; }
+        get { return this.unitAbilityPower; }
     }
     [SyncVar(hook = nameof(OnMovementSpeedChanged))] [SerializeField] protected float unitMovementSpeed = 0f;
     public float UnitMovementSpeed
     {
-        get { return unitMovementSpeed; }
+        get { return this.unitMovementSpeed; }
     }
     [SyncVar(hook = nameof(OnCooldownReductionChanged))] [SerializeField] protected float unitCooldownReduction = 0f;
     public float UnitCooldownReduction
     {
-        get { return unitCooldownReduction; }
+        get { return this.unitCooldownReduction; }
     }
     [SerializeField] private bool IsWinCondition = false;
 
@@ -66,6 +66,8 @@ public abstract class UnitStats : NetworkBehaviour
     [Server]
     public virtual void AddHealth(float hpAmount)
     {
+        if (this.gameObject == null) { return; }
+
         this.unitCurrentHealth += hpAmount;
         if (this.unitCurrentHealth > this.unitMaxHealth)
         {
@@ -85,9 +87,11 @@ public abstract class UnitStats : NetworkBehaviour
 
     public virtual void RemoveHealthOnNormalAttack(float hpAmount, GameObject aggressor)
     {
+        if (this.gameObject == null) { return; }
+
         this.unitCurrentHealth -= (hpAmount - this.unitArmor);
 
-        if (aggressor.tag == "Player")
+        if (aggressor.CompareTag("Player"))
         {
             this.lastAggressor = aggressor;
             Debug.Log("Aggressor: " + aggressor);
@@ -97,6 +101,8 @@ public abstract class UnitStats : NetworkBehaviour
 
     public virtual void RemoveHealthOnMagicAttack(float hpAmount)
     {
+        if (this.gameObject == null) { return; }
+
         this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
         this.OnDeathCheck();
     }
@@ -106,8 +112,10 @@ public abstract class UnitStats : NetworkBehaviour
         this.OnDeathCheck();
     }
 
-    protected void OnDeathCheck() 
+    protected void OnDeathCheck()
     {
+        if (this.gameObject == null) { return; }
+
         if (this.unitCurrentHealth <= 0) 
         {
             if (this.IsWinCondition) 
