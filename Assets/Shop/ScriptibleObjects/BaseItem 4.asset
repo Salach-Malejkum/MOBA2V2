@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BaseItem 4
   m_EditorClassIdentifier: 
   title: Gloves
-  attack: 30
+  attack: 50
   abilityPower: 0
-  armor: 4
-  magicResist: 3
+  armor: 25
+  magicResist: 25
   cooldownReduction: 0
   health: 0
   unitPrice: 320

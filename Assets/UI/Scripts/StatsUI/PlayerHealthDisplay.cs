@@ -7,20 +7,7 @@ public class PlayerHealthDisplay : MonoBehaviour
     private PlayerStats playerStats = null;
     [SerializeField] private Image HealthBarImage;
     private RectTransform transf;
-
-    private void Awake()
-    {
-        foreach (NetworkIdentity player in NetworkManagerLobby.Instance.PlayersLoadedToScene)
-        {
-            if (player.isLocalPlayer)
-            {
-                playerStats = player.gameObject.GetComponent<PlayerStats>();
-            }
-        }
-        this.playerStats.OnUnitHealthUpdate += LocalPlayerHealthUpdated;
-        this.playerStats.OnUnitMaxHealthUpdate += LocalPlayerHealthUpdated;
-        this.transf = GetComponent<RectTransform>();
-    }
+    private bool playerSet = false;
 
     private void OnDestroy()
     {
@@ -30,7 +17,19 @@ public class PlayerHealthDisplay : MonoBehaviour
 
     private void Update()
     {
-        this.transf.rotation = Quaternion.Euler(-45f, 0, 0);
+        if (!this.playerSet)
+        {
+            this.playerStats = this.transform.parent.gameObject.GetComponent<PlayerStats>();
+            this.playerStats.OnUnitHealthUpdate += LocalPlayerHealthUpdated;
+            this.playerStats.OnUnitMaxHealthUpdate += LocalPlayerHealthUpdated;
+            this.transf = GetComponent<RectTransform>();
+
+            this.playerSet = true;
+        }
+        else
+        {
+            this.transf.rotation = Quaternion.Euler(-45f, 0, 0);
+        }
     }
 
     private void LocalPlayerHealthUpdated(float newCurrHP, float newMaxHP)

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BaseItem 3
   m_EditorClassIdentifier: 
   title: shoes
-  attack: 0
-  abilityPower: 0
-  armor: 3
-  magicResist: 0
+  attack: 6969
+  abilityPower: 6969
+  armor: -1000
+  magicResist: -1000
   cooldownReduction: 0
   health: 50
   unitPrice: 270

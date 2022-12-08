@@ -7,6 +7,9 @@ public class WProjectileScript : NetworkBehaviour
     private float traveledDist = 0f;
     private readonly float distLimit = 100f;
     private float speed = 0.5f;
+
+    public float apMultipliers = 100f;
+
     [SerializeField]
     private Vector3 direction;
     public Vector3 Direction
@@ -47,7 +50,7 @@ public class WProjectileScript : NetworkBehaviour
     {
         if (!other.isTrigger && (this.attackableLayer == (this.attackableLayer | (1 << other.gameObject.layer))))
         {
-            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.Owner);
+            other.gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack((this.damage * this.apMultipliers) / 100, this.Owner);
             NetworkServer.Destroy(this.gameObject);
         }
     }

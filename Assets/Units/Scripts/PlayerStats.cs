@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System;
+using UnityEngine.AI;
 
 public class PlayerStats : UnitStats
 {
@@ -112,5 +113,19 @@ public class PlayerStats : UnitStats
         this.unitMagicResist -= magicResist;
         this.unitMaxHealth -= health;
         this.unitCooldownReduction -= cooldownReduction;
+    }
+
+    public void UsedESkill()
+    {
+        GetComponent<NavMeshAgent>().acceleration += 200;
+        GetComponent<NavMeshAgent>().speed += 10;
+
+        Invoke("RevertESkill", 1.2f);
+    }
+
+    public void RevertESkill()
+    {
+        GetComponent<NavMeshAgent>().acceleration -= 200;
+        GetComponent<NavMeshAgent>().speed -= 10;
     }
 }
