@@ -1105,8 +1105,9 @@ GameObject:
   - component: {fileID: 5312911114888547397}
   - component: {fileID: 317208358148398771}
   - component: {fileID: 7800127801097473030}
+  - component: {fileID: -4581404291341425556}
   m_Layer: 9
-  m_Name: Boximon Fiery
+  m_Name: Devil
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,7 +1153,7 @@ Animator:
   m_GameObject: {fileID: 1975194375736644}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: ab49f3cef633f1d4c84f8c46ec6c0b74, type: 3}
-  m_Controller: {fileID: 9100000, guid: cad4cd74f41924a4bbcbe916d2f9cb9b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6a127cecf01bd964a9581c9a6ba25027, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1177,15 +1178,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  range: 0
   target: {fileID: 0}
   spawnerResource: {fileID: 0}
   spawner: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 0
   maximumDistance: 15
   isChasing: 0
 --- !u!195 &2833480405823053963
@@ -1274,17 +1270,19 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  unitMaxHealth: 100
+  unitMaxHealth: 200
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 0
-  unitAttackSpeed: 1
+  unitAttackDamage: 20
+  unitAttackSpeed: 2
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
+  IsWinCondition: 0
   resourcesOnDeath: 10
   goldOnDeath: 2
+  lastAggressor: {fileID: 0}
   spawnerResource: {fileID: 0}
   Id: 0
 --- !u!114 &5312911114888547397
@@ -1349,6 +1347,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-4581404291341425556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975194375736644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 95206688057043068}
 --- !u!1 &1992369794795074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1600,7 @@ PrefabInstance:
     - target: {fileID: 8979545335369940665, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
       propertyPath: UserName
       value: 
-      objectReference: {fileID: 5156565204476568307}
+      objectReference: {fileID: 0}
     - target: {fileID: 8979545335369940665, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
       propertyPath: unitStats
       value: 
@@ -1596,17 +1611,6 @@ PrefabInstance:
       objectReference: {fileID: 6102343245444986974}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
---- !u!114 &5156565204476568307 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2532647238275636503, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}
-  m_PrefabInstance: {fileID: 7253620617662709732}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6102343245444986974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3460428472625432506, guid: ea8149ccf60437f43a20cc067e404e18, type: 3}

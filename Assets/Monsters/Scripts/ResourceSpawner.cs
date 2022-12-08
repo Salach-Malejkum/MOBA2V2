@@ -91,8 +91,7 @@ public class ResourceSpawner : NetworkBehaviour
             go.transform.localScale = new Vector3(1, 1, 1) * this.scale;
 
             MobController mobController = go.GetComponent<MobController>();
-            mobController.spawner = this.transform;
-            mobController.spawnerResource = this.GetComponent<ResourceSpawner>();
+            mobController.SetupSpawner(this);
 
             MonsterStats monsterStats = go.GetComponent<MonsterStats>();
             monsterStats.spawnerResource = this.GetComponent<ResourceSpawner>();
