@@ -549,7 +549,7 @@ MonoBehaviour:
   playerSide: 
   playerName: 
   playerGold: 100
-  playerResources: 3
+  playerResources: 30
   playerExp: 0
   playerHealthRegen: 2.5
 --- !u!114 &2564117619035827070
@@ -579,6 +579,7 @@ MonoBehaviour:
   - {fileID: 7652154627674672404}
   - {fileID: 9174808057386630641}
   - {fileID: 8435255864500214353}
+  recourcesText: {fileID: 2785816779619597632}
   firstTierTurret: {fileID: 0}
   secondTierTurret: {fileID: 0}
 --- !u!136 &-4592679397602601105
@@ -4773,6 +4774,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5531702689125178397, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
   m_PrefabInstance: {fileID: 4737641852580894159}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2785816779619597632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7428205656036337807, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
+  m_PrefabInstance: {fileID: 4737641852580894159}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2913673917802773283 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7624610474410110700, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}

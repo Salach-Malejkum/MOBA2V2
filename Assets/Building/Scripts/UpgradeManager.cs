@@ -1,9 +1,8 @@
 using Mirror;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +12,7 @@ public class UpgradeManager : NetworkBehaviour
     [SerializeField] private GameObject popupResources;
     [SerializeField] private GameObject popupTowerDestroyed;
     [SerializeField] public List<GameObject> buttonsListed;
+    [SerializeField] private TMP_Text recourcesText;
 
     [SyncVar] public GameObject firstTierTurret;
     [SyncVar] public GameObject secondTierTurret;
@@ -23,7 +23,7 @@ public class UpgradeManager : NetworkBehaviour
     private void Update()
     {
         this.popupTimer += Time.deltaTime;
-
+        this.recourcesText.text = "Recources: " + GetComponent<PlayerStats>().PlayerResources.ToString();
         if (this.popupTimer >= this.popupDuration && (this.popupTowerDestroyed.activeSelf || this.popupResources.activeSelf))
         {
             this.popupTowerDestroyed.SetActive(false);
@@ -165,7 +165,7 @@ public class UpgradeManager : NetworkBehaviour
             .GetComponent<StructureStats>()
             .ActivateUpgrade(index);
 
-        this.gameObject.GetComponent<PlayerStats>().PlayerResources -= 1f;
+        this.gameObject.GetComponent<PlayerStats>().PlayerResources -= 20f;
     }
 
     [Command]
@@ -175,6 +175,6 @@ public class UpgradeManager : NetworkBehaviour
             .GetComponent<StructureStats>()
             .ActivateUpgrade(index);
 
-        this.gameObject.GetComponent<PlayerStats>().PlayerResources -= 1f;
+        this.gameObject.GetComponent<PlayerStats>().PlayerResources -= 20f;
     }
 }
