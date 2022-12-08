@@ -10,10 +10,27 @@ using UnityEngine.InputSystem;
 public class UpgradeManager : NetworkBehaviour
 {
     [SerializeField] private GameObject buildingMenuCanva;
+    [SerializeField] private GameObject popupResources;
+    [SerializeField] private GameObject popupTowerDestroyed;
     [SerializeField] public List<GameObject> buttonsListed;
 
     [SyncVar] public GameObject firstTierTurret;
     [SyncVar] public GameObject secondTierTurret;
+
+    private float popupTimer = 0;
+    private float popupDuration = 3;
+
+    private void Update()
+    {
+        this.popupTimer += Time.deltaTime;
+
+        if (this.popupTimer >= this.popupDuration && (this.popupTowerDestroyed.activeSelf || this.popupResources.activeSelf))
+        {
+            this.popupTowerDestroyed.SetActive(false);
+            this.popupResources.SetActive(false);
+            this.popupTimer = 0f;
+        }
+    }
 
     public void SetTurrets()
     {
@@ -65,7 +82,7 @@ public class UpgradeManager : NetworkBehaviour
     [Client]
     public void UpgradeTurretFFS(string tier_index) // First character is turret tier, second is upgrade Id
     {
-        if (this.gameObject.GetComponent<PlayerStats>().PlayerResources >= 1)
+        if (this.gameObject.GetComponent<PlayerStats>().PlayerResources >= 20)
         {
             int turretTier = Int32.Parse(tier_index.Substring(0, 1));
             int upgradeIndex = Int32.Parse(tier_index.Substring(tier_index.Length - 1));
@@ -82,6 +99,7 @@ public class UpgradeManager : NetworkBehaviour
                     }
                     else
                     {
+                        this.popupTowerDestroyed.SetActive(true);
                         return;
                     }
                     break;
@@ -94,6 +112,7 @@ public class UpgradeManager : NetworkBehaviour
                     }
                     else
                     {
+                        this.popupTowerDestroyed.SetActive(true);
                         return;
                     }
                     break;
@@ -132,6 +151,10 @@ public class UpgradeManager : NetworkBehaviour
                     break;
 
             }
+        }
+        else
+        {
+            this.popupResources.SetActive(true);
         }
     }
 

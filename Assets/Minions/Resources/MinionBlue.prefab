@@ -60,17 +60,19 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  unitMaxHealth: 100
+  unitMaxHealth: 300
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
   unitAttackDamage: 50
-  attackSpeed: 1
+  unitAttackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
   unitCooldownReduction: 0
   IsWinCondition: 0
-  gold: 0
+  resourcesOnDeath: 0
+  goldOnDeath: 0
+  lastAggressor: {fileID: 0}
 --- !u!114 &7066884865019517646
 MonoBehaviour:
   m_ObjectHideFlags: 0

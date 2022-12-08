@@ -568,6 +568,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   buildingMenuCanva: {fileID: 2913673917802773283}
+  popupResources: {fileID: 3450259957535782695}
+  popupTowerDestroyed: {fileID: 8441698745896894524}
   buttonsListed:
   - {fileID: 7881904945908830389}
   - {fileID: 7615059745436678930}
@@ -4781,6 +4783,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7624610474410110688, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
   m_PrefabInstance: {fileID: 4737641852580894159}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3450259957535782695 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7952993069617849064, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
+  m_PrefabInstance: {fileID: 4737641852580894159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5283265379651500250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 643612286805912853, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
@@ -4820,6 +4827,11 @@ GameObject:
 --- !u!1 &8435255864500214353 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3796376901930143646, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
+  m_PrefabInstance: {fileID: 4737641852580894159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8441698745896894524 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3790214911696573939, guid: fbfa973ea4c51b54db6395d90f45a67a, type: 3}
   m_PrefabInstance: {fileID: 4737641852580894159}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &9174808057386630641 stripped

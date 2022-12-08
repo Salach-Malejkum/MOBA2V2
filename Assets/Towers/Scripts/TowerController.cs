@@ -10,10 +10,11 @@ public class TowerController : NetworkBehaviour, IOutlinable
     public GameObject missile;
     public float missile_timer = 0f;
 
-    public HashSet<GameObject> objectsInRangeHashSet;
+    private HashSet<GameObject> objectsInRangeHashSet;
     [SerializeField] private GameObject targetEnemy;
     private readonly float missile_delay = 5f;
     private int targetedLayer;
+    private StructureStats stats;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class TowerController : NetworkBehaviour, IOutlinable
 
         this.objectsInRangeHashSet = new HashSet<GameObject>();
         this.outline = GetComponent<Outline>();
+        this.stats = GetComponent<StructureStats>();
 
         if (this.gameObject.layer == redLayer)
         {
@@ -37,7 +39,7 @@ public class TowerController : NetworkBehaviour, IOutlinable
     private void Update()
     {
         GameObject? closestEnemy = this.GetTheClosestEnemy();
-        RemovePlayerWhenNotActive();
+        this.RemovePlayerWhenNotActive();
 
         if (this.objectsInRangeHashSet.Count > 0 && this.missile_timer < 0)
         {
@@ -95,7 +97,7 @@ public class TowerController : NetworkBehaviour, IOutlinable
 
     private void RemovePlayerWhenNotActive()
     {
-        if (this.targetEnemy != null && this.targetEnemy.tag == "Player" && !this.targetEnemy.activeSelf)
+        if (this.targetEnemy != null && !this.targetEnemy.activeSelf)
         {
             this.objectsInRangeHashSet.Remove(this.targetEnemy);
         }
@@ -114,6 +116,6 @@ public class TowerController : NetworkBehaviour, IOutlinable
 
         NetworkServer.Spawn(go);
 
-        this.missile_timer = this.missile_delay;
+        this.missile_timer = this.missile_delay / this.stats.UnitAttackSpeed;
     }
 }
