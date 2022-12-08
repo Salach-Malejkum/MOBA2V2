@@ -532,7 +532,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  unitMaxHealth: 1160
+  unitMaxHealth: 1200
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0

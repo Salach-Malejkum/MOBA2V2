@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: ring
   attack: 0
-  abilityPower: 1
+  abilityPower: 100
   armor: 0
   magicResist: 0
-  cooldownReduction: 1
+  cooldownReduction: 2
   health: 0
-  unitPrice: 3
+  unitPrice: 250
   components: []
   image: {fileID: 21300000, guid: f66c057114b8725409847a8a8e83a75b, type: 3}

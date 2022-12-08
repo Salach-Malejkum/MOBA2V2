@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: 
   title: Knife
-  attack: 1
+  attack: 40
   abilityPower: 0
   armor: 0
   magicResist: 0
   cooldownReduction: 0
   health: 0
-  unitPrice: 1
+  unitPrice: 150
   components: []
   image: {fileID: 21300000, guid: db49433d40e53614492908d3cb323f14, type: 3}

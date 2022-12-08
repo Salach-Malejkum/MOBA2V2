@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Katana
   m_EditorClassIdentifier: 
   title: Miecz
-  attack: 1
+  attack: 100
   abilityPower: 0
   armor: 0
   magicResist: 0
-  cooldownReduction: 1
-  health: 1
-  unitPrice: 3
+  cooldownReduction: 3
+  health: 50
+  unitPrice: 300
   components:
   - {fileID: 11400000, guid: 1089d105bb0158c46881cfcbf17e1c05, type: 2}
   image: {fileID: 21300000, guid: f594bf2df7f5c264f96b77d4c5537436, type: 3}
