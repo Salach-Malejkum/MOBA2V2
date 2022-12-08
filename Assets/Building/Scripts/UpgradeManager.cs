@@ -10,10 +10,27 @@ using UnityEngine.InputSystem;
 public class UpgradeManager : NetworkBehaviour
 {
     [SerializeField] private GameObject buildingMenuCanva;
+    [SerializeField] private GameObject popupResources;
+    [SerializeField] private GameObject popupTowerDestroyed;
     [SerializeField] public List<GameObject> buttonsListed;
 
     [SyncVar] public GameObject firstTierTurret;
     [SyncVar] public GameObject secondTierTurret;
+
+    private float popupTimer = 0;
+    private float popupDuration = 3;
+
+    private void Update()
+    {
+        this.popupTimer += Time.deltaTime;
+
+        if (this.popupTimer >= this.popupDuration && (this.popupTowerDestroyed.activeSelf || this.popupResources.activeSelf))
+        {
+            this.popupTowerDestroyed.SetActive(false);
+            this.popupResources.SetActive(false);
+            this.popupTimer = 0f;
+        }
+    }
 
     public void SetTurrets()
     {
@@ -82,6 +99,7 @@ public class UpgradeManager : NetworkBehaviour
                     }
                     else
                     {
+                        this.popupTowerDestroyed.SetActive(true);
                         return;
                     }
                     break;
@@ -94,6 +112,7 @@ public class UpgradeManager : NetworkBehaviour
                     }
                     else
                     {
+                        this.popupTowerDestroyed.SetActive(true);
                         return;
                     }
                     break;
@@ -132,6 +151,10 @@ public class UpgradeManager : NetworkBehaviour
                     break;
 
             }
+        }
+        else
+        {
+            this.popupResources.SetActive(true);
         }
     }
 
