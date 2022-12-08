@@ -82,7 +82,7 @@ public class UpgradeManager : NetworkBehaviour
     [Client]
     public void UpgradeTurretFFS(string tier_index) // First character is turret tier, second is upgrade Id
     {
-        if (this.gameObject.GetComponent<PlayerStats>().PlayerResources >= 1)
+        if (this.gameObject.GetComponent<PlayerStats>().PlayerResources >= 20)
         {
             int turretTier = Int32.Parse(tier_index.Substring(0, 1));
             int upgradeIndex = Int32.Parse(tier_index.Substring(tier_index.Length - 1));
