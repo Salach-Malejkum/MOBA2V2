@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1503132615821466855}
   - component: {fileID: 1998255284797363725}
-  - component: {fileID: 8979545335369940665}
   - component: {fileID: 1723630624555037609}
+  - component: {fileID: 8078684059660438305}
   m_Layer: 0
   m_Name: PlayerHealthBarCanvas
   m_TagString: Untagged
@@ -64,20 +64,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &8979545335369940665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 323695514016802669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2138e8203009b9b46a09032a9b705709, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitStats: {fileID: 0}
-  HealthBarImage: {fileID: 3460428472625432506}
 --- !u!114 &1723630624555037609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +78,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerName: {fileID: 2532647238275636503}
   playerStats: {fileID: 0}
+--- !u!114 &8078684059660438305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323695514016802669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d25b411993f6f4190aa01a09a588d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthBarImage: {fileID: 3460428472625432506}
 --- !u!1 &5266086341890026222
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,8 +233,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 4b66f21097323d44ab40669b2fb9c53d, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -311,7 +310,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 9d5f6625b0b035841a1153f7e5466a94, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
