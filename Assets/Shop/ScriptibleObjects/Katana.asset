@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Katana
   m_EditorClassIdentifier: 
   title: Miecz
-  attack: 100
+  attack: 300
   abilityPower: 0
   armor: 0
   magicResist: 0
