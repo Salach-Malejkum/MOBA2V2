@@ -16,7 +16,7 @@ public class PlayerSkills : NetworkBehaviour
 
     public GameObject wPrefab;
     private Vector3 wDirection;
-    private float wCooldownBase = 3f;
+    private float wCooldownBase = 5f;
     private float wCooldown;
     private bool wOnCooldown = false;
     private float wTimer = 0f;
