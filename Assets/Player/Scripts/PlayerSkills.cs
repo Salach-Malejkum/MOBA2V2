@@ -98,9 +98,6 @@ public class PlayerSkills : NetworkBehaviour
 
         if (this.eCooldown < this.eTimer)
         {
-            Debug.Log("E timer: " + this.eTimer);
-            Debug.Log("Expected timer: " + this.eCooldown);
-            Debug.Log("Base timer: " + this.eCooldownBase);
             this.eOnCooldown = false;
             this.eTimer = 0f;
             this.ERedy?.Invoke();
