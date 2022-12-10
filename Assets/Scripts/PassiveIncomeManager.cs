@@ -21,16 +21,18 @@ public class PassiveIncomeManager : NetworkBehaviour
             this.timePassed = 0f;
             foreach(NetworkIdentity conn in NetworkManagerLobby.Instance.PlayersLoadedToScene)
             {
+                PlayerStats stats = conn.gameObject.GetComponent<PlayerStats>();
                 switch (LayerMask.LayerToName(conn.gameObject.layer))
                 {
                     case "Blue":
-                        conn.gameObject.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsBlue;
+                        stats.PlayerResources += this.resourceIncomeFromCampsBlue;
                         break;
                     case "Red":
-                        conn.gameObject.GetComponent<PlayerStats>().PlayerResources += this.resourceIncomeFromCampsRed;
+                        stats.PlayerResources += this.resourceIncomeFromCampsRed;
                         break;
                 }
-                conn.gameObject.GetComponent<PlayerStats>().PlayerGold += this.goldIncome;
+                stats.PlayerGold += this.goldIncome;
+                stats.AddHealth(stats.PlayerHealthRegen);
             }
         }
     }

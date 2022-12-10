@@ -6,24 +6,30 @@ using UnityEngine.InputSystem.HID;
 
 public class PlayerSkills : NetworkBehaviour
 {
+    public PlayerStats stats;
+
     public GameObject qPrefab;
-    private float qCooldown = 8.0f;
+    private float qCooldownBase = 8.0f;
+    private float qCooldown;
     private bool qOnCooldown = false;
     private float qTimer = 0f;
 
     public GameObject wPrefab;
     private Vector3 wDirection;
-    private float wCooldown = 10f;
+    private float wCooldownBase = 5f;
+    private float wCooldown;
     private bool wOnCooldown = false;
     private float wTimer = 0f;
 
-    private float eCooldown = 2.0f;
+    private float eCooldownBase = 10.0f;
+    private float eCooldown;
     private bool eOnCooldown = false;
     private float eTimer = 0f;
 
     public GameObject rPrefab;
     private GameObject rTarget;
-    private float rCooldown = 15.0f;
+    private float rCooldownBase = 10.0f;
+    private float rCooldown;
     private bool rOnCooldown = false;
     private float rTimer = 0f;
 
@@ -42,6 +48,7 @@ public class PlayerSkills : NetworkBehaviour
 
     private void Start()
     {
+        this.stats = GetComponent<PlayerStats>();
         this.networkAnimator = GetComponent<NetworkAnimator>();
     }
 
@@ -49,6 +56,12 @@ public class PlayerSkills : NetworkBehaviour
     [ClientCallback]
     private void FixedUpdate()
     {
+
+        this.qCooldown = this.qCooldownBase - this.qCooldownBase * this.stats.UnitCooldownReduction / 100;
+        this.wCooldown = this.wCooldownBase - this.wCooldownBase * this.stats.UnitCooldownReduction / 100;
+        this.eCooldown = this.eCooldownBase - this.eCooldownBase * this.stats.UnitCooldownReduction / 100;
+        this.rCooldown = this.rCooldownBase - this.rCooldownBase * this.stats.UnitCooldownReduction / 100;
+
         if (this.attackableLayer == 0)
         {
             this.attackableLayer = GetComponent<PlayerAttack>().AttackableLayer;
@@ -158,6 +171,7 @@ public class PlayerSkills : NetworkBehaviour
     {
         GameObject go = Instantiate(this.qPrefab, new Vector3(point.x, 0.5f, point.z), Quaternion.identity);
         QScript qScript = go.GetComponent<QScript>();
+        qScript.apMultipliers += this.stats.UnitAbilityPower;
         go.layer = owner.layer;
         qScript.Owner = owner;
         qScript.AttackableLayer = attackableLayer;
@@ -201,6 +215,7 @@ public class PlayerSkills : NetworkBehaviour
     {
         GameObject ball = Instantiate(this.wPrefab, transform.position, transform.rotation);
         WProjectileScript wProjectileScript = ball.GetComponent<WProjectileScript>();
+        wProjectileScript.apMultipliers += this.stats.UnitAbilityPower;
         wProjectileScript.Direction = direction;
         wProjectileScript.Owner = owner;
         wProjectileScript.AttackableLayer = attackableLayer;
@@ -225,6 +240,7 @@ public class PlayerSkills : NetworkBehaviour
         {
             this.transform.LookAt(hit.point);
             this.networkAnimator.SetTrigger("ESkill");
+            this.stats.UsedESkill();
         }
         // dodac animacje dasha :like:
     }
@@ -272,7 +288,7 @@ public class PlayerSkills : NetworkBehaviour
         missile.owner = owner;
         missile.stun = true;
         missile.stunTime = 3.0f;
-        missile.damage = 50f;
+        missile.damage = 50f + (this.stats.UnitAttackDamage / 5) + (this.stats.UnitAbilityPower);
         NetworkServer.Spawn(ball);
     }
 }

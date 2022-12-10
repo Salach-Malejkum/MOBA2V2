@@ -1274,7 +1274,7 @@ MonoBehaviour:
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 20
+  unitAttackDamage: 40
   unitAttackSpeed: 2
   unitAbilityPower: 0
   unitMovementSpeed: 0

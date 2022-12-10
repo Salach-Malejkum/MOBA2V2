@@ -6,6 +6,9 @@ public class QScript : NetworkBehaviour
     private float damage = 200f;
     private float timer = 0f;
     private float castTime = 0.5f;
+
+    public float apMultipliers = 100f;
+
     [SerializeField]
     private LayerMask attackableLayer;
     public LayerMask AttackableLayer
@@ -39,7 +42,7 @@ public class QScript : NetworkBehaviour
         Collider[] hitColliders = Physics.OverlapBox(this.transform.position, transform.localScale / 2, Quaternion.identity, this.attackableLayer, QueryTriggerInteraction.Ignore);
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            hitColliders[i].gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack(this.damage, this.owner);
+            hitColliders[i].gameObject.GetComponent<UnitStats>().RemoveHealthOnNormalAttack((this.damage * this.apMultipliers) / 100, this.owner);
         }
     }
 }

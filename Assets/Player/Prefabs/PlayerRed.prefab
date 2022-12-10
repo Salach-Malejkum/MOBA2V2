@@ -458,6 +458,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  stats: {fileID: 0}
   qPrefab: {fileID: 1331022912288661688, guid: edd69bbafe8d64e458cb1d417e2b983e, type: 3}
   wPrefab: {fileID: 2925799954068241493, guid: 25bb91c804380d145a5acd1fbb8bdfad, type: 3}
   rPrefab: {fileID: 6645341322259882984, guid: e5dbc9e8b382824479c4150bee05fabd, type: 3}
@@ -548,10 +549,10 @@ MonoBehaviour:
   playerLane: 
   playerSide: 
   playerName: 
-  playerGold: 100
+  playerGold: 200
   playerResources: 30
   playerExp: 0
-  playerHealthRegen: 2.5
+  playerHealthRegen: 15
 --- !u!114 &2564117619035827070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3719,7 +3720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 323695514016802669, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1503132615821466855, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
       propertyPath: m_Pivot.x
@@ -3809,6 +3810,18 @@ PrefabInstance:
       propertyPath: playerStats
       value: 
       objectReference: {fileID: -486382682619686337}
+    - target: {fileID: 3460428472625432506, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+      propertyPath: m_Color.b
+      value: 0.020397546
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460428472625432506, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460428472625432506, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
+      propertyPath: m_Color.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
     - target: {fileID: 8979545335369940665, guid: 420abd09aecb8db4aa9c626cec909935, type: 3}
       propertyPath: unitStats
       value: 

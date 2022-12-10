@@ -102,12 +102,6 @@ public class ShopManager : NetworkBehaviour
     [Command]
     public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
-        this.RpcSubtractPurchasedItemCostFromOwnedGold(amount);
-    }
-
-    [TargetRpc]
-    private void RpcSubtractPurchasedItemCostFromOwnedGold(float amount)
-    {
         this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
         this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";

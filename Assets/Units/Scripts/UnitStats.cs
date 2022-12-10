@@ -89,7 +89,14 @@ public abstract class UnitStats : NetworkBehaviour
     {
         if (this.gameObject == null) { return; }
 
-        this.unitCurrentHealth -= (hpAmount - this.unitArmor);
+        if (hpAmount - this.unitArmor < 5f)
+        {
+            this.unitCurrentHealth -= 5f;
+        }
+        else
+        {
+            this.unitCurrentHealth -= (hpAmount - this.unitArmor);
+        }
 
         if (aggressor.CompareTag("Player"))
         {
@@ -103,7 +110,15 @@ public abstract class UnitStats : NetworkBehaviour
     {
         if (this.gameObject == null) { return; }
 
-        this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
+        if (hpAmount - this.unitMagicResist < 5f)
+        {
+            this.unitCurrentHealth -= 5f;
+        }
+        else
+        {
+            this.unitCurrentHealth -= (hpAmount - this.unitMagicResist);
+        }
+
         this.OnDeathCheck();
     }
 

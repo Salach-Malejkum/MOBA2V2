@@ -167,15 +167,10 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  range: 0
   target: {fileID: 0}
   spawnerResource: {fileID: 0}
   spawner: {fileID: 0}
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 0
-  whatIsPlayer:
-    serializedVersion: 2
-    m_Bits: 0
   maximumDistance: 15
   isChasing: 0
 --- !u!195 &1448687675280738740
@@ -268,7 +263,7 @@ MonoBehaviour:
   unitCurrentHealth: 0
   unitArmor: 0
   unitMagicResist: 0
-  unitAttackDamage: 80
+  unitAttackDamage: 100
   unitAttackSpeed: 1
   unitAbilityPower: 0
   unitMovementSpeed: 0
