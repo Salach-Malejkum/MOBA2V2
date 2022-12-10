@@ -159,8 +159,7 @@ public class ShopManager : NetworkBehaviour
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
         this.CmdSubtractPurchasedItemCostFromOwnedGold(-amount);
-        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+        this.RpcUpdateGoldDisplays();
         this.sellBtn.interactable = false;
         this.inventory.CmdRemoveItem(this.sellItemIndex);
         this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);
