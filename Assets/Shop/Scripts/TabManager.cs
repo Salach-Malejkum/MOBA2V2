@@ -88,7 +88,6 @@ public class TabManager : NetworkBehaviour
     public void GetItemNo(int itemNo)
     {
         this.CmdBuy(itemNo);
-        this.CheckPurchasable();
     }
 
     [Client]
@@ -235,7 +234,11 @@ public class TabManager : NetworkBehaviour
     [Command]
     private void CmdBuy(int itemIndex)
     {
-        this.RpcBuy(itemIndex);
+        if (this.shopManager.PlayerStats.PlayerGold >= this.CurrPrice(itemIndex))
+        {
+            this.RpcBuy(itemIndex);
+        }
+
     }
 
     [TargetRpc]
@@ -243,12 +246,10 @@ public class TabManager : NetworkBehaviour
     {
         ShopItemSo item = this.shopItemSo[itemIndex];
         float currPrice = this.CurrPrice(itemIndex);
-        if (this.shopManager.PlayerStats.PlayerGold >= currPrice)
-        {
-            this.shopManager.CmdSubtractPurchasedItemCostFromOwnedGold(currPrice);
-            this.CmdAddToEquipment(itemIndex);
-            this.shopManager.PlayerStats.AddItemStatsToPlayer(item);
-        }
+        this.shopManager.CmdSubtractPurchasedItemCostFromOwnedGold(currPrice);
+        this.CheckPurchasable();
+        this.CmdAddToEquipment(itemIndex);
+        this.shopManager.PlayerStats.AddItemStatsToPlayer(item);
     }
 
     private float CurrPrice(int itemIndex)
