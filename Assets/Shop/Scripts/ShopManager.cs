@@ -103,6 +103,12 @@ public class ShopManager : NetworkBehaviour
     public void CmdSubtractPurchasedItemCostFromOwnedGold(float amount)
     {
         this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold - amount;
+        this.RpcUpdateGoldDisplays();
+    }
+
+    [TargetRpc]
+    private void RpcUpdateGoldDisplays()
+    {
         this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
         this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
     }
@@ -152,9 +158,8 @@ public class ShopManager : NetworkBehaviour
     private void RpcSell()
     {
         float amount = (float)Math.Round(this.sellItem.TotalPrice * 0.8f);
-        this.PlayerStats.PlayerGold = this.PlayerStats.PlayerGold + amount;
-        this.goldValueText.text = "G: " + this.PlayerStats.PlayerGold;
-        this.openShop.GetComponentInChildren<TMP_Text>().text = this.PlayerStats.PlayerGold + " g";
+        this.CmdSubtractPurchasedItemCostFromOwnedGold(-amount);
+        this.RpcUpdateGoldDisplays();
         this.sellBtn.interactable = false;
         this.inventory.CmdRemoveItem(this.sellItemIndex);
         this.PlayerStats.SubtractItemStatsFromPlayer(this.sellItem);

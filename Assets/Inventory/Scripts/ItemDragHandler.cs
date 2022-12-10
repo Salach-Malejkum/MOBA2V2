@@ -10,7 +10,7 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         get { return originalSlot; }
     }
-    private readonly float clickTreshold = 0.5f;
+    private readonly float clickTreshold = 0.1f;
     public float ClickTreshold
     {
         get { return clickTreshold; }
@@ -52,11 +52,18 @@ public class ItemDragHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             this.transform.SetParent(this.OriginalSlot);
             this.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 0, 0);
             this.GetComponent<CanvasGroup>().blocksRaycasts = true;
-            this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
+            if (Time.time - this.PointerDownTime < this.ClickTreshold)
+            {
+                this.inventoryOnClick.LeftClick(this.transform.parent.GetSiblingIndex());
+            }
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            this.inventoryOnClick.RightClick(this.transform.parent.GetSiblingIndex());
+            if (Time.time - this.PointerDownTime < this.ClickTreshold)
+            {
+                this.inventoryOnClick.RightClick(this.transform.parent.GetSiblingIndex());
+            }
+
         }
     }
 
