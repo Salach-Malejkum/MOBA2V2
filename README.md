@@ -3,7 +3,7 @@
 ## Kto jest za co odpowiedzialny / Who is responsible for which part?
 
 Filip Krężel - większość kodu sieciowego / most of the netcode, matchmaking, bazowe statystyki / basic stats, <br />
-Piotr Duliński - UI, sklep / shop, klient gry / game client, <br />
+Piotr Duliński - UI, sklep / shop, klient gry / game client, przedmioty / items<br />
 Erwin Marysiok - surowce / resources, wieże / towers, stwory w dżungli / mobs in the jungle, ulepszenia / upgrades, mapa / map, <br />
 Mateusz Salach - Team Leader, gracz / player, minions, their skills, interactions and animations, kamera / camera. <br />
 
