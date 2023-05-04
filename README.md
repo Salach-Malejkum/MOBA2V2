@@ -1,4 +1,12 @@
 # Steampunk-Moba
+
+## Kto jest za co odpowiedzialny / Who is responsible for which part?
+
+Filip Krężel - większość kodu sieciowego / most of the netcode, matchmaking, bazowe statystyki / basic stats, 
+Piotr Duliński - UI, sklep / shop, klient gry / game client
+Erwin Marysiok - surowce / resources, wieże / towers, stwory w dżungli / mobs in the jungle, ulepszenia / upgrades, mapa / map
+Mateusz Salach - Team Leader, gracz / player, minions, their skills, interactions and animations, kamera / camera
+
 ## Jak odpalic gierke do testowania sieciówki
  - WAŻNE, zawsze przy testowaniu sprawdźcie czy obiekt BuildType jest ustawiony na Remote client (--SYSTEMS-- w scenie Lobby)
  - Podstawowa scena to Lobby (w Assets/Lobby/Scenes)
